@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MEGA RED VIP | LIVE & PROFIT</title>
+    <style>
+        :root { 
+            --oro: #d4af37; --oro-l: #fff9aa; --fondo: #000; 
+            --n-rojo: #ff003c; --n-verde: #00ff66; --n-azul: #00d9ff; 
+        }
+        
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; background: var(--fondo); color: white; 
+            font-family: 'Arial Black', sans-serif; overflow: hidden; height: 100vh;
+        }
+
+        header { 
+            height: 160px; background: #000; border-bottom: 4px solid var(--oro); 
+            display: flex; align-items: center; justify-content: space-between; padding: 0 20px;
+        }
+
+        .ad-slot-header {
+            width: 280px; height: 130px; border: 3px dashed var(--n-verde);
+            background: #050505; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; text-align: center; cursor: pointer;
+        }
+        .live-global { color: var(--n-rojo); font-size: 12px; margin-top: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        .logo-box { flex: 1; display: flex; justify-content: center; }
+        .logo-img { height: 130px; width: 95%; object-fit: contain; filter: drop-shadow(0 0 15px var(--oro)); }
+
+        .coin-box { width: 180px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .coin {
+            width: 55px; height: 55px; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--oro-l), var(--oro) 60%, #8a6d3b);
+            border: 2px solid #b8860b; color: #3d2b00; font-weight: 900; font-size: 16px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+        }
+
+        .main { 
+            display: grid; grid-template-columns: 300px 1fr 420px; 
+            height: calc(100vh - 160px); gap: 12px; padding: 12px;
+        }
+
+        .puertas { background: #080808; border-radius: 10px; overflow-y: auto; padding: 10px; border: 1px solid #222; }
+        .p-btn { 
+            width: 100%; padding: 12px; margin-bottom: 8px; background: #111; border: 1px solid #333;
+            color: #999; cursor: pointer; text-align: left; font-size: 10px; border-radius: 6px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .p-btn.active { border-color: var(--oro); color: var(--oro); background: #1a1500; border-width: 2px; }
+        .live-tag { background: #300; color: var(--n-rojo); padding: 2px 6px; border-radius: 4px; font-size: 9px; }
+
+        .center { display: flex; flex-direction: column; gap: 12px; }
+        .visor { 
+            height: 55%; background: #000; border-radius: 15px; border: 2px solid #151515;
+            display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;
+        }
+        #main-view { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        #shop-link {
+            position: absolute; bottom: 20px; background: var(--n-verde);
+            color: black; padding: 12px 25px; border-radius: 30px; text-decoration: none;
+            font-size: 16px; font-weight: bold; display: none; box-shadow: 0 0 20px var(--n-verde);
+        }
+
+        .muro-clientes { height: 45%; background: #050505; border: 1px solid #222; border-radius: 15px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .feed-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex: 1; }
+        .col-feed { background: #0a0a0a; border-radius: 8px; border: 1px solid #222; padding: 8px; overflow-y: auto; font-size: 11px; }
+
+        .right { display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+        .girls-row { background: #0a0a0a; border: 2px solid var(--n-rojo); border-radius: 15px; display: flex; height: 50%; padding: 10px; justify-content: space-around; }
+        .girl-card { width: 32%; height: 100%; text-align: center; }
+        .girl-img { width: 100%; height: 85%; object-fit: cover; object-position: top; border: 2px solid var(--oro); border-radius: 8px; }
+
+        .chat-p { flex: 1; background: #020202; border: 1px solid #333; border-radius: 10px; padding: 15px; overflow-y: auto; font-family: 'Segoe UI', sans-serif; }
+        .msg { margin-bottom: 10px; font-size: 13px; border-left: 4px solid; padding-left: 10px; }
+        .c-msg { color: var(--n-azul); border-color: var(--n-azul); }
+        .t-msg { color: #ff00ec; border-color: #ff00ec; }
+        .l-msg { color: #ff5722; border-color: #ff5722; }
+        .sys-msg { color: var(--oro); font-weight: bold; text-align: center; background: #1a1500; border: none; padding: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="ad-slot-header" onclick="alert('Slot de auspiciante: 50 Tokens por 24 horas.')">
+        <b>SLOT PUBLICITARIO</b>
+        <span>TUS PRODUCTOS AQUÍ</span>
+        <div class="live-global">🔴 <span id="global-count">14,520</span> SOCIOS VIP ONLINE</div>
+    </div>
+
+    <div class="logo-box">
+        <img src="file:///E:/Proyecto%20Mega%20Red/Logo%20Mega%20Red%20Lunar.jpg" class="logo-img" onerror="this.src='https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP'">
+    </div>
+
+    <div class="coin-box">
+        <div class="coin" onclick="pay(1)">$1</div>
+        <div class="coin" onclick="pay(5)">$5</div>
+        <div class="coin" onclick="pay(10)">$10</div>
+        <div class="coin" onclick="pay(50)">$50</div>
+    </div>
+</header>
+
+<div class="main">
+    <div class="puertas" id="p-list"></div>
+
+    <div class="center">
+        <div class="visor">
+            <img id="main-view" src="">
+            <a href="#" id="shop-link" onclick="alert('Abriendo Tienda de Auspiciantes...')">🛍️ LISTA DE PRECIOS</a>
+        </div>
+        <div class="muro-clientes">
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
+                <button style="color:var(--n-rojo); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">📹 VÍDEO</button>
+                <button style="color:var(--n-verde); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">✍️ ESTADO</button>
+                <button style="color:var(--n-azul); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">📸 HISTORIA</button>
+            </div>
+            <div class="feed-grid">
+                <div class="col-feed"><b style="color:var(--n-rojo)">VÍDEOS</b><br><hr>Subiendo a red...</div>
+                <div class="col-feed"><b style="color:var(--n-verde)">ESTADOS</b><br><hr>Socio_Premium: "Increíble la Tiendita"</div>
+                <div class="col-feed"><b style="color:var(--n-azul)">HISTORIAS</b><br><hr>Live_Shot: [Ver Foto]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="girls-row">
+            <div class="girl-card"><img src="file:///E:/Proyecto%20Mega%20Red/Rubia.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=CELESTE'"><small style="color:var(--n-azul)">CELESTE</small></div>
+            <div class="girl-card"><img src="file:///E:/Proyecto%20Mega%20Red/Morocha.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=TANIA'"><small style="color:#ff00ec">TANIA</small></div>
+            <div class="girl-card"><img src="file:///E:/Proyecto%20Mega%20Red/Pelirroja.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=LA+COLO'"><small style="color:#ff5722">LA COLO</small></div>
+        </div>
+        <div class="chat-p" id="chat-win"></div>
+    </div>
+</div>
+
+<script>
+    let t = 50000;
+    let idx = 0;
+    const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
+    const path = "file:///E:/Proyecto%20Mega%20Red/";
+
+    function init() {
+        const menu = document.getElementById('p-list');
+        rooms.forEach((name, i) => {
+            const b = document.createElement('button');
+            b.className = 'p-btn'; b.id = "btn-" + i;
+            let count = Math.floor(Math.random() * 500) + 100;
+            b.innerHTML = `<span>🚪 ${name.toUpperCase()}</span> <span class="live-tag" id="live-${i}">${count}</span>`;
+            b.onclick = () => { idx = i; refresh(); };
+            menu.appendChild(b);
+        });
+        refresh();
+        setInterval(fluctuate, 4000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 12000);
+        setInterval(warChat, 3000);
+    }
+
+    function fluctuate() {
+        rooms.forEach((_, i) => {
+            let el = document.getElementById(`live-${i}`);
+            let current = parseInt(el.innerText);
+            let change = Math.floor(Math.random() * 11) - 5;
+            el.innerText = Math.max(20, current + change);
+        });
+        let g = document.getElementById('global-count');
+        g.innerText = (parseInt(g.innerText.replace('.','')) + (Math.floor(Math.random()*21)-10)).toLocaleString();
+    }
+
+    function refresh() {
+        document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById("btn-" + idx).classList.add('active');
+        const main = document.getElementById('main-view');
+        main.src = path + rooms[idx] + ".jpg";
+        main.onerror = () => { main.src = path + rooms[idx] + ".png"; };
+        document.getElementById('shop-link').style.display = (rooms[idx] === "La tiendita") ? "block" : "none";
+    }
+
+    function pay(n) { if(t >= n) { t -= n; addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); } }
+
+    function addMsg(name, txt, cl) {
+        const win = document.getElementById('chat-win');
+        win.innerHTML += `<div class="msg ${cl}"><b>${name}:</b> ${txt}</div>`;
+        win.scrollTop = win.scrollHeight;
+    }
+
+    function warChat() {
+        const dialogs = [
+            {n: "CELESTE", c: "c-msg", m: ["¡Miren cuántos socios me miran!", "¡Si compran en La Tiendita les doy un regalo!", "¿50 tokens por verme sin nada?"]},
+            {n: "TANIA", c: "t-msg", m: ["¡Mi sala es la más caliente!", "¡Auspiciantes, compren su slot ya!", "¡Socio, dame tokens y te muestro mis curvas!"]},
+            {n: "LA COLO", c: "l-msg", m: ["¡El fuego pelirrojo manda!", "¡Vayan a la Tiendita o me voy!", "¡Si llegamos a 100 tokens hoy, habrá sorpresa!"]}
+        ];
+        const r = dialogs[Math.floor(Math.random()*3)];
+        addMsg(r.n, r.m[Math.floor(Math.random()*3)], r.c);
+    }
+
+    init();
+</script>
+</body>
+</html>
