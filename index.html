@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -94,7 +94,7 @@
     </div>
 
     <div class="logo-box">
-        <img src="Logo Mega Red Lunar.jpg" class="logo-img" onerror="this.src='[https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP](https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP)'"> class="logo-img" onerror="this.src='https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP'">
+        <img src="Logo Mega Red Lunar.jpg" class="logo-img" onerror="this.src='https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP'">
     </div>
 
     <div class="coin-box">
@@ -141,7 +141,7 @@
     let t = 50000;
     let idx = 0;
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
-   const path = "./";
+    const path = "./";
 
     function init() {
         const menu = document.getElementById('p-list');
@@ -176,7 +176,8 @@
         const main = document.getElementById('main-view');
         main.src = path + rooms[idx] + ".jpg";
         main.onerror = () => { main.src = path + rooms[idx] + ".png"; };
-        document.getElementById('shop-link').style.display = (rooms[idx] === "La tiendita") ? "block" : "none";
+        // Corregido "La Tiendita" con T mayúscula
+        document.getElementById('shop-link').style.display = (rooms[idx] === "La Tiendita") ? "block" : "none";
     }
 
     function pay(n) { if(t >= n) { t -= n; addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); } }
