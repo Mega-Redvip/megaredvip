@@ -86,6 +86,8 @@
 </head>
 <body>
 
+<audio id="bg-music" loop></audio>
+
 <header>
     <div class="ad-slot-header" onclick="alert('Slot de auspiciante: 50 Tokens por 24 horas.')">
         <b>SLOT PUBLICITARIO</b>
@@ -176,8 +178,16 @@
         const main = document.getElementById('main-view');
         main.src = path + rooms[idx] + ".jpg";
         main.onerror = () => { main.src = path + rooms[idx] + ".png"; };
-        // Corregido "La Tiendita" con T mayúscula
         document.getElementById('shop-link').style.display = (rooms[idx] === "La Tiendita") ? "block" : "none";
+
+        // --- SISTEMA DE MÚSICA POR AMBIENTE ---
+        const music = document.getElementById('bg-music');
+        if(rooms[idx] === "Discoteca") music.src = "https://stream.zeno.fm/f96v66as408uv"; // Dance
+        else if(rooms[idx] === "Spa") music.src = "https://stream.zeno.fm/0r0xa792808uv"; // Relax
+        else if(rooms[idx] === "El Bar") music.src = "https://stream.zeno.fm/6899386762uv"; // Jazz/Bar
+        else music.src = ""; // Silencio en otras salas por ahora
+        
+        if(music.src !== "") music.play().catch(() => console.log("Esperando interacción..."));
     }
 
     function pay(n) { 
@@ -185,17 +195,15 @@
             t -= n; 
             addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); 
             
-            // --- CONFIGURACIÓN DE PAGO REAL ---
             let url = "";
-            if(n === 1)  url = "TU_LINK_DE_PAYPAL_O_PAGO_1";
-            if(n === 5)  url = "TU_LINK_DE_PAYPAL_O_PAGO_5";
-            if(n === 10) url = "TU_LINK_DE_PAYPAL_O_PAGO_10";
-            if(n === 50) url = "TU_LINK_DE_PAYPAL_O_PAGO_50";
+            if(n === 1)  url = "LINK_DE_PAGO_1";
+            if(n === 5)  url = "LINK_DE_PAGO_5";
+            if(n === 10) url = "LINK_DE_PAGO_10";
+            if(n === 50) url = "LINK_DE_PAGO_50";
             
-            // Abre el link de pago en una pestaña nueva
-            if(url !== "") window.open(url, '_blank');
+            if(url !== "LINK_DE_PAGO_1") window.open(url, '_blank');
         } 
-    } 
+    }
 
     function addMsg(name, txt, cl) {
         const win = document.getElementById('chat-win');
@@ -223,9 +231,6 @@
         ];
         const r = dialogs[Math.floor(Math.random() * dialogs.length)];
         addMsg(r.n, r.m[Math.floor(Math.random() * r.m.length)], r.c);
-    }
-        const r = dialogs[Math.floor(Math.random()*3)];
-        addMsg(r.n, r.m[Math.floor(Math.random()*3)], r.c);
     }
 
     init();
