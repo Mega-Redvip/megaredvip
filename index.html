@@ -180,7 +180,22 @@
         document.getElementById('shop-link').style.display = (rooms[idx] === "La Tiendita") ? "block" : "none";
     }
 
-    function pay(n) { if(t >= n) { t -= n; addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); } }
+    function pay(n) { 
+        if(t >= n) { 
+            t -= n; 
+            addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); 
+            
+            // --- CONFIGURACIÓN DE PAGO REAL ---
+            let url = "";
+            if(n === 1)  url = "TU_LINK_DE_PAYPAL_O_PAGO_1";
+            if(n === 5)  url = "TU_LINK_DE_PAYPAL_O_PAGO_5";
+            if(n === 10) url = "TU_LINK_DE_PAYPAL_O_PAGO_10";
+            if(n === 50) url = "TU_LINK_DE_PAYPAL_O_PAGO_50";
+            
+            // Abre el link de pago en una pestaña nueva
+            if(url !== "") window.open(url, '_blank');
+        } 
+    } 
 
     function addMsg(name, txt, cl) {
         const win = document.getElementById('chat-win');
@@ -190,10 +205,25 @@
 
     function warChat() {
         const dialogs = [
-            {n: "CELESTE", c: "c-msg", m: ["¡Miren cuántos socios me miran!", "¡Si compran en La Tiendita les doy un regalo!", "¿50 tokens por verme sin nada?"]},
-            {n: "TANIA", c: "t-msg", m: ["¡Mi sala es la más caliente!", "¡Auspiciantes, compren su slot ya!", "¡Socio, dame tokens y te muestro mis curvas!"]},
-            {n: "LA COLO", c: "l-msg", m: ["¡El fuego pelirrojo manda!", "¡Vayan a la Tiendita o me voy!", "¡Si llegamos a 100 tokens hoy, habrá sorpresa!"]}
+            {n: "CELESTE", c: "c-msg", m: [
+                "¡Oye Tania, quítate! Mis socios me aman más.", 
+                "¡Esos tokens son míos! No los gasten con la pelirroja.", 
+                "¿Quién es el VIP que me va a sacar de aquí hoy?"
+            ]},
+            {n: "TANIA", c: "t-msg", m: [
+                "¡Celeste, tus fotos son del siglo pasado! La jefa soy yo.", 
+                "¡Socio, si me das 50 tokens te doy mi número privado!", 
+                "¡Miren cómo sube mi contador de socios! Soy la reina."
+            ]},
+            {n: "LA COLO", c: "l-msg", m: [
+                "¡El fuego pelirrojo quema más que sus salitas!", 
+                "¡Vayan a la Tiendita o las saco a patadas!", 
+                "¡Si llegamos a los 500 tokens, bailo para todos!"
+            ]}
         ];
+        const r = dialogs[Math.floor(Math.random() * dialogs.length)];
+        addMsg(r.n, r.m[Math.floor(Math.random() * r.m.length)], r.c);
+    }
         const r = dialogs[Math.floor(Math.random()*3)];
         addMsg(r.n, r.m[Math.floor(Math.random()*3)], r.c);
     }
