@@ -37,8 +37,9 @@
             background: radial-gradient(circle at 30% 30%, var(--oro-l), var(--oro) 60%, #8a6d3b);
             border: 2px solid #b8860b; color: #3d2b00; font-weight: 900; font-size: 16px;
             display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8); transition: 0.2s;
         }
+        .coin:hover { transform: scale(1.1); filter: brightness(1.2); }
 
         .main { 
             display: grid; grid-template-columns: 300px 1fr 420px; 
@@ -101,9 +102,9 @@
 
     <div class="coin-box">
         <div class="coin" onclick="pay(1)">$1</div>
+        <div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div>
         <div class="coin" onclick="pay(10)">$10</div>
-        <div class="coin" onclick="pay(50)">$50</div>
     </div>
 </header>
 
@@ -180,29 +181,24 @@
         main.onerror = () => { main.src = path + rooms[idx] + ".png"; };
         document.getElementById('shop-link').style.display = (rooms[idx] === "La Tiendita") ? "block" : "none";
 
-        // --- SISTEMA DE MÚSICA POR AMBIENTE ---
         const music = document.getElementById('bg-music');
-        if(rooms[idx] === "Discoteca") music.src = "https://stream.zeno.fm/f96v66as408uv"; // Dance
-        else if(rooms[idx] === "Spa") music.src = "https://stream.zeno.fm/0r0xa792808uv"; // Relax
-        else if(rooms[idx] === "El Bar") music.src = "https://stream.zeno.fm/6899386762uv"; // Jazz/Bar
-        else music.src = ""; // Silencio en otras salas por ahora
+        if(rooms[idx] === "Discoteca") music.src = "https://stream.zeno.fm/f96v66as408uv";
+        else if(rooms[idx] === "Spa") music.src = "https://stream.zeno.fm/0r0xa792808uv";
+        else if(rooms[idx] === "El Bar") music.src = "https://stream.zeno.fm/6899386762uv";
+        else music.src = "";
         
-        if(music.src !== "") music.play().catch(() => console.log("Esperando interacción..."));
+        if(music.src !== "") music.play().catch(() => {});
     }
 
+    // --- COBRO REAL POR PAYPAL EN DÓLARES ---
     function pay(n) { 
-        if(t >= n) { 
-            t -= n; 
-            addMsg("SISTEMA", `🔥 ¡Socio envió $${n} Tokens! 🔥`, "sys-msg"); 
-            
-            let url = "";
-            if(n === 1)  url = "LINK_DE_PAGO_1";
-            if(n === 5)  url = "LINK_DE_PAGO_5";
-            if(n === 10) url = "LINK_DE_PAGO_10";
-            if(n === 50) url = "LINK_DE_PAGO_50";
-            
-            if(url !== "LINK_DE_PAGO_1") window.open(url, '_blank');
-        } 
+        // Mensaje limpio en el chat con efecto de fuego
+        addMsg("SISTEMA", `🔥 ¡Socio envió $${n} USD Tokens! 🔥`, "sys-msg"); 
+        
+        // Link de PayPal con tu usuario JuanPH43 y el monto automático
+        let url = "https://www.paypal.com/paypalme/JuanPH43/" + n;
+        
+        window.open(url, '_blank');
     }
 
     function addMsg(name, txt, cl) {
@@ -213,21 +209,9 @@
 
     function warChat() {
         const dialogs = [
-            {n: "CELESTE", c: "c-msg", m: [
-                "¡Oye Tania, quítate! Mis socios me aman más.", 
-                "¡Esos tokens son míos! No los gasten con la pelirroja.", 
-                "¿Quién es el VIP que me va a sacar de aquí hoy?"
-            ]},
-            {n: "TANIA", c: "t-msg", m: [
-                "¡Celeste, tus fotos son del siglo pasado! La jefa soy yo.", 
-                "¡Socio, si me das 50 tokens te doy mi número privado!", 
-                "¡Miren cómo sube mi contador de socios! Soy la reina."
-            ]},
-            {n: "LA COLO", c: "l-msg", m: [
-                "¡El fuego pelirrojo quema más que sus salitas!", 
-                "¡Vayan a la Tiendita o las saco a patadas!", 
-                "¡Si llegamos a los 500 tokens, bailo para todos!"
-            ]}
+            {n: "CELESTE", c: "c-msg", m: ["¡Oye Tania, quítate! Mis socios me aman más.", "¡Esos tokens son míos!", "¿Quién es el VIP de hoy?"]},
+            {n: "TANIA", c: "t-msg", m: ["¡Celeste, tus fotos son viejas! La jefa soy yo.", "¡Socio, dame tokens y te doy mi privado!", "¡Soy la reina de esta sala!"]},
+            {n: "LA COLO", c: "l-msg", m: ["¡El fuego pelirrojo quema más!", "¡Vayan a la Tiendita o las saco a patadas!", "¡Si llegamos a los 50 tokens, habrá sorpresa!"]}
         ];
         const r = dialogs[Math.floor(Math.random() * dialogs.length)];
         addMsg(r.n, r.m[Math.floor(Math.random() * r.m.length)], r.c);
