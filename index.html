@@ -24,7 +24,6 @@
         .center { display: flex; flex-direction: column; gap: 12px; }
         .visor { height: 55%; background: #000; border-radius: 15px; border: 2px solid #151515; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         #main-view { max-width: 100%; max-height: 100%; object-fit: contain; }
-        #shop-link { position: absolute; bottom: 20px; background: var(--n-verde); color: black; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: bold; display: none; box-shadow: 0 0 20px var(--n-verde); }
         .muro-clientes { height: 45%; background: #050505; border: 1px solid #222; border-radius: 15px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
         .feed-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; flex: 1; }
         .col-feed { background: #0a0a0a; border-radius: 8px; border: 1px solid #222; padding: 8px; overflow-y: auto; font-size: 11px; }
@@ -46,40 +45,101 @@
 <audio id="bg-music" loop></audio>
 
 <header>
-    <div class="ad-slot-header" onclick="alert('Slot de auspiciante: 50 Tokens por 24 horas.')">
+    <div class="ad-slot-header" onclick="alert('Slot publicitario VIP')">
         <b>SLOT PUBLICITARIO</b>
-        <span>TUS PRODUCTOS AQUÍ</span>
         <div class="live-global">🔴 <span id="global-count">14,520</span> SOCIOS ONLINE</div>
     </div>
     <div class="logo-box"><img src="Logo Mega Red Lunar.jpg" class="logo-img" onerror="this.src='https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP'"></div>
     <div class="coin-box">
-        <div class="coin" onclick="pay(1)">$1</div>
-        <div class="coin" onclick="pay(3)">$3</div>
-        <div class="coin" onclick="pay(5)">$5</div>
-        <div class="coin" onclick="pay(10)">$10</div>
+        <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
+        <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
     </div>
 </header>
 
 <div class="main">
     <div class="puertas" id="p-list"></div>
     <div class="center">
-        <div class="visor">
-            <img id="main-view" src="">
-            <a href="#" id="shop-link" onclick="alert('Abriendo Tienda de Auspiciantes...')">🛍️ LISTA DE PRECIOS</a>
-        </div>
+        <div class="visor"><img id="main-view" src=""></div>
         <div class="muro-clientes">
             <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px;">
                 <button onclick="uploadIncentive()" style="color:var(--n-rojo); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">📹 VÍDEO</button>
                 <button onclick="uploadIncentive()" style="color:var(--n-verde); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">✍️ ESTADO</button>
                 <button onclick="uploadIncentive()" style="color:var(--n-azul); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">📸 HISTORIA</button>
             </div>
-            <div class="feed-grid" id="feed-box">
-                <div class="col-feed"><b style="color:var(--n-rojo)">VÍDEOS</b><br><hr>Live Stream...</div>
-                <div class="col-feed"><b style="color:var(--n-verde)">ESTADOS</b><br><hr>Socio_Premium: "Increíble lugar"</div>
-                <div class="col-feed"><b style="color:var(--n-azul)">HISTORIAS</b><br><hr>Esperando contenido...</div>
-            </div>
+            <div class="feed-grid"><div class="col-feed"><b>VÍDEOS</b><br><hr>Streaming...</div><div class="col-feed"><b>ESTADOS</b><br><hr>Socio VIP activo</div><div class="col-feed"><b>HISTORIAS</b><br><hr>Cargando...</div></div>
         </div>
     </div>
     <div class="right">
         <div class="girls-row">
-            <div class="girl-card"><img src="Rubia.jpg" class="girl-img" onerror="this.src='
+            <div class="girl-card"><img src="Rubia.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=C'"><small style="color:var(--n-azul)">Celeste</small></div>
+            <div class="girl-card"><img src="Morocha.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=T'"><small style="color:#ff00ec">Tania</small></div>
+            <div class="girl-card"><img src="Pelirroja.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=L'"><small style="color:#ff5722">La Colo</small></div>
+        </div>
+        <div class="chat-p" id="chat-win"></div>
+    </div>
+</div>
+
+<script>
+    let idx = 0; let userCity = "tu zona";
+    const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
+
+    async function getGeo() {
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            userCity = data.city || "tu ciudad";
+            addMsg("SISTEMA", `📍 SOCIO EN: ${userCity.toUpperCase()}`, "sys-msg");
+            setTimeout(() => addMsg("MIA", `🔥 Hola socio de ${userCity}, soy Mia. ¡Muéstrame algo rico!`, "m-msg"), 3000);
+        } catch (e) { userCity = "esta zona"; }
+    }
+
+    function init() {
+        getGeo();
+        const menu = document.getElementById('p-list');
+        rooms.forEach((name, i) => {
+            const b = document.createElement('button');
+            b.className = 'p-btn'; b.id = "btn-" + i;
+            b.innerHTML = `<span>🚪 ${name.toUpperCase()}</span> <span class="live-tag">${Math.floor(Math.random()*400)+100}</span>`;
+            b.onclick = () => { idx = i; refresh(); };
+            menu.appendChild(b);
+        });
+        refresh();
+        setInterval(warChat, 3500);
+    }
+
+    function refresh() {
+        document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById("btn-" + idx).classList.add('active');
+        document.getElementById('main-view').src = "./" + rooms[idx] + ".jpg";
+    }
+
+    function uploadIncentive() {
+        alert("📸 Sube tu foto de " + userCity);
+        setTimeout(() => addMsg("MIA", "👀 ¡Uff! Para ver mi regalo envía 10 tokens...", "m-msg"), 2000);
+    }
+
+    function pay(n) {
+        addMsg("SISTEMA", `🔥 ¡Socio envió $${n} USD a MEGA RED VIP! 🔥`, "sys-msg");
+        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&item_name=TOKENS_MEGA_RED_VIP&amount=${n}&currency_code=USD`, '_blank');
+    }
+
+    function addMsg(name, txt, cl) {
+        const win = document.getElementById('chat-win');
+        win.innerHTML += `<div class="msg ${cl}"><b>${name}:</b> ${txt}</div>`;
+        win.scrollTop = win.scrollHeight;
+    }
+
+    function warChat() {
+        const msgs = [
+            {n:"CELESTE", c:"c-msg", m:`¿Alguien de ${userCity} hoy?`},
+            {n:"TANIA", c:"t-msg", m:"¡Dame tokens y te doy mi cel!"},
+            {n:"LA COLO", c:"l-msg", m:"¡Vayan a la Tiendita!"}
+        ];
+        const r = msgs[Math.floor(Math.random()*msgs.length)];
+        addMsg(r.n, r.m, r.c);
+    }
+
+    init();
+</script>
+</body>
+</html>
