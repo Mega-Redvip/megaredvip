@@ -2,148 +2,114 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEGA RED VIP | PLATAFORMA OFICIAL</title>
+    <title>MEGA RED VIP | OFICIAL</title>
     <style>
-        :root { --oro: #d4af37; --oro-l: #fff9aa; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-azul: #00d9ff; }
-        * { box-sizing: border-box; transition: 0.3s; }
-        body, html { margin: 0; padding: 0; background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-azul: #00d9ff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; }
 
-        /* HEADER: Logo Proporcional y 4 Monedas */
-        header { height: 140px; background: #000; border-bottom: 4px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; position: relative; z-index: 100; }
-        .stats-box { width: 150px; color: var(--n-rojo); font-size: 12px; font-weight: bold; line-height: 1.2; }
-        .logo-box { flex: 2; display: flex; justify-content: center; align-items: center; }
-        .logo-img { height: 110px; width: auto; max-width: 500px; filter: drop-shadow(0 0 15px var(--oro)); object-fit: contain; }
+        /* HEADER: Logo Gigante Proporcional */
+        header { height: 180px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+        .logo-box { flex: 2; display: flex; justify-content: center; }
+        .logo-img { height: 150px; width: auto; filter: drop-shadow(0 0 20px var(--oro)); object-fit: contain; } /* LOGO MUCHO MÁS GRANDE */
         
-        .coin-box { flex: 1; display: flex; gap: 15px; justify-content: flex-end; }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--oro-l), var(--oro) 70%, #8a6d3b); border: 2px solid #555; color: #000; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 5px 15px rgba(0,0,0,0.7); }
-        .coin:hover { transform: scale(1.1) rotate(10deg); filter: brightness(1.2); }
+        .coin-box { flex: 1; display: flex; gap: 10px; justify-content: flex-end; }
+        .coin { width: 65px; height: 65px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 3px solid #444; color: #000; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
 
-        /* CUERPO PRINCIPAL */
-        .main-grid { display: grid; grid-template-columns: 280px 1fr 380px; height: calc(100vh - 140px); gap: 15px; padding: 15px; }
+        /* CONTENIDO */
+        .main { display: flex; height: calc(100vh - 180px); padding: 15px; gap: 15px; }
         
-        /* IZQUIERDA: Selector de Salas */
-        .sidebar { background: #080808; border: 1px solid #333; border-radius: 15px; overflow-y: auto; padding: 15px; }
-        .room-btn { width: 100%; padding: 14px; margin-bottom: 10px; background: #151515; border: 1px solid #444; color: #888; cursor: pointer; border-radius: 8px; text-align: left; font-size: 11px; text-transform: uppercase; font-weight: bold; display: flex; justify-content: space-between; }
-        .room-btn.active { border-color: var(--oro); color: var(--oro); background: #1a1500; border-width: 2px; box-shadow: inset 0 0 10px rgba(212,175,55,0.2); }
+        /* SALAS IZQUIERDA */
+        .rooms { width: 260px; background: #0a0a0a; border: 1px solid #333; border-radius: 15px; overflow-y: auto; padding: 15px; }
+        .p-btn { width: 100%; padding: 12px; margin-bottom: 10px; background: #1a1a1a; border: 1px solid #444; color: #888; cursor: pointer; border-radius: 8px; text-align: left; font-size: 11px; text-transform: uppercase; }
+        .p-btn.active { border-color: var(--oro); color: var(--oro); background: #221a00; border-width: 2px; }
 
-        /* CENTRO: Visor y Muro de Clientes */
-        .center-col { display: flex; flex-direction: column; gap: 15px; }
-        .visor-frame { flex: 2.5; background: #000; border: 2px solid #1a1a1a; border-radius: 20px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,1); }
-        #main-view { max-width: 100%; max-height: 100%; object-fit: contain; }
+        /* CENTRO: VISOR Y MURO */
+        .center { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .visor { flex: 2.5; background: #000; border: 2px solid #1a1a1a; border-radius: 20px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #main-view { width: 100%; height: 100%; object-fit: cover; } /* Forzamos a que llene el visor */
         
-        /* MURO INTERACTIVO SUBIDAS */
-        .muro-clientes { flex: 1; background: #050505; border: 1px solid #222; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; gap: 12px; }
-        .muro-nav { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .up-btn { padding: 12px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 10px; font-size: 11px; text-transform: uppercase; }
-        .up-btn:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+        .muro { flex: 1; background: #050505; border: 1px solid #222; border-radius: 15px; padding: 15px; }
+        .muro-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .up-btn { padding: 12px; border: 2px solid; background: transparent; font-weight: bold; cursor: pointer; border-radius: 8px; font-size: 11px; }
 
-        /* DERECHA: Chicas y Chat Localizado */
-        .right-col { display: flex; flex-direction: column; gap: 15px; }
-        .girls-gallery { display: flex; gap: 8px; height: 150px; flex-shrink: 0; }
-        .girl-card { width: 33.3%; height: 100%; object-fit: cover; border: 2px solid var(--oro); border-radius: 12px; }
+        /* DERECHA: CHICAS Y CHAT */
+        .right { width: 340px; display: flex; flex-direction: column; gap: 15px; }
+        .girls { display: flex; gap: 8px; height: 140px; }
+        .g-img { width: 33.3%; height: 100%; object-fit: cover; border: 2px solid var(--oro); border-radius: 10px; }
         
-        .chat-container { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 18px; overflow-y: auto; font-size: 13px; font-family: 'Segoe UI', sans-serif; }
-        .msg-line { margin-bottom: 12px; border-left: 4px solid; padding-left: 12px; line-height: 1.4; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { opacity:0; transform: translateX(10px); } to { opacity:1; transform: translateX(0); } }
-        .msg-sys { border-color: var(--oro); color: var(--oro); font-weight: bold; background: #110d00; padding: 6px; border-radius: 4px; text-align: center; border-left: 0; margin-bottom: 20px; }
-        .msg-mia { border-color: var(--n-verde); color: var(--n-verde); }
+        .chat { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; }
+        .msg { margin-bottom: 10px; border-left: 4px solid; padding-left: 10px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="stats-box">🔴 VIP ONLINE<br><span id="online-count">14,520</span> SOCIOS</div>
-    <div class="logo-box">
-        <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="MEGA RED VIP" onerror="this.src='https://via.placeholder.com/600x150/000/d4af37?text=MEGA+RED+VIP'">
-    </div>
+    <div style="color:var(--n-rojo); font-size:12px; font-weight:bold;">🔴 VIP LIVE<br>14,520 ONLINE</div>
+    <div class="logo-box"><img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="MEGA RED VIP"></div>
     <div class="coin-box">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
     </div>
 </header>
 
-<div class="main-grid">
-    <div class="sidebar" id="sidebar-rooms"></div>
-    
-    <div class="center-col">
-        <div class="visor-frame">
-            <img id="main-view" src="">
-        </div>
-        <div class="muro-clientes">
-            <div class="muro-nav">
-                <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="alert('Abriendo cámara para vídeo...')">📹 VÍDEO</button>
-                <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="alert('Escribiendo nuevo estado...')">✍️ ESTADO</button>
-                <button class="up-btn" style="color:var(--n-azul); border-color:var(--n-azul);" onclick="alert('Seleccionando fotos de la galería...')">📸 HISTORIA</button>
+<div class="main">
+    <div class="rooms" id="rooms-list"></div>
+    <div class="center">
+        <div class="visor"><img id="main-view" src=""></div>
+        <div class="muro">
+            <div class="muro-btns">
+                <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="alert('Abriendo cámara...')">📹 VÍDEO</button>
+                <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="alert('Escribiendo estado...')">✍️ ESTADO</button>
+                <button class="up-btn" style="color:var(--n-azul); border-color:var(--n-azul);" onclick="alert('Seleccionando fotos...')">📸 HISTORIA</button>
             </div>
-            <div id="muro-feed" style="color:#444; font-size:11px; text-align:center; padding:10px; border:1px dashed #222; border-radius:10px;">
-                🔴 MURO VIP ACTIVO: COMPARTE TU CONTENIDO CON LA RED EN RESISTENCIA
-            </div>
+            <div id="muro-info" style="color:#444; font-size:11px; text-align:center; padding-top:10px;">COMUNIDAD VIP ACTIVA EN RESISTENCIA</div>
         </div>
     </div>
-
-    <div class="right-col">
-        <div class="girls-gallery">
-            <img src="Rubia.jpg" class="girl-card" title="Mia" onerror="this.src='https://via.placeholder.com/150x200/111/fff?text=Mia'">
-            <img src="Morocha.jpg" class="girl-card" title="Tania" onerror="this.src='https://via.placeholder.com/150x200/111/fff?text=Tania'">
-            <img src="Pelirroja.jpg" class="girl-card" title="Colo" onerror="this.src='https://via.placeholder.com/150x200/111/fff?text=Colo'">
+    <div class="right">
+        <div class="girls">
+            <img src="Rubia.jpg" class="g-img"><img src="Morocha.jpg" class="g-img"><img src="Pelirroja.jpg" class="g-img">
         </div>
-        <div class="chat-container" id="chat-box"></div>
+        <div class="chat" id="chat-box"></div>
     </div>
 </div>
 
 <script>
     let idx = 0;
-    let localCity = "Resistencia"; // Valor por defecto directo para evitar fallos
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
 
-    // GEOLOCALIZACIÓN REAL SIN FALLOS
-    async function startGeo() {
-        try {
-            const r = await fetch('https://ipapi.co/json/');
-            const d = await r.json();
-            if(d.city) localCity = d.city;
-            addMsg("SISTEMA", `📍 BIENVENIDO SOCIO DE ${localCity.toUpperCase()}`, "msg-sys");
-            setTimeout(() => addMsg("MIA", `🔥 ¡Hola! ¿Hay alguien de **${localCity}** por aquí? Dicen que los de esa zona son los más potentes...`, "msg-mia"), 3000);
-        } catch(e) {
-            addMsg("SISTEMA", `📍 CONEXIÓN VIP ESTABLECIDA EN RESISTENCIA`, "msg-sys");
-        }
-    }
-
     function init() {
-        startGeo();
-        const side = document.getElementById('sidebar-rooms');
-        rooms.forEach((r, i) => {
+        const list = document.getElementById('rooms-list');
+        rooms.forEach((name, i) => {
             const b = document.createElement('button');
-            b.className = 'room-btn'; b.id = 'r-'+i;
-            b.innerHTML = `🚪 ${r.toUpperCase()} <span style="color:red">●</span>`;
-            b.onclick = () => { idx = i; update(); };
-            side.appendChild(b);
+            b.className = 'p-btn'; b.id = 'r-'+i;
+            b.innerHTML = `🚪 ${name.toUpperCase()}`;
+            b.onclick = () => { idx = i; refresh(); };
+            list.appendChild(b);
         });
-        update();
-        setInterval(() => { idx = (idx + 1) % rooms.length; update(); }, 18000);
-        setInterval(botTalk, 7000);
+        refresh();
+        addChat("SISTEMA", "📍 CONEXIÓN VIP ESTABLECIDA EN RESISTENCIA", "#d4af37");
+        setTimeout(() => addChat("MIA", "🔥 ¿Hay algún socio de **Resistencia** conectado ahora? ¡Manden tokens!", "#00ff66"), 3000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 20000);
     }
 
-    function update() {
-        document.querySelectorAll('.room-btn').forEach(b => b.classList.remove('active'));
+    function refresh() {
+        document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
-        const v = document.getElementById('main-view');
-        v.src = "./" + rooms[idx] + ".jpg";
+        const img = document.getElementById('main-view');
+        // Usamos ruta relativa "./" para asegurar que GitHub encuentre las fotos en la misma carpeta
+        img.src = "./" + rooms[idx] + ".jpg";
+        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/000/d4af37?text=" + rooms[idx]; };
     }
 
-    function addMsg(user, txt, cl) {
+    function addChat(user, txt, color) {
         const box = document.getElementById('chat-box');
-        box.innerHTML += `<div class="msg-line ${cl}"><b>${user}:</b> ${txt}</div>`;
+        box.innerHTML += `<div class="msg" style="border-color:${color}"><b>${user}:</b> ${txt}</div>`;
         box.scrollTop = box.scrollHeight;
     }
 
-    function botTalk() {
-        const m = [`¿Hay socios reales en ${localCity}?`, "¡Pasen por La Tiendita, subí ofertas!", `Si eres de ${localCity} mándame tokens...`];
-        addMsg("MIA", m[Math.floor(Math.random()*m.length)], "msg-mia");
-    }
-
     function pay(n) {
+        // LINK DE PAYPAL CORREGIDO (Sin errores de sesión)
         window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&item_name=TOKENS_VIP&amount=${n}&currency_code=USD`, '_blank');
     }
 
