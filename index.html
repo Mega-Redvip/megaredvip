@@ -45,8 +45,9 @@
 <audio id="bg-music" loop></audio>
 
 <header>
-    <div class="ad-slot-header" onclick="alert('Slot publicitario VIP')">
+    <div class="ad-slot-header" onclick="alert('Slot publicitario VIP activado.')">
         <b>SLOT PUBLICITARIO</b>
+        <span>TU MARCA AQUÍ</span>
         <div class="live-global">🔴 <span id="global-count">14,520</span> SOCIOS ONLINE</div>
     </div>
     <div class="logo-box"><img src="Logo Mega Red Lunar.jpg" class="logo-img" onerror="this.src='https://via.placeholder.com/800x200/000/d4af37?text=MEGA+RED+VIP'"></div>
@@ -66,30 +67,37 @@
                 <button onclick="uploadIncentive()" style="color:var(--n-verde); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">✍️ ESTADO</button>
                 <button onclick="uploadIncentive()" style="color:var(--n-azul); border:2px solid; background:0; padding:8px; font-weight:bold; cursor:pointer;">📸 HISTORIA</button>
             </div>
-            <div class="feed-grid"><div class="col-feed"><b>VÍDEOS</b><br><hr>Streaming...</div><div class="col-feed"><b>ESTADOS</b><br><hr>Socio VIP activo</div><div class="col-feed"><b>HISTORIAS</b><br><hr>Cargando...</div></div>
+            <div class="feed-grid">
+                <div class="col-feed"><b>VÍDEOS</b><br><hr>Streaming en vivo...</div>
+                <div class="col-feed"><b>ESTADOS</b><br><hr>Socio_22: "Impresionante"</div>
+                <div class="col-feed"><b>HISTORIAS</b><br><hr>Esperando contenido...</div>
+            </div>
         </div>
     </div>
     <div class="right">
         <div class="girls-row">
-            <div class="girl-card"><img src="Rubia.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=C'"><small style="color:var(--n-azul)">Celeste</small></div>
-            <div class="girl-card"><img src="Morocha.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=T'"><small style="color:#ff00ec">Tania</small></div>
-            <div class="girl-card"><img src="Pelirroja.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=L'"><small style="color:#ff5722">La Colo</small></div>
+            <div class="girl-card"><img src="Rubia.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=Celeste'"><small style="color:var(--n-azul)">Celeste</small></div>
+            <div class="girl-card"><img src="Morocha.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=Tania'"><small style="color:#ff00ec">Tania</small></div>
+            <div class="girl-card"><img src="Pelirroja.jpg" class="girl-img" onerror="this.src='https://via.placeholder.com/150x350/222/fff?text=La Colo'"><small style="color:#ff5722">La Colo</small></div>
         </div>
         <div class="chat-p" id="chat-win"></div>
     </div>
 </div>
 
 <script>
-    let idx = 0; let userCity = "tu zona";
+    let idx = 0; let userCity = "tu zona"; 
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
+    const path = "./";
 
     async function getGeo() {
         try {
-            const res = await fetch('https://ipapi.co/json/');
-            const data = await res.json();
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
             userCity = data.city || "tu ciudad";
-            addMsg("SISTEMA", `📍 SOCIO EN: ${userCity.toUpperCase()}`, "sys-msg");
-            setTimeout(() => addMsg("MIA", `🔥 Hola socio de ${userCity}, soy Mia. ¡Muéstrame algo rico!`, "m-msg"), 3000);
+            addMsg("SISTEMA", `📍 SOCIO DETECTADO EN: ${userCity.toUpperCase()}`, "sys-msg");
+            setTimeout(() => {
+                addMsg("MIA", `🔥 Hola socio de ${userCity}, soy Mia. Muéstrame algo rico en las historias y te daré un premio VIP...`, "m-msg");
+            }, 3000);
         } catch (e) { userCity = "esta zona"; }
     }
 
@@ -99,44 +107,77 @@
         rooms.forEach((name, i) => {
             const b = document.createElement('button');
             b.className = 'p-btn'; b.id = "btn-" + i;
-            b.innerHTML = `<span>🚪 ${name.toUpperCase()}</span> <span class="live-tag">${Math.floor(Math.random()*400)+100}</span>`;
+            let count = Math.floor(Math.random() * 500) + 150;
+            b.innerHTML = `<span>🚪 ${name.toUpperCase()}</span> <span class="live-tag" id="live-${i}">${count}</span>`;
             b.onclick = () => { idx = i; refresh(); };
             menu.appendChild(b);
         });
         refresh();
+        setInterval(fluctuate, 4000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 12000); // Cambio automático de salas
         setInterval(warChat, 3500);
+    }
+
+    function fluctuate() {
+        rooms.forEach((_, i) => {
+            let el = document.getElementById(`live-${i}`);
+            if(el) {
+                let current = parseInt(el.innerText);
+                let change = Math.floor(Math.random() * 21) - 8;
+                el.innerText = Math.max(150, current + change);
+            }
+        });
+        let g = document.getElementById('global-count');
+        let val = parseInt(g.innerText.replace(',',''));
+        g.innerText = (val + Math.floor(Math.random()*30)).toLocaleString();
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById("btn-" + idx).classList.add('active');
-        document.getElementById('main-view').src = "./" + rooms[idx] + ".jpg";
+        const activeBtn = document.getElementById("btn-" + idx);
+        if(activeBtn) activeBtn.classList.add('active');
+        
+        const main = document.getElementById('main-view');
+        main.src = path + rooms[idx] + ".jpg";
+        main.onerror = () => { main.src = path + rooms[idx] + ".png"; };
+
+        const music = document.getElementById('bg-music');
+        if(rooms[idx] === "Discoteca") music.src = "https://stream.zeno.fm/f96v66as408uv";
+        else if(rooms[idx] === "Spa") music.src = "https://stream.zeno.fm/0r0xa792808uv";
+        else music.src = "";
+        if(music.src !== "") music.play().catch(() => {});
     }
 
     function uploadIncentive() {
-        alert("📸 Sube tu foto de " + userCity);
-        setTimeout(() => addMsg("MIA", "👀 ¡Uff! Para ver mi regalo envía 10 tokens...", "m-msg"), 2000);
+        alert("📸 Selecciona tu mejor foto de " + userCity);
+        setTimeout(() => {
+            addMsg("MIA", "👀 ¡Uff! ¡Eso se ve increíble! Te envié un regalo VIP al privado. Envía 10 tokens para desbloquearlo...", "m-msg");
+        }, 2000);
     }
 
-    function pay(n) {
-        addMsg("SISTEMA", `🔥 ¡Socio envió $${n} USD a MEGA RED VIP! 🔥`, "sys-msg");
-        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&item_name=TOKENS_MEGA_RED_VIP&amount=${n}&currency_code=USD`, '_blank');
+    function pay(n) { 
+        addMsg("SISTEMA", `🔥 ¡Socio envió $${n} USD a MEGA RED VIP! 🔥`, "sys-msg"); 
+        let url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&item_name=TOKENS_MEGA_RED_VIP&amount=${n}&currency_code=USD`;
+        window.open(url, '_blank');
     }
 
     function addMsg(name, txt, cl) {
         const win = document.getElementById('chat-win');
-        win.innerHTML += `<div class="msg ${cl}"><b>${name}:</b> ${txt}</div>`;
-        win.scrollTop = win.scrollHeight;
+        if(win) {
+            win.innerHTML += `<div class="msg ${cl}"><b>${name}:</b> ${txt}</div>`;
+            win.scrollTop = win.scrollHeight;
+        }
     }
 
     function warChat() {
-        const msgs = [
-            {n:"CELESTE", c:"c-msg", m:`¿Alguien de ${userCity} hoy?`},
-            {n:"TANIA", c:"t-msg", m:"¡Dame tokens y te doy mi cel!"},
-            {n:"LA COLO", c:"l-msg", m:"¡Vayan a la Tiendita!"}
+        const local = `¡Socio de ${userCity}, me encantan los de ahí!`;
+        const dialogs = [
+            {n: "CELESTE", c: "c-msg", m: ["¡Mis socios me aman!", local, "¿Quién me saca de aquí?"]},
+            {n: "TANIA", c: "t-msg", m: ["¡Dame tokens y te doy mi número!", "La jefa soy yo.", `¿Alguien real en ${userCity}?`]},
+            {n: "LA COLO", c: "l-msg", m: ["¡El fuego pelirrojo quema!", "¡Vayan a la Tiendita!", "¡Si llegamos a los 50 tokens, bailo!"]}
         ];
-        const r = msgs[Math.floor(Math.random()*msgs.length)];
-        addMsg(r.n, r.m, r.c);
+        const r = dialogs[Math.floor(Math.random() * dialogs.length)];
+        addMsg(r.n, r.m[Math.floor(Math.random() * r.m.length)], r.c);
     }
 
     init();
