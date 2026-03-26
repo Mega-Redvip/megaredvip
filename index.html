@@ -8,50 +8,49 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-y: auto; }
 
-        /* CABECERA: Logo XL Extendido */
-        header { height: 240px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; }
-        .logo-img { height: 190px; width: 90%; max-width: 1000px; filter: drop-shadow(0 0 30px var(--oro)); object-fit: contain; }
+        /* HEADER: Logo y Publicidad a la Izquierda */
+        header { height: 250px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; position: relative; }
+        
+        .header-ads-left { width: 250px; display: flex; flex-direction: column; gap: 10px; }
+        .ad-mini { border: 1px dashed var(--oro); padding: 10px; font-size: 11px; text-align: center; color: var(--oro); border-radius: 8px; }
+
+        .logo-img { height: 210px; width: auto; filter: drop-shadow(0 0 30px var(--oro)); }
         
         /* MONEDAS 3D: 2 arriba y 2 abajo */
-        .coin-grid { position: absolute; right: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; perspective: 1000px; }
+        .coin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; perspective: 1000px; }
         .coin { 
-            width: 80px; height: 80px; border-radius: 50%; 
+            width: 85px; height: 85px; border-radius: 50%; 
             background: radial-gradient(circle at 30% 30%, #fff9aa, var(--oro) 60%, #8a6d3b); 
-            border: 3px solid #444; color: #000; font-size: 22px; 
+            border: 3px solid #444; color: #000; font-size: 24px; 
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; font-weight: 900; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.8), inset -5px -5px 10px rgba(0,0,0,0.5);
-            transform: rotateY(10deg); transition: 0.3s;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+            transform: rotateY(15deg); transition: 0.3s;
         }
-        .coin:hover { transform: scale(1.1) rotateY(0deg); filter: brightness(1.2); box-shadow: 0 0 25px var(--oro); }
+        .coin:hover { transform: scale(1.15) rotateY(0deg); box-shadow: 0 0 30px var(--oro); }
 
         /* INTERACCIÓN SUPERIOR */
         .muro-nav { background: #111; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 100; }
         .up-btn { padding: 12px 25px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 30px; font-size: 12px; }
 
         /* LAYOUT PRINCIPAL */
-        .main-app { display: grid; grid-template-columns: 240px 1fr 320px 200px; gap: 15px; padding: 15px; }
+        .main-app { display: grid; grid-template-columns: 240px 1fr 350px; gap: 15px; padding: 15px; }
         
-        /* COLUMNA 1: SALAS */
-        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 10px; height: fit-content; }
-        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 10px; position: relative; }
+        /* COLUMNA IZQUIERDA: SALAS CON SCROLL */
+        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 10px; max-height: 800px; overflow-y: auto; }
+        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 11px; }
         .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
 
-        /* COLUMNA 2: VISOR Y MURO */
+        /* COLUMNA CENTRAL: VISOR (TAMAÑO RECUPERADO) */
         .center-col { display: flex; flex-direction: column; gap: 20px; }
-        .visor-container { background: #000; border: 4px solid #1a1a1a; border-radius: 20px; height: 550px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        #main-view { width: 100%; height: 100%; object-fit: contain; }
-        .sala-label { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--oro); font-size: 18px; color: var(--oro); }
+        .visor-container { background: #000; border: 4px solid #1a1a1a; border-radius: 20px; height: 450px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        #main-view { width: 100%; height: 100%; object-fit: cover; }
+        .sala-label { position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-right: 5px solid var(--oro); color: var(--oro); font-size: 14px; }
 
-        /* COLUMNA 3: CHAT Y AVATARES */
+        /* COLUMNA DERECHA: CHAT Y AVATARES */
         .right-side { display: flex; flex-direction: column; gap: 15px; height: 80vh; position: sticky; top: 90px; }
         .chat-display { flex-grow: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; }
         .msg { margin-bottom: 12px; border-left: 4px solid; padding-left: 10px; font-weight: bold; }
-
-        /* COLUMNA 4: PUBLICIDAD */
-        .ads-panel { display: flex; flex-direction: column; gap: 15px; }
-        .ad-box { width: 100%; height: 300px; background: #111; border: 2px dashed var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--oro); padding: 10px; font-size: 14px; }
 
         /* MODAL */
         #upload-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--oro); padding: 30px; border-radius: 20px; z-index: 1001; width: 400px; text-align: center; }
@@ -62,13 +61,19 @@
 
 <div class="overlay" id="overlay" onclick="closeModal()"></div>
 <div id="upload-modal">
-    <h2 id="modal-title" style="color:var(--oro);">SUBIR A MI MURO</h2>
+    <h2 id="modal-title" style="color:var(--oro);">SUBIR CONTENIDO</h2>
     <textarea id="post-text" style="width:100%; height:80px; background:#000; color:white; margin:15px 0; padding:10px;"></textarea><br>
-    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="sendPost()">PUBLICAR AHORA</button>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="sendPost()">PUBLICAR</button>
 </div>
 
 <header>
+    <div class="header-ads-left">
+        <div class="ad-mini">📢 ANÚNCIATE AQUÍ<br>SOCIOS VIP</div>
+        <div class="ad-mini" style="color:var(--n-rojo); border-color:var(--n-rojo);">🔥 OFERTA TOKENS<br>-50% HOY</div>
+    </div>
+
     <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
+
     <div class="coin-grid">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
@@ -86,28 +91,24 @@
 
     <div class="center-col">
         <div class="visor-container">
-            <div class="sala-label" id="label-sala">SALA: SADO Y MASO</div>
+            <div class="sala-label" id="label-sala">ESTÁS EN: SADO Y MASO</div>
             <img id="main-view" src="">
         </div>
-        <div id="feed-muro" style="background:#0a0a0a; padding:20px; border-radius:15px; border:1px solid #222;">
-            <h4 style="color:var(--oro); margin-bottom:10px;">📰 ACTIVIDAD RECIENTE</h4>
-            <div id="feed-posts"></div>
+        <div id="muro-social" style="background:#0a0a0a; padding:20px; border-radius:15px; border:1px solid #222;">
+            <h4 style="color:var(--oro); margin-bottom:10px;">📰 MURO DE RESISTENCIA</h4>
+            <div id="feed-posts">
+                <div style="background:#111; padding:10px; border-radius:8px; border-left:3px solid var(--n-rojo); margin-bottom:10px; color:var(--n-rojo);"><b>MIA:</b> ¡Bienvenidos a mi mundo! ¿Quién quiere divertirse?</div>
+            </div>
         </div>
     </div>
 
     <div class="right-side">
-        <div style="display:flex; gap:5px; height:100px;">
-            <div style="flex:1; border:1px solid var(--n-turq); border-radius:10px; overflow:hidden;"><img src="Rubia.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
-            <div style="flex:1; border:1px solid var(--n-verde); border-radius:10px; overflow:hidden;"><img src="Morocha.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
-            <div style="flex:1; border:1px solid var(--n-rojo); border-radius:10px; overflow:hidden;"><img src="Pelirroja.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+        <div style="display:flex; gap:5px; height:110px;">
+            <div style="flex:1; border:2px solid var(--n-turq); border-radius:10px; overflow:hidden;"><img src="Rubia.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+            <div style="flex:1; border:2px solid var(--n-verde); border-radius:10px; overflow:hidden;"><img src="Morocha.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+            <div style="flex:1; border:2px solid var(--n-rojo); border-radius:10px; overflow:hidden;"><img src="Pelirroja.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
         </div>
         <div class="chat-display" id="chat-stream"></div>
-    </div>
-
-    <div class="ads-panel">
-        <div class="ad-box">📢 ESPACIO DISPONIBLE PARA PUBLICIDAD VIP</div>
-        <div class="ad-box" style="border-color:var(--n-rojo); color:var(--n-rojo);">🔥 PROMOCIÓN: 50 TOKENS x $40</div>
-        <div class="ad-box">💰 GANA DINERO SIENDO SOCIO AFILIADO</div>
     </div>
 </div>
 
@@ -115,9 +116,9 @@
     let idx = 0;
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
     const msgs = [
-        {u: "MIA", t: "🔞 ¿Quién quiere ver lo que estoy haciendo en la sala?", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 El que me mande 5 tokens ahora decide mi ropa.", c: "#ff003c"},
-        {u: "TANIA", t: "💎 Soy la reina de Resistencia, miren mi nuevo video.", c: "#00ff66"}
+        {u: "MIA", t: "🔞 Mis socios de Resistencia son los mejores... ¿Quién me manda 5 y bailo?", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 El que me mande tokens ahora decide qué me quito.", c: "#ff003c"},
+        {u: "TANIA", t: "💎 Tania tiene sorpresas en el video de hoy. ¡No se lo pierdan!", c: "#00ff66"}
     ];
 
     function init() {
@@ -130,20 +131,27 @@
             list.appendChild(b);
         });
         refresh();
-        setInterval(botChat, 6000);
-        // ROTACIÓN AUTOMÁTICA CADA 15 SEGUNDOS
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 15000);
+        setInterval(botChat, 7000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 18000);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
-        document.getElementById('label-sala').innerText = "SALA: " + rooms[idx].toUpperCase();
+        document.getElementById('label-sala').innerText = "ESTÁS EN: " + rooms[idx].toUpperCase();
         const img = document.getElementById('main-view');
         
-        // CORRECCIÓN DE IMAGEN: Se busca el nombre exacto que tienes en GitHub
+        // REGLA DE ORO PARA GITHUB:
+        // Si el archivo se llama "Playa.jpg", la URL debe ser "Playa.jpg"
+        // Si tiene espacios "Sado y Maso.jpg", usamos encodeURIComponent
         img.src = "./" + encodeURIComponent(rooms[idx]) + ".jpg";
-        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=" + rooms[idx]; };
+        
+        img.onerror = () => { 
+            // Si falla, intenta sin codificar (por si acaso)
+            img.src = rooms[idx] + ".jpg"; 
+            // Si sigue fallando, pone el placeholder
+            img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=CARGANDO..." + rooms[idx]; };
+        };
     }
 
     function botChat() {
