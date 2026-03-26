@@ -2,58 +2,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | SOCIAL NEON</title>
+    <title>MEGA RED VIP | NEON EMPIRE</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        /* PERMITIR SCROLL REAL */
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-y: auto; overflow-x: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-y: auto; }
 
-        /* CABECERA: Logo XL */
-        header { height: 220px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; }
-        .logo-img { height: 180px; width: auto; filter: drop-shadow(0 0 25px var(--oro)); }
-        .coin-box { position: absolute; right: 20px; bottom: 15px; display: flex; gap: 10px; }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 2px solid #333; color: #000; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px var(--oro); }
+        /* CABECERA: Logo XL Extendido */
+        header { height: 240px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; }
+        .logo-img { height: 190px; width: 90%; max-width: 1000px; filter: drop-shadow(0 0 30px var(--oro)); object-fit: contain; }
+        
+        /* MONEDAS 3D: 2 arriba y 2 abajo */
+        .coin-grid { position: absolute; right: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; perspective: 1000px; }
+        .coin { 
+            width: 80px; height: 80px; border-radius: 50%; 
+            background: radial-gradient(circle at 30% 30%, #fff9aa, var(--oro) 60%, #8a6d3b); 
+            border: 3px solid #444; color: #000; font-size: 22px; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-weight: 900; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8), inset -5px -5px 10px rgba(0,0,0,0.5);
+            transform: rotateY(10deg); transition: 0.3s;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+        }
+        .coin:hover { transform: scale(1.1) rotateY(0deg); filter: brightness(1.2); box-shadow: 0 0 25px var(--oro); }
 
         /* INTERACCIÓN SUPERIOR */
         .muro-nav { background: #111; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 100; }
         .up-btn { padding: 12px 25px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 30px; font-size: 12px; }
 
-        /* DISEÑO DE TRES COLUMNAS */
-        .main-app { display: grid; grid-template-columns: 260px 1fr 360px; gap: 15px; padding: 15px; align-items: start; }
+        /* LAYOUT PRINCIPAL */
+        .main-app { display: grid; grid-template-columns: 240px 1fr 320px 200px; gap: 15px; padding: 15px; }
         
-        /* COLUMNA IZQUIERDA: SALAS (Ahora se ven todas) */
-        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 10px; }
-        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 11px; position: relative; }
+        /* COLUMNA 1: SALAS */
+        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 10px; height: fit-content; }
+        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 10px; position: relative; }
         .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
-        .online-count { position: absolute; right: 10px; color: var(--n-rojo); font-size: 10px; }
 
-        /* COLUMNA CENTRAL: VISOR Y MURO DE CONTENIDO */
+        /* COLUMNA 2: VISOR Y MURO */
         .center-col { display: flex; flex-direction: column; gap: 20px; }
-        .visor-container { background: #000; border: 3px solid #1a1a1a; border-radius: 20px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .visor-container { background: #000; border: 4px solid #1a1a1a; border-radius: 20px; height: 550px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        
-        /* EL MURO: Donde aparecen las fotos y estados subidos */
-        .muro-contenido { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; }
-        .post { background: #151515; border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid #333; animation: fadeIn 0.5s ease; }
-        .post-user { font-weight: 900; margin-bottom: 8px; display: block; font-size: 14px; }
-        .post-body { font-size: 13px; color: #ccc; line-height: 1.4; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .sala-label { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--oro); font-size: 18px; color: var(--oro); }
 
-        /* COLUMNA DERECHA: CHAT Y AVATARES */
-        .right-side { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 15px; height: 80vh; }
-        .girls-neon { display: flex; gap: 8px; height: 140px; flex-shrink: 0; }
-        .g-card { flex: 1; text-align: center; }
-        .g-img-box { height: 100px; border: 2px solid var(--oro); border-radius: 12px; overflow: hidden; margin-bottom: 5px; }
-        .g-img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .chat-display { flex-grow: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; border-top: 5px solid #222; }
-        .msg { margin-bottom: 15px; border-left: 5px solid; padding-left: 12px; line-height: 1.5; font-weight: bold; }
+        /* COLUMNA 3: CHAT Y AVATARES */
+        .right-side { display: flex; flex-direction: column; gap: 15px; height: 80vh; position: sticky; top: 90px; }
+        .chat-display { flex-grow: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; }
+        .msg { margin-bottom: 12px; border-left: 4px solid; padding-left: 10px; font-weight: bold; }
 
-        /* MODAL DE SUBIDA */
-        #upload-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--oro); padding: 30px; border-radius: 20px; z-index: 1001; width: 400px; text-align: center; box-shadow: 0 0 100px rgba(0,0,0,1); }
-        #upload-modal textarea { width: 100%; height: 100px; background: #000; color: white; border: 1px solid #444; margin: 15px 0; padding: 12px; border-radius: 10px; }
+        /* COLUMNA 4: PUBLICIDAD */
+        .ads-panel { display: flex; flex-direction: column; gap: 15px; }
+        .ad-box { width: 100%; height: 300px; background: #111; border: 2px dashed var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--oro); padding: 10px; font-size: 14px; }
+
+        /* MODAL */
+        #upload-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--oro); padding: 30px; border-radius: 20px; z-index: 1001; width: 400px; text-align: center; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
     </style>
 </head>
@@ -62,23 +63,22 @@
 <div class="overlay" id="overlay" onclick="closeModal()"></div>
 <div id="upload-modal">
     <h2 id="modal-title" style="color:var(--oro);">SUBIR A MI MURO</h2>
-    <textarea id="post-text" placeholder="¿Qué quieres decirle a los socios de Resistencia?"></textarea>
+    <textarea id="post-text" style="width:100%; height:80px; background:#000; color:white; margin:15px 0; padding:10px;"></textarea><br>
     <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="sendPost()">PUBLICAR AHORA</button>
 </div>
 
 <header>
-    <div style="position:absolute; left:25px; top:25px; color:var(--n-rojo); font-weight:bold;">🔴 VIP LIVE: 14,520</div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO MEGA RED VIP">
-    <div class="coin-box">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
+    <div class="coin-grid">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
     </div>
 </header>
 
 <div class="muro-nav">
-    <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="openModal('VÍDEO')">📹 SUBIR VÍDEO</button>
-    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="openModal('ESTADO')">✍️ SUBIR ESTADO</button>
-    <button class="up-btn" style="color:var(--n-turq); border-color:var(--n-turq);" onclick="openModal('HISTORIA')">📸 SUBIR HISTORIA</button>
+    <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="openModal('VÍDEO')">📹 VÍDEO</button>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="openModal('ESTADO')">✍️ ESTADO</button>
+    <button class="up-btn" style="color:var(--n-turq); border-color:var(--n-turq);" onclick="openModal('HISTORIA')">📸 HISTORIA</button>
 </div>
 
 <div class="main-app">
@@ -86,43 +86,38 @@
 
     <div class="center-col">
         <div class="visor-container">
+            <div class="sala-label" id="label-sala">SALA: SADO Y MASO</div>
             <img id="main-view" src="">
         </div>
-        
-        <div class="muro-contenido">
-            <h3 style="color:var(--oro); margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">📰 MURO DE HISTORIAS RECIENTES</h3>
-            <div id="feed-posts">
-                <div class="post">
-                    <span class="post-user" style="color:var(--n-rojo)">MIA (HACE 2 MIN)</span>
-                    <p class="post-body">🔥 Chicos, acabo de subir una foto prohibida a mi historia... ¿quién la quiere ver por 5 tokens?</p>
-                </div>
-            </div>
+        <div id="feed-muro" style="background:#0a0a0a; padding:20px; border-radius:15px; border:1px solid #222;">
+            <h4 style="color:var(--oro); margin-bottom:10px;">📰 ACTIVIDAD RECIENTE</h4>
+            <div id="feed-posts"></div>
         </div>
     </div>
 
     <div class="right-side">
-        <div class="girls-neon">
-            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div style="color:var(--n-turq); font-size:11px; font-weight:bold;">MIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div style="color:var(--n-verde); font-size:11px; font-weight:bold;">TANIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div style="color:var(--n-rojo); font-size:11px; font-weight:bold;">COLO</div></div>
+        <div style="display:flex; gap:5px; height:100px;">
+            <div style="flex:1; border:1px solid var(--n-turq); border-radius:10px; overflow:hidden;"><img src="Rubia.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+            <div style="flex:1; border:1px solid var(--n-verde); border-radius:10px; overflow:hidden;"><img src="Morocha.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
+            <div style="flex:1; border:1px solid var(--n-rojo); border-radius:10px; overflow:hidden;"><img src="Pelirroja.jpg" style="width:100%; height:100%; object-fit:cover;"></div>
         </div>
         <div class="chat-display" id="chat-stream"></div>
+    </div>
+
+    <div class="ads-panel">
+        <div class="ad-box">📢 ESPACIO DISPONIBLE PARA PUBLICIDAD VIP</div>
+        <div class="ad-box" style="border-color:var(--n-rojo); color:var(--n-rojo);">🔥 PROMOCIÓN: 50 TOKENS x $40</div>
+        <div class="ad-box">💰 GANA DINERO SIENDO SOCIO AFILIADO</div>
     </div>
 </div>
 
 <script>
     let idx = 0;
-    const rooms = [
-        {n: "Sado y Maso", o: 452}, {n: "Biblioteca", o: 128}, {n: "Camarera", o: 310}, 
-        {n: "Discoteca", o: 890}, {n: "La Tiendita", o: 56}, {n: "Playa", o: 215}, 
-        {n: "Spa", o: 142}, {n: "El Bar", o: 674}, {n: "Oficina", o: 89}, {n: "Gimnasio", o: 204}
-    ];
-
-    const chatMsgs = [
-        {u: "MIA", t: "🔞 Mis socios de Resistencia saben que soy la mejor. ¿Quién quiere ver mis curvas?", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Quién me manda 5 tokens y me saco todo ahora mismo? ¡No sean tímidos!", c: "#ff003c"},
-        {u: "TANIA", t: "💎 Mia, callate. Yo soy la verdadera reina. ¿Quién quiere ver mi nuevo video?", c: "#00ff66"},
-        {u: "SOCIO_VIP", t: "¡COLO sos una bomba! Ya te mandé 10 tokens por ese baile.", c: "#bc13fe"}
+    const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
+    const msgs = [
+        {u: "MIA", t: "🔞 ¿Quién quiere ver lo que estoy haciendo en la sala?", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 El que me mande 5 tokens ahora decide mi ropa.", c: "#ff003c"},
+        {u: "TANIA", t: "💎 Soy la reina de Resistencia, miren mi nuevo video.", c: "#00ff66"}
     ];
 
     function init() {
@@ -130,62 +125,47 @@
         rooms.forEach((r, i) => {
             const b = document.createElement('button');
             b.className = 'p-btn'; b.id = 'r-'+i;
-            b.innerHTML = `🚪 ${r.n.toUpperCase()} <span class="online-count">● ${r.o} online</span>`;
+            b.innerHTML = `🚪 ${r.toUpperCase()}`;
             b.onclick = () => { idx = i; refresh(); };
             list.appendChild(b);
         });
         refresh();
-        setInterval(() => {
-            const m = chatMsgs[Math.floor(Math.random() * chatMsgs.length)];
-            addChat(m.u, m.t, m.c);
-        }, 7000);
+        setInterval(botChat, 6000);
+        // ROTACIÓN AUTOMÁTICA CADA 15 SEGUNDOS
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 15000);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
+        document.getElementById('label-sala').innerText = "SALA: " + rooms[idx].toUpperCase();
         const img = document.getElementById('main-view');
-        // USANDO RUTA DIRECTA PARA GITHUB
-        img.src = "./" + rooms[idx].n + ".jpg";
-        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=" + rooms[idx].n; };
+        
+        // CORRECCIÓN DE IMAGEN: Se busca el nombre exacto que tienes en GitHub
+        img.src = "./" + encodeURIComponent(rooms[idx]) + ".jpg";
+        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=" + rooms[idx]; };
     }
 
-    function addChat(user, txt, color) {
+    function botChat() {
+        const m = msgs[Math.floor(Math.random() * msgs.length)];
         const box = document.getElementById('chat-stream');
-        // Letras con el color del bot aplicado a todo el texto
-        box.innerHTML += `<div class="msg" style="border-color:${color}; color:${color}"><b>${user}:</b> ${txt}</div>`;
+        box.innerHTML += `<div class="msg" style="border-color:${m.c}; color:${m.c}"><b>${m.u}:</b> ${m.t}</div>`;
         box.scrollTop = box.scrollHeight;
     }
 
-    function openModal(t) {
-        document.getElementById('modal-title').innerText = "SUBIR " + t;
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('upload-modal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('upload-modal').style.display = 'none';
-    }
+    function openModal(t) { document.getElementById('overlay').style.display = 'block'; document.getElementById('upload-modal').style.display = 'block'; }
+    function closeModal() { document.getElementById('overlay').style.display = 'none'; document.getElementById('upload-modal').style.display = 'none'; }
 
     function sendPost() {
         const txt = document.getElementById('post-text').value;
         if(txt) {
-            const feed = document.getElementById('feed-posts');
-            const post = `<div class="post">
-                <span class="post-user" style="color:var(--n-viola)">TÚ (SOCIO) - AHORA</span>
-                <p class="post-body">${txt}</p>
-            </div>`;
-            feed.insertAdjacentHTML('afterbegin', post);
-            addChat("TÚ", txt, "#bc13fe");
+            document.getElementById('feed-posts').insertAdjacentHTML('afterbegin', `<div style="background:#1a1a1a; padding:10px; border-radius:10px; margin-bottom:10px; border-left:3px solid var(--n-viola); color:#bc13fe"><b>TÚ:</b> ${txt}</div>`);
             closeModal();
             document.getElementById('post-text').value = "";
         }
     }
 
-    function pay(n) {
-        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount=${n}&currency_code=USD`, '_blank');
-    }
+    function pay(n) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount=${n}&currency_code=USD`, '_blank'); }
 
     init();
 </script>
