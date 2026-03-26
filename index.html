@@ -2,65 +2,73 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | NEON WAR</title>
+    <title>MEGA RED VIP | SOCIAL NEON</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        
+        /* PERMITIR SCROLL REAL */
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-y: auto; overflow-x: hidden; }
 
-        /* HEADER: Logo Gigante Centrado */
-        header { height: 200px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
-        .logo-img { height: 170px; width: auto; filter: drop-shadow(0 0 25px var(--oro)); }
+        /* CABECERA: Logo XL */
+        header { height: 220px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; }
+        .logo-img { height: 180px; width: auto; filter: drop-shadow(0 0 25px var(--oro)); }
         .coin-box { position: absolute; right: 20px; bottom: 15px; display: flex; gap: 10px; }
-        .coin { width: 65px; height: 65px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 3px solid #333; color: #000; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 20px var(--oro); }
+        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 2px solid #333; color: #000; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px var(--oro); }
 
-        /* BARRA INTERACTIVA */
-        .muro-nav { background: #111; padding: 12px; display: flex; justify-content: center; gap: 20px; border-bottom: 2px solid #333; }
+        /* INTERACCIÓN SUPERIOR */
+        .muro-nav { background: #111; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 100; }
         .up-btn { padding: 12px 25px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 30px; font-size: 12px; }
 
-        /* CUERPO PRINCIPAL (Layout Fijo) */
-        .main-app { display: grid; grid-template-columns: 260px 1fr 360px; flex-grow: 1; padding: 15px; gap: 15px; overflow: hidden; }
+        /* DISEÑO DE TRES COLUMNAS */
+        .main-app { display: grid; grid-template-columns: 260px 1fr 360px; gap: 15px; padding: 15px; align-items: start; }
         
-        /* SALAS CON ONLINE */
-        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; overflow-y: auto; padding: 10px; }
-        .p-btn { width: 100%; padding: 14px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 11px; font-weight: bold; position: relative; }
-        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 15px var(--n-turq); }
-        .online-dot { position: absolute; right: 10px; color: var(--n-rojo); font-size: 10px; }
+        /* COLUMNA IZQUIERDA: SALAS (Ahora se ven todas) */
+        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 10px; }
+        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 10px; text-align: left; font-size: 11px; position: relative; }
+        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
+        .online-count { position: absolute; right: 10px; color: var(--n-rojo); font-size: 10px; }
 
-        .visor-container { background: #000; border: 3px solid #1a1a1a; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* COLUMNA CENTRAL: VISOR Y MURO DE CONTENIDO */
+        .center-col { display: flex; flex-direction: column; gap: 20px; }
+        .visor-container { background: #000; border: 3px solid #1a1a1a; border-radius: 20px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-
-        /* CHAT Y AVATARES */
-        .right-side { display: flex; flex-direction: column; gap: 10px; height: 100%; }
-        .girls-neon { display: flex; gap: 8px; height: 140px; text-align: center; }
-        .g-card { flex: 1; }
-        .g-img-box { height: 100px; border: 2px solid var(--oro); border-radius: 10px; overflow: hidden; margin-bottom: 5px; }
-        .g-img { width: 100%; height: 100%; object-fit: cover; }
-        .g-name { font-size: 11px; font-weight: 900; }
         
-        .chat-display { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; border-top: 4px solid #222; }
-        .msg { margin-bottom: 12px; border-left: 5px solid; padding-left: 10px; line-height: 1.4; animation: slide 0.3s ease; }
-        @keyframes slide { from { opacity: 0; transform: translateX(15px); } to { opacity: 1; transform: translateX(0); } }
+        /* EL MURO: Donde aparecen las fotos y estados subidos */
+        .muro-contenido { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; }
+        .post { background: #151515; border-radius: 15px; padding: 15px; margin-bottom: 15px; border: 1px solid #333; animation: fadeIn 0.5s ease; }
+        .post-user { font-weight: 900; margin-bottom: 8px; display: block; font-size: 14px; }
+        .post-body { font-size: 13px; color: #ccc; line-height: 1.4; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* MODAL DE SUBIDA (Ventana Flotante) */
-        #upload-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--oro); padding: 30px; border-radius: 20px; z-index: 1000; width: 400px; text-align: center; box-shadow: 0 0 100px rgba(0,0,0,1); }
-        #upload-modal textarea { width: 100%; height: 80px; background: #000; color: white; border: 1px solid #444; margin: 15px 0; padding: 10px; border-radius: 10px; }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
+        /* COLUMNA DERECHA: CHAT Y AVATARES */
+        .right-side { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 15px; height: 80vh; }
+        .girls-neon { display: flex; gap: 8px; height: 140px; flex-shrink: 0; }
+        .g-card { flex: 1; text-align: center; }
+        .g-img-box { height: 100px; border: 2px solid var(--oro); border-radius: 12px; overflow: hidden; margin-bottom: 5px; }
+        .g-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .chat-display { flex-grow: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 13px; border-top: 5px solid #222; }
+        .msg { margin-bottom: 15px; border-left: 5px solid; padding-left: 12px; line-height: 1.5; font-weight: bold; }
+
+        /* MODAL DE SUBIDA */
+        #upload-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; border: 3px solid var(--oro); padding: 30px; border-radius: 20px; z-index: 1001; width: 400px; text-align: center; box-shadow: 0 0 100px rgba(0,0,0,1); }
+        #upload-modal textarea { width: 100%; height: 100px; background: #000; color: white; border: 1px solid #444; margin: 15px 0; padding: 12px; border-radius: 10px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
     </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="closeModal()"></div>
 <div id="upload-modal">
-    <h2 id="modal-title" style="color:var(--oro);">SUBIR CONTENIDO</h2>
-    <textarea id="post-text" placeholder="Escribe algo tentador..."></textarea>
-    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="sendPost()">PUBLICAR EN EL MURO</button>
-    <button style="background:none; border:none; color:grey; margin-top:15px; cursor:pointer;" onclick="closeModal()">Cancelar</button>
+    <h2 id="modal-title" style="color:var(--oro);">SUBIR A MI MURO</h2>
+    <textarea id="post-text" placeholder="¿Qué quieres decirle a los socios de Resistencia?"></textarea>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="sendPost()">PUBLICAR AHORA</button>
 </div>
 
 <header>
-    <div style="position:absolute; left:25px; top:25px; color:var(--n-rojo); font-weight:bold;">🔴 VIP ONLINE: 14,520</div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
+    <div style="position:absolute; left:25px; top:25px; color:var(--n-rojo); font-weight:bold;">🔴 VIP LIVE: 14,520</div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO MEGA RED VIP">
     <div class="coin-box">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
@@ -75,12 +83,28 @@
 
 <div class="main-app">
     <div class="rooms-box" id="rooms-list"></div>
-    <div class="visor-container"><img id="main-view" src=""></div>
+
+    <div class="center-col">
+        <div class="visor-container">
+            <img id="main-view" src="">
+        </div>
+        
+        <div class="muro-contenido">
+            <h3 style="color:var(--oro); margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">📰 MURO DE HISTORIAS RECIENTES</h3>
+            <div id="feed-posts">
+                <div class="post">
+                    <span class="post-user" style="color:var(--n-rojo)">MIA (HACE 2 MIN)</span>
+                    <p class="post-body">🔥 Chicos, acabo de subir una foto prohibida a mi historia... ¿quién la quiere ver por 5 tokens?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="right-side">
         <div class="girls-neon">
-            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-turq); text-shadow:0 0 10px var(--n-turq);">MIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-verde); text-shadow:0 0 10px var(--n-verde);">TANIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-rojo); text-shadow:0 0 10px var(--n-rojo);">COLO</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div style="color:var(--n-turq); font-size:11px; font-weight:bold;">MIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div style="color:var(--n-verde); font-size:11px; font-weight:bold;">TANIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div style="color:var(--n-rojo); font-size:11px; font-weight:bold;">COLO</div></div>
         </div>
         <div class="chat-display" id="chat-stream"></div>
     </div>
@@ -94,15 +118,11 @@
         {n: "Spa", o: 142}, {n: "El Bar", o: 674}, {n: "Oficina", o: 89}, {n: "Gimnasio", o: 204}
     ];
 
-    const messages = [
-        {u: "MIA", t: "🔥 ¿Tania se cree sexy? Pobrecita... mis socios de Resistencia me prefieren a mí. ¡Miren mis curvas!", c: "#00d9ff"},
-        {u: "COLO", t: "🔞 ¡Basta de hablar! ¿Quién me manda 5 tokens y me saco todo en la sala SADO ahora?", c: "#ff003c"},
-        {u: "TANIA", t: "💎 Mia, callate. Sos una nena. Yo soy la verdadera perra de Resistencia. ¿Quién quiere ver mi video?", c: "#00ff66"},
-        {u: "CLIENTE_VIP", t: "¡COLO sos una bomba! Ya te mandé 10 tokens, hacé lo que prometiste.", c: "#bc13fe"},
-        {u: "MIA", t: "💅 Tania, no te mira nadie. Mis curvas mandan en esta red. ¡Manden más Oro!", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 Soy la más vulgar y la más caliente. El que no me mande tokens es porque no es hombre.", c: "#ff003c"},
-        {u: "CLIENTE_RESI", t: "Tania, mostrame un poquito el Bar y te doy todo lo que quieras...", c: "#bc13fe"},
-        {u: "TANIA", t: "🔞 Vení por acá bombón... Mia y la Colo se van a morir de envidia.", c: "#00ff66"}
+    const chatMsgs = [
+        {u: "MIA", t: "🔞 Mis socios de Resistencia saben que soy la mejor. ¿Quién quiere ver mis curvas?", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 ¿Quién me manda 5 tokens y me saco todo ahora mismo? ¡No sean tímidos!", c: "#ff003c"},
+        {u: "TANIA", t: "💎 Mia, callate. Yo soy la verdadera reina. ¿Quién quiere ver mi nuevo video?", c: "#00ff66"},
+        {u: "SOCIO_VIP", t: "¡COLO sos una bomba! Ya te mandé 10 tokens por ese baile.", c: "#bc13fe"}
     ];
 
     function init() {
@@ -110,30 +130,30 @@
         rooms.forEach((r, i) => {
             const b = document.createElement('button');
             b.className = 'p-btn'; b.id = 'r-'+i;
-            b.innerHTML = `🚪 ${r.n.toUpperCase()} <span class="online-dot">● ${r.o} online</span>`;
+            b.innerHTML = `🚪 ${r.n.toUpperCase()} <span class="online-count">● ${r.o} online</span>`;
             b.onclick = () => { idx = i; refresh(); };
             list.appendChild(b);
         });
         refresh();
         setInterval(() => {
-            const m = messages[Math.floor(Math.random() * messages.length)];
-            addMsg(m.u, m.t, m.c);
-        }, 8000);
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 20000);
+            const m = chatMsgs[Math.floor(Math.random() * chatMsgs.length)];
+            addChat(m.u, m.t, m.c);
+        }, 7000);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
         const img = document.getElementById('main-view');
-        // REGLA DE ORO: GitHub necesita el nombre exacto. 
-        img.src = "./" + encodeURIComponent(rooms[idx].n) + ".jpg";
+        // USANDO RUTA DIRECTA PARA GITHUB
+        img.src = "./" + rooms[idx].n + ".jpg";
         img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=" + rooms[idx].n; };
     }
 
-    function addMsg(user, txt, color) {
+    function addChat(user, txt, color) {
         const box = document.getElementById('chat-stream');
-        box.innerHTML += `<div class="msg" style="border-color:${color}"><b>${user}:</b> ${txt}</div>`;
+        // Letras con el color del bot aplicado a todo el texto
+        box.innerHTML += `<div class="msg" style="border-color:${color}; color:${color}"><b>${user}:</b> ${txt}</div>`;
         box.scrollTop = box.scrollHeight;
     }
 
@@ -149,17 +169,22 @@
     }
 
     function sendPost() {
-        const t = document.getElementById('post-text').value;
-        if(t) {
-            addMsg("TÚ (CLIENTE)", t, "#bc13fe");
-            setTimeout(() => addMsg("COLO", "🔥 ¡Me encanta lo que subiste! Mandame 5 tokens y te doy un premio...", "#ff003c"), 2000);
+        const txt = document.getElementById('post-text').value;
+        if(txt) {
+            const feed = document.getElementById('feed-posts');
+            const post = `<div class="post">
+                <span class="post-user" style="color:var(--n-viola)">TÚ (SOCIO) - AHORA</span>
+                <p class="post-body">${txt}</p>
+            </div>`;
+            feed.insertAdjacentHTML('afterbegin', post);
+            addChat("TÚ", txt, "#bc13fe");
             closeModal();
             document.getElementById('post-text').value = "";
         }
     }
 
     function pay(n) {
-        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&item_name=TOKENS_VIP&amount=${n}&currency_code=USD`, '_blank');
+        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount=${n}&currency_code=USD`, '_blank');
     }
 
     init();
