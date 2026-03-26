@@ -4,47 +4,50 @@
     <meta charset="UTF-8">
     <title>MEGA RED VIP | NEON WAR</title>
     <style>
-        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-violeta: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* HEADER: Logo XL y Monedas */
-        header { height: 220px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
-        .logo-img { height: 180px; width: auto; filter: drop-shadow(0 0 20px var(--oro)); }
-        .coin-box { position: absolute; right: 20px; bottom: 15px; display: flex; gap: 8px; }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 2px solid #333; color: #000; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px var(--oro); }
+        /* HEADER: Logo XL Centrado */
+        header { height: 180px; background: #000; border-bottom: 4px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+        .logo-img { height: 140px; width: auto; filter: drop-shadow(0 0 20px var(--oro)); }
+        .coin-box { position: absolute; right: 20px; bottom: 10px; display: flex; gap: 8px; }
+        .coin { width: 55px; height: 55px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 2px solid #333; color: #000; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 10px var(--oro); }
 
-        /* INTERACCIÓN CLIENTE: Barra Fija Siempre Visible */
-        .muro-interactivo { background: #111; border-bottom: 2px solid #333; padding: 15px; display: flex; justify-content: center; gap: 20px; z-index: 100; }
-        .up-btn { padding: 12px 25px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 30px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        /* BARRA DE INTERACCIÓN CLIENTE */
+        .muro-interactivo { background: #111; border-bottom: 2px solid #333; padding: 10px; display: flex; justify-content: center; gap: 15px; z-index: 100; }
+        .up-btn { padding: 10px 20px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 20px; font-size: 11px; text-transform: uppercase; }
+
+        /* PANEL DE SUBIDA (Lugar para subir cosas) */
+        #upload-panel { display: none; background: #1a1a1a; padding: 15px; border-bottom: 2px solid var(--oro); text-align: center; }
+        #upload-panel input, #upload-panel textarea { width: 80%; padding: 10px; margin: 5px; border-radius: 5px; border: 1px solid #444; background: #000; color: white; }
 
         /* CUERPO PRINCIPAL */
-        .main-content { display: grid; grid-template-columns: 240px 1fr 360px; flex-grow: 1; padding: 15px; gap: 15px; overflow: hidden; }
+        .main-content { display: grid; grid-template-columns: 220px 1fr 350px; flex-grow: 1; padding: 10px; gap: 10px; overflow: hidden; }
         
-        .rooms { background: #080808; border: 1px solid #222; border-radius: 15px; overflow-y: auto; padding: 10px; }
-        .p-btn { width: 100%; padding: 12px; margin-bottom: 8px; background: #1a1a1a; border: 1px solid #333; color: #666; cursor: pointer; border-radius: 8px; text-align: left; font-size: 10px; font-weight: bold; }
-        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
+        .rooms { background: #080808; border: 1px solid #222; border-radius: 12px; overflow-y: auto; padding: 5px; }
+        .p-btn { width: 100%; padding: 10px; margin-bottom: 5px; background: #151515; border: 1px solid #333; color: #555; cursor: pointer; border-radius: 6px; text-align: left; font-size: 9px; font-weight: bold; }
+        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001212; box-shadow: 0 0 8px var(--n-turq); }
 
-        .visor { background: #000; border: 3px solid #1a1a1a; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .visor { background: #000; border: 2px solid #1a1a1a; border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
 
         /* DERECHA: AVATARES Y CHAT */
         .right-panel { display: flex; flex-direction: column; gap: 10px; height: 100%; }
-        .girls { display: flex; gap: 8px; height: 140px; text-align: center; }
+        .girls { display: flex; gap: 5px; height: 120px; text-align: center; }
         .g-card { flex: 1; }
-        .g-img-box { height: 100px; border: 2px solid var(--oro); border-radius: 10px; overflow: hidden; margin-bottom: 5px; }
+        .g-img-box { height: 85px; border: 2px solid var(--oro); border-radius: 8px; overflow: hidden; margin-bottom: 3px; }
         .g-img { width: 100%; height: 100%; object-fit: cover; }
-        .g-name { font-size: 11px; font-weight: 900; }
+        .g-name { font-size: 10px; font-weight: 900; }
         
-        .chat { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 12px; border-top: 3px solid #222; }
-        .msg { margin-bottom: 12px; border-left: 4px solid; padding-left: 10px; line-height: 1.4; animation: slideIn 0.3s ease; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+        .chat { flex: 1; background: #020202; border: 1px solid #333; border-radius: 12px; padding: 12px; overflow-y: auto; font-size: 11px; }
+        .msg { margin-bottom: 10px; border-left: 4px solid; padding-left: 8px; line-height: 1.3; }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="position:absolute; left:20px; top:20px; color:var(--n-rojo); font-weight:bold; font-size:12px;">🔴 VIVO: 14,520 SOCIOS</div>
+    <div style="position:absolute; left:20px; top:15px; color:var(--n-rojo); font-weight:bold; font-size:11px;">🔴 VIVO: 14,520 SOCIOS</div>
     <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
     <div class="coin-box">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
@@ -53,9 +56,16 @@
 </header>
 
 <div class="muro-interactivo">
-    <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="alert('Cargando vídeo para las chicas...')">📹 SUBIR VÍDEO</button>
-    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="alert('Publicando estado en el muro...')">✍️ SUBIR ESTADO</button>
-    <button class="up-btn" style="color:var(--n-turq); border-color:var(--n-turq);" onclick="alert('Compartiendo historia con los socios...')">📸 SUBIR HISTORIA</button>
+    <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="toggleUpload('VIDEO')">📹 SUBIR VÍDEO</button>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="toggleUpload('ESTADO')">✍️ SUBIR ESTADO</button>
+    <button class="up-btn" style="color:var(--n-turq); border-color:var(--n-turq);" onclick="toggleUpload('HISTORIA')">📸 SUBIR HISTORIA</button>
+</div>
+
+<div id="upload-panel">
+    <h4 id="upload-title" style="color:var(--oro); margin-bottom:10px;"></h4>
+    <input type="file" id="file-input">
+    <textarea id="text-input" placeholder="Escribe algo para las chicas..."></textarea><br>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde); margin-top:10px;" onclick="simularSubida()">PUBLICAR AHORA</button>
 </div>
 
 <div class="main-content">
@@ -63,9 +73,9 @@
     <div class="visor"><img id="main-view" src=""></div>
     <div class="right-panel">
         <div class="girls">
-            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-turq); text-shadow:0 0 10px var(--n-turq);">MIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-verde); text-shadow:0 0 10px var(--n-verde);">TANIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-rojo); text-shadow:0 0 10px var(--n-rojo);">COLO</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-turq); text-shadow:0 0 5px var(--n-turq);">MIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-verde); text-shadow:0 0 5px var(--n-verde);">TANIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-rojo); text-shadow:0 0 5px var(--n-rojo);">COLO</div></div>
         </div>
         <div class="chat" id="chat-box"></div>
     </div>
@@ -75,16 +85,15 @@
     let idx = 0;
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
     
-    // GUERRA DE MENSAJES VULGARES Y TENTADORES
-    const neonMsgs = [
-        {u: "MIA", t: "🔞 Mis tokens de Resistencia son los más grandes. ¿Quién me da 10 y me saco el sostén ahora?", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Me ves en el gimnasio? Estoy tan caliente que me voy a mojar toda... ¡Manden Oro!", c: "#ff003c"},
-        {u: "TANIA", t: "💎 Mia es una nena de mamá. Yo soy la verdadera perra de esta red. ¿Quién quiere ver mi descuido en el Bar?", c: "#00ff66"},
-        {u: "MIA", t: "💅 Tania, no te mira nadie. Mis socios de Resistencia son fieles a mis curvas. ¡Miren este video!", c: "#00d9ff"},
-        {u: "COLO", t: "🔞 ¡Basta de hablar! El que me mande 5 tokens ahora decide qué me quito primero en la sala SADO.", c: "#ff003c"},
-        {u: "TANIA", t: "🔥 Soy la más vulgar y la más sexy. El que tenga huevos que me invite un trago virtual ya.", c: "#00ff66"},
-        {u: "SISTEMA", t: "💰 ¡ALERTA! Un socio de Resistencia acaba de desbloquear el desnudo total de LA COLO.", c: "#d4af37"},
-        {u: "MIA", t: "🌈 ¿Me van a dejar ganar por esa pelirroja? ¡Soy mucho más mujer que ellas dos juntas!", c: "#00d9ff"}
+    const warMsgs = [
+        {u: "MIA", t: "🔥 ¿Tania se cree sexy? Pobrecita... mis socios de Resistencia me prefieren a mí. ¡Miren este bibe!", c: "#00d9ff"},
+        {u: "COLO", t: "🔞 ¡Basta de hablar! ¿Quién me manda 5 tokens y me saco todo en la sala SADO ahora?", c: "#ff003c"},
+        {u: "TANIA", t: "💎 Mia, callate. Sos una nena. Yo soy la verdadera perra de Resistencia. ¿Quién quiere ver mi video?", c: "#00ff66"},
+        {u: "CLIENTE_VIP", t: "¡COLO sos una bomba! Ya te mandé 10 tokens, hacé lo que prometiste.", c: "#bc13fe"},
+        {u: "MIA", t: "💅 Tania, no te mira nadie. Mis curvas mandan en esta red. ¡Manden más Oro!", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 Soy la más vulgar y la más caliente. El que no me mande tokens es porque no es hombre.", c: "#ff003c"},
+        {u: "CLIENTE_X", t: "Tania, mostrame un poquito el Bar y te doy todo lo que quieras...", c: "#bc13fe"},
+        {u: "TANIA", t: "🔞 Vení por acá bombón... Mia y la Colo se van a morir de envidia.", c: "#00ff66"}
     ];
 
     function init() {
@@ -97,15 +106,13 @@
             list.appendChild(b);
         });
         refresh();
-        addChat("SISTEMA", "📍 GUERRA VIP ACTIVADA EN RESISTENCIA", "#d4af37");
         
-        // CHAT AGRESIVO: Cada 9 segundos
+        // CHAT ACTIVO: Cada 8 segundos
         setInterval(() => {
-            const m = neonMsgs[Math.floor(Math.random() * neonMsgs.length)];
+            const m = warMsgs[Math.floor(Math.random() * warMsgs.length)];
             addChat(m.u, m.t, m.c);
-        }, 9000);
+        }, 8000);
 
-        // ROTACIÓN DE SALAS: Cada 18 segundos
         setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 18000);
     }
 
@@ -113,9 +120,8 @@
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
         const img = document.getElementById('main-view');
-        // Ruta absoluta GitHub para evitar errores de carga
-        const baseUrl = window.location.href.split('index.html')[0];
-        img.src = baseUrl + rooms[idx].replace(/ /g, "%20") + ".jpg";
+        // USAMOS NOMBRE DIRECTO SIN CARPETAS PARA EVITAR ERRORES
+        img.src = rooms[idx] + ".jpg";
         img.onerror = () => { img.src = "https://via.placeholder.com/800x600/000/d4af37?text=" + rooms[idx]; };
     }
 
@@ -123,6 +129,23 @@
         const box = document.getElementById('chat-box');
         box.innerHTML += `<div class="msg" style="border-color:${color}"><b>${user}:</b> ${txt}</div>`;
         box.scrollTop = box.scrollHeight;
+    }
+
+    function toggleUpload(tipo) {
+        const panel = document.getElementById('upload-panel');
+        const title = document.getElementById('upload-title');
+        panel.style.display = 'block';
+        title.innerText = "SUBIR " + tipo + " PARA LAS CHICAS";
+    }
+
+    function simularSubida() {
+        const txt = document.getElementById('text-input').value;
+        if(txt) {
+            addChat("TÚ (SOCIO)", txt, "#bc13fe");
+            setTimeout(() => addChat("COLO", "🔥 ¡Me encanta lo que subiste! Mandame 5 tokens y te respondo...", "#ff003c"), 2000);
+            document.getElementById('upload-panel').style.display = 'none';
+            document.getElementById('text-input').value = "";
+        } else { alert("Escribe algo antes de publicar"); }
     }
 
     function pay(n) {
