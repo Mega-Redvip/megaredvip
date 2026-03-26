@@ -2,77 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | NEON SENSATION</title>
+    <title>MEGA RED VIP | NEON WAR</title>
     <style>
-        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-azul: #00d9ff; --n-rosa: #ff00ea; }
-        * { box-sizing: border-box; margin: 0; padding: 0; transition: 0.3s ease-in-out; }
-        body { background: var(--fondo); color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* HEADER: Logo Gigante Centrado Neon 3D */
-        header { height: 260px; background: #000; border-bottom: 8px solid var(--oro); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 50px rgba(212,175,55,0.4); }
-        .logo-img { height: 190px; width: auto; filter: drop-shadow(0 0 25px var(--oro)); object-fit: contain; } 
+        /* HEADER: Logo XL y Monedas */
+        header { height: 220px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+        .logo-img { height: 180px; width: auto; filter: drop-shadow(0 0 20px var(--oro)); }
+        .coin-box { position: absolute; right: 20px; bottom: 15px; display: flex; gap: 8px; }
+        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 2px solid #333; color: #000; font-size: 16px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px var(--oro); }
+
+        /* INTERACCIÓN CLIENTE: Barra Fija Siempre Visible */
+        .muro-interactivo { background: #111; border-bottom: 2px solid #333; padding: 15px; display: flex; justify-content: center; gap: 20px; z-index: 100; }
+        .up-btn { padding: 12px 25px; border: 2px solid; background: transparent; font-weight: 900; cursor: pointer; border-radius: 30px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* CUERPO PRINCIPAL */
+        .main-content { display: grid; grid-template-columns: 240px 1fr 360px; flex-grow: 1; padding: 15px; gap: 15px; overflow: hidden; }
         
-        .coin-box { position: absolute; right: 20px; bottom: 15px; display: flex; gap: 10px; }
-        .coin { width: 65px; height: 65px; border-radius: 50%; background: radial-gradient(circle, #fff9aa, var(--oro)); border: 3px solid #333; color: #000; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 0 15px var(--oro); }
+        .rooms { background: #080808; border: 1px solid #222; border-radius: 15px; overflow-y: auto; padding: 10px; }
+        .p-btn { width: 100%; padding: 12px; margin-bottom: 8px; background: #1a1a1a; border: 1px solid #333; color: #666; cursor: pointer; border-radius: 8px; text-align: left; font-size: 10px; font-weight: bold; }
+        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
 
-        /* CONTENIDO PRINCIPAL */
-        .app-container { display: grid; grid-template-columns: 240px 1fr 360px; height: calc(100vh - 260px); padding: 15px; gap: 15px; }
-        
-        .rooms { background: #080808; border: 1px solid #333; border-radius: 15px; overflow-y: auto; padding: 15px; box-shadow: inset 0 0 20px rgba(0,0,0,1); }
-        .p-btn { width: 100%; padding: 12px; margin-bottom: 8px; background: #111; border: 1px solid #333; color: #777; cursor: pointer; border-radius: 8px; text-align: left; font-size: 10px; font-weight: bold; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
-        .p-btn.active { border-color: var(--n-azul); color: var(--n-azul); background: #001a1a; box-shadow: 0 0 15px var(--n-azul); text-shadow: 0 0 10px var(--n-azul); }
-
-        .center-content { display: flex; flex-direction: column; gap: 15px; height: 100%; }
-        .visor { flex: 3; background: #000; border: 3px solid #1a1a1a; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+        .visor { background: #000; border: 3px solid #1a1a1a; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        
-        /* MURO DE SUBIDAS INTERACTIVO */
-        .muro { flex: 1; background: #050505; border: 2px solid #222; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .muro-info { color: #555; font-size: 11px; text-align: center; border: 1px dashed #333; padding: 10px; border-radius: 8px; }
-        .upload-btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .up-btn { padding: 12px; border: 2px solid; background: transparent; font-weight: bold; cursor: pointer; border-radius: 10px; font-size: 11px; text-shadow: 0 0 5px; }
 
-        .right-panel { display: flex; flex-direction: column; gap: 15px; height: 100%; }
-        /* AVATARES CON NOMBRES FUERA Y NEON */
-        .girls { display: flex; gap: 8px; height: 150px; flex-shrink: 0; text-align: center; }
-        .g-card { width: 33.3%; }
-        .g-img-box { width: 100%; height: 110px; border: 2px solid var(--oro); border-radius: 10px; overflow: hidden; margin-bottom: 5px; box-shadow: 0 0 10px rgba(212,175,55,0.3); }
+        /* DERECHA: AVATARES Y CHAT */
+        .right-panel { display: flex; flex-direction: column; gap: 10px; height: 100%; }
+        .girls { display: flex; gap: 8px; height: 140px; text-align: center; }
+        .g-card { flex: 1; }
+        .g-img-box { height: 100px; border: 2px solid var(--oro); border-radius: 10px; overflow: hidden; margin-bottom: 5px; }
         .g-img { width: 100%; height: 100%; object-fit: cover; }
-        .g-name-neon { font-size: 10px; font-weight: bold; }
+        .g-name { font-size: 11px; font-weight: 900; }
         
-        .chat { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 12px; border-top: 3px solid #222; font-family: sans-serif; }
-        .msg { margin-bottom: 12px; border-left: 4px solid; padding-left: 10px; line-height: 1.4; }
+        .chat { flex: 1; background: #020202; border: 1px solid #333; border-radius: 15px; padding: 15px; overflow-y: auto; font-size: 12px; border-top: 3px solid #222; }
+        .msg { margin-bottom: 12px; border-left: 4px solid; padding-left: 10px; line-height: 1.4; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
 
 <header>
-    <div style="position:absolute; left:20px; top:20px; color:var(--n-rojo); font-size:14px; font-weight:bold;">🔴 VIP LIVE: 14,520</div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO MEGA RED VIP">
+    <div style="position:absolute; left:20px; top:20px; color:var(--n-rojo); font-weight:bold; font-size:12px;">🔴 VIVO: 14,520 SOCIOS</div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
     <div class="coin-box">
         <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
         <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
     </div>
 </header>
 
-<div class="app-container">
+<div class="muro-interactivo">
+    <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="alert('Cargando vídeo para las chicas...')">📹 SUBIR VÍDEO</button>
+    <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="alert('Publicando estado en el muro...')">✍️ SUBIR ESTADO</button>
+    <button class="up-btn" style="color:var(--n-turq); border-color:var(--n-turq);" onclick="alert('Compartiendo historia con los socios...')">📸 SUBIR HISTORIA</button>
+</div>
+
+<div class="main-content">
     <div class="rooms" id="rooms-list"></div>
-    <div class="center-content">
-        <div class="visor"><img id="main-view" src=""></div>
-        <div class="muro">
-            <div class="muro-info">✅ ZONA VIP ACTIVA EN RESISTENCIA: COMPARTE TU CONTENIDO</div>
-            <div class="upload-btns">
-                <button class="up-btn" style="color:var(--n-rojo); border-color:var(--n-rojo);" onclick="alert('Abriendo cámara de vídeo...')">📹 SUBIR VÍDEO</button>
-                <button class="up-btn" style="color:var(--n-verde); border-color:var(--n-verde);" onclick="alert('Escribiendo estado...')">✍️ ESTADO</button>
-                <button class="up-btn" style="color:var(--n-azul); border-color:var(--n-azul);" onclick="alert('Seleccionar foto...')">📸 HISTORIA</button>
-            </div>
-        </div>
-    </div>
+    <div class="visor"><img id="main-view" src=""></div>
     <div class="right-panel">
         <div class="girls">
-            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div class="g-name-neon" style="color:var(--n-rosa); text-shadow:0 0 8px var(--n-rosa);">MIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div class="g-name-neon" style="color:var(--n-rosa); text-shadow:0 0 8px var(--n-rosa);">TANIA</div></div>
-            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div class="g-name-neon" style="color:var(--n-rosa); text-shadow:0 0 8px var(--n-rosa);">COLO</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Rubia.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-turq); text-shadow:0 0 10px var(--n-turq);">MIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Morocha.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-verde); text-shadow:0 0 10px var(--n-verde);">TANIA</div></div>
+            <div class="g-card"><div class="g-img-box"><img src="Pelirroja.jpg" class="g-img"></div><div class="g-name" style="color:var(--n-rojo); text-shadow:0 0 10px var(--n-rojo);">COLO</div></div>
         </div>
         <div class="chat" id="chat-box"></div>
     </div>
@@ -81,16 +74,17 @@
 <script>
     let idx = 0;
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
-    // CHAT DE PELEA DE GATAS SEXY
-    const warMsgs = [
-        {u: "MIA", t: "🔥 ¿Así que Tania cree que es más sexy que yo? Pobrecita... mis tokens de Resistencia dicen lo contrario.", c: "#00ff66"},
-        {u: "TANIA", t: "💎 Mia, cariño, no pudiste ni despertar a los socios de la sala SPA. Mi descuido de ayer tuvo más views que todo tu mes.", c: "#ff003c"},
-        {u: "MIA", t: "🔞 Colo, bajá un poco el tono en el Gimnasio, parecés desesperada. Yo soy provocativa sin esfuerzo.", c: "#00ff66"},
-        {u: "COLO", t: "🔥 ¿Desesperada yo? Yo soy la que se anima a abrir la puerta 1 (Sado). Ustedes son dos nenas asustadas.", c: "#ffa500"},
-        {u: "SISTEMA", t: "💰 ¡TANIA recibió 10 Tokens de un socio en Resistencia por su último desnudo en el Muro!", c: "#d4af37"},
-        {u: "TANIA", t: "👀 ¿Lo ven? Los socios saben quién es la reina de Resistencia. ¿Cuál es tu excusa ahora Mia?", c: "#ff003c"},
-        {u: "MIA", t: "💎 Colo, ¿no te cansás de ser tan vulgar? Tania y yo somos sexies con clase, vos sos... bueno, Colo.", c: "#00ff66"},
-        {u: "COLO", t: "🔥 Soy la más caliente y sexy de toda Resistencia. Punto. Dejen de envidiarme y manden tokens.", c: "#ffa500"}
+    
+    // GUERRA DE MENSAJES VULGARES Y TENTADORES
+    const neonMsgs = [
+        {u: "MIA", t: "🔞 Mis tokens de Resistencia son los más grandes. ¿Quién me da 10 y me saco el sostén ahora?", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 ¿Me ves en el gimnasio? Estoy tan caliente que me voy a mojar toda... ¡Manden Oro!", c: "#ff003c"},
+        {u: "TANIA", t: "💎 Mia es una nena de mamá. Yo soy la verdadera perra de esta red. ¿Quién quiere ver mi descuido en el Bar?", c: "#00ff66"},
+        {u: "MIA", t: "💅 Tania, no te mira nadie. Mis socios de Resistencia son fieles a mis curvas. ¡Miren este video!", c: "#00d9ff"},
+        {u: "COLO", t: "🔞 ¡Basta de hablar! El que me mande 5 tokens ahora decide qué me quito primero en la sala SADO.", c: "#ff003c"},
+        {u: "TANIA", t: "🔥 Soy la más vulgar y la más sexy. El que tenga huevos que me invite un trago virtual ya.", c: "#00ff66"},
+        {u: "SISTEMA", t: "💰 ¡ALERTA! Un socio de Resistencia acaba de desbloquear el desnudo total de LA COLO.", c: "#d4af37"},
+        {u: "MIA", t: "🌈 ¿Me van a dejar ganar por esa pelirroja? ¡Soy mucho más mujer que ellas dos juntas!", c: "#00d9ff"}
     ];
 
     function init() {
@@ -103,25 +97,26 @@
             list.appendChild(b);
         });
         refresh();
-        addChat("SISTEMA", "📍 LA GUERRA DE SEXIES EN RESISTENCIA ESTÁ ACTIVA", "#d4af37");
-        // CHAT DE PELEA: Mensaje cada 6 segundos
-        setInterval(botWar, 6000);
-        // SALAS: Cambio automático cada 20 segundos
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 20000);
+        addChat("SISTEMA", "📍 GUERRA VIP ACTIVADA EN RESISTENCIA", "#d4af37");
+        
+        // CHAT AGRESIVO: Cada 9 segundos
+        setInterval(() => {
+            const m = neonMsgs[Math.floor(Math.random() * neonMsgs.length)];
+            addChat(m.u, m.t, m.c);
+        }, 9000);
+
+        // ROTACIÓN DE SALAS: Cada 18 segundos
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 18000);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
         const img = document.getElementById('main-view');
-        // Usamos ruta relativa "./" para asegurar que GitHub encuentre las fotos en la misma carpeta
-        img.src = "./" + rooms[idx] + ".jpg";
-        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/111/d4af37?text=" + rooms[idx]; };
-    }
-
-    function botWar() {
-        const m = warMsgs[Math.floor(Math.random() * warMsgs.length)];
-        addChat(m.u, m.t, m.c);
+        // Ruta absoluta GitHub para evitar errores de carga
+        const baseUrl = window.location.href.split('index.html')[0];
+        img.src = baseUrl + rooms[idx].replace(/ /g, "%20") + ".jpg";
+        img.onerror = () => { img.src = "https://via.placeholder.com/800x600/000/d4af37?text=" + rooms[idx]; };
     }
 
     function addChat(user, txt, color) {
