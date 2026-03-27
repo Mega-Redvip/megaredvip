@@ -8,8 +8,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
-        /* HEADER: Logo y Publicidad */
-        header { height: 260px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; }
+        /* HEADER: Logo XL y Publicidad */
+        header { height: 260px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; position: relative; }
         .header-ads-left { width: 220px; display: flex; flex-direction: column; gap: 8px; }
         .ad-mini { border: 2px solid var(--n-rojo); padding: 8px; font-size: 10px; text-align: center; color: #fff; background: #400; border-radius: 5px; text-transform: uppercase; }
         .logo-img { height: 220px; width: auto; filter: drop-shadow(0 0 35px var(--oro)); }
@@ -35,15 +35,15 @@
         /* COLUMNA 2: VISOR DE SALAS */
         .center-col { display: flex; flex-direction: column; gap: 15px; }
         .visor-container { background: #050505; border: 5px solid #1a1a1a; border-radius: 15px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        #main-view { width: 100%; height: 100%; object-fit: contain; }
+        #main-view { width: 100%; height: 100%; object-fit: contain; } /* Mantiene nitidez y proporciones */
         .sala-tag { position: absolute; top: 15px; right: 15px; background: var(--n-rojo); padding: 5px 15px; font-size: 14px; font-weight: 900; z-index: 10; color: white; }
 
-        /* COLUMNA 3: CHATS Y CHICAS */
+        /* COLUMNA 3: CHATS Y CHICAS ENTERAS */
         .right-side { display: flex; flex-direction: column; gap: 10px; height: 80vh; position: sticky; top: 20px; }
-        .girls-container { display: flex; gap: 8px; height: 150px; }
+        .girls-container { display: flex; gap: 8px; height: 280px; } /* MÁS ALTO PARA CUERPO ENTERO */
         .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .girl-img-box { width: 100%; height: 100px; border: 3px solid; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-        .girl-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .girl-img-box { width: 100%; height: 230px; border: 3px solid; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.5); background: #111; }
+        .girl-img-box img { width: 100%; height: 100%; object-fit: contain; } /* 'contain' para ver cuerpo entero */
         .girl-name { font-size: 14px; font-weight: 900; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
         
         .chat-display { flex-grow: 1; background: #020202; border: 2px solid #333; border-radius: 10px; padding: 15px; overflow-y: auto; font-size: 14px; }
@@ -70,11 +70,13 @@
     <div class="center-col">
         <div class="visor-container">
             <div class="sala-tag" id="sala-tag">SALA ACTIVA</div>
-            <img id="main-view" src="Sado y Maso.jpg">
+            <img id="main-view" src="">
         </div>
         <div style="background:#0a0a0a; border:1px solid #222; padding:15px; border-radius:10px;">
-            <h4 style="color:var(--oro); margin-bottom:5px;">📰 MURO SOCIAL</h4>
-            <div id="posts-container" style="color:#bc13fe; font-size:13px;"><b>Socio VIP:</b> ¡Qué buenas que están! 🔥</div>
+            <h4 style="color:var(--oro); margin-bottom:5px; border-bottom:1px dashed #333; padding-bottom:5px;">📰 MURO SOCIAL RESISTENCIA</h4>
+            <div id="posts-container" style="color:#bc13fe; font-size:13px; font-family:sans-serif; padding-top:10px;">
+                <b>Socio VIP:</b> ¡Qué buenas que están! 🔥
+            </div>
         </div>
     </div>
 
@@ -103,7 +105,7 @@
     
     const msgs = [
         {u: "MIA", t: "🔞 ¡Miren lo que soy! Soy la más putita de Resistencia.", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Quién me manda 10 tokens para que me abra de piernas?", c: "#ff003c"},
+        {u: "COLO", t: "🔥 ¿Quién es el macho que me va a mandar 10 tokens para que me abra de piernas?", c: "#ff003c"},
         {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"},
         {u: "COLO", t: "🔞 Manden oro o me voy con los clientes VIP.", c: "#ff003c"},
         {u: "MIA", t: "🔥 Soy la que más muestra, miren mi historia nueva.", c: "#00d9ff"},
@@ -132,19 +134,21 @@
         document.getElementById('sala-tag').innerText = rooms[idx].toUpperCase();
         const img = document.getElementById('main-view');
         
-        // MOTOR DE CARGA REFORZADO
+        // --- MOTOR DE CARGA REFORZADO (ANTI-ESPACIOS) ---
+        // 1. Limpiamos espacios (ej: 'Sado y Maso' -> 'Sado%20y%20Maso')
         const roomName = rooms[idx];
+        const formattedName = encodeURIComponent(roomName); 
         
-        // Opción 1: Ruta directa (Sin limpiar nada)
-        img.src = roomName + ".jpg";
+        // 2. Ruta directa (con punto para GitHub)
+        img.src = "./" + formattedName + ".jpg";
 
         img.onerror = () => {
-            // Opción 2: Con espacios codificados para GitHub
-            img.src = "./" + encodeURIComponent(roomName) + ".jpg";
+            // 3. Si falla, intenta sin el punto (raíz pura)
+            img.src = formattedName + ".jpg";
             
             img.onerror = () => {
-                // Opción 3: Placeholder visual para avisar que falta el archivo
-                img.src = "https://via.placeholder.com/800x600/111/d4af37?text=SUBIR_" + roomName.replace(/ /g, "_") + ".jpg";
+                // 4. Si sigue fallando, es que el archivo NO está en GitHub o se llama distinto (.JPG, .png, etc.)
+                img.src = "https://via.placeholder.com/800x600/111/d4af37?text=CARGANDO_" + roomName.replace(/ /g, "_") + ".jpg";
             };
         };
     }
