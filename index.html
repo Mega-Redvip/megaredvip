@@ -2,114 +2,183 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPACTO TOTAL</title>
+    <title>MEGA RED VIP | IMPERIO TOTAL v54</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; 
-            --n-verde: #00ff66; --n-turq: #00d9ff; 
+            --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; 
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { 
             background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
-            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+            min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
         }
 
+        /* HEADER MONUMENTAL */
         header { 
-            height: 180px; background: #000; border-bottom: 4px solid var(--oro); 
-            display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 50px; flex-shrink: 0;
-        }
-        .logo-img { height: 150px; filter: drop-shadow(0 0 20px var(--oro)); }
-
-        /* --- ESTRUCTURA DE 3 COLUMNAS --- */
-        .main-container { 
-            display: grid; 
-            grid-template-columns: 180px 1fr 450px; /* Salas finitas | Visor | BOTS GIGANTES */
-            gap: 15px; padding: 15px; flex-grow: 1; overflow: hidden;
+            height: 350px; background: linear-gradient(to bottom, #111, #000); 
+            border-bottom: 5px solid var(--oro); 
+            display: grid; grid-template-columns: 350px 1fr 350px; align-items: center; 
+            padding: 20px 50px; flex-shrink: 0;
         }
 
-        /* 1. COLUMNA IZQUIERDA: Nombres de salas achicados */
-        .side-rooms { 
-            background: #0a0a0a; border: 1px solid #222; border-radius: 15px; 
-            display: flex; flex-direction: column; gap: 5px; padding: 10px;
+        .header-side { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .ads-box {
+            width: 280px; height: 120px; border: 2px dashed #444; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: #555; font-size: 12px; text-align: center; background: #050505;
         }
-        .room-btn { 
-            padding: 10px; background: #111; border: 1px solid #333; border-radius: 8px;
-            font-size: 10px; text-transform: uppercase; cursor: pointer; text-align: center;
-        }
-        .room-btn.active { background: var(--oro); color: #000; font-weight: 900; }
 
-        /* 2. COLUMNA CENTRAL: Visor y Galería Inferior */
-        .center-area { display: flex; flex-direction: column; gap: 15px; overflow: hidden; }
+        /* MONEDAS 3D */
+        .coin-pair { display: flex; gap: 15px; }
+        .coin { 
+            width: 80px; height: 80px; border-radius: 50%; 
+            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
+            border: 3px solid #111; color: #000; font-size: 20px; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-weight: 900; 
+            box-shadow: 0 8px 15px rgba(0,0,0,0.8), inset 0 -4px 5px rgba(0,0,0,0.6);
+            transition: 0.1s;
+        }
+        .coin:active { transform: translateY(4px); box-shadow: 0 4px 8px rgba(0,0,0,1); }
+
+        .logo-center { display: flex; justify-content: center; }
+        .logo-img { height: 300px; filter: drop-shadow(0 0 40px var(--oro)); object-fit: contain; }
+
+        /* CUERPO PRINCIPAL: 3 COLUMNAS REORGANIZADAS */
+        .main-app { 
+            display: grid; grid-template-columns: 200px 1fr 420px; 
+            gap: 25px; padding: 25px; flex-grow: 1;
+        }
         
-        .main-screen { 
-            background: #000; border: 5px solid #1a1a1a; border-radius: 20px; 
-            flex-grow: 1; position: relative; overflow: hidden;
+        /* COLUMNA 1: SALAS (ACHICADAS A LA IZQUIERDA) */
+        .rooms-sidebar { 
+            background: #0a0a0a; border: 1px solid #222; border-radius: 20px; 
+            padding: 15px; display: flex; flex-direction: column; gap: 10px;
+        }
+        .room-tab { 
+            padding: 12px; background: #151515; border: 1px solid #333; border-radius: 10px;
+            cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase;
+            text-align: center; transition: 0.2s; color: #aaa;
+        }
+        .room-tab:hover { border-color: var(--oro); color: var(--oro); }
+        .room-tab.active { background: var(--oro); color: #000; border-color: #fff; }
+
+        /* COLUMNA 2: VISOR Y GALERÍA INFERIOR */
+        .center-stage { display: flex; flex-direction: column; gap: 20px; }
+        .visor-main { 
+            background: #000; border: 6px solid #1a1a1a; border-radius: 30px; 
+            height: 600px; position: relative; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,1);
         }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-
-        /* GALERÍA DEBAJO DEL VISOR: Imágenes de las salas */
-        .bottom-gallery { 
-            height: 150px; display: flex; gap: 10px; overflow-x: auto; 
-            background: #080808; padding: 10px; border-radius: 15px; border: 1px solid #222;
-        }
-        .gal-img { 
-            flex: 0 0 180px; height: 100%; border-radius: 10px; border: 2px solid #333;
-            object-fit: cover; cursor: pointer; transition: 0.3s;
-        }
-        .gal-img.active { border-color: #fff; box-shadow: 0 0 15px #fff; transform: scale(0.95); }
-
-        /* 3. COLUMNA DERECHA: BOTS GIGANTES Y CHAT */
-        .side-bots { display: flex; flex-direction: column; gap: 15px; }
         
-        .bot-massive { 
-            flex-grow: 1; display: flex; flex-direction: column; gap: 10px;
+        /* GALERÍA DE IMÁGENES DE SALAS DEBAJO */
+        .rooms-gallery { 
+            display: flex; gap: 12px; overflow-x: auto; padding: 15px;
+            background: #080808; border-radius: 20px; border: 1px solid #222;
         }
-        .bot-frame { 
-            flex: 1; border-radius: 15px; overflow: hidden; border: 3px solid #222; 
-            position: relative; background: #050505;
+        .gal-card { 
+            flex: 0 0 160px; height: 100px; border-radius: 12px; border: 2px solid #333;
+            cursor: pointer; transition: 0.3s; object-fit: cover;
         }
-        .bot-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .bot-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 5px; color: var(--oro); font-weight: 900; border-top: 1px solid var(--oro); }
+        .gal-card:hover { border-color: var(--oro); transform: scale(1.05); }
+        .gal-card.active { border-color: #fff; box-shadow: 0 0 20px #fff; }
 
-        .chat-slim { 
-            height: 200px; background: #020202; border: 1px solid #222; 
-            border-radius: 15px; padding: 10px; overflow-y: auto; font-size: 11px;
-            display: flex; flex-direction: column-reverse; gap: 5px;
+        /* COLUMNA 3: BOTS GIGANTES Y CHAT */
+        .social-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .bots-massive { display: flex; flex-direction: column; gap: 12px; }
+        .bot-box { 
+            height: 220px; border-radius: 20px; overflow: hidden; border: 3px solid #222; 
+            position: relative; background: #000;
         }
-        .msg { border-left: 3px solid var(--n-turq); padding-left: 8px; }
+        .bot-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; font-size: 16px; font-weight: 900; color: var(--oro); }
 
-        /* Scrollbar estilo Oro */
-        ::-webkit-scrollbar { height: 8px; width: 4px; }
+        .chat-area { 
+            background: #050505; border: 1px solid #222; border-radius: 20px; 
+            height: 350px; padding: 20px; overflow-y: auto; font-size: 14px;
+            display: flex; flex-direction: column-reverse; gap: 10px;
+        }
+        .msg { border-left: 4px solid var(--n-turq); padding-left: 12px; color: #ddd; }
+
+        /* MUROS INFERIORES: HISTORIAS, VIDEOS, ESTADOS */
+        .bottom-walls { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; 
+            padding: 40px; border-top: 5px solid #111; background: #050505;
+        }
+        .wall-box { background: #0a0a0a; border: 2px solid #222; padding: 20px; border-radius: 25px; }
+        .wall-title { font-size: 18px; margin-bottom: 15px; font-weight: 900; text-transform: uppercase; }
+        .wall-content { height: 250px; overflow-y: auto; margin-bottom: 15px; display: flex; flex-direction: column-reverse; gap: 10px; }
+        .up-btn { width: 100%; padding: 15px; background: #111; color: var(--oro); border: 2px solid var(--oro); cursor: pointer; border-radius: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
+        .up-btn:hover { background: var(--oro); color: #000; box-shadow: 0 0 20px var(--oro); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 10px; }
     </style>
 </head>
 <body onload="init()">
 
 <header>
-    <div style="color:#333; font-size:10px;">AD_SPACE_LEFT</div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-img">
-    <div style="color:#333; font-size:10px;">AD_SPACE_RIGHT</div>
+    <div class="header-side">
+        <div class="ads-box">PUBLICIDAD $20</div>
+        <div class="coin-pair">
+            <div class="coin" onclick="pay(1)">$1</div>
+            <div class="coin" onclick="pay(3)">$3</div>
+        </div>
+    </div>
+    <div class="logo-center">
+        <img src="Logo Mega Red Lunar.jpg" class="logo-img">
+    </div>
+    <div class="header-side">
+        <div class="ads-box">PUBLICIDAD $50</div>
+        <div class="coin-pair">
+            <div class="coin" onclick="pay(5)">$5</div>
+            <div class="coin" onclick="pay(10)">$10</div>
+        </div>
+    </div>
 </header>
 
-<div class="main-container">
-    <div id="side-list" class="side-rooms"></div>
+<div class="main-app">
+    <div id="rooms-tabs" class="rooms-sidebar"></div>
 
-    <div class="center-area">
-        <div class="main-screen">
+    <div class="center-stage">
+        <div class="visor-main">
             <img id="main-view" src="">
+            <div style="position:absolute; top:20px; left:20px; background:rgba(0,0,0,0.8); padding:10px 20px; border-radius:30px; border:1px solid var(--n-verde); font-size:12px;">
+                <span style="color:var(--n-verde); animation: blink 1s infinite;">●</span> EN VIVO | <span id="s-users">0</span> ONLINE
+            </div>
         </div>
-        <div id="bottom-gal" class="bottom-gallery"></div>
+        
+        <div id="rooms-gallery" class="rooms-gallery"></div>
     </div>
 
-    <div class="side-bots">
-        <div class="bot-massive">
-            <div class="bot-frame"><img src="Rubia.jpg"><div class="bot-tag">MIA</div></div>
-            <div class="bot-frame"><img src="Morocha.jpg"><div class="bot-tag">TANIA</div></div>
-            <div class="bot-frame"><img src="Pelirroja.jpg"><div class="bot-tag">COLO</div></div>
+    <div class="social-sidebar">
+        <div class="bots-massive">
+            <div class="bot-box"><img src="Rubia.jpg"><div class="bot-label">MIA</div></div>
+            <div class="bot-box"><img src="Morocha.jpg"><div class="bot-label">TANIA</div></div>
+            <div class="bot-box"><img src="Pelirroja.jpg"><div class="bot-label">COLO</div></div>
         </div>
-        <div id="chat-box" class="chat-slim"></div>
+        <div id="chat-stream" class="chat-area"></div>
+    </div>
+</div>
+
+<div class="bottom-walls">
+    <div class="wall-box">
+        <div class="wall-title" style="color:var(--n-turq)">📖 HISTORIAS VIP</div>
+        <div class="wall-content" id="wall-h"></div>
+        <button class="up-btn" onclick="pay(5)">📤 SUBIR HISTORIA</button>
+    </div>
+    <div class="wall-box">
+        <div class="wall-title" style="color:var(--n-rojo)">🎬 VIDEOS PRIVADOS</div>
+        <div class="wall-content" id="wall-v"></div>
+        <button class="up-btn" onclick="pay(10)">📤 SUBIR VIDEO</button>
+    </div>
+    <div class="wall-box">
+        <div class="wall-title" style="color:var(--n-verde)">📱 ESTADOS HOT</div>
+        <div class="wall-content" id="wall-e"></div>
+        <button class="up-btn" onclick="pay(2)">📤 SUBIR ESTADO</button>
     </div>
 </div>
 
@@ -126,33 +195,31 @@
     ];
 
     function init() {
-        const side = document.getElementById('side-list');
-        const gal = document.getElementById('bottom-gal');
+        const tabs = document.getElementById('rooms-tabs');
+        const gallery = document.getElementById('rooms-gallery');
 
         rooms.forEach((r, i) => {
-            // Botones izquierda
-            const b = document.createElement('div');
-            b.className = 'room-btn'; b.id = 'btn-'+i;
-            b.innerText = r.n;
-            b.onclick = () => { idx = i; refresh(); };
-            side.appendChild(b);
+            const t = document.createElement('div');
+            t.className = 'room-tab'; t.id = 'tab-'+i;
+            t.innerText = r.n;
+            t.onclick = () => { idx = i; refresh(); };
+            tabs.appendChild(t);
 
-            // Imágenes abajo
             const img = document.createElement('img');
-            img.className = 'gal-img'; img.id = 'gal-'+i;
+            img.className = 'gal-card'; img.id = 'gal-'+i;
             img.src = encodeURI(r.n + r.e);
             img.onclick = () => { idx = i; refresh(); };
-            gal.appendChild(img);
+            gallery.appendChild(img);
         });
         refresh();
         setInterval(botChat, 2000);
+        setInterval(() => { document.getElementById('s-users').innerText = 400 + Math.floor(Math.random()*600); }, 3000);
     }
 
     function refresh() {
-        document.querySelectorAll('.room-btn, .gal-img').forEach(el => el.classList.remove('active'));
-        document.getElementById('btn-'+idx).classList.add('active');
+        document.querySelectorAll('.room-tab, .gal-card').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-'+idx).classList.add('active');
         document.getElementById('gal-'+idx).classList.add('active');
-        
         document.getElementById('main-view').src = encodeURI(rooms[idx].n + rooms[idx].e);
         const player = document.getElementById('audio-player');
         player.src = rooms[idx].s;
@@ -160,11 +227,20 @@
     }
 
     function botChat() {
-        const chat = document.getElementById('chat-box');
-        const m = ["🔥 PRIVADO!", "Tip $5", "Hola!", "VIP", "Socio Chaco"];
-        const n = ["Mia", "Tania", "Colo", "User"][Math.floor(Math.random()*4)];
+        const chat = document.getElementById('chat-stream');
+        const m = ["🔥 PRIVADO!", "Tip $5 enviado", "Miren mi historia!", "MIA está online!", "💎 VIP GOLD"];
+        const n = ["Mia", "Tania", "Colo", "Admin", "User_Chaco"][Math.floor(Math.random()*5)];
         chat.innerHTML = `<div class="msg"><b>${n}:</b> ${m[Math.floor(Math.random()*5)]}</div>` + chat.innerHTML;
+        updateWalls(n);
     }
+
+    function updateWalls(u) {
+        const ids = ['wall-h', 'wall-v', 'wall-e'];
+        const w = document.getElementById(ids[Math.floor(Math.random()*3)]);
+        w.innerHTML = `<div style="font-size:13px; color:#777;"><b>${u}</b> subió nuevo contenido...</div>` + w.innerHTML;
+    }
+
+    function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
 </script>
 </body>
 </html>
