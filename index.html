@@ -2,106 +2,102 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | TOTAL IMMERSION</title>
+    <title>MEGA RED VIP | TOTAL CONTROL</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-        /* HEADER: LOGO CENTRAL XL */
-        header { height: 260px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 50px; position: relative; flex-shrink: 0; }
+        /* HEADER EQUILIBRADO */
+        header { height: 180px; background: #000; border-bottom: 4px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; position: relative; flex-shrink: 0; }
         
-        .header-left { width: 300px; display: flex; flex-direction: column; gap: 10px; }
-        .ad-mini { border: 2px solid var(--n-rojo); padding: 10px; font-size: 11px; text-align: center; color: #fff; background: #400; border-radius: 5px; text-transform: uppercase; font-weight: 900; }
-        
-        .logo-container { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; width: 500px; height: 100%; }
-        .logo-img { height: 240px; width: auto; filter: drop-shadow(0 0 35px var(--oro)); object-fit: contain; }
-        
-        .header-right { width: 300px; display: flex; justify-content: flex-end; align-items: center; }
-        .online-counter { background: rgba(0,255,102,0.1); border: 2px solid var(--n-verde); padding: 10px 25px; border-radius: 30px; color: var(--n-verde); font-size: 16px; font-weight: 900; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
-        .dot { width: 12px; height: 12px; background: var(--n-verde); border-radius: 50%; animation: blink 0.8s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.2); } }
+        .header-left { width: 250px; z-index: 10; }
+        .online-counter { background: rgba(0,255,102,0.1); border: 1px solid var(--n-verde); padding: 5px 12px; border-radius: 20px; color: var(--n-verde); font-size: 12px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; background: var(--n-verde); border-radius: 50%; animation: blink 0.8s infinite; }
 
-        /* LAYOUT PRINCIPAL */
-        .main-app { display: grid; grid-template-columns: 260px 1fr 420px; gap: 20px; padding: 20px; flex-grow: 1; overflow: hidden; }
+        .logo-container { position: absolute; left: 50%; transform: translateX(-50%); height: 100%; display: flex; align-items: center; }
+        .logo-img { height: 150px; width: auto; filter: drop-shadow(0 0 25px var(--oro)); }
         
-        /* COLUMNA 1: SALAS */
-        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 15px; padding: 15px; overflow-y: auto; height: 100%; }
-        .p-btn { width: 100%; padding: 18px; margin-bottom: 10px; background: #151515; border: 1px solid #444; color: #999; cursor: pointer; border-radius: 8px; text-align: left; font-size: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
-        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 20px var(--n-turq); transform: scale(1.03); }
+        /* LAS 4 MONEDAS RECUPERADAS */
+        .header-right { width: 250px; display: flex; justify-content: flex-end; z-index: 10; }
+        .coin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .coin { 
+            width: 60px; height: 60px; border-radius: 50%; 
+            background: radial-gradient(circle at 35% 35%, #fff9aa, var(--oro) 50%, #5c4928); 
+            border: 2px solid #222; color: #000; font-size: 18px; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-weight: 900; box-shadow: 0 4px 0 #333; transition: 0.2s;
+        }
+        .coin:active { transform: translateY(4px); box-shadow: none; }
 
-        /* COLUMNA 2: VISOR CENTRAL */
-        .center-col { display: flex; flex-direction: column; gap: 20px; height: 100%; }
-        .visor-container { background: #050505; border: 6px solid #1a1a1a; border-radius: 20px; flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        /* LAYOUT REAJUSTADO */
+        .main-app { display: grid; grid-template-columns: 220px 1fr 350px; gap: 15px; padding: 15px; flex-grow: 1; min-height: 0; }
+        
+        /* SALAS */
+        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 10px; padding: 10px; overflow-y: auto; }
+        .p-btn { width: 100%; padding: 12px; margin-bottom: 6px; background: #151515; border: 1px solid #444; color: #999; cursor: pointer; border-radius: 5px; text-align: left; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 10px var(--n-turq); }
+
+        /* VISOR SALAS */
+        .visor-container { background: #050505; border: 4px solid #1a1a1a; border-radius: 15px; flex-grow: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        .sala-tag { position: absolute; top: 20px; right: 20px; background: var(--n-rojo); padding: 8px 20px; font-size: 16px; font-weight: 900; z-index: 10; color: white; border-radius: 5px; text-transform: uppercase; }
+        .sala-tag { position: absolute; top: 15px; right: 15px; background: var(--n-rojo); padding: 5px 12px; font-size: 13px; font-weight: 900; z-index: 10; color: white; border-radius: 4px; }
 
-        /* COLUMNA 3: CHICAS GIGANTES SIMÉTRICAS */
-        .right-side { display: flex; flex-direction: column; gap: 15px; height: 100%; }
-        .girls-container { display: flex; gap: 10px; flex-grow: 1; align-items: stretch; }
-        .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; position: relative; }
-        .girl-img-box { width: 100%; height: 100%; overflow: hidden; background: transparent; display: flex; align-items: flex-end; justify-content: center; }
-        .girl-img-box img { width: auto; height: 100%; object-fit: contain; filter: drop-shadow(0 0 15px rgba(255,255,255,0.1)); } 
-        .girl-name { font-size: 16px; font-weight: 900; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px; position: absolute; bottom: -25px; }
+        /* COLUMNA DERECHA: AVATARES + CHAT */
+        .right-side { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+        .girls-container { display: flex; gap: 5px; height: 250px; flex-shrink: 0; }
+        .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+        .girl-img-box { width: 100%; height: 210px; overflow: hidden; background: transparent; display: flex; align-items: flex-end; justify-content: center; }
+        .girl-img-box img { height: 100%; width: auto; object-fit: contain; } 
+        .girl-name { font-size: 11px; font-weight: 900; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* CHAT */
-        .chat-display { height: 180px; background: #020202; border: 2px solid #333; border-radius: 10px; padding: 15px; overflow-y: auto; font-size: 14px; flex-shrink: 0; }
-        .msg { margin-bottom: 12px; border-left: 6px solid; padding-left: 12px; line-height: 1.4; font-weight: bold; }
+        /* CHAT RECUPERADO */
+        .chat-display { flex-grow: 1; background: #020202; border: 2px solid #333; border-radius: 10px; padding: 12px; overflow-y: auto; font-size: 13px; min-height: 0; }
+        .msg { margin-bottom: 8px; border-left: 4px solid; padding-left: 10px; line-height: 1.3; font-weight: bold; }
 
-        /* UNMUTE OVERLAY */
-        #unmute-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
-        .unmute-btn { background: var(--oro); color: #000; padding: 20px 40px; font-size: 24px; font-weight: 900; border-radius: 50px; border: none; box-shadow: 0 0 30px var(--oro); text-transform: uppercase; margin-bottom: 20px; }
+        #unmute-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div id="unmute-overlay" onclick="enableAudio()">
-    <button class="unmute-btn">🔊 ACTIVAR SONIDO VIP</button>
-    <p style="color:var(--oro); font-size:14px;">(Requerido por el navegador para iniciar la experiencia)</p>
+    <button style="background:var(--oro); color:#000; padding:15px 30px; font-size:20px; font-weight:900; border-radius:50px; border:none; cursor:pointer;">🔊 ENTRAR AL SHOW</button>
 </div>
 
 <header>
     <div class="header-left">
-        <div class="ad-mini">🔞 PUBLICIDAD VIP</div>
-        <div class="ad-mini" style="border-color:var(--n-turq);">💎 COMPRAR TOKENS</div>
+        <div class="online-counter"><div class="dot"></div> <span id="user-count">684</span> ONLINE</div>
     </div>
-    
-    <div class="logo-container">
-        <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="MEGA RED VIP">
-    </div>
-
+    <div class="logo-container"><img src="Logo Mega Red Lunar.jpg" class="logo-img"></div>
     <div class="header-right">
-        <div class="online-counter"><div class="dot"></div> <span id="user-count">684</span> PAJEROS ONLINE</div>
+        <div class="coin-grid">
+            <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
+            <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
+        </div>
     </div>
 </header>
 
 <div class="main-app">
     <div class="rooms-box" id="rooms-list"></div>
-
-    <div class="center-col">
+    <div class="center-col" style="display:flex; flex-direction:column;">
         <div class="visor-container">
-            <div class="sala-tag" id="sala-tag">SALA ACTIVA</div>
+            <div class="sala-tag" id="sala-tag">SALA</div>
             <img id="main-view" src="">
         </div>
-        <div style="background:#0a0a0a; border:1px solid #222; padding:15px; border-radius:10px; margin-top:10px;">
-            <h4 style="color:var(--oro);">📰 MURO SOCIAL RESISTENCIA - VIP</h4>
-            <div id="posts-container" style="color:#bc13fe; font-size:13px; margin-top:5px;"><b>ADMIN:</b> Solo para machos. Rotación activa cada 6s.</div>
-        </div>
     </div>
-
     <div class="right-side">
         <div class="girls-container">
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Rubia.jpg"></div>
-                <div class="girl-name" style="color:var(--n-turq); text-shadow: 0 0 10px var(--n-turq);">MIA</div>
+                <div class="girl-name" style="color:var(--n-turq);">MIA</div>
             </div>
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Morocha.jpg"></div>
-                <div class="girl-name" style="color:var(--n-verde); text-shadow: 0 0 10px var(--n-verde);">TANIA</div>
+                <div class="girl-name" style="color:var(--n-verde);">TANIA</div>
             </div>
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Pelirroja.jpg"></div>
-                <div class="girl-name" style="color:var(--n-rojo); text-shadow: 0 0 10px var(--n-rojo);">COLO</div>
+                <div class="girl-name" style="color:var(--n-rojo);">COLO</div>
             </div>
         </div>
         <div class="chat-display" id="chat-stream"></div>
@@ -113,25 +109,16 @@
 <script>
     let idx = 0;
     let audioEnabled = false;
+    let userCity = "Resistencia";
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg", s: "Sado_y_Maso.mp3"}, 
-        {n: "Spa", e: ".png", s: "Spa.mp3"}, 
-        {n: "Biblioteca", e: ".png", s: "Biblioteca.mp3"},
-        {n: "Camarera", e: ".png", s: "Camarera.mp3"}, 
-        {n: "Discoteca", e: ".png", s: "Discoteca.mp3"}, 
-        {n: "El Bar", e: ".png", s: "El_Bar.mp3"},
-        {n: "Gimnasio", e: ".png", s: "Gimnasio.mp3"}, 
-        {n: "La Tiendita", e: ".png", s: "La_Tiendita.mp3"}, 
-        {n: "Oficina", e: ".png", s: "Oficina.mp3"}, 
-        {n: "Playa", e: ".png", s: "Playa.mp3"}
+        {n: "Sado y Maso", e: ".jpg", s: "Sado_y_Maso.mp3"}, {n: "Spa", e: ".png", s: "Spa.mp3"}, 
+        {n: "Biblioteca", e: ".png", s: "Biblioteca.mp3"}, {n: "Camarera", e: ".png", s: "Camarera.mp3"}, 
+        {n: "Discoteca", e: ".png", s: "Discoteca.mp3"}, {n: "El Bar", e: ".png", s: "El_Bar.mp3"},
+        {n: "Gimnasio", e: ".png", s: "Gimnasio.mp3"}, {n: "La Tiendita", e: ".png", s: "La_Tiendita.mp3"}, 
+        {n: "Oficina", e: ".png", s: "Oficina.mp3"}, {n: "Playa", e: ".png", s: "Playa.mp3"}
     ];
-    
-    const chatMsgs = [
-        {u: "MIA", t: "🔞 Mírenme... soy la más putita de Resistencia.", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Quién manda tokens para que me abra de piernas?", c: "#ff003c"},
-        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"},
-        {u: "MIA", t: "🔞 Me acabo de meter un juguete nuevo, ¿quieren ver?", c: "#00d9ff"}
-    ];
+
+    fetch('https://ipapi.co/json/').then(res => res.json()).then(data => { if(data.city) userCity = data.city; });
 
     function init() {
         const list = document.getElementById('rooms-list');
@@ -139,62 +126,43 @@
             const b = document.createElement('button');
             b.className = 'p-btn'; b.id = 'r-'+i;
             b.innerHTML = `🚪 ${r.n}`;
-            b.onclick = () => { idx = i; refresh(true); }; // true = resetear timer
+            b.onclick = () => { idx = i; refresh(); };
             list.appendChild(b);
         });
         refresh();
-        setInterval(botChat, 5000);
-        
-        // INICIAR ROTACIÓN AUTOMÁTICA (6 SEGUNDOS)
-        startRotation();
-
-        setInterval(() => {
-            document.getElementById('user-count').innerText = 650 + Math.floor(Math.random() * 150);
-        }, 3000);
+        setInterval(botChat, 4000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 6000);
+        setInterval(() => { document.getElementById('user-count').innerText = 600 + Math.floor(Math.random() * 150); }, 3000);
     }
 
-    let rotationTimer;
-    function startRotation() {
-        if(rotationTimer) clearInterval(rotationTimer);
-        rotationTimer = setInterval(() => {
-            idx = (idx + 1) % rooms.length;
-            refresh();
-        }, 6000); // 6 segundos
-    }
-
-    function refresh(manualClick = false) {
+    function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
-        const activeBtn = document.getElementById('r-'+idx);
-        if(activeBtn) activeBtn.classList.add('active');
-        
+        document.getElementById('r-'+idx).classList.add('active');
         const r = rooms[idx];
         document.getElementById('sala-tag').innerText = r.n.toUpperCase();
         document.getElementById('main-view').src = encodeURIComponent(r.n) + r.e;
-        
-        // GESTIÓN DE SONIDO
         if(audioEnabled) {
             const player = document.getElementById('room-sound');
-            player.src = r.s;
-            player.play().catch(e => console.log("Error de audio:", e));
+            player.src = r.s; player.play().catch(() => {});
         }
-
-        if(manualClick) startRotation(); // Resetear timer si el usuario hace clic
     }
 
     function botChat() {
-        const m = chatMsgs[Math.floor(Math.random() * chatMsgs.length)];
+        const f = [
+            {u:"MIA", c:var(--n-turq), t:`🔞 ¿Algún macho de ${userCity} para hacerme de todo?`},
+            {u:"TANIA", c:var(--n-verde), t:`🔥 Callate Mia, en ${userCity} me aman a mí.`},
+            {u:"COLO", c:var(--n-rojo), t:`🔞 Recién atendí a uno de ${userCity} y quedé re caliente.`},
+            {u:"MIA", c:var(--n-turq), t:"💎 El que mande tokens ahora decide qué me saco."},
+            {u:"TANIA", c:var(--n-verde), t:"🔥 ¡Muevan la guita pajeros! ¿O son secos?"}
+        ];
+        const m = f[Math.floor(Math.random() * f.length)];
         const box = document.getElementById('chat-stream');
         box.innerHTML += `<div class="msg" style="border-color:${m.c}; color:${m.c}"><b>${m.u}:</b> ${m.t}</div>`;
         box.scrollTop = box.scrollHeight;
     }
 
-    // FUNCIÓN PARA ACTIVAR AUDIO TRAS CLIC DEL USUARIO
-    function enableAudio() {
-        audioEnabled = true;
-        document.getElementById('unmute-overlay').style.display = 'none';
-        refresh(); // Cargar sonido de la sala actual
-    }
-
+    function enableAudio() { audioEnabled = true; document.getElementById('unmute-overlay').style.display='none'; refresh(); }
+    function pay(n) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount=${n}&currency_code=USD`, '_blank'); }
     init();
 </script>
 </body>
