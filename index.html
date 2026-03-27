@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | EL IMPERIO</title>
+    <title>MEGA RED VIP | IMPACTO TOTAL</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; 
@@ -10,119 +10,107 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* Diseño que se adapta a tu pantalla sin romperse */
         body { 
-            background: var(--fondo); color: white; font-family: 'Arial', sans-serif; 
-            min-height: 100vh; display: flex; flex-direction: column;
-            overflow-x: hidden;
+            background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
+            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* HEADER: Logo central protegido */
         header { 
-            height: 250px; background: #000; border-bottom: 4px solid var(--oro); 
+            height: 180px; background: #000; border-bottom: 4px solid var(--oro); 
             display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 40px; flex-shrink: 0;
+            padding: 0 50px; flex-shrink: 0;
         }
-        .header-ads { width: 220px; height: 100px; border: 1px dashed #444; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #444; }
-        .logo-img { height: 200px; filter: drop-shadow(0 0 20px var(--oro)); object-fit: contain; }
+        .logo-img { height: 150px; filter: drop-shadow(0 0 20px var(--oro)); }
 
-        /* CONTENEDOR PRINCIPAL */
-        .main-content { 
-            display: grid; grid-template-columns: 350px 1fr 320px; 
-            gap: 20px; padding: 20px; flex-grow: 1;
+        /* --- ESTRUCTURA DE 3 COLUMNAS --- */
+        .main-container { 
+            display: grid; 
+            grid-template-columns: 180px 1fr 450px; /* Salas finitas | Visor | BOTS GIGANTES */
+            gap: 15px; padding: 15px; flex-grow: 1; overflow: hidden;
         }
 
-        /* COLUMNA IZQUIERDA: 10 SALAS (Entran todas, imagen clara) */
-        .rooms-sidebar { 
+        /* 1. COLUMNA IZQUIERDA: Nombres de salas achicados */
+        .side-rooms { 
             background: #0a0a0a; border: 1px solid #222; border-radius: 15px; 
-            padding: 10px; display: flex; flex-direction: column; gap: 8px;
-            max-height: 850px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 5px; padding: 10px;
         }
-        .room-card { 
-            display: flex; align-items: center; gap: 10px; background: #151515; 
-            border: 1px solid #333; border-radius: 10px; padding: 8px; cursor: pointer;
-            transition: 0.2s;
+        .room-btn { 
+            padding: 10px; background: #111; border: 1px solid #333; border-radius: 8px;
+            font-size: 10px; text-transform: uppercase; cursor: pointer; text-align: center;
         }
-        .room-card:hover { border-color: var(--oro); background: #222; }
-        .room-card.active { border-color: #fff; background: var(--oro); color: #000; }
-        .room-card img { width: 90px; height: 60px; border-radius: 5px; object-fit: cover; }
-        .room-card span { font-size: 13px; font-weight: 900; text-transform: uppercase; }
+        .room-btn.active { background: var(--oro); color: #000; font-weight: 900; }
 
-        /* CENTRO: VISOR PROTAGONISTA */
-        .visor-box { display: flex; flex-direction: column; gap: 15px; }
-        .screen { 
-            background: #000; border: 5px solid #1a1a1a; border-radius: 25px; 
-            aspect-ratio: 16/9; width: 100%; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        /* 2. COLUMNA CENTRAL: Visor y Galería Inferior */
+        .center-area { display: flex; flex-direction: column; gap: 15px; overflow: hidden; }
+        
+        .main-screen { 
+            background: #000; border: 5px solid #1a1a1a; border-radius: 20px; 
+            flex-grow: 1; position: relative; overflow: hidden;
         }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        
-        /* MONETIZACIÓN DEBAJO DEL VISOR */
-        .pay-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-        .pay-btn { background: var(--oro); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 900; cursor: pointer; text-align: center; }
 
-        /* COLUMNA DERECHA: CHICAS Y CHAT */
-        .social-sidebar { display: flex; flex-direction: column; gap: 15px; }
-        .girls-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .girl { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; border: 1px solid #222; }
-        .girl img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .chat-box { 
-            background: #050505; border: 1px solid #222; border-radius: 15px; 
-            flex-grow: 1; padding: 15px; overflow-y: auto; height: 400px;
-            display: flex; flex-direction: column-reverse; gap: 8px; font-size: 12px;
+        /* GALERÍA DEBAJO DEL VISOR: Imágenes de las salas */
+        .bottom-gallery { 
+            height: 150px; display: flex; gap: 10px; overflow-x: auto; 
+            background: #080808; padding: 10px; border-radius: 15px; border: 1px solid #222;
         }
-        .msg { border-left: 3px solid var(--oro); padding-left: 10px; margin-bottom: 5px; }
-
-        /* MUROS AL PIE */
-        .muros-footer { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; 
-            padding: 20px 40px; border-top: 2px solid #111;
+        .gal-img { 
+            flex: 0 0 180px; height: 100%; border-radius: 10px; border: 2px solid #333;
+            object-fit: cover; cursor: pointer; transition: 0.3s;
         }
-        .muro-item { background: #0a0a0a; border: 1px solid #222; padding: 15px; border-radius: 12px; text-align: center; }
+        .gal-img.active { border-color: #fff; box-shadow: 0 0 15px #fff; transform: scale(0.95); }
 
-        /* SCROLL FINO */
-        ::-webkit-scrollbar { width: 5px; }
+        /* 3. COLUMNA DERECHA: BOTS GIGANTES Y CHAT */
+        .side-bots { display: flex; flex-direction: column; gap: 15px; }
+        
+        .bot-massive { 
+            flex-grow: 1; display: flex; flex-direction: column; gap: 10px;
+        }
+        .bot-frame { 
+            flex: 1; border-radius: 15px; overflow: hidden; border: 3px solid #222; 
+            position: relative; background: #050505;
+        }
+        .bot-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .bot-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 5px; color: var(--oro); font-weight: 900; border-top: 1px solid var(--oro); }
+
+        .chat-slim { 
+            height: 200px; background: #020202; border: 1px solid #222; 
+            border-radius: 15px; padding: 10px; overflow-y: auto; font-size: 11px;
+            display: flex; flex-direction: column-reverse; gap: 5px;
+        }
+        .msg { border-left: 3px solid var(--n-turq); padding-left: 8px; }
+
+        /* Scrollbar estilo Oro */
+        ::-webkit-scrollbar { height: 8px; width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 10px; }
     </style>
 </head>
 <body onload="init()">
 
 <header>
-    <div class="header-ads">PUBLICIDAD $20</div>
+    <div style="color:#333; font-size:10px;">AD_SPACE_LEFT</div>
     <img src="Logo Mega Red Lunar.jpg" class="logo-img">
-    <div class="header-ads">PUBLICIDAD $50</div>
+    <div style="color:#333; font-size:10px;">AD_SPACE_RIGHT</div>
 </header>
 
-<div class="main-content">
-    <div id="rooms-list" class="rooms-sidebar"></div>
+<div class="main-container">
+    <div id="side-list" class="side-rooms"></div>
 
-    <div class="visor-box">
-        <div class="screen">
+    <div class="center-area">
+        <div class="main-screen">
             <img id="main-view" src="">
         </div>
-        <div class="pay-bar">
-            <div class="pay-btn" onclick="pay(1)">APOYAR $1</div>
-            <div class="pay-btn" onclick="pay(5)">REGALO $5</div>
-            <div class="pay-btn" onclick="pay(10)">VIP $10</div>
-            <div class="pay-btn" style="background:var(--n-rojo); color:#fff" onclick="pay(20)">SHOW $20</div>
-        </div>
+        <div id="bottom-gal" class="bottom-gallery"></div>
     </div>
 
-    <div class="social-sidebar">
-        <div class="girls-grid">
-            <div class="girl"><img src="Rubia.jpg"></div>
-            <div class="girl"><img src="Morocha.jpg"></div>
-            <div class="girl"><img src="Pelirroja.jpg"></div>
+    <div class="side-bots">
+        <div class="bot-massive">
+            <div class="bot-frame"><img src="Rubia.jpg"><div class="bot-tag">MIA</div></div>
+            <div class="bot-frame"><img src="Morocha.jpg"><div class="bot-tag">TANIA</div></div>
+            <div class="bot-frame"><img src="Pelirroja.jpg"><div class="bot-tag">COLO</div></div>
         </div>
-        <div id="chat-stream" class="chat-box"></div>
+        <div id="chat-box" class="chat-slim"></div>
     </div>
-</div>
-
-<div class="muros-footer">
-    <div class="muro-item" onclick="pay(5)">📖 HISTORIAS VIP</div>
-    <div class="muro-item" onclick="pay(10)">🎬 VIDEOS PRIVADOS</div>
-    <div class="muro-item" onclick="pay(30)">💎 PASE MENSUAL</div>
 </div>
 
 <audio id="audio-player" loop></audio>
@@ -138,21 +126,33 @@
     ];
 
     function init() {
-        const list = document.getElementById('rooms-list');
+        const side = document.getElementById('side-list');
+        const gal = document.getElementById('bottom-gal');
+
         rooms.forEach((r, i) => {
-            const d = document.createElement('div');
-            d.className = 'room-card'; d.id = 'r-'+i;
-            d.innerHTML = `<img src="${encodeURI(r.n+r.e)}"> <span>${r.n}</span>`;
-            d.onclick = () => { idx = i; refresh(); };
-            list.appendChild(d);
+            // Botones izquierda
+            const b = document.createElement('div');
+            b.className = 'room-btn'; b.id = 'btn-'+i;
+            b.innerText = r.n;
+            b.onclick = () => { idx = i; refresh(); };
+            side.appendChild(b);
+
+            // Imágenes abajo
+            const img = document.createElement('img');
+            img.className = 'gal-img'; img.id = 'gal-'+i;
+            img.src = encodeURI(r.n + r.e);
+            img.onclick = () => { idx = i; refresh(); };
+            gal.appendChild(img);
         });
         refresh();
         setInterval(botChat, 2000);
     }
 
     function refresh() {
-        document.querySelectorAll('.room-card').forEach(b => b.classList.remove('active'));
-        document.getElementById('r-'+idx).classList.add('active');
+        document.querySelectorAll('.room-btn, .gal-img').forEach(el => el.classList.remove('active'));
+        document.getElementById('btn-'+idx).classList.add('active');
+        document.getElementById('gal-'+idx).classList.add('active');
+        
         document.getElementById('main-view').src = encodeURI(rooms[idx].n + rooms[idx].e);
         const player = document.getElementById('audio-player');
         player.src = rooms[idx].s;
@@ -160,13 +160,11 @@
     }
 
     function botChat() {
-        const chat = document.getElementById('chat-stream');
-        const msgs = ["🔥 ¡Qué hot!", "Tokens enviados", "Show privado ya", "💎 VIP", "Hola desde Resistencia"];
-        const n = ["Mia", "Tania", "Socio_Chaco", "Admin"][Math.floor(Math.random()*4)];
-        chat.innerHTML = `<div class="msg"><b>${n}:</b> ${msgs[Math.floor(Math.random()*5)]}</div>` + chat.innerHTML;
+        const chat = document.getElementById('chat-box');
+        const m = ["🔥 PRIVADO!", "Tip $5", "Hola!", "VIP", "Socio Chaco"];
+        const n = ["Mia", "Tania", "Colo", "User"][Math.floor(Math.random()*4)];
+        chat.innerHTML = `<div class="msg"><b>${n}:</b> ${m[Math.floor(Math.random()*5)]}</div>` + chat.innerHTML;
     }
-
-    function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
 </script>
 </body>
 </html>
