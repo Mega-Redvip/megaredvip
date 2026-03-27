@@ -39,7 +39,7 @@
 
         /* VISOR SALAS */
         .visor-container { background: #050505; border: 5px solid #1a1a1a; border-radius: 15px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        #main-view { width: 100%; height: 100%; object-fit: contain; }
+        #main-view { width: 100%; height: 100%; object-fit: contain; background: #000; }
         .sala-tag { position: absolute; top: 15px; right: 15px; background: var(--n-rojo); padding: 5px 15px; font-size: 14px; font-weight: 900; z-index: 10; color: white; }
 
         /* CHICAS SIN MARCO */
@@ -57,8 +57,7 @@
 <body>
 
 <header>
-    <div class="online-counter"><div class="dot"></div> <span id="user-count">587</span> PERSONAS ONLINE</div>
-    
+    <div class="online-counter"><div class="dot"></div> <span id="user-count">612</span> PERSONAS ONLINE</div>
     <div class="header-ads-left">
         <div class="ad-mini">🔞 PUBLICIDAD VIP</div>
         <div class="ad-mini" style="border-color:var(--n-turq);">💎 COMPRAR TOKENS</div>
@@ -72,7 +71,6 @@
 
 <div class="main-app">
     <div class="rooms-box" id="rooms-list"></div>
-
     <div class="center-col">
         <div class="visor-container">
             <div class="sala-tag" id="sala-tag">SALA ACTIVA</div>
@@ -83,7 +81,6 @@
             <div id="posts-container" style="color:#bc13fe; font-size:13px;"><b>Socio VIP:</b> ¡Qué buenas que están! 🔥</div>
         </div>
     </div>
-
     <div class="right-side">
         <div class="girls-container">
             <div class="girl-card">
@@ -105,61 +102,59 @@
 
 <script>
     let idx = 0;
-    const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
+    // LISTA EXACTA SEGÚN TUS ARCHIVOS
+    const rooms = [
+        {n: "Sado y Maso", e: ".jpg"},
+        {n: "Spa", e: ".png"},
+        {n: "Biblioteca", e: ".png"},
+        {n: "Camarera", e: ".png"},
+        {n: "Discoteca", e: ".png"},
+        {n: "El Bar", e: ".png"},
+        {n: "Gimnasio", e: ".png"},
+        {n: "La Tiendita", e: ".png"},
+        {n: "Oficina", e: ".png"},
+        {n: "Playa", e: ".png"}
+    ];
     
     function init() {
         const list = document.getElementById('rooms-list');
         rooms.forEach((r, i) => {
             const b = document.createElement('button');
             b.className = 'p-btn'; b.id = 'r-'+i;
-            b.innerHTML = `🚪 ${r}`;
+            b.innerHTML = `🚪 ${r.n}`;
             b.onclick = () => { idx = i; refresh(); };
             list.appendChild(b);
         });
         refresh();
         setInterval(botChat, 5000);
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 15000);
-        
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 12000);
         setInterval(() => {
-            let base = 500 + Math.floor(Math.random() * 150);
-            document.getElementById('user-count').innerText = base;
-        }, 4000);
+            document.getElementById('user-count').innerText = 550 + Math.floor(Math.random() * 100);
+        }, 3000);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
-        const activeBtn = document.getElementById('r-'+idx);
-        if(activeBtn) activeBtn.classList.add('active');
+        document.getElementById('r-'+idx).classList.add('active');
+        document.getElementById('sala-tag').innerText = rooms[idx].n.toUpperCase();
         
-        document.getElementById('sala-tag').innerText = rooms[idx].toUpperCase();
         const img = document.getElementById('main-view');
+        const r = rooms[idx];
         
-        const name = rooms[idx];
-        
-        // --- MOTOR MULTI-INTENTO PARA IMÁGENES ---
-        // Intento 1: Nombre con Espacios Codificados (GitHub estándar)
-        img.src = encodeURIComponent(name) + ".jpg";
+        // Carga con la extensión que me pasaste
+        img.src = encodeURIComponent(r.n) + r.e;
 
+        // Backup por si acaso
         img.onerror = () => {
-            // Intento 2: Espacios por Guiones Bajos (Sado_y_Maso.jpg)
-            img.src = name.replace(/ /g, "_") + ".jpg";
-            
-            img.onerror = () => {
-                // Intento 3: Todo junto (SadoyMaso.jpg)
-                img.src = name.replace(/ /g, "") + ".jpg";
-                
-                img.onerror = () => {
-                    img.src = "https://via.placeholder.com/800x600/111/d4af37?text=REVISAR_" + name.replace(/ /g, "_");
-                }
-            }
+            const altExt = r.e === ".png" ? ".jpg" : ".png";
+            img.src = encodeURIComponent(r.n) + altExt;
         };
     }
 
     const msgs = [
         {u: "MIA", t: "🔞 No me comparen con Tania, esa perra no sabe ni moverse. Soy la más putita.", c: "#00d9ff"},
         {u: "COLO", t: "🔥 ¿Quién me manda 10 tokens para que me abra de piernas?", c: "#ff003c"},
-        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"},
-        {u: "COLO", t: "🔞 Manden oro o me voy con los clientes VIP.", c: "#ff003c"}
+        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"}
     ];
 
     function botChat() {
