@@ -2,83 +2,113 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO COMPLETO</title>
+    <title>MEGA RED VIP | RECONSTRUCCIÓN TOTAL</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* PERMITIR SCROLL PARA VER TODO */
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-y: auto; min-height: 100vh; }
+        /* Evita que nada se salga de la pantalla */
+        body { 
+            background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
+            height: 100vh; width: 100vw; overflow: hidden; display: flex; flex-direction: column; 
+        }
 
-        /* HEADER: LOGO DOBLE TAMAÑO */
-        header { height: 400px; background: #000; border-bottom: 8px solid var(--oro); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 20px; }
-        .logo-img { height: 350px; width: auto; filter: drop-shadow(0 0 60px var(--oro)); margin-bottom: 10px; }
+        /* HEADER REDISEÑADO: LOGO GIGANTE Y MONEDAS A LOS LADOS */
+        header { 
+            height: 220px; background: #000; border-bottom: 5px solid var(--oro); 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 0 30px; position: relative; flex-shrink: 0; 
+        }
+        .logo-container { position: absolute; left: 50%; transform: translateX(-50%); text-align: center; }
+        .logo-img { height: 200px; filter: drop-shadow(0 0 30px var(--oro)); }
         
-        .header-tools { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 50px; }
-        .online-box { background: rgba(0,255,102,0.1); border: 3px solid var(--n-verde); padding: 15px 30px; border-radius: 15px; color: var(--n-verde); text-align: center; box-shadow: 0 0 25px var(--n-verde); }
-        .online-num { font-size: 32px; font-weight: 900; display: block; }
+        .online-box { background: rgba(0,255,102,0.1); border: 2px solid var(--n-verde); padding: 10px; border-radius: 10px; color: var(--n-verde); text-align: center; width: 200px; }
+        .online-num { font-size: 26px; font-weight: 900; display: block; }
 
-        .coin-grid { display: flex; gap: 15px; }
-        .coin { width: 85px; height: 85px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff9aa, var(--oro) 50%, #5c4928); border: 4px solid #111; color: #000; font-size: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; box-shadow: 0 8px 0 #444; }
+        .coin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .coin { 
+            width: 65px; height: 65px; border-radius: 50%; 
+            background: radial-gradient(circle at 35% 35%, #fff9aa, var(--oro) 50%, #5c4928); 
+            border: 3px solid #111; color: #000; font-size: 18px; 
+            display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; font-weight: 900; box-shadow: 0 4px 0 #333; 
+        }
 
-        /* CONTENIDO PRINCIPAL */
-        .main-app { display: grid; grid-template-columns: 300px 1fr 450px; gap: 25px; padding: 30px; }
+        /* CUERPO DE LA APP: 3 COLUMNAS FIJAS */
+        .main-app { 
+            display: grid; grid-template-columns: 220px 1fr 400px; gap: 15px; 
+            padding: 15px; flex-grow: 1; min-height: 0; 
+        }
 
-        /* COLUMNA IZQUIERDA: CONTENIDO Y SALAS */
-        .left-col { display: flex; flex-direction: column; gap: 25px; }
-        .nav-section { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .nav-title { color: var(--oro); font-size: 14px; margin-bottom: 15px; text-transform: uppercase; text-align: center; border-bottom: 2px solid var(--oro); padding-bottom: 8px; }
-        
-        .p-btn { width: 100%; padding: 15px; margin-bottom: 10px; background: #151515; border: 1px solid #444; cursor: pointer; border-radius: 8px; text-align: left; font-size: 13px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
-        .p-btn:hover { transform: scale(1.05); filter: brightness(1.3); }
-        .p-btn.active { background: #fff !important; color: #000 !important; box-shadow: 0 0 20px #fff; }
+        /* COLUMNA 1: NAVEGACIÓN */
+        .left-col { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+        .nav-section { background: #0a0a0a; border: 1px solid #333; border-radius: 10px; padding: 10px; }
+        .nav-title { color: var(--oro); font-size: 10px; margin-bottom: 8px; text-transform: uppercase; text-align: center; border-bottom: 1px solid #333; }
+        .p-btn { 
+            width: 100%; padding: 10px; margin-bottom: 5px; background: #111; border: 1px solid #444; 
+            color: #fff; cursor: pointer; border-radius: 5px; text-align: left; font-size: 10px; 
+            font-weight: 900; text-transform: uppercase; 
+        }
+        .p-btn.active { background: #fff !important; color: #000 !important; box-shadow: 0 0 10px #fff; }
 
-        /* VISOR CENTRAL (CARRUSEL AUTOMÁTICO) */
-        .visor-container { background: #000; border: 6px solid #222; border-radius: 20px; height: 600px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; box-shadow: 0 0 40px rgba(0,0,0,1); }
+        /* COLUMNA 2: VISOR CENTRAL (CARRUSEL) */
+        .center-col { display: flex; flex-direction: column; min-height: 0; }
+        .visor-container { 
+            background: #000; border: 4px solid #1a1a1a; border-radius: 15px; 
+            flex-grow: 1; display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; position: relative; 
+        }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
         
-        .ali-neon { display: none; position: absolute; bottom: 50px; background: #ff003c; color: #fff; padding: 20px 50px; font-size: 24px; font-weight: 900; text-decoration: none; border-radius: 10px; animation: glow 1s infinite; box-shadow: 0 0 30px #ff003c; z-index: 100; text-transform: uppercase; }
-        @keyframes glow { 0% { opacity: 1; } 50% { opacity: 0.6; transform: scale(1.05); } }
+        .ali-neon { 
+            display: none; position: absolute; bottom: 20px; background: var(--n-rojo); 
+            color: #fff; padding: 15px 30px; font-size: 18px; font-weight: 900; 
+            text-decoration: none; border-radius: 10px; box-shadow: 0 0 20px var(--n-rojo); 
+            z-index: 100; animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0.7; } }
 
-        /* COLUMNA DERECHA: AVATARES GIGANTES Y CHAT */
-        .right-side { display: flex; flex-direction: column; gap: 20px; }
-        .girls-row { display: flex; gap: 10px; height: 500px; }
-        .girl-card { flex: 1; display: flex; flex-direction: column; background: #080808; border-radius: 15px; overflow: hidden; border: 1px solid #222; }
+        /* COLUMNA 3: CHICAS Y CHAT (TODO VISIBLE) */
+        .right-side { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+        .girls-row { display: flex; gap: 5px; height: 220px; flex-shrink: 0; }
+        .girl-card { flex: 1; display: flex; flex-direction: column; border: 1px solid #222; border-radius: 10px; overflow: hidden; }
         .girl-img-box { flex-grow: 1; overflow: hidden; }
         .girl-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .girl-name { font-size: 16px; font-weight: 900; text-align: center; padding: 10px; background: #000; border-top: 2px solid #333; }
+        .girl-name { font-size: 11px; font-weight: 900; text-align: center; padding: 5px; background: #000; }
 
-        .chat-display { height: 400px; background: #020202; border: 3px solid #222; border-radius: 15px; padding: 20px; overflow-y: auto; font-size: 16px; box-shadow: inset 0 0 20px #000; }
-        .msg { margin-bottom: 12px; border-left: 6px solid; padding-left: 15px; line-height: 1.4; }
+        .chat-display { 
+            flex-grow: 1; background: #050505; border: 2px solid #222; border-radius: 10px; 
+            padding: 10px; overflow-y: auto; font-size: 13px; 
+        }
+        .msg { margin-bottom: 8px; border-left: 4px solid; padding-left: 10px; line-height: 1.2; font-weight: bold; }
     </style>
 </head>
 <body onload="init()">
 
 <header>
-    <div class="logo-container"><img src="Logo Mega Red Lunar.jpg" class="logo-img"></div>
-    <div class="header-tools">
-        <div class="online-box">
-            <span class="online-num" id="user-count">3,521</span>
-            <span style="font-weight:bold;">CLIENTES EN LÍNEA REALES</span>
-        </div>
-        <div class="coin-grid">
-            <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div>
-            <div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div>
-        </div>
+    <div class="online-box">
+        <span class="online-num" id="user-count">2,841</span>
+        <span style="font-size:10px;">CLIENTES ONLINE</span>
+    </div>
+    <div class="logo-container">
+        <img src="Logo Mega Red Lunar.jpg" class="logo-img">
+    </div>
+    <div class="coin-grid">
+        <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
+        <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
     </div>
 </header>
 
 <div class="main-app">
     <div class="left-col">
         <div class="nav-section">
-            <div class="nav-title">📸 CONTENIDO VIP</div>
-            <button class="p-btn" style="color:var(--n-turq); border-color:var(--n-turq)">📖 HISTORIAS (24h)</button>
-            <button class="p-btn" style="color:var(--n-verde); border-color:var(--n-verde)">🎬 VIDEOS PRIVADOS</button>
-            <button class="p-btn" style="color:var(--n-rojo); border-color:var(--n-rojo)">🔥 ESTADOS HOT</button>
-            <button class="p-btn" style="color:var(--n-viola); border-color:var(--n-viola)">💎 CONTENIDO ORO</button>
+            <div class="nav-title">🎥 CONTENIDO</div>
+            <button class="p-btn" style="color:var(--n-turq)">🎬 VIDEOS VIP</button>
+            <button class="p-btn" style="color:var(--n-rojo)">🔥 ESTADOS</button>
+            <button class="p-btn" style="color:var(--n-verde)">📖 HISTORIAS</button>
         </div>
         <div class="nav-section">
-            <div class="nav-title">📍 SELECCIÓN DE SALAS</div>
+            <div class="nav-title">📍 SALAS</div>
             <div id="rooms-list"></div>
         </div>
     </div>
@@ -86,11 +116,7 @@
     <div class="center-col">
         <div class="visor-container">
             <img id="main-view" src="">
-            <a href="https://tu-link-ali.com" target="_blank" class="ali-neon" id="ali-btn">🔥 COMPRAR JUGUETES 🔥</a>
-        </div>
-        <div style="margin-top: 20px; background: #111; padding: 20px; border-radius: 15px; border: 1px solid #333; text-align: center;">
-            <h2 style="color:var(--oro); letter-spacing: 5px;">ROTACIÓN DE SALAS ACTIVA</h2>
-            <p style="color:#666; font-size: 12px; margin-top: 5px;">CAMBIO AUTOMÁTICO CADA 6 SEGUNDOS</p>
+            <a href="https://tu-link-ali.com" target="_blank" class="ali-neon" id="ali-btn">🛒 COMPRAR JUGUETES</a>
         </div>
     </div>
 
@@ -116,7 +142,7 @@
 <audio id="room-sound" loop></audio>
 
 <script>
-    let idx = 0; let userCity = "Corrientes";
+    let idx = 0; let userCity = "Resistencia";
     const rooms = [
         {n: "Sado y Maso", e: ".jpg", s: "Sado_y_Maso.mp3", c: "#ff003c"}, 
         {n: "Spa", e: ".png", s: "Spa.mp3", c: "#00d9ff"}, 
@@ -142,20 +168,16 @@
             list.appendChild(b);
         });
         refresh();
-        setInterval(botChat, 4000);
         setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 6000);
+        setInterval(botChat, 4000);
         setInterval(() => { 
-            let base = 3500 + Math.floor(Math.random() * 500);
+            let base = 2800 + Math.floor(Math.random() * 200);
             document.getElementById('user-count').innerText = base.toLocaleString(); 
         }, 2000);
     }
 
     function refresh() {
-        document.querySelectorAll('.p-btn').forEach(b => {
-            const rId = b.id.split('-')[1];
-            b.classList.remove('active');
-            b.style.color = rooms[rId].c; 
-        });
+        document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         const btn = document.getElementById('r-'+idx);
         if(btn) btn.classList.add('active');
         
@@ -169,10 +191,10 @@
 
     function botChat() {
         const f = [
-            {u:"MIA", c:"#00d9ff", t:`🔞 ¿Hay algún macho de ${userCity} con ganas de gastar?`},
-            {u:"TANIA", c:"#00ff66", t:`🔥 En ${userCity} me pidieron que abra la cam... ¿quién paga?`},
-            {u:"COLO", c:"#ff003c", t:`🔞 El último de ${userCity} era un seco. ¡Muevan la plata!`},
-            {u:"MIA", c:"#00d9ff", t:"💎 Subí video nuevo a la sección VIP, vayan a verlo pajeros."}
+            {u:"MIA", c:"#00d9ff", t:`🔞 ¿Hay algún macho de ${userCity} para hacerme de todo?`},
+            {u:"TANIA", c:"#00ff66", t:`🔥 En ${userCity} me aman a mí, miren mis estados.`},
+            {u:"COLO", c:"#ff003c", t:`🔞 Recién me pagó uno de ${userCity} y quedé re caliente.`},
+            {u:"MIA", c:"#00d9ff", t:"💎 Manden tokens pajeros, ¡el show no es gratis!"}
         ];
         const m = f[Math.floor(Math.random() * f.length)];
         const box = document.getElementById('chat-stream');
