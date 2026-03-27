@@ -2,19 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | REVOLUTION</title>
+    <title>MEGA RED VIP | LIVE EMPIRE</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
-        /* HEADER: Logo XL y Publicidad */
+        /* HEADER */
         header { height: 260px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; position: relative; }
         .header-ads-left { width: 220px; display: flex; flex-direction: column; gap: 8px; }
         .ad-mini { border: 2px solid var(--n-rojo); padding: 8px; font-size: 10px; text-align: center; color: #fff; background: #400; border-radius: 5px; text-transform: uppercase; }
         .logo-img { height: 220px; width: auto; filter: drop-shadow(0 0 35px var(--oro)); }
         
-        /* MONEDAS 3D REALES */
+        /* CONTADOR ONLINE REALISTA */
+        .online-counter { position: absolute; bottom: 10px; left: 30px; background: rgba(0,255,102,0.2); border: 1px solid var(--n-verde); padding: 5px 15px; border-radius: 20px; color: var(--n-verde); font-size: 12px; display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; background: var(--n-verde); border-radius: 50%; box-shadow: 0 0 10px var(--n-verde); animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* MONEDAS 3D */
         .coin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .coin { 
             width: 90px; height: 90px; border-radius: 50%; 
@@ -24,26 +29,25 @@
             cursor: pointer; font-weight: 900; box-shadow: 0 10px 0 #333, 0 15px 25px rgba(0,0,0,0.8);
         }
 
-        /* LAYOUT PRINCIPAL */
+        /* LAYOUT */
         .main-app { display: grid; grid-template-columns: 240px 1fr 380px; gap: 15px; padding: 15px; }
         
-        /* COLUMNA 1: SALAS (PUERTAS) */
+        /* SALAS */
         .rooms-box { background: #080808; border: 1px solid #222; border-radius: 10px; padding: 10px; }
         .p-btn { width: 100%; padding: 15px; margin-bottom: 8px; background: #151515; border: 1px solid #444; color: #999; cursor: pointer; border-radius: 5px; text-align: left; font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 15px var(--n-turq); }
 
-        /* COLUMNA 2: VISOR DE SALAS */
-        .center-col { display: flex; flex-direction: column; gap: 15px; }
+        /* VISOR */
         .visor-container { background: #050505; border: 5px solid #1a1a1a; border-radius: 15px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        #main-view { width: 100%; height: 100%; object-fit: contain; } /* Mantiene nitidez y proporciones */
+        #main-view { width: 100%; height: 100%; object-fit: contain; }
         .sala-tag { position: absolute; top: 15px; right: 15px; background: var(--n-rojo); padding: 5px 15px; font-size: 14px; font-weight: 900; z-index: 10; color: white; }
 
-        /* COLUMNA 3: CHATS Y CHICAS ENTERAS */
+        /* CHICAS SIN MARCO NEGRO */
         .right-side { display: flex; flex-direction: column; gap: 10px; height: 80vh; position: sticky; top: 20px; }
-        .girls-container { display: flex; gap: 8px; height: 280px; } /* MÁS ALTO PARA CUERPO ENTERO */
+        .girls-container { display: flex; gap: 8px; height: 300px; }
         .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .girl-img-box { width: 100%; height: 230px; border: 3px solid; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.5); background: #111; }
-        .girl-img-box img { width: 100%; height: 100%; object-fit: contain; } /* 'contain' para ver cuerpo entero */
+        .girl-img-box { width: 100%; height: 250px; border-radius: 10px; overflow: hidden; background: transparent; } /* Marco quitado */
+        .girl-img-box img { width: 100%; height: 100%; object-fit: cover; filter: drop-shadow(0 0 10px rgba(255,255,255,0.1)); } 
         .girl-name { font-size: 14px; font-weight: 900; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
         
         .chat-display { flex-grow: 1; background: #020202; border: 2px solid #333; border-radius: 10px; padding: 15px; overflow-y: auto; font-size: 14px; }
@@ -53,6 +57,8 @@
 <body>
 
 <header>
+    <div class="online-counter"><div class="dot"></div> <span id="user-count">542</span> PERSONAS ONLINE</div>
+    
     <div class="header-ads-left">
         <div class="ad-mini">🔞 PUBLICIDAD VIP</div>
         <div class="ad-mini" style="border-color:var(--n-turq);">💎 COMPRAR TOKENS</div>
@@ -73,25 +79,23 @@
             <img id="main-view" src="">
         </div>
         <div style="background:#0a0a0a; border:1px solid #222; padding:15px; border-radius:10px;">
-            <h4 style="color:var(--oro); margin-bottom:5px; border-bottom:1px dashed #333; padding-bottom:5px;">📰 MURO SOCIAL RESISTENCIA</h4>
-            <div id="posts-container" style="color:#bc13fe; font-size:13px; font-family:sans-serif; padding-top:10px;">
-                <b>Socio VIP:</b> ¡Qué buenas que están! 🔥
-            </div>
+            <h4 style="color:var(--oro); margin-bottom:5px;">📰 MURO SOCIAL RESISTENCIA</h4>
+            <div id="posts-container" style="color:#bc13fe; font-size:13px;"><b>Socio VIP:</b> ¡Qué buenas que están! 🔥</div>
         </div>
     </div>
 
     <div class="right-side">
         <div class="girls-container">
             <div class="girl-card">
-                <div class="girl-img-box" style="border-color:var(--n-turq);"><img src="Rubia.jpg"></div>
+                <div class="girl-img-box"><img src="Rubia.jpg"></div>
                 <div class="girl-name" style="color:var(--n-turq); text-shadow: 0 0 8px var(--n-turq);">MIA</div>
             </div>
             <div class="girl-card">
-                <div class="girl-img-box" style="border-color:var(--n-verde);"><img src="Morocha.jpg"></div>
+                <div class="girl-img-box"><img src="Morocha.jpg"></div>
                 <div class="girl-name" style="color:var(--n-verde); text-shadow: 0 0 8px var(--n-verde);">TANIA</div>
             </div>
             <div class="girl-card">
-                <div class="girl-img-box" style="border-color:var(--n-rojo);"><img src="Pelirroja.jpg"></div>
+                <div class="girl-img-box"><img src="Pelirroja.jpg"></div>
                 <div class="girl-name" style="color:var(--n-rojo); text-shadow: 0 0 8px var(--n-rojo);">COLO</div>
             </div>
         </div>
@@ -103,15 +107,6 @@
     let idx = 0;
     const rooms = ["Sado y Maso", "Biblioteca", "Camarera", "Discoteca", "La Tiendita", "Playa", "Spa", "El Bar", "Oficina", "Gimnasio"];
     
-    const msgs = [
-        {u: "MIA", t: "🔞 ¡Miren lo que soy! Soy la más putita de Resistencia.", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Quién es el macho que me va a mandar 10 tokens para que me abra de piernas?", c: "#ff003c"},
-        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"},
-        {u: "COLO", t: "🔞 Manden oro o me voy con los clientes VIP.", c: "#ff003c"},
-        {u: "MIA", t: "🔥 Soy la que más muestra, miren mi historia nueva.", c: "#00d9ff"},
-        {u: "TANIA", t: "💎 El que me mande tokens ahora decide qué juguete uso.", c: "#00ff66"}
-    ];
-
     function init() {
         const list = document.getElementById('rooms-list');
         rooms.forEach((r, i) => {
@@ -124,6 +119,12 @@
         refresh();
         setInterval(botChat, 5000);
         setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 12000);
+        
+        // CONTADOR DINÁMICO
+        setInterval(() => {
+            let base = 500 + Math.floor(Math.random() * 100);
+            document.getElementById('user-count').innerText = base;
+        }, 3000);
     }
 
     function refresh() {
@@ -134,24 +135,25 @@
         document.getElementById('sala-tag').innerText = rooms[idx].toUpperCase();
         const img = document.getElementById('main-view');
         
-        // --- MOTOR DE CARGA REFORZADO (ANTI-ESPACIOS) ---
-        // 1. Limpiamos espacios (ej: 'Sado y Maso' -> 'Sado%20y%20Maso')
+        // --- FIX DEFINITIVO DE IMÁGENES ---
         const roomName = rooms[idx];
-        const formattedName = encodeURIComponent(roomName); 
-        
-        // 2. Ruta directa (con punto para GitHub)
-        img.src = "./" + formattedName + ".jpg";
+        img.src = roomName + ".jpg"; // Intento directo
 
         img.onerror = () => {
-            // 3. Si falla, intenta sin el punto (raíz pura)
-            img.src = formattedName + ".jpg";
-            
+            img.src = encodeURIComponent(roomName) + ".jpg"; // Intento con espacios %20
             img.onerror = () => {
-                // 4. Si sigue fallando, es que el archivo NO está en GitHub o se llama distinto (.JPG, .png, etc.)
-                img.src = "https://via.placeholder.com/800x600/111/d4af37?text=CARGANDO_" + roomName.replace(/ /g, "_") + ".jpg";
+                img.src = "https://via.placeholder.com/800x600/111/d4af37?text=REVISAR_" + roomName.replace(/ /g, "_");
             };
         };
     }
+
+    // CHAT VULGAR ACTIVO
+    const msgs = [
+        {u: "MIA", t: "🔞 No me comparen con Tania, esa perra no sabe ni moverse. Soy la más putita.", c: "#00d9ff"},
+        {u: "COLO", t: "🔥 ¿Quién me manda 10 tokens para que me abra de piernas?", c: "#ff003c"},
+        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"},
+        {u: "COLO", t: "🔞 Manden oro o me voy con los clientes VIP.", c: "#ff003c"}
+    ];
 
     function botChat() {
         const m = msgs[Math.floor(Math.random() * msgs.length)];
