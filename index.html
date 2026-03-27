@@ -2,20 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO TOTAL</title>
+    <title>MEGA RED VIP | IMPERIO VISUAL TOTAL</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; 
             --n-verde: #00ff66; --n-turq: #00d9ff; --n-viola: #bc13fe; 
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-y: auto; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* CUERPO GIGANTE CON SCROLL */
+        body { 
+            background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
+            overflow-y: auto; min-height: 100vh; display: flex; flex-direction: column; 
+        }
 
         /* HEADER: LOGO PROTEGIDO Y MONEDAS A LOS LADOS */
         header { 
             height: 420px; background: #000; border-bottom: 6px solid var(--oro); 
             display: grid; grid-template-columns: 350px 1fr 350px; align-items: center; 
-            padding: 20px 40px; position: relative;
+            padding: 20px 40px; position: relative; flex-shrink: 0;
         }
 
         .header-side { display: flex; flex-direction: column; align-items: center; gap: 25px; }
@@ -41,43 +46,68 @@
         .logo-center { display: flex; justify-content: center; align-items: center; }
         .logo-img { height: 350px; filter: drop-shadow(0 0 50px var(--oro)); object-fit: contain; }
 
-        /* CUERPO: SALAS GRANDES */
-        .main-app { display: grid; grid-template-columns: 450px 1fr 450px; gap: 30px; padding: 30px; }
+        /* CUERPO: ESTRUCTURA DUPLICADA */
+        .main-app { display: grid; grid-template-columns: 500px 1fr 500px; gap: 30px; padding: 30px; flex-grow: 1; }
         
-        .rooms-panel { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; height: 900px; overflow-y: auto; }
+        /* COLUMNA 1: SALAS DUPLICADAS Y COMPLETAS */
+        .rooms-panel { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; height: 1000px; overflow-y: auto; }
+        .rooms-h2 { color: var(--oro); margin-bottom: 25px; text-align: center; border-bottom: 3px solid var(--oro); padding-bottom: 10px; font-size: 28px; }
+        
         .room-item { 
-            display: flex; flex-direction: column; gap: 10px; background: #111; border: 2px solid #333; 
-            border-radius: 15px; padding: 15px; margin-bottom: 20px; cursor: pointer; transition: 0.3s;
+            display: flex; flex-direction: column; gap: 15px; background: #111; border: 2px solid #333; 
+            border-radius: 20px; padding: 20px; margin-bottom: 25px; cursor: pointer; transition: 0.3s;
         }
-        .room-item:hover { border-color: var(--oro); transform: scale(1.02); }
-        .room-item.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px #fff; }
+        .room-item:hover { border-color: var(--oro); transform: scale(1.03); box-shadow: 0 0 20px rgba(212,175,55,0.3); }
+        .room-item.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 30px #fff; }
         
-        /* IMAGEN DE SALA DUPLICADA (GRANDE) */
-        .room-thumb { width: 100%; height: 180px; border-radius: 10px; object-fit: cover; border: 1px solid #444; }
-        .room-name { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; }
+        /* CORRECCIÓN DE IMAGEN DE SALA: TOTALMENTE VISIBLE */
+        .room-thumb { 
+            width: 100%; height: auto; /* Altura automática para mostrar todo */
+            max-height: 250px; /* Límite para que no explote */
+            border-radius: 12px; 
+            object-fit: contain; /* MUESTRA LA FOTO COMPLETA SIN CORTAR */
+            background: #000; /* Fondo negro por si la foto es más chica */
+            border: 2px solid #444; 
+        }
+        .room-name { font-size: 20px; font-weight: 900; text-transform: uppercase; text-align: center; }
 
-        /* VISOR CENTRAL */
+        /* COLUMNA 2: VISOR CENTRAL DUPLICADO */
+        .visor-container { display: flex; flex-direction: column; gap: 20px; }
         .visor { 
-            background: #000; border: 6px solid #1a1a1a; border-radius: 30px; 
-            height: 650px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+            background: #000; border: 8px solid #1a1a1a; border-radius: 40px; 
+            height: 750px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
         }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        .sala-tag { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.9); padding: 15px 25px; border-radius: 50px; border: 2px solid var(--n-turq); z-index: 10; font-size: 16px; }
+        .sala-tag { position: absolute; top: 25px; left: 25px; background: rgba(0,0,0,0.9); padding: 20px 30px; border-radius: 50px; border: 2px solid var(--n-turq); z-index: 10; font-size: 18px; color: var(--n-turq); }
+        .online-dot { width: 15px; height: 15px; background: var(--n-verde); border-radius: 50%; display: inline-block; margin-right: 10px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
-        /* CHICAS VIP (CORREGIDAS Y GRANDES) */
-        .girls-container { display: flex; gap: 10px; margin-bottom: 20px; height: 300px; }
-        .girl-box { flex: 1; border: 2px solid #222; border-radius: 20px; overflow: hidden; position: relative; background: #050505; }
-        .girl-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; } /* object-position: top para que no corte cabezas */
-        .girl-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; font-size: 14px; font-weight: 900; color: var(--oro); }
-
-        .chat-area { background: #020202; border: 3px solid #222; border-radius: 20px; padding: 20px; height: 500px; overflow-y: auto; box-shadow: inset 0 0 30px #000; }
+        /* COLUMNA 3: CHICAS Y CHAT DUPLICADOS */
+        .right-panel { display: flex; flex-direction: column; gap: 25px; }
         
-        /* MUROS INFERIORES */
-        .bottom-walls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 30px; border-top: 5px solid #111; }
-        .wall-box { background: #0a0a0a; border: 2px solid #222; padding: 20px; border-radius: 20px; }
-        .wall { height: 250px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #333; padding: 10px; display: flex; flex-direction: column-reverse; gap: 10px; }
-        .up-btn { width: 100%; padding: 15px; background: #1a1a1a; color: var(--oro); border: 2px solid var(--oro); cursor: pointer; border-radius: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
-        .up-btn:hover { background: var(--oro); color: #000; }
+        /* CHICAS VIP COMPLETAS (400px de altura) */
+        .girls-container { display: flex; gap: 15px; height: 400px; }
+        .girl-box { flex: 1; border: 3px solid #222; border-radius: 25px; overflow: hidden; position: relative; background: #050505; }
+        .girl-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; } /* object-position: top para que no corte cabezas */
+        .girl-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 10px; font-size: 16px; font-weight: 900; color: var(--oro); border-top: 1px solid var(--oro); }
+
+        /* CHAT DUPLICADO (600px de altura) */
+        .chat-area { 
+            background: #020202; border: 4px solid #222; border-radius: 25px; 
+            padding: 25px; height: 600px; overflow-y: auto; 
+            box-shadow: inset 0 0 40px #000; 
+            display: flex; flex-direction: column-reverse; /* Mensajes nuevos abajo y auto-scroll */
+            gap: 12px;
+        }
+        .msg { font-size: 16px; border-left: 5px solid; padding-left: 12px; color: #eee; line-height: 1.4; }
+
+        /* MUROS INFERIORES DUPLICADOS */
+        .bottom-walls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 40px; border-top: 8px solid #111; background: #050505; }
+        .wall-box { background: #0a0a0a; border: 3px solid #222; padding: 25px; border-radius: 25px; }
+        .wall { height: 350px; overflow-y: auto; margin-bottom: 20px; border-bottom: 2px solid #333; padding: 15px; display: flex; flex-direction: column-reverse; gap: 12px; }
+        .up-btn { width: 100%; padding: 18px; background: #1a1a1a; color: var(--oro); border: 2px solid var(--oro); cursor: pointer; border-radius: 15px; font-weight: 900; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
+        .up-btn:hover { background: var(--oro); color: #000; box-shadow: 0 0 20px var(--oro); }
     </style>
 </head>
 <body onload="init()">
@@ -106,15 +136,19 @@
 
 <div class="main-app">
     <div id="rooms-list" class="rooms-panel">
-        <h2 style="color:var(--oro); margin-bottom:20px; text-align:center; border-bottom:2px solid var(--oro);">🚪 SALAS VIP</h2>
-    </div>
+        <h2 class="rooms-h2">🚪 SALAS VIP</h2>
+        </div>
 
     <div class="visor-container">
         <div class="visor">
             <div class="sala-tag">
+                <div class="online-dot"></div>
                 📍 <span id="s-nom">SALA</span> | 👤 <span id="s-users">0</span> ONLINE
             </div>
             <img id="main-view" src="">
+        </div>
+        <div class="wall-box" style="text-align:center;">
+            <p style="color:#666; font-size:14px;">Desplaza hacia abajo para ver el chat completo y muros ↓</p>
         </div>
     </div>
 
@@ -130,17 +164,17 @@
 
 <div class="bottom-walls">
     <div class="wall-box">
-        <h3 style="color:var(--n-turq); margin-bottom:10px;">📖 HISTORIAS VIP</h3>
+        <h3 style="color:var(--n-turq); margin-bottom:15px; text-transform:uppercase;">📖 HISTORIAS VIP</h3>
         <div class="wall" id="wall-h"></div>
         <button class="up-btn">📤 SUBIR HISTORIA</button>
     </div>
     <div class="wall-box">
-        <h3 style="color:var(--n-rojo); margin-bottom:10px;">🎬 VIDEOS PRIVADOS</h3>
+        <h3 style="color:var(--n-rojo); margin-bottom:15px; text-transform:uppercase;">🎬 VIDEOS PRIVADOS</h3>
         <div class="wall" id="wall-v"></div>
         <button class="up-btn">📤 SUBIR VIDEO</button>
     </div>
     <div class="wall-box">
-        <h3 style="color:var(--n-verde); margin-bottom:10px;">📱 ESTADOS HOT</h3>
+        <h3 style="color:var(--n-verde); margin-bottom:15px; text-transform:uppercase;">📱 ESTADOS HOT</h3>
         <div class="wall" id="wall-e"></div>
         <button class="up-btn">📤 SUBIR ESTADO</button>
     </div>
@@ -151,11 +185,16 @@
 <script>
     let idx = 0;
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3"}, {n: "Spa", e: ".png", s: "spa_relax.mp3"}, 
-        {n: "Biblioteca", e: ".png", s: "biblioteca_lugubre.mp3"}, {n: "Camarera", e: ".png", s: "oficina_ambiente.mp3"}, 
-        {n: "Discoteca", e: ".png", s: "tecno.mp3"}, {n: "El Bar", e: ".png", s: "bar_alegre.mp3"},
-        {n: "Gimnasio", e: ".png", s: "gym_movimiento.mp3"}, {n: "La Tiendita", e: ".png", s: "tienda_musica.mp3"}, 
-        {n: "Oficina", e: ".png", s: "oficina_ambiente.mp3"}, {n: "Playa", e: ".png", s: "playa_olas.mp3"}
+        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3", c: "var(--n-rojo)"}, 
+        {n: "Spa", e: ".png", s: "spa_relax.mp3", c: "var(--n-turq)"}, 
+        {n: "Biblioteca", e: ".png", s: "biblioteca_lugubre.mp3", c: "var(--n-viola)"}, 
+        {n: "Camarera", e: ".png", s: "oficina_ambiente.mp3", c: "var(--n-verde)"}, 
+        {n: "Discoteca", e: ".png", s: "tecno.mp3", c: "#ff00ff"}, 
+        {n: "El Bar", e: ".png", s: "bar_alegre.mp3", c: "var(--oro)"},
+        {n: "Gimnasio", e: ".png", s: "gym_movimiento.mp3", c: "var(--n-verde)"}, 
+        {n: "La Tiendita", e: ".png", s: "tienda_musica.mp3", c: "#ff4500"}, 
+        {n: "Oficina", e: ".png", s: "oficina_ambiente.mp3", c: "var(--n-turq)"}, 
+        {n: "Playa", e: ".png", s: "playa_olas.mp3", c: "#ffff00"}
     ];
 
     function init() {
@@ -163,13 +202,19 @@
         rooms.forEach((r, i) => {
             const d = document.createElement('div');
             d.className = 'room-item'; d.id = 'r-'+i;
-            d.innerHTML = `<img src="${encodeURI(r.n+r.e)}" class="room-thumb"> <span class="room-name">${r.n}</span>`;
+            // Usamos encodeURI para GitHubPages en la miniatura gigante
+            const imgSrc = encodeURI(r.n + r.e);
+            d.innerHTML = `
+                <img src="${imgSrc}" class="room-thumb" alt="${r.n}">
+                <span class="room-name" style="color:${r.c}">${r.n}</span>
+            `;
             d.onclick = () => { idx = i; refresh(); };
             list.appendChild(d);
         });
         refresh();
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 8000);
-        setInterval(botChat, 3000);
+        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 9000); // Rotación cada 9s
+        setInterval(botChat, 2500); // Chat rápido
+        setInterval(updateOnlineStatus, 3000); // Online fake dinámico
     }
 
     function refresh() {
@@ -177,25 +222,36 @@
         document.getElementById('r-'+idx).classList.add('active');
         const r = rooms[idx];
         document.getElementById('s-nom').innerText = r.n.toUpperCase();
+        // Usamos encodeURI para GitHubPages en el visor central
         document.getElementById('main-view').src = encodeURI(r.n + r.e);
-        document.getElementById('s-users').innerText = 100 + Math.floor(Math.random()*600);
-        
+        updateOnlineStatus();
+
         const player = document.getElementById('audio-player');
         player.src = r.s;
         player.play().catch(e => {});
     }
 
+    function updateOnlineStatus() {
+        document.getElementById('s-users').innerText = 300 + Math.floor(Math.random()*700);
+    }
+
     function botChat() {
         const chat = document.getElementById('chat-stream');
-        const msgs = ["🔞 Show privado en 2 min!", "🔥 Chequeen mi muro!", "💎 Tokens para baile hot", "Recién subí contenido nuevo!"];
-        const n = ["MIA", "TANIA", "COLO", "Admin_VIP", "Pajero_Oro"][Math.floor(Math.random()*5)];
-        chat.innerHTML += `<div style="margin-bottom:8px; font-size:14px; border-left:4px solid var(--oro); padding-left:10px;"><b>${n}:</b> ${msgs[Math.floor(Math.random()*4)]}</div>`;
-        chat.scrollTop = chat.scrollHeight;
+        const msgs = [
+            "🔞 Show privado en 2 min!", "🔥 Chequeen mi muro!", 
+            "💎 Tokens para baile hot", "Recién subí contenido nuevo!",
+            "🔞 Manden para el próximo show!", "Admin: Bienvenidos a MEGA RED VIP"
+        ];
+        const n = ["MIA", "TANIA", "COLO", "Admin_VIP", "Pajero_Oro", "User_Resistencia"][Math.floor(Math.random()*6)];
+        chat.innerHTML = `<div class="msg" style="border-left-color:var(--oro)"><b>${n}:</b> ${msgs[Math.floor(Math.random()*6)]}</div>` + chat.innerHTML;
         
-        // Actualizar muros también
+        updateWalls(n);
+    }
+
+    function updateWalls(user) {
         const walls = ['wall-h', 'wall-v', 'wall-e'];
         const w = document.getElementById(walls[Math.floor(Math.random()*3)]);
-        w.innerHTML += `<div style="font-size:12px; color:#888;"><b>${n}</b> subió contenido nuevo...</div>`;
+        w.innerHTML = `<div style="font-size:14px; color:#aaa; margin-bottom:8px;"><b>${user}</b> subió contenido nuevo...</div>` + w.innerHTML;
     }
 
     function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
