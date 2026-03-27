@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO 3D</title>
+    <title>MEGA RED VIP | IMPERIO TOTAL</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; 
@@ -11,60 +11,73 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-y: auto; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* HEADER REORGANIZADO */
+        /* HEADER: LOGO PROTEGIDO Y MONEDAS A LOS LADOS */
         header { 
-            height: 400px; background: #000; border-bottom: 6px solid var(--oro); 
-            display: grid; grid-template-columns: 300px 1fr 300px; align-items: center; 
+            height: 420px; background: #000; border-bottom: 6px solid var(--oro); 
+            display: grid; grid-template-columns: 350px 1fr 350px; align-items: center; 
             padding: 20px 40px; position: relative;
         }
 
-        /* COLUMNAS LATERALES (PUBLICIDAD + MONEDAS) */
-        .header-side { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-
+        .header-side { display: flex; flex-direction: column; align-items: center; gap: 25px; }
         .ads-box {
-            width: 250px; height: 140px; border: 3px dashed #333; border-radius: 15px;
+            width: 280px; height: 150px; border: 3px dashed #333; border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
-            color: #555; font-size: 12px; text-align: center; background: #050505;
+            color: #555; font-size: 14px; text-align: center; background: #050505;
         }
 
-        /* MONEDAS 3D REALISTAS DEBAJO DE PUBLICIDAD */
-        .coin-pair { display: flex; gap: 15px; }
+        /* MONEDAS 3D REALISTAS */
+        .coin-pair { display: flex; gap: 20px; }
         .coin { 
-            width: 75px; height: 75px; border-radius: 50%; 
-            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 40%, #5c4928); 
-            border: 3px solid #111; color: #000; font-size: 20px; 
+            width: 85px; height: 85px; border-radius: 50%; 
+            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
+            border: 4px solid #111; color: #000; font-size: 24px; 
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; font-weight: 900; 
-            box-shadow: 0 8px 15px rgba(0,0,0,0.8), inset 0 -3px 5px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8), inset 0 -4px 6px rgba(0,0,0,0.6);
             transition: 0.1s;
         }
-        .coin:active { transform: translateY(4px); box-shadow: 0 4px 8px rgba(0,0,0,0.9); }
+        .coin:active { transform: translateY(5px); box-shadow: 0 5px 10px rgba(0,0,0,1); }
 
-        /* LOGO CENTRAL TOTALMENTE LIBRE */
         .logo-center { display: flex; justify-content: center; align-items: center; }
-        .logo-img { height: 320px; filter: drop-shadow(0 0 40px var(--oro)); object-fit: contain; }
+        .logo-img { height: 350px; filter: drop-shadow(0 0 50px var(--oro)); object-fit: contain; }
 
-        /* ESTRUCTURA DE LA PÁGINA (IGUAL A TU DISEÑO) */
-        .main-app { display: grid; grid-template-columns: 350px 1fr 400px; gap: 20px; padding: 25px; }
-        .rooms-panel { background: #0a0a0a; border: 2px solid #222; border-radius: 15px; padding: 15px; }
+        /* CUERPO: SALAS GRANDES */
+        .main-app { display: grid; grid-template-columns: 450px 1fr 450px; gap: 30px; padding: 30px; }
+        
+        .rooms-panel { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; height: 900px; overflow-y: auto; }
         .room-item { 
-            display: flex; align-items: center; gap: 10px; background: #111; border: 1px solid #333; 
-            border-radius: 10px; padding: 10px; margin-bottom: 8px; cursor: pointer;
+            display: flex; flex-direction: column; gap: 10px; background: #111; border: 2px solid #333; 
+            border-radius: 15px; padding: 15px; margin-bottom: 20px; cursor: pointer; transition: 0.3s;
         }
-        .room-item.active { background: #fff; color: #000; }
-        .room-thumb { width: 70px; height: 50px; border-radius: 5px; object-fit: cover; }
+        .room-item:hover { border-color: var(--oro); transform: scale(1.02); }
+        .room-item.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px #fff; }
+        
+        /* IMAGEN DE SALA DUPLICADA (GRANDE) */
+        .room-thumb { width: 100%; height: 180px; border-radius: 10px; object-fit: cover; border: 1px solid #444; }
+        .room-name { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; }
 
+        /* VISOR CENTRAL */
         .visor { 
-            background: #000; border: 5px solid #1a1a1a; border-radius: 20px; 
-            height: 500px; display: flex; align-items: center; justify-content: center; position: relative; 
+            background: #000; border: 6px solid #1a1a1a; border-radius: 30px; 
+            height: 650px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
         }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        .sala-tag { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 10px; border: 1px solid var(--n-turq); z-index: 10; }
+        .sala-tag { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.9); padding: 15px 25px; border-radius: 50px; border: 2px solid var(--n-turq); z-index: 10; font-size: 16px; }
 
-        .chat-area { background: #020202; border: 2px solid #222; border-radius: 15px; padding: 15px; height: 350px; overflow-y: auto; }
-        .bottom-walls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; }
-        .wall { background: #0a0a0a; border: 1px solid #333; padding: 15px; border-radius: 10px; height: 200px; overflow-y: auto; }
-        .up-btn { width: 100%; padding: 10px; margin-top: 5px; background: #1a1a1a; color: var(--oro); border: 1px solid var(--oro); cursor: pointer; border-radius: 5px; font-weight: bold; }
+        /* CHICAS VIP (CORREGIDAS Y GRANDES) */
+        .girls-container { display: flex; gap: 10px; margin-bottom: 20px; height: 300px; }
+        .girl-box { flex: 1; border: 2px solid #222; border-radius: 20px; overflow: hidden; position: relative; background: #050505; }
+        .girl-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; } /* object-position: top para que no corte cabezas */
+        .girl-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; font-size: 14px; font-weight: 900; color: var(--oro); }
+
+        .chat-area { background: #020202; border: 3px solid #222; border-radius: 20px; padding: 20px; height: 500px; overflow-y: auto; box-shadow: inset 0 0 30px #000; }
+        
+        /* MUROS INFERIORES */
+        .bottom-walls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 30px; border-top: 5px solid #111; }
+        .wall-box { background: #0a0a0a; border: 2px solid #222; padding: 20px; border-radius: 20px; }
+        .wall { height: 250px; overflow-y: auto; margin-bottom: 15px; border-bottom: 1px solid #333; padding: 10px; display: flex; flex-direction: column-reverse; gap: 10px; }
+        .up-btn { width: 100%; padding: 15px; background: #1a1a1a; color: var(--oro); border: 2px solid var(--oro); cursor: pointer; border-radius: 12px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
+        .up-btn:hover { background: var(--oro); color: #000; }
     </style>
 </head>
 <body onload="init()">
@@ -93,21 +106,23 @@
 
 <div class="main-app">
     <div id="rooms-list" class="rooms-panel">
-        <h3 style="color:var(--oro); margin-bottom:15px;">🚪 SALAS MEGA RED</h3>
+        <h2 style="color:var(--oro); margin-bottom:20px; text-align:center; border-bottom:2px solid var(--oro);">🚪 SALAS VIP</h2>
     </div>
 
-    <div class="visor">
-        <div class="sala-tag">
-            📍 <span id="s-nom">SALA</span> | 👤 <span id="s-users">0</span> ONLINE
+    <div class="visor-container">
+        <div class="visor">
+            <div class="sala-tag">
+                📍 <span id="s-nom">SALA</span> | 👤 <span id="s-users">0</span> ONLINE
+            </div>
+            <img id="main-view" src="">
         </div>
-        <img id="main-view" src="">
     </div>
 
     <div class="right-panel">
-        <div style="display:flex; gap:5px; margin-bottom:10px; height:100px;">
-            <img src="Rubia.jpg" style="flex:1; border-radius:10px; object-fit:cover;">
-            <img src="Morocha.jpg" style="flex:1; border-radius:10px; object-fit:cover;">
-            <img src="Pelirroja.jpg" style="flex:1; border-radius:10px; object-fit:cover;">
+        <div class="girls-container">
+            <div class="girl-box"><img src="Rubia.jpg"><div class="girl-label">MIA</div></div>
+            <div class="girl-box"><img src="Morocha.jpg"><div class="girl-label">TANIA</div></div>
+            <div class="girl-box"><img src="Pelirroja.jpg"><div class="girl-label">COLO</div></div>
         </div>
         <div id="chat-stream" class="chat-area"></div>
     </div>
@@ -115,15 +130,18 @@
 
 <div class="bottom-walls">
     <div class="wall-box">
-        <div class="wall" id="wall-h"><b>📖 HISTORIAS VIP</b><br></div>
+        <h3 style="color:var(--n-turq); margin-bottom:10px;">📖 HISTORIAS VIP</h3>
+        <div class="wall" id="wall-h"></div>
         <button class="up-btn">📤 SUBIR HISTORIA</button>
     </div>
     <div class="wall-box">
-        <div class="wall" id="wall-v"><b>🎬 VIDEOS PRIVADOS</b><br></div>
+        <h3 style="color:var(--n-rojo); margin-bottom:10px;">🎬 VIDEOS PRIVADOS</h3>
+        <div class="wall" id="wall-v"></div>
         <button class="up-btn">📤 SUBIR VIDEO</button>
     </div>
     <div class="wall-box">
-        <div class="wall" id="wall-e"><b>📱 ESTADOS HOT</b><br></div>
+        <h3 style="color:var(--n-verde); margin-bottom:10px;">📱 ESTADOS HOT</h3>
+        <div class="wall" id="wall-e"></div>
         <button class="up-btn">📤 SUBIR ESTADO</button>
     </div>
 </div>
@@ -132,18 +150,12 @@
 
 <script>
     let idx = 0;
-    // CONFIGURACIÓN DE SALAS Y SUS SONIDOS
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3"}, 
-        {n: "Spa", e: ".png", s: "spa_relax.mp3"}, 
-        {n: "Biblioteca", e: ".png", s: "biblioteca_lugubre.mp3"}, 
-        {n: "Camarera", e: ".png", s: "oficina_ambiente.mp3"}, 
-        {n: "Discoteca", e: ".png", s: "tecno.mp3"}, 
-        {n: "El Bar", e: ".png", s: "bar_alegre.mp3"},
-        {n: "Gimnasio", e: ".png", s: "gym_movimiento.mp3"}, 
-        {n: "La Tiendita", e: ".png", s: "tienda_musica.mp3"}, 
-        {n: "Oficina", e: ".png", s: "oficina_ambiente.mp3"}, 
-        {n: "Playa", e: ".png", s: "playa_olas.mp3"}
+        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3"}, {n: "Spa", e: ".png", s: "spa_relax.mp3"}, 
+        {n: "Biblioteca", e: ".png", s: "biblioteca_lugubre.mp3"}, {n: "Camarera", e: ".png", s: "oficina_ambiente.mp3"}, 
+        {n: "Discoteca", e: ".png", s: "tecno.mp3"}, {n: "El Bar", e: ".png", s: "bar_alegre.mp3"},
+        {n: "Gimnasio", e: ".png", s: "gym_movimiento.mp3"}, {n: "La Tiendita", e: ".png", s: "tienda_musica.mp3"}, 
+        {n: "Oficina", e: ".png", s: "oficina_ambiente.mp3"}, {n: "Playa", e: ".png", s: "playa_olas.mp3"}
     ];
 
     function init() {
@@ -151,7 +163,7 @@
         rooms.forEach((r, i) => {
             const d = document.createElement('div');
             d.className = 'room-item'; d.id = 'r-'+i;
-            d.innerHTML = `<img src="${encodeURI(r.n+r.e)}" class="room-thumb"> <span>${r.n}</span>`;
+            d.innerHTML = `<img src="${encodeURI(r.n+r.e)}" class="room-thumb"> <span class="room-name">${r.n}</span>`;
             d.onclick = () => { idx = i; refresh(); };
             list.appendChild(d);
         });
@@ -166,20 +178,24 @@
         const r = rooms[idx];
         document.getElementById('s-nom').innerText = r.n.toUpperCase();
         document.getElementById('main-view').src = encodeURI(r.n + r.e);
-        document.getElementById('s-users').innerText = 100 + Math.floor(Math.random()*500);
-
-        // CAMBIO DE SONIDO
+        document.getElementById('s-users').innerText = 100 + Math.floor(Math.random()*600);
+        
         const player = document.getElementById('audio-player');
         player.src = r.s;
-        player.play().catch(e => console.log("Esperando interacción para audio"));
+        player.play().catch(e => {});
     }
 
     function botChat() {
         const chat = document.getElementById('chat-stream');
-        const msgs = ["🔞 Show privado en 2 min!", "🔥 Chequeen mi muro!", "💎 Tokens para baile hot"];
-        const n = ["MIA", "TANIA", "COLO", "Admin_VIP"][Math.floor(Math.random()*4)];
-        chat.innerHTML += `<div style="margin-bottom:5px; font-size:12px; border-left:3px solid var(--oro); padding-left:5px;"><b>${n}:</b> ${msgs[Math.floor(Math.random()*3)]}</div>`;
+        const msgs = ["🔞 Show privado en 2 min!", "🔥 Chequeen mi muro!", "💎 Tokens para baile hot", "Recién subí contenido nuevo!"];
+        const n = ["MIA", "TANIA", "COLO", "Admin_VIP", "Pajero_Oro"][Math.floor(Math.random()*5)];
+        chat.innerHTML += `<div style="margin-bottom:8px; font-size:14px; border-left:4px solid var(--oro); padding-left:10px;"><b>${n}:</b> ${msgs[Math.floor(Math.random()*4)]}</div>`;
         chat.scrollTop = chat.scrollHeight;
+        
+        // Actualizar muros también
+        const walls = ['wall-h', 'wall-v', 'wall-e'];
+        const w = document.getElementById(walls[Math.floor(Math.random()*3)]);
+        w.innerHTML += `<div style="font-size:12px; color:#888;"><b>${n}</b> subió contenido nuevo...</div>`;
     }
 
     function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
