@@ -10,90 +10,82 @@
 
         /* HEADER */
         header { height: 260px; background: #000; border-bottom: 5px solid var(--oro); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; position: relative; }
-        .header-ads-left { width: 220px; display: flex; flex-direction: column; gap: 8px; }
-        .ad-mini { border: 2px solid var(--n-rojo); padding: 8px; font-size: 10px; text-align: center; color: #fff; background: #400; border-radius: 5px; text-transform: uppercase; }
-        .logo-img { height: 220px; width: auto; filter: drop-shadow(0 0 35px var(--oro)); }
+        .logo-img { height: 220px; filter: drop-shadow(0 0 35px var(--oro)); }
         
         /* CONTADOR ONLINE */
-        .online-counter { position: absolute; bottom: 10px; left: 30px; background: rgba(0,255,102,0.1); border: 1px solid var(--n-verde); padding: 5px 15px; border-radius: 20px; color: var(--n-verde); font-size: 12px; display: flex; align-items: center; gap: 8px; }
-        .dot { width: 8px; height: 8px; background: var(--n-verde); border-radius: 50%; box-shadow: 0 0 10px var(--n-verde); animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* MONEDAS 3D */
-        .coin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .coin { 
-            width: 90px; height: 90px; border-radius: 50%; 
-            background: radial-gradient(circle at 35% 35%, #fff9aa, var(--oro) 50%, #5c4928); 
-            border: 4px solid #222; color: #000; font-size: 26px; 
-            display: flex; align-items: center; justify-content: center; 
-            cursor: pointer; font-weight: 900; box-shadow: 0 10px 0 #333;
-        }
+        .online-counter { position: absolute; bottom: 15px; left: 30px; background: rgba(0,255,102,0.1); border: 2px solid var(--n-verde); padding: 8px 20px; border-radius: 30px; color: var(--n-verde); font-size: 14px; font-weight: 900; display: flex; align-items: center; gap: 10px; box-shadow: 0 0 15px rgba(0,255,102,0.3); }
+        .dot { width: 10px; height: 10px; background: var(--n-verde); border-radius: 50%; animation: blink 0.8s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(1.2); } }
 
         /* LAYOUT */
         .main-app { display: grid; grid-template-columns: 240px 1fr 380px; gap: 15px; padding: 15px; }
         
         /* SALAS */
-        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 10px; padding: 10px; height: 600px; overflow-y: auto; }
+        .rooms-box { background: #080808; border: 1px solid #222; border-radius: 10px; padding: 10px; }
         .p-btn { width: 100%; padding: 15px; margin-bottom: 8px; background: #151515; border: 1px solid #444; color: #999; cursor: pointer; border-radius: 5px; text-align: left; font-size: 11px; font-weight: 900; text-transform: uppercase; }
         .p-btn.active { border-color: var(--n-turq); color: var(--n-turq); background: #001a1a; box-shadow: 0 0 15px var(--n-turq); }
 
-        /* VISOR SALAS */
+        /* VISOR CON LINK NEÓN */
         .visor-container { background: #050505; border: 5px solid #1a1a1a; border-radius: 15px; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        #main-view { width: 100%; height: 100%; object-fit: contain; background: #000; }
-        .sala-tag { position: absolute; top: 15px; right: 15px; background: var(--n-rojo); padding: 5px 15px; font-size: 14px; font-weight: 900; z-index: 10; color: white; }
-
-        /* CHICAS SIN MARCO */
-        .right-side { display: flex; flex-direction: column; gap: 10px; height: 80vh; position: sticky; top: 20px; }
-        .girls-container { display: flex; gap: 8px; height: 320px; }
-        .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; }
-        .girl-img-box { width: 100%; height: 260px; overflow: hidden; background: transparent; }
-        .girl-img-box img { width: 100%; height: 100%; object-fit: contain; } 
-        .girl-name { font-size: 14px; font-weight: 900; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        #main-view { width: 100%; height: 100%; object-fit: contain; }
         
+        /* LINK ALIEXPRESS NEON */
+        .ali-link { display: none; position: absolute; bottom: 30px; background: #000; border: 3px solid var(--n-rojo); color: var(--n-rojo); padding: 15px 30px; font-size: 20px; font-weight: 900; text-decoration: none; text-transform: uppercase; border-radius: 10px; animation: neonPulse 1.5s infinite; z-index: 100; box-shadow: 0 0 20px var(--n-rojo); }
+        @keyframes neonPulse { 0%, 100% { box-shadow: 0 0 10px var(--n-rojo); opacity: 1; } 50% { box-shadow: 0 0 40px var(--n-rojo); opacity: 0.7; } }
+
+        /* AVATARES SIMÉTRICOS */
+        .right-side { display: flex; flex-direction: column; gap: 10px; height: 85vh; }
+        .girls-container { display: flex; gap: 10px; height: 350px; }
+        .girl-card { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .girl-img-box { width: 115px; height: 300px; overflow: hidden; background: transparent; display: flex; align-items: flex-end; }
+        .girl-img-box img { width: 100%; height: 100%; object-fit: contain; } 
+        .girl-name { font-size: 13px; font-weight: 900; margin-top: 10px; text-transform: uppercase; }
+        
+        /* CHAT */
         .chat-display { flex-grow: 1; background: #020202; border: 2px solid #333; border-radius: 10px; padding: 15px; overflow-y: auto; font-size: 14px; }
-        .msg { margin-bottom: 12px; border-left: 6px solid; padding-left: 12px; font-weight: bold; }
+        .msg { margin-bottom: 12px; border-left: 6px solid; padding-left: 12px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="online-counter"><div class="dot"></div> <span id="user-count">612</span> PERSONAS ONLINE</div>
-    <div class="header-ads-left">
-        <div class="ad-mini">🔞 PUBLICIDAD VIP</div>
-        <div class="ad-mini" style="border-color:var(--n-turq);">💎 COMPRAR TOKENS</div>
-    </div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-img" alt="LOGO">
-    <div class="coin-grid">
-        <div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div>
-        <div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div>
+    <div class="online-counter"><div class="dot"></div> <span id="user-count">643</span> PAJEROS ONLINE</div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-img">
+    <div class="coin-grid" id="coins">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="coin" style="width:80px; height:80px; background:radial-gradient(circle at 35% 35%, #fff9aa, #d4af37 50%, #5c4928); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; cursor:pointer;" onclick="pay(1)">$1</div>
+            <div class="coin" style="width:80px; height:80px; background:radial-gradient(circle at 35% 35%, #fff9aa, #d4af37 50%, #5c4928); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; cursor:pointer;" onclick="pay(5)">$5</div>
+        </div>
     </div>
 </header>
 
 <div class="main-app">
     <div class="rooms-box" id="rooms-list"></div>
+
     <div class="center-col">
         <div class="visor-container">
-            <div class="sala-tag" id="sala-tag">SALA ACTIVA</div>
             <img id="main-view" src="">
+            <a href="https://tu-link-de-aliexpress.com" target="_blank" class="ali-link" id="ali-btn">🔥 COMPRAR JUGUETES 🔥</a>
         </div>
         <div style="background:#0a0a0a; border:1px solid #222; padding:15px; border-radius:10px; margin-top:15px;">
-            <h4 style="color:var(--oro); margin-bottom:5px;">📰 MURO SOCIAL RESISTENCIA</h4>
-            <div id="posts-container" style="color:#bc13fe; font-size:13px;"><b>Socio VIP:</b> ¡Qué buenas que están! 🔥</div>
+            <h4 style="color:var(--oro);">📰 MURO VIP - <span id="user-loc">TU CIUDAD</span></h4>
+            <div id="posts-container" style="color:#bc13fe; font-size:13px; margin-top:5px;"><b>ADMIN:</b> Solo para machos de verdad.</div>
         </div>
     </div>
+
     <div class="right-side">
         <div class="girls-container">
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Rubia.jpg"></div>
-                <div class="girl-name" style="color:var(--n-turq); text-shadow: 0 0 8px var(--n-turq);">MIA</div>
+                <div class="girl-name" style="color:var(--n-turq);">MIA</div>
             </div>
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Morocha.jpg"></div>
-                <div class="girl-name" style="color:var(--n-verde); text-shadow: 0 0 8px var(--n-verde);">TANIA</div>
+                <div class="girl-name" style="color:var(--n-verde);">TANIA</div>
             </div>
             <div class="girl-card">
                 <div class="girl-img-box"><img src="Pelirroja.jpg"></div>
-                <div class="girl-name" style="color:var(--n-rojo); text-shadow: 0 0 8px var(--n-rojo);">COLO</div>
+                <div class="girl-name" style="color:var(--n-rojo);">COLO</div>
             </div>
         </div>
         <div class="chat-display" id="chat-stream"></div>
@@ -101,21 +93,24 @@
 </div>
 
 <script>
+    let userCity = "Corrientes"; 
     let idx = 0;
-    // LISTA EXACTA SEGÚN TUS ARCHIVOS
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg"},
-        {n: "Spa", e: ".png"},
-        {n: "Biblioteca", e: ".png"},
-        {n: "Camarera", e: ".png"},
-        {n: "Discoteca", e: ".png"},
-        {n: "El Bar", e: ".png"},
-        {n: "Gimnasio", e: ".png"},
-        {n: "La Tiendita", e: ".png"},
-        {n: "Oficina", e: ".png"},
-        {n: "Playa", e: ".png"}
+        {n: "Sado y Maso", e: ".jpg"}, {n: "Spa", e: ".png"}, {n: "Biblioteca", e: ".png"},
+        {n: "Camarera", e: ".png"}, {n: "Discoteca", e: ".png"}, {n: "El Bar", e: ".png"},
+        {n: "Gimnasio", e: ".png"}, {n: "La Tiendita", e: ".png"}, {n: "Oficina", e: ".png"}, {n: "Playa", e: ".png"}
     ];
-    
+
+    // GEOLOCALIZACIÓN REAL
+    fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.city) {
+                userCity = data.city;
+                document.getElementById('user-loc').innerText = userCity.toUpperCase();
+            }
+        });
+
     function init() {
         const list = document.getElementById('rooms-list');
         rooms.forEach((r, i) => {
@@ -126,46 +121,39 @@
             list.appendChild(b);
         });
         refresh();
-        setInterval(botChat, 5000);
-        setInterval(() => { idx = (idx + 1) % rooms.length; refresh(); }, 12000);
+        setInterval(botChat, 4000);
         setInterval(() => {
-            document.getElementById('user-count').innerText = 550 + Math.floor(Math.random() * 100);
-        }, 3000);
+            document.getElementById('user-count').innerText = 600 + Math.floor(Math.random() * 200);
+        }, 2500);
     }
 
     function refresh() {
         document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
-        document.getElementById('sala-tag').innerText = rooms[idx].n.toUpperCase();
-        
-        const img = document.getElementById('main-view');
         const r = rooms[idx];
+        document.getElementById('main-view').src = encodeURIComponent(r.n) + r.e;
         
-        // Carga con la extensión que me pasaste
-        img.src = encodeURIComponent(r.n) + r.e;
-
-        // Backup por si acaso
-        img.onerror = () => {
-            const altExt = r.e === ".png" ? ".jpg" : ".png";
-            img.src = encodeURIComponent(r.n) + altExt;
-        };
+        // MOSTRAR LINK EN TIENDITA
+        document.getElementById('ali-btn').style.display = (r.n === "La Tiendita") ? "block" : "none";
     }
 
-    const msgs = [
-        {u: "MIA", t: "🔞 No me comparen con Tania, esa perra no sabe ni moverse. Soy la más putita.", c: "#00d9ff"},
-        {u: "COLO", t: "🔥 ¿Quién me manda 10 tokens para que me abra de piernas?", c: "#ff003c"},
-        {u: "TANIA", t: "💅 Mia sos una envidiosa. Mis videos son los más calientes.", c: "#00ff66"}
-    ];
-
+    // CHAT VULGAR Y LOCALIZADO
     function botChat() {
-        const m = msgs[Math.floor(Math.random() * msgs.length)];
+        const frases = [
+            {u: "MIA", c: "#00d9ff", t: `🔞 ¿Hay algún macho de ${userCity} que me quiera romper toda?`},
+            {u: "TANIA", c: "#00ff66", t: `💅 Mia, callate que en ${userCity} prefieren mi culo mil veces.`},
+            {u: "COLO", t: `🔥 Estoy re caliente... el primero de ${userCity} que mande 10 tokens me ve abrirme de piernas.`, c: "#ff003c"},
+            {u: "MIA", c: "#00d9ff", t: "🔞 Me acabo de meter un juguete nuevo, ¿quieren ver cómo grito?"},
+            {u: "TANIA", c: "#00ff66", t: "💎 Pobre de mierda el que entra y no manda ni un dólar. ¡Muevan la guita!"},
+            {u: "COLO", t: `🔥 Recién crucé a uno de ${userCity} y me dejó las piernas temblando... ¿quién sigue?`, c: "#ff003c"}
+        ];
+        const m = frases[Math.floor(Math.random() * frases.length)];
         const box = document.getElementById('chat-stream');
         box.innerHTML += `<div class="msg" style="border-color:${m.c}; color:${m.c}"><b>${m.u}:</b> ${m.t}</div>`;
         box.scrollTop = box.scrollHeight;
     }
 
     function pay(n) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount=${n}&currency_code=USD`, '_blank'); }
-
     init();
 </script>
 </body>
