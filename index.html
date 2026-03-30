@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v63</title>
+    <title>MEGA RED VIP | IMPERIO FINAL v64</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -57,16 +57,29 @@
             text-decoration: none; text-align: center; font-weight: 900; border-radius: 10px; border: 4px solid white; animation: blink 1s infinite;
         }
 
-        /* 3. BOTS: UNIFICADAS SIN MÁRGENES */
+        /* 3. BOTS: UNIFICADAS Y AGRANDADAS (SOLUCIÓN AQUÍ) */
         .right-panel { display: flex; flex-direction: column; gap: 20px; }
-        .bots-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; height: 480px; }
-        .bot-unit { display: flex; flex-direction: column; height: 100%; }
+        .bots-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        
+        .bot-unit { 
+            display: flex; flex-direction: column; 
+            height: 500px; /* ALTURA FIJA Y AGRANDADA PARA LAS TRES */
+        }
+        
         .bot-img-box { 
-            height: 100%; border: 3px solid #222; border-radius: 12px; 
+            flex-grow: 1; /* Ocupa todo el espacio disponible en la columna */
+            border: 3px solid #222; border-radius: 12px; 
             overflow: hidden; background: #000; 
         }
-        /* Ajuste 'cover' para que llenen el cuadro sin bordes negros laterales */
-        .bot-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        
+        /* Object-fit 'cover' para llenar el cuadro y unificar tamaño */
+        .bot-img-box img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Llena el recuadro sin deformar, cortando bordes excedentes */
+            object-position: top center; /* Centra la vista en la parte superior (cara/cuerpo) */
+        }
+        
         .bot-name { text-align: center; font-size: 13px; font-weight: 900; padding: 8px; border-radius: 6px; margin-top: 8px; text-transform: uppercase; }
 
         /* CHAT */
