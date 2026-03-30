@@ -2,27 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | NEÓN RED EDITION</title>
+    <title>MEGA RED VIP | CONTROL TOTAL</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
             --neon-rojo: #ff003c; --neon-azul: #00d9ff; 
-            --neon-verde: #00ff66; --neon-rosa: #ff00ff;
+            --neon-rosa: #ff00ff; --neon-verde: #00ff66;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background: var(--fondo); color: white; font-family: 'Segoe UI', sans-serif; 
-            overflow-x: hidden; text-shadow: 0 0 5px var(--neon-rojo);
-        }
+        body { background: var(--fondo); color: white; font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
-        /* HEADER NEÓN */
+        /* HEADER */
         header { 
             display: grid; grid-template-columns: 300px 1fr 300px; 
             align-items: center; padding: 20px; border-bottom: 4px solid var(--neon-rojo); 
             background: #050505; box-shadow: 0 0 20px var(--neon-rojo);
         }
         .header-side { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .publi-box { width: 250px; height: 100px; border: 2px solid var(--neon-rojo); display: flex; align-items: center; justify-content: center; color: var(--neon-rojo); font-size: 12px; box-shadow: inset 0 0 10px var(--neon-rojo); }
+        .publi-box { width: 250px; height: 100px; border: 2px solid var(--neon-rojo); display: flex; align-items: center; justify-content: center; color: var(--neon-rojo); font-size: 12px; }
         .coins { display: flex; gap: 20px; }
         .coin { 
             width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
@@ -30,66 +27,54 @@
         }
         .logo-center img { height: 250px; filter: drop-shadow(0 0 20px var(--neon-rojo)); }
 
-        /* CUERPO PRINCIPAL */
-        .main-content { 
-            display: grid; grid-template-columns: 180px 1fr 450px; 
-            gap: 20px; padding: 20px;
-        }
+        /* CUERPO */
+        .main-content { display: grid; grid-template-columns: 180px 1fr 450px; gap: 20px; padding: 20px; }
 
-        /* SALAS */
+        /* SALAS IZQUIERDA */
         .rooms-list { display: flex; flex-direction: column; gap: 8px; }
         .room-btn { 
             padding: 12px; background: #111; border: 1px solid #333; color: white; 
             font-size: 11px; text-transform: uppercase; cursor: pointer; text-align: center;
-            transition: 0.3s;
         }
         .room-btn.active { background: var(--neon-rojo); border-color: white; box-shadow: 0 0 15px var(--neon-rojo); }
 
-        /* VISOR + BOTÓN ALI */
+        /* VISOR CENTRAL */
         .viewer-container { display: flex; flex-direction: column; gap: 15px; }
-        .main-screen { 
-            border: 4px solid var(--neon-rojo); border-radius: 15px; height: 600px; 
-            background: #000; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(255,0,60,0.3);
-        }
+        .main-screen { border: 4px solid var(--neon-rojo); border-radius: 15px; height: 600px; background: #000; overflow: hidden; }
         #main-view { width: 100%; height: 100%; object-fit: contain; }
-        
-        .btn-ali { 
-            display: none; width: 100%; padding: 20px; background: #ff4747; color: white; 
-            text-decoration: none; text-align: center; font-weight: 900; border-radius: 10px;
-            font-size: 1.2em; border: 3px solid white; animation: blink 1s infinite;
-        }
+        .btn-ali { display: none; width: 100%; padding: 15px; background: #ff4747; color: white; text-decoration: none; text-align: center; font-weight: 900; border-radius: 10px; margin-top: 10px; animation: blink 1s infinite; }
 
-        /* AVATARES CUERPO COMPLETO */
+        /* AVATARES (TAMAÑO UNIFORME TIPO COLO) */
         .right-panel { display: flex; flex-direction: column; gap: 15px; }
-        .bots-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 500px; }
-        .bot-container { position: relative; height: 100%; border: 2px solid #222; border-radius: 10px; overflow: hidden; }
-        .bot-img { width: 100%; height: 100%; object-fit: contain; object-position: top; background: #080808; }
-        .bot-status { position: absolute; top: 10px; right: 10px; width: 15px; height: 15px; border-radius: 50%; background: var(--neon-verde); box-shadow: 0 0 10px var(--neon-verde); }
+        .bots-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 480px; }
+        .bot-container { position: relative; height: 100%; border: 2px solid #222; border-radius: 10px; overflow: hidden; background: #080808; }
+        .bot-img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .bot-online { position: absolute; top: 8px; right: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--neon-verde); box-shadow: 0 0 10px var(--neon-verde); }
 
-        /* CHAT MULTICOLOR */
+        /* CHAT */
         .chat-box { 
             background: #050505; border: 1px solid var(--neon-rojo); border-radius: 10px; 
-            height: 300px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column-reverse; gap: 8px;
+            height: 250px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column-reverse; gap: 8px;
         }
-        .msg { border-left: 3px solid white; padding-left: 10px; font-size: 13px; }
-        .name-mia { color: var(--neon-rosa); font-weight: 900; }
-        .name-tania { color: var(--neon-azul); font-weight: 900; }
-        .name-colo { color: var(--neon-rojo); font-weight: 900; }
-        .name-user { color: #fff; font-style: italic; }
+        .msg { font-size: 13px; border-bottom: 1px solid #111; padding-bottom: 4px; }
+        .n-mia { color: var(--neon-rosa); font-weight: bold; }
+        .n-tania { color: var(--neon-azul); font-weight: bold; }
+        .n-colo { color: var(--neon-rojo); font-weight: bold; }
 
-        /* MUROS INFERIORES */
+        /* MUROS FISICOS */
         .bottom-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; border-top: 3px solid var(--neon-rojo); }
-        .wall-card { background: #0a0a0a; border: 1px solid var(--neon-rojo); padding: 20px; border-radius: 15px; text-align: center; }
-        .action-btn { width: 100%; padding: 12px; background: var(--neon-rojo); color: white; border: none; border-radius: 8px; font-weight: 900; cursor: pointer; }
+        .wall-card { background: #0a0a0a; border: 1px solid var(--neon-rojo); padding: 15px; border-radius: 15px; }
+        .wall-display { height: 200px; background: #000; margin: 10px 0; border-radius: 8px; overflow-y: auto; padding: 10px; font-size: 12px; color: #ccc; border: 1px solid #222; }
+        .action-btn { width: 100%; padding: 10px; background: var(--neon-rojo); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     </style>
 </head>
 <body onload="init()">
 
 <header>
     <div class="header-side">
-        <div class="publi-box">AD SPACE $20</div>
+        <div class="publi-box">ANUNCIO $20</div>
         <div class="coins">
             <div class="coin" onclick="pay(1)">$1</div>
             <div class="coin" onclick="pay(3)">$3</div>
@@ -97,7 +82,7 @@
     </div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
     <div class="header-side">
-        <div class="publi-box">AD SPACE $50</div>
+        <div class="publi-box">ANUNCIO $50</div>
         <div class="coins">
             <div class="coin" onclick="pay(5)">$5</div>
             <div class="coin" onclick="pay(10)">$10</div>
@@ -112,23 +97,35 @@
         <div class="main-screen">
             <img id="main-view" src="">
         </div>
-        <a id="ali-link" href="TU_LINK_DE_AFILIADO_AQUÍ" target="_blank" class="btn-ali">🛒 COMPRAR EN LA TIENDITA (ALIEXPRESS)</a>
+        <a id="ali-link" href="TU_LINK_DE_AFILIADO" target="_blank" class="btn-ali">🛒 IR A LA TIENDITA (ALIEXPRESS)</a>
     </div>
 
     <div class="right-panel">
         <div class="bots-row">
-            <div class="bot-container"><div class="bot-status"></div><img src="Rubia.jpg" class="bot-img"></div>
-            <div class="bot-container"><div class="bot-status"></div><img src="Morocha.jpg" class="bot-img"></div>
-            <div class="bot-container"><div class="bot-status"></div><img src="Pelirroja.jpg" class="bot-img"></div>
+            <div class="bot-container"><div class="bot-online"></div><img src="Rubia.jpg" class="bot-img"></div>
+            <div class="bot-container"><div class="bot-online"></div><img src="Morocha.jpg" class="bot-img"></div>
+            <div class="bot-container"><div class="bot-online"></div><img src="Pelirroja.jpg" class="bot-img"></div>
         </div>
         <div id="chat-stream" class="chat-box"></div>
     </div>
 </div>
 
 <div class="bottom-section">
-    <div class="wall-card"><h3>📱 ESTADOS</h3><button class="action-btn" onclick="pay(2)">SUBIR</button></div>
-    <div class="wall-card"><h3>📖 HISTORIAS</h3><button class="action-btn" onclick="pay(5)">SUBIR</button></div>
-    <div class="wall-card"><h3>🎬 VIDEOS</h3><button class="action-btn" onclick="pay(10)">SUBIR</button></div>
+    <div class="wall-card">
+        <h3>📱 ESTADOS</h3>
+        <div class="wall-display" id="wall-e"></div>
+        <button class="action-btn" onclick="postContent('wall-e')">PUBLICAR ESTADO</button>
+    </div>
+    <div class="wall-card">
+        <h3>📖 HISTORIAS</h3>
+        <div class="wall-display" id="wall-h"></div>
+        <button class="action-btn" onclick="postContent('wall-h')">PUBLICAR HISTORIA</button>
+    </div>
+    <div class="wall-card">
+        <h3>🎬 VIDEOS</h3>
+        <div class="wall-display" id="wall-v"></div>
+        <button class="action-btn" onclick="postContent('wall-v')">PUBLICAR VIDEO</button>
+    </div>
 </div>
 
 <audio id="audio-player" loop></audio>
@@ -152,42 +149,41 @@
             b.onclick = () => { idx = i; refresh(); };
             side.appendChild(b);
         });
-        refresh();
-        setInterval(botCycle, 3000);
-        setInterval(userArrival, 5000);
+        refresh(); // Solo carga la primera vez, no hay setInterval para rotar
+        setInterval(botTalk, 4000);
     }
 
     function refresh() {
         document.querySelectorAll('.room-btn').forEach(el => el.classList.remove('active'));
         document.getElementById('r-'+idx).classList.add('active');
         document.getElementById('main-view').src = encodeURI(rooms[idx].n + rooms[idx].e);
+        document.getElementById('ali-link').style.display = (rooms[idx].n === "La Tiendita") ? "block" : "none";
         
-        // Mostrar/Ocultar botón de Ali
-        const aliBtn = document.getElementById('ali-link');
-        aliBtn.style.display = (rooms[idx].n === "La Tiendita") ? "block" : "none";
-
         const player = document.getElementById('audio-player');
         player.src = rooms[idx].s;
         player.play().catch(e => {});
     }
 
-    function botCycle() {
+    function botTalk() {
         const chat = document.getElementById('chat-stream');
         const bots = [
-            {n: "MIA", c: "name-mia", m: "¡Mis historias están que arden! 🔥"},
-            {n: "TANIA", c: "name-tania", m: "¿Viste mi video de hoy? 💎"},
-            {n: "COLO", c: "name-colo", m: "Show privado disponible... 🔞"}
+            {n: "MIA", cl: "n-mia", m: "¡Miren mis fotos nuevas en historias! 💋"},
+            {n: "TANIA", cl: "n-tania", m: "¿Quién me invita un trago? Compra monedas arriba 💎"},
+            {n: "COLO", cl: "n-colo", m: "Acabo de subir un video prohibido abajo... 🔞"}
         ];
         const b = bots[Math.floor(Math.random()*3)];
-        chat.innerHTML = `<div class="msg"><span class="${b.c}">${b.n}:</span> ${b.m}</div>` + chat.innerHTML;
+        chat.innerHTML = `<div class="msg"><span class="${b.cl}">${b.n}:</span> ${b.m}</div>` + chat.innerHTML;
     }
 
-    function userArrival() {
-        const chat = document.getElementById('chat-stream');
-        const users = ["Socio_44", "Vip_Chaco", "Pajero_Oro", "Anonimo88"];
-        const rName = rooms[Math.floor(Math.random()*rooms.length)].n;
-        const u = users[Math.floor(Math.random()*users.length)];
-        chat.innerHTML = `<div class="msg" style="color:#666"><span class="name-user">● ${u}</span> entró en <b>${rName}</b></div>` + chat.innerHTML;
+    function postContent(wallId) {
+        const content = prompt("Escribe tu publicación o pega el link de tu imagen/video:");
+        if (content) {
+            const wall = document.getElementById(wallId);
+            const date = new Date().toLocaleTimeString();
+            wall.innerHTML = `<div style="margin-bottom:10px; padding:5px; border-bottom:1px solid #222;">
+                <span style="color:var(--oro)">[${date}]</span><br>${content}
+            </div>` + wall.innerHTML;
+        }
     }
 
     function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
