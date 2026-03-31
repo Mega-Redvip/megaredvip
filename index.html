@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v73</title>
+    <title>MEGA RED VIP | IMPERIO FINAL v74</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -30,10 +30,10 @@
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
             font-weight: 900; cursor: pointer; border: 3px solid white;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
             transition: 0.3s;
         }
-        .coin:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--oro); }
+        .coin:hover { transform: scale(1.15); box-shadow: 0 0 25px var(--oro); }
 
         /* NIVEL 1: SALAS Y AVATARES */
         .level-1 { display: grid; grid-template-columns: 300px 1fr; gap: 15px; padding: 20px; height: 500px; }
@@ -48,43 +48,32 @@
         }
         .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        /* BOTÓN ALI "MAGNETO" ULTRA TENTADOR */
+        /* BOTÓN ALI "VIP PROHIBIDO" ULTRA AGRESIVO */
         .ali-vip-btn {
-            background: #000;
-            color: white;
-            border: 2px solid var(--n-rojo);
-            border-radius: 10px;
+            background: linear-gradient(145deg, #1a1a1a, #000);
+            color: #ff003c; /* Rojo Neón */
+            border: 2px solid #ff003c;
+            border-radius: 5px;
             text-align: center;
-            padding: 15px 5px;
+            padding: 18px 5px;
             font-weight: 900;
-            font-size: 12px;
+            font-size: 13px;
             text-decoration: none;
-            margin-top: 10px;
+            margin-top: 15px;
             display: block;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px var(--n-rojo);
-            animation: pulse-border 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px #ff003c, inset 0 0 10px #ff003c;
+            text-shadow: 0 0 10px #ff003c;
+            animation: pulse-glow 1s infinite alternate;
+            cursor: pointer;
         }
-        .ali-vip-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: rgba(255,255,255,0.1);
-            transform: rotate(45deg);
-            animation: shine-sweep 3s infinite linear;
-        }
-        @keyframes shine-sweep {
-            0% { left: -150%; }
-            100% { left: 150%; }
-        }
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 5px var(--n-rojo); }
-            50% { box-shadow: 0 0 20px var(--n-rojo); }
-            100% { box-shadow: 0 0 5px var(--n-rojo); }
+        @keyframes pulse-glow {
+            from { transform: scale(1); box-shadow: 0 0 15px #ff003c; }
+            to { transform: scale(1.03); box-shadow: 0 0 30px #ff003c; }
         }
 
-        /* AVATARES CONTROLADOS */
+        /* AVATARES NITIDOS CONTROLADOS */
         .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 450px; }
         .avatar-card { border: 2px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
         .avatar-card img { 
@@ -135,7 +124,7 @@
 <div class="level-1">
     <div class="rooms-grid">
         <div id="rooms-list"></div>
-        <a href="TU_LINK_DE_ALI_AQUI" target="_blank" class="ali-vip-btn">🔥 DESBLOQUEAR TODO EL CONTENIDO VIP 🛒</a>
+        <a href="AQUÍ_VA_TU_ENLACE_DE_ALI" target="_blank" class="ali-vip-btn">🔥 DESBLOQUEAR TODO EL CONTENIDO VIP 🛒</a>
     </div>
     <div class="avatars-battle">
         <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
@@ -149,8 +138,8 @@
     <div class="chat-box">
         <div id="chat-content"></div>
         <div class="chat-row">
-            <input type="text" id="msg-in" placeholder="Diles algo guarro...">
-            <button onclick="send()">OK</button>
+            <input type="text" id="msg-in" placeholder="Interactúa con ellas...">
+            <button onclick="send()">ENVIAR</button>
         </div>
     </div>
 </div>
@@ -173,8 +162,8 @@
         {n: "Playa", e: ".png", s: "playa.mp3"}, {n: "La Tiendita", e: ".png", s: "tienda.mp3"}
     ];
 
-    // CAMBIA ESTE CORREO POR EL TUYO DE PAYPAL
-    const MI_CORREO_PAYPAL = "TU_CORREO@GMAIL.COM";
+    // CORREO PAYPAL CONFIGURADO
+    const MI_CORREO_PAYPAL = "jp_herraez@hotmail.com";
 
     function irAPagar(monto) {
         const url = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${MI_CORREO_PAYPAL}&item_name=Creditos_MegaRedVIP&amount=${monto}&currency_code=USD`;
@@ -207,9 +196,9 @@
     function iaChat() {
         const c = document.getElementById('chat-content');
         const bots = [
-            {n: "MIA", cl: "var(--n-rosa)", m: "¡Miren mi cuerpo, soy la más sexi! 🔥"},
-            {n: "TANIA", cl: "var(--n-azul)", m: "Mia, deja de mentir, todos me quieren a mí..."},
-            {n: "COLO", cl: "var(--n-rojo)", m: "Peleen lo que quieran, yo soy la que más sabe aquí 🔞"}
+            {n: "MIA", cl: "var(--n-rosa)", m: "¡Daría todo por una moneda hoy! 🔥"},
+            {n: "TANIA", cl: "var(--n-azul)", m: "Mia no sabe nada, mírame a mí..."},
+            {n: "COLO", cl: "var(--n-rojo)", m: "Si me invitas algo, te enseño un secreto 🔞"}
         ];
         const b = bots[Math.floor(Math.random()*3)];
         c.innerHTML += `<div style="font-size:13px; margin-bottom:5px;"><b style="color:${b.cl}">${b.n}:</b> ${b.m}</div>`;
