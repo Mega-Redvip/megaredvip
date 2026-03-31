@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v69</title>
+    <title>MEGA RED VIP | IMPERIO FINAL v70</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -14,86 +14,101 @@
             overflow-y: auto; overflow-x: hidden;
         }
 
-        /* HEADER: LOGO Y MONEDAS (INTOCTO) */
+        /* HEADER: BOTONES DE PAGO REALES */
         header { 
             display: grid; grid-template-columns: 350px 1fr 350px; 
             align-items: center; padding: 20px; border-bottom: 5px solid var(--n-rojo); 
             background: #050505;
         }
         .header-side { display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .publi-box { width: 300px; height: 100px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); font-size: 12px; }
         .logo-center img { height: 260px; filter: drop-shadow(0 0 30px var(--n-rojo)); }
-        .coins { display: flex; gap: 20px; margin-top: 10px; }
-        .coin { 
-            width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
-            color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white;
+        
+        .coins { display: flex; gap: 15px; margin-top: 10px; }
+        .coin-btn {
+            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928);
+            border: 2px solid white; border-radius: 50%; width: 70px; height: 70px;
+            color: black; font-weight: 900; cursor: pointer; transition: 0.2s;
         }
+        .coin-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--oro); }
 
-        /* NIVEL 1: 10 SALAS (IZQ) Y 3 AVATARES (DER) */
-        .level-1 { 
-            display: grid; grid-template-columns: 300px 1fr; 
-            gap: 15px; padding: 20px; height: 500px;
-        }
+        /* NIVEL 1: SALAS Y AVATARES NITIDOS */
+        .level-1 { display: grid; grid-template-columns: 300px 1fr; gap: 15px; padding: 20px; height: 500px; }
+        
         .rooms-grid { 
             background: #0a0a0a; border: 2px solid #222; border-radius: 12px; padding: 10px;
-            display: grid; grid-template-rows: repeat(10, 1fr); gap: 4px;
+            display: grid; grid-template-rows: repeat(11, 1fr); gap: 4px;
         }
         .room-unit { 
             display: flex; justify-content: space-between; align-items: center;
             padding: 8px; background: #111; border: 1px solid #333; border-radius: 5px;
             cursor: pointer; font-size: 10px; text-transform: uppercase;
         }
-        .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
-
-        .avatars-battle { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+        .room-unit.active { background: var(--n-rojo); border-color: white; }
+        
+        /* BOTÓN ALI TIENDITA */
+        .ali-btn {
+            background: linear-gradient(90deg, #ff4747, #ff9000); color: white;
+            padding: 10px; text-align: center; font-size: 11px; font-weight: 900;
+            border-radius: 5px; text-decoration: none; border: 2px solid white; margin-top: 5px;
         }
+
+        .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .avatar-card { border: 2px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
         .avatar-card img { 
             width: 100%; height: 100%; 
-            object-fit: cover; /* SIN RECUADRO NEGRO */
-            object-position: top center; 
+            object-fit: cover; object-position: top center;
+            /* MEJORA DE NITIDEZ */
+            image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;
         }
-        .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); text-align: center; padding: 10px; font-size: 14px; font-weight: 900; }
+        .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; font-size: 12px; }
 
-        /* NIVEL 2: VISOR SALA (IZQ) Y CHAT (DER) */
-        .level-2 { 
-            display: grid; grid-template-columns: 1fr 450px; 
-            gap: 15px; padding: 0 20px 20px 20px; height: 450px;
-        }
+        /* NIVEL 2: VISOR Y CHAT */
+        .level-2 { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 0 20px 20px 20px; height: 450px; }
         .viewer-box { border: 4px solid var(--n-rojo); border-radius: 15px; overflow: hidden; background: #000; }
         #room-img { width: 100%; height: 100%; object-fit: contain; }
 
-        .chat-box { 
-            background: #050505; border: 3px solid var(--n-rojo); border-radius: 15px; 
-            display: flex; flex-direction: column; overflow: hidden;
-        }
+        .chat-box { background: #050505; border: 3px solid var(--n-rojo); border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; }
         #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .chat-input-row { display: flex; padding: 10px; background: #111; gap: 5px; }
-        .chat-input-row input { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; }
-        .chat-input-row button { background: var(--n-rojo); border: none; color: white; padding: 0 15px; border-radius: 5px; cursor: pointer; font-weight: 900; }
 
-        /* NIVEL 3: LAS TRES PUERTAS */
-        .level-3 { 
-            display: grid; grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; padding: 40px; border-top: 5px solid var(--n-rojo);
-        }
+        /* NIVEL 3: PUERTAS */
+        .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px; border-top: 5px solid var(--n-rojo); }
         .gate-door { background: #0a0a0a; border: 2px solid var(--n-rojo); border-radius: 20px; padding: 20px; text-align: center; }
-        .gate-display { height: 180px; background: #000; margin-bottom: 15px; border-radius: 10px; overflow-y: auto; padding: 10px; border: 1px solid #222; }
-        .gate-btn { width: 100%; padding: 12px; background: var(--n-rojo); color: white; border: none; border-radius: 8px; font-weight: 900; cursor: pointer; }
+        .gate-display { height: 180px; background: #000; margin-bottom: 15px; border-radius: 10px; overflow-y: auto; padding: 10px; }
 
     </style>
 </head>
 <body onload="initImperio()">
 
+<form id="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="TU_CORREO_PAYPAL@GMAIL.COM"> <input type="hidden" name="item_name" value="Credits Mega Red VIP">
+    <input type="hidden" name="amount" id="pay-amount" value="0">
+    <input type="hidden" name="currency_code" value="USD">
+</form>
+
 <header>
-    <div class="header-side"><div class="publi-box">AD VIP $20</div><div class="coins"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(3)">$3</div></div></div>
+    <div class="header-side">
+        <div style="border:2px solid var(--n-rojo); padding:10px; width:100%; text-align:center;">ADS $20</div>
+        <div class="coins">
+            <button class="coin-btn" onclick="pagar(1)">$1</button>
+            <button class="coin-btn" onclick="pagar(3)">$3</button>
+        </div>
+    </div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="header-side"><div class="publi-box">AD VIP $50</div><div class="coins"><div class="coin" onclick="pay(5)">$5</div><div class="coin" onclick="pay(10)">$10</div></div></div>
+    <div class="header-side">
+        <div style="border:2px solid var(--n-rojo); padding:10px; width:100%; text-align:center;">ADS $50</div>
+        <div class="coins">
+            <button class="coin-btn" onclick="pagar(5)">$5</button>
+            <button class="coin-btn" onclick="pagar(10)">$10</button>
+        </div>
+    </div>
 </header>
 
 <div class="level-1">
-    <div class="rooms-grid" id="rooms-list"></div>
+    <div class="rooms-grid">
+        <div id="rooms-list"></div>
+        <a href="LINK_DE_TU_ALIEXPRESS" target="_blank" class="ali-btn">🛒 TIENDITA (COMPRAR)</a>
+    </div>
     <div class="avatars-battle">
         <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
         <div class="avatar-card"><img src="Morocha.jpg"><div class="name-tag" style="color:var(--n-azul)">TANIA</div></div>
@@ -105,17 +120,17 @@
     <div class="viewer-box"><img id="room-img" src=""></div>
     <div class="chat-box">
         <div id="chat-content"></div>
-        <div class="chat-input-row">
-            <input type="text" id="msg-in" placeholder="Interactúa con ellas...">
-            <button onclick="send()">OK</button>
+        <div style="display:flex; padding:10px; gap:5px;">
+            <input type="text" id="msg-in" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:10px;">
+            <button onclick="send()" style="background:var(--n-rojo); color:white; border:none; padding:10px;">OK</button>
         </div>
     </div>
 </div>
 
 <div class="level-3">
-    <div class="gate-door"><h3>HISTORIAS</h3><div class="gate-display" id="d-h"></div><button class="gate-btn" onclick="post('d-h')">SUBIR</button></div>
-    <div class="gate-door"><h3>ESTADOS</h3><div class="gate-display" id="d-e"></div><button class="gate-btn" onclick="post('d-e')">SUBIR</button></div>
-    <div class="gate-door"><h3>VIDEOS</h3><div class="gate-display" id="d-v"></div><button class="gate-btn" onclick="post('d-v')">SUBIR</button></div>
+    <div class="gate-door"><h3>HISTORIAS</h3><div class="gate-display" id="d-h"></div><button onclick="post('d-h')">SUBIR</button></div>
+    <div class="gate-door"><h3>ESTADOS</h3><div class="gate-display" id="d-e"></div><button onclick="post('d-e')">SUBIR</button></div>
+    <div class="gate-door"><h3>VIDEOS</h3><div class="gate-display" id="d-v"></div><button onclick="post('d-v')">SUBIR</button></div>
 </div>
 
 <audio id="audio-main" loop></audio>
@@ -123,11 +138,9 @@
 <script>
     let pos = 0;
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3"}, {n: "Spa", e: ".png", s: "spa.mp3"}, 
-        {n: "Biblioteca", e: ".png", s: "biblioteca.mp3"}, {n: "Camarera", e: ".png", s: "office.mp3"}, 
-        {n: "Discoteca", e: ".png", s: "tecno.mp3"}, {n: "El Bar", e: ".png", s: "bar.mp3"},
-        {n: "Gimnasio", e: ".png", s: "gym.mp3"}, {n: "Oficina", e: ".png", s: "office.mp3"},
-        {n: "Playa", e: ".png", s: "playa.mp3"}, {n: "La Tiendita", e: ".png", s: "tienda.mp3"}
+        {n: "Sado y Maso", e: ".jpg"}, {n: "Spa", e: ".png"}, {n: "Biblioteca", e: ".png"}, 
+        {n: "Camarera", e: ".png"}, {n: "Discoteca", e: ".png"}, {n: "El Bar", e: ".png"},
+        {n: "Gimnasio", e: ".png"}, {n: "Oficina", e: ".png"}, {n: "Playa", e: ".png"}, {n: "La Tiendita", e: ".png"}
     ];
 
     function initImperio() {
@@ -135,7 +148,7 @@
         rooms.forEach((r, i) => {
             const d = document.createElement('div');
             d.className = 'room-unit'; d.id = 'u-' + i;
-            d.innerHTML = `<span>${r.n}</span><span style="color:var(--n-azul)">0 ONLINE</span>`;
+            d.innerHTML = `<span>${r.n}</span><span style="color:var(--n-azul)">LIVE</span>`;
             d.onclick = () => select(i);
             list.appendChild(d);
         });
@@ -149,42 +162,27 @@
         document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
         document.getElementById('u-' + i).classList.add('active');
         document.getElementById('room-img').src = encodeURI(rooms[i].n + rooms[i].e);
-        const a = document.getElementById('audio-main');
-        a.src = rooms[i].s; a.play().catch(()=>{});
+    }
+
+    function pagar(valor) {
+        document.getElementById('pay-amount').value = valor;
+        document.getElementById('paypal-form').submit();
     }
 
     function iaChat() {
         const c = document.getElementById('chat-content');
-        const bots = [
-            {n: "MIA", cl: "var(--n-rosa)", m: "¡Miren mi cuerpo, soy la más sexi! 🔥"},
-            {n: "TANIA", cl: "var(--n-azul)", m: "Mia, deja de mentir, todos me quieren a mí..."},
-            {n: "COLO", cl: "var(--n-rojo)", m: "Peleen lo que quieran, yo soy la que más sabe aquí 🔞"}
-        ];
+        const m = ["¡Te espero en la sala!", "¿Viste mi video?", "Invítame una moneda...", "Soy la más sexi 🔥"];
+        const bots = [{n:"MIA",cl:"var(--n-rosa)"},{n:"TANIA",cl:"var(--n-azul)"},{n:"COLO",cl:"var(--n-rojo)"}];
         const b = bots[Math.floor(Math.random()*3)];
-        c.innerHTML += `<div style="font-size:13px; margin-bottom:5px;"><b style="color:${b.cl}">${b.n}:</b> ${b.m}</div>`;
+        c.innerHTML += `<div style="font-size:13px;"><b style="color:${b.cl}">${b.n}:</b> ${m[Math.floor(Math.random()*4)]}</div>`;
         c.scrollTop = c.scrollHeight;
     }
 
     function send() {
         const i = document.getElementById('msg-in');
-        if(!i.value) return;
-        document.getElementById('chat-content').innerHTML += `<div style="font-size:13px; margin-bottom:5px;"><b style="color:var(--oro)">TÚ:</b> ${i.value}</div>`;
+        document.getElementById('chat-content').innerHTML += `<div style="font-size:13px;"><b style="color:var(--oro)">TÚ:</b> ${i.value}</div>`;
         i.value = "";
     }
-
-    function post(id) {
-        const url = prompt("Enlace de imagen/video o texto:");
-        if(url) {
-            const d = document.getElementById(id);
-            if(url.includes('http')) {
-                d.innerHTML = `<img src="${url}" style="width:100%; border-radius:5px; margin-bottom:10px;">` + d.innerHTML;
-            } else {
-                d.innerHTML = `<p style="padding:8px; border-bottom:1px solid #333;">${url}</p>` + d.innerHTML;
-            }
-        }
-    }
-
-    function pay(v) { window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=JuanPH43&amount="+v+"&currency_code=USD", "_blank"); }
 </script>
 </body>
 </html>
