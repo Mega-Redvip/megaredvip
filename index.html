@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v78</title>
+    <title>MEGA RED VIP | IMPERIO v79</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -11,86 +11,94 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
-            overflow-y: auto; overflow-x: hidden;
+            height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
         }
 
-        /* HEADER REDISEÑADO: PUBLICIDAD GRANDE Y MONEDAS CENTRADAS BAJAS */
+        /* HEADER COMPACTO */
         header { 
             display: grid; grid-template-columns: 350px 1fr 350px; 
-            padding: 20px; border-bottom: 5px solid var(--n-rojo); 
-            background: #050505; gap: 20px;
+            padding: 10px 20px; border-bottom: 3px solid var(--n-rojo); 
+            background: #050505; align-items: center;
         }
-        .publi-box-grande { 
-            width: 350px; height: 180px; border: 2px solid var(--n-rojo); 
+        .publi-box { 
+            width: 350px; height: 140px; border: 2px solid var(--n-rojo); 
             display: flex; align-items: center; justify-content: center; 
-            color: var(--n-rojo); font-size: 20px; background: #0a0a0a;
+            color: var(--n-rojo); font-size: 18px; background: #0a0a0a;
         }
         .logo-center { text-align: center; }
-        .logo-center img { height: 220px; filter: drop-shadow(0 0 30px var(--n-rojo)); }
+        .logo-center img { height: 160px; filter: drop-shadow(0 0 20px var(--n-rojo)); }
         
-        .coins-container { 
+        .coins-bar { 
             grid-column: 1 / span 3; display: flex; justify-content: center; 
-            gap: 40px; margin-top: 10px; padding-bottom: 10px;
+            gap: 30px; padding: 10px 0; background: rgba(255,0,0,0.1);
         }
         .coin { 
-            width: 85px; height: 85px; border-radius: 50%; 
+            width: 70px; height: 70px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; cursor: pointer; border: 4px solid white;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); transition: 0.3s;
+            font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.2s;
         }
-        .coin:hover { transform: scale(1.1) translateY(5px); }
+        .coin:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--oro); }
 
-        /* NIVELES Y CARRUSEL */
-        .level-1 { display: grid; grid-template-columns: 320px 1fr; gap: 15px; padding: 20px; height: 550px; }
-        .rooms-grid { background: #0a0a0a; border: 2px solid #222; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; }
-        .rooms-list-scroll { flex-grow: 1; overflow-y: hidden; display: flex; flex-direction: column; gap: 5px; }
-        .room-unit { display: flex; justify-content: space-between; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 11px; }
-        .room-unit.active { background: var(--n-rojo); box-shadow: 0 0 15px var(--n-rojo); }
-
-        /* BOTÓN ALI "MAGNETO" */
-        .btn-vip-juguetes {
-            background: #000; color: #fff; border: 3px solid var(--n-rojo);
-            border-radius: 8px; text-align: center; padding: 15px;
-            font-size: 13px; font-weight: 900; text-decoration: none;
-            margin-top: 15px; display: block; overflow: hidden;
-            box-shadow: 0 0 20px var(--n-rojo); animation: vibrar 0.6s infinite alternate;
+        /* CONTENEDOR PRINCIPAL - NO SE ESTIRA */
+        main { 
+            display: grid; grid-template-columns: 300px 1fr 400px; 
+            gap: 15px; padding: 15px; flex-grow: 1; height: 500px; 
         }
-        @keyframes vibrar { 0% { transform: translateX(-2px); } 100% { transform: translateX(2px); } }
 
-        /* BOTS Y CHAT */
-        .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .avatar-card { border: 2px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
-        .avatar-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 10px; font-size: 14px; }
-
-        .level-2 { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 20px; height: 500px; }
-        .viewer-box { border: 4px solid var(--n-rojo); border-radius: 15px; overflow: hidden; background: #000; }
-        #room-img { width: 100%; height: 100%; object-fit: contain; }
-
-        .chat-box { background: #050505; border: 3px solid var(--n-rojo); border-radius: 15px; display: flex; flex-direction: column; }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-
-        /* LAS TRES PUERTAS INTERACTIVAS */
-        .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px; border-top: 5px solid var(--n-rojo); }
-        .gate-door { background: #0a0a0a; border: 2px solid var(--n-rojo); border-radius: 20px; padding: 20px; text-align: center; }
-        .gate-display { 
-            height: 250px; background: #000; margin-bottom: 15px; border-radius: 10px; 
-            overflow-y: auto; padding: 10px; border: 1px solid #222; text-align: left;
+        /* COLUMNA IZQUIERDA: SALAS Y BOTON */
+        .rooms-col { display: flex; flex-direction: column; height: 100%; }
+        .rooms-grid { 
+            flex-grow: 1; background: #0a0a0a; border: 2px solid #222; 
+            border-radius: 10px; padding: 10px; overflow-y: hidden;
         }
-        .gate-btn { 
-            width: 100%; padding: 12px; background: var(--n-rojo); color: white; 
-            border: none; border-radius: 8px; font-weight: 900; cursor: pointer; 
+        .room-unit { 
+            padding: 10px; background: #111; margin-bottom: 5px; 
+            border-radius: 5px; font-size: 11px; cursor: pointer; 
         }
+        .room-unit.active { background: var(--n-rojo); border: 1px solid white; }
+
+        /* VISOR CENTRAL */
+        .viewer-box { 
+            border: 4px solid var(--n-rojo); border-radius: 15px; 
+            background: #000; height: 100%; position: relative; overflow: hidden;
+        }
+        #room-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CHAT DERECHA */
+        .chat-col { 
+            display: flex; flex-direction: column; background: #050505; 
+            border: 3px solid var(--n-rojo); border-radius: 15px; height: 100%;
+        }
+        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; }
+        .chat-input { display: flex; padding: 10px; gap: 5px; background: #111; }
+
+        /* LAS TRES PUERTAS - ABAJO */
+        footer { 
+            display: grid; grid-template-columns: repeat(3, 1fr); 
+            gap: 15px; padding: 15px; background: #000; border-top: 3px solid var(--n-rojo);
+        }
+        .gate { background: #0a0a0a; border: 1px solid var(--n-rojo); border-radius: 10px; padding: 10px; }
+        .gate-scroll { height: 150px; overflow-y: auto; margin-bottom: 10px; background: #000; padding: 5px; }
+        .gate-btn { width: 100%; padding: 8px; background: var(--n-rojo); color: white; border: none; font-weight: 900; cursor: pointer; }
+
+        /* ANIMACIÓN BOTON ALI */
+        .btn-vip-ali {
+            background: #000; color: white; border: 2px solid var(--n-rojo);
+            padding: 12px; text-align: center; text-decoration: none; font-size: 12px;
+            font-weight: 900; margin-top: 10px; display: block;
+            box-shadow: 0 0 10px var(--n-rojo); animation: vibe 0.5s infinite alternate;
+        }
+        @keyframes vibe { from { transform: scale(1); } to { transform: scale(1.03); } }
     </style>
 </head>
 <body onload="initImperio()">
 
 <header>
-    <div class="publi-box-grande">PUBLICIDAD VIP $50</div>
+    <div class="publi-box">AD VIP $50</div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="publi-box-grande">PUBLICIDAD VIP $100</div>
-    <div class="coins-container">
+    <div class="publi-box">AD VIP $100</div>
+    <div class="coins-bar">
         <div class="coin" onclick="irAPagar(1)">$1</div>
         <div class="coin" onclick="irAPagar(5)">$5</div>
         <div class="coin" onclick="irAPagar(10)">$10</div>
@@ -98,137 +106,95 @@
     </div>
 </header>
 
-<div class="level-1">
-    <div class="rooms-grid">
-        <div class="rooms-list-scroll" id="rooms-list"></div>
-        <a href="https://best.aliexpress.com/" target="_blank" class="btn-vip-juguetes">🛒 COMPRAR JUGUETES VIP 🔞</a>
+<main>
+    <div class="rooms-col">
+        <div class="rooms-grid" id="rooms-list"></div>
+        <a href="TU_LINK_ALI" target="_blank" class="btn-vip-ali">🛒 COMPRAR JUGUETES VIP 🔞</a>
     </div>
-    <div class="avatars-battle">
-        <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="avatar-card"><img src="Morocha.jpg"><div class="name-tag" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="avatar-card"><img src="Pelirroja.jpg"><div class="name-tag" style="color:var(--n-rojo)">COLO</div></div>
-    </div>
-</div>
 
-<div class="level-2">
-    <div class="viewer-box"><img id="room-img" src=""></div>
-    <div class="chat-box">
+    <div class="viewer-box">
+        <img id="room-img" src="">
+        <div style="position:absolute; bottom:10px; left:10px; background:rgba(255,0,0,0.7); padding:5px 10px; border-radius:5px; font-size:12px;">🔴 EN VIVO</div>
+    </div>
+
+    <div class="chat-col">
         <div id="chat-content"></div>
-        <div style="display:flex; padding:15px; gap:10px; background:#111;">
-            <input type="text" id="msg-in" placeholder="Habla con las bots..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
-            <button onclick="handleUserChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; border-radius:5px; font-weight:bold;">ENVIAR</button>
+        <div class="chat-input">
+            <input type="text" id="msg-in" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:8px;">
+            <button onclick="handleChat()" style="background:var(--n-rojo); color:white; border:none; padding:8px; cursor:pointer;">OK</button>
         </div>
     </div>
-</div>
+</main>
 
-<div class="level-3">
-    <div class="gate-door">
-        <h3 style="color:var(--n-rosa); margin-bottom:10px;">🔥 HISTORIAS</h3>
-        <div class="gate-display" id="d-historias"></div>
-        <button class="gate-btn" onclick="subirContenido('d-historias')">SUBIR HISTORIA</button>
+<footer>
+    <div class="gate">
+        <h4 style="color:var(--n-rosa)">HISTORIAS</h4>
+        <div class="gate-scroll" id="d-h"></div>
+        <button class="gate-btn" onclick="subir('d-h')">SUBIR</button>
     </div>
-    <div class="gate-door">
-        <h3 style="color:var(--n-azul); margin-bottom:10px;">💬 ESTADOS</h3>
-        <div class="gate-display" id="d-estados"></div>
-        <button class="gate-btn" onclick="subirContenido('d-estados')">ACTUALIZAR ESTADO</button>
+    <div class="gate">
+        <h4 style="color:var(--n-azul)">ESTADOS</h4>
+        <div class="gate-scroll" id="d-e"></div>
+        <button class="gate-btn" onclick="subir('d-e')">SUBIR</button>
     </div>
-    <div class="gate-door">
-        <h3 style="color:var(--n-rojo); margin-bottom:10px;">🎥 VIDEOS VIP</h3>
-        <div class="gate-display" id="d-videos"></div>
-        <button class="gate-btn" onclick="subirContenido('d-videos')">SUBIR VIDEO</button>
+    <div class="gate">
+        <h4 style="color:var(--n-rojo)">VIDEOS</h4>
+        <div class="gate-scroll" id="d-v"></div>
+        <button class="gate-btn" onclick="subir('d-v')">SUBIR</button>
     </div>
-</div>
-
-<audio id="audio-main" loop></audio>
+</footer>
 
 <script>
-    let currentPos = 0;
+    let pos = 0;
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg", s: "latigo.mp3"}, {n: "Spa", e: ".png", s: "spa.mp3"}, 
-        {n: "Biblioteca", e: ".png", s: "biblioteca.mp3"}, {n: "Camarera", e: ".png", s: "office.mp3"}, 
-        {n: "Discoteca", e: ".png", s: "tecno.mp3"}, {n: "El Bar", e: ".png", s: "bar.mp3"},
-        {n: "Gimnasio", e: ".png", s: "gym.mp3"}, {n: "Oficina", e: ".png", s: "office.mp3"},
-        {n: "Playa", e: ".png", s: "playa.mp3"}, {n: "La Tiendita", e: ".png", s: "tienda.mp3"}
+        {n: "Sado y Maso", e: ".jpg"}, {n: "Spa", e: ".png"}, {n: "Biblioteca", e: ".png"}, 
+        {n: "Camarera", e: ".png"}, {n: "Discoteca", e: ".png"}, {n: "El Bar", e: ".png"},
+        {n: "Gimnasio", e: ".png"}, {n: "Oficina", e: ".png"}, {n: "Playa", e: ".png"}, {n: "La Tiendita", e: ".png"}
     ];
-
-    const MI_CORREO_PAYPAL = "jp_herraez@hotmail.com";
 
     function initImperio() {
         const list = document.getElementById('rooms-list');
         rooms.forEach((r, i) => {
             const d = document.createElement('div');
             d.className = 'room-unit'; d.id = 'u-' + i;
-            d.innerHTML = `<span>${r.n}</span><span style="color:var(--n-azul)">ONLINE</span>`;
+            d.innerHTML = `<span>${r.n}</span><span style="color:var(--n-azul)">LIVE</span>`;
             d.onclick = () => select(i);
             list.appendChild(d);
         });
         select(0);
-        setInterval(() => { currentPos = (currentPos + 1) % rooms.length; select(currentPos); }, 6000);
-        setInterval(autoChat, 5000);
+        setInterval(() => { pos = (pos + 1) % rooms.length; select(pos); }, 6000);
     }
 
     function select(i) {
-        currentPos = i;
+        pos = i;
         document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
         document.getElementById('u-' + i).classList.add('active');
         document.getElementById('room-img').src = encodeURI(rooms[i].n + rooms[i].e);
-        const a = document.getElementById('audio-main');
-        if(rooms[i].s) { a.src = rooms[i].s; a.play().catch(()=>{}); }
     }
 
-    // --- SISTEMA DE SUBIDA PARA LAS PUERTAS ---
-    function subirContenido(contenedorId) {
-        const input = prompt("Pega el LINK de tu imagen/video o escribe tu mensaje:");
-        if(!input) return;
-        const contenedor = document.getElementById(contenedorId);
-        let html = `<div style="background:#111; padding:10px; margin-bottom:10px; border-radius:5px; border-left:3px solid var(--n-rojo);">`;
-        
-        if(input.includes("http")) {
-            html += `<img src="${input}" style="width:100%; border-radius:5px; margin-top:5px;">`;
-        } else {
-            html += `<p style="font-size:12px;">${input}</p>`;
-        }
-        html += `<small style="color:#555;">Subido ahora por Cliente VIP</small></div>`;
-        contenedor.innerHTML = html + contenedor.innerHTML;
-    }
-
-    // --- IA DE CHAT REAL ---
-    function handleUserChat() {
+    function handleChat() {
         const input = document.getElementById('msg-in');
-        const val = input.value.toLowerCase();
-        if(!val) return;
-
         const chat = document.getElementById('chat-content');
-        chat.innerHTML += `<div style="margin-bottom:8px;"><b style="color:var(--oro)">CLIENTE:</b> ${input.value}</div>`;
-        
-        // Lógica de respuesta "Real"
+        if(!input.value) return;
+        chat.innerHTML += `<div><b style="color:var(--oro)">CLIENTE:</b> ${input.value}</div>`;
         setTimeout(() => {
-            let res = "";
-            let bot = {n: "COLO", cl: "var(--n-rojo)"};
-
-            if(val.includes("hola") || val.includes("buen")) res = "¡Hola bombón! ¿Vienes a jugar con nosotras?";
-            else if(val.includes("precio") || val.includes("moneda") || val.includes("pagar")) res = "Dale clic a las monedas de arriba, ¡necesito que me invites algo!";
-            else if(val.includes("juguete") || val.includes("tienda")) res = "En el botón rojo de la izquierda tengo mis juguetes favoritos... ¿me compras uno?";
-            else if(val.includes("foto") || val.includes("video")) res = "Mira las Puertas de abajo, acabamos de subir cosas nuevas.";
-            else res = "¿Por qué no me invitas una moneda y te cuento más secretos?";
-
-            chat.innerHTML += `<div style="margin-bottom:8px;"><b style="color:${bot.cl}">${bot.n}:</b> ${res}</div>`;
+            chat.innerHTML += `<div><b style="color:var(--n-rojo)">COLO:</b> ¡Me encanta que hables! Invítame una moneda...</div>`;
             chat.scrollTop = chat.scrollHeight;
         }, 1000);
-
         input.value = "";
-    }
-
-    function autoChat() {
-        const chat = document.getElementById('chat-content');
-        const msgs = ["¿Alguien me invita un trago?", "Miren mis historias abajo...", "Tania se está portando mal hoy jaja"];
-        const b = [{n:"MIA",cl:"var(--n-rosa)"},{n:"TANIA",cl:"var(--n-azul)"}][Math.floor(Math.random()*2)];
-        chat.innerHTML += `<div style="margin-bottom:8px;"><b style="color:${b.cl}">${b.n}:</b> ${msgs[Math.floor(Math.random()*3)]}</div>`;
         chat.scrollTop = chat.scrollHeight;
     }
 
+    function subir(id) {
+        const link = prompt("Escribe texto o pega link de imagen:");
+        if(!link) return;
+        const d = document.getElementById(id);
+        const item = link.includes("http") ? `<img src="${link}" style="width:100%; margin-top:5px;">` : `<p style="font-size:12px; border-bottom:1px solid #222; padding:5px;">${link}</p>`;
+        d.innerHTML = item + d.innerHTML;
+    }
+
     function irAPagar(monto) {
-        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${MI_CORREO_PAYPAL}&item_name=VIP_Credits&amount=${monto}&currency_code=USD`, "_blank");
+        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=VIP&amount=${monto}&currency_code=USD`, "_blank");
     }
 </script>
 </body>
