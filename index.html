@@ -2,45 +2,50 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v86</title>
+    <title>MEGA RED VIP | IMPERIO v87</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; }
 
         /* HEADER */
-        header { display: grid; grid-template-columns: 300px 1fr 300px; padding: 10px; border-bottom: 4px solid var(--n-rojo); background: #050505; align-items: center; height: 320px; }
-        .publi-box { width: 100%; height: 150px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); }
+        header { display: grid; grid-template-columns: 300px 1fr 300px; padding: 10px; border-bottom: 4px solid var(--n-rojo); background: #050505; align-items: center; height: 300px; }
+        .publi-box { width: 100%; height: 140px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); font-weight: bold; }
         .logo-center { text-align: center; }
-        .logo-center img { height: 250px; filter: drop-shadow(0 0 25px var(--n-rojo)); }
+        .logo-center img { height: 230px; filter: drop-shadow(0 0 25px var(--n-rojo)); }
         
-        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 30px; margin-top: 10px; }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; }
+        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 30px; margin-top: 5px; }
+        .coin { width: 65px; height: 65px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.2s; }
+        .coin:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--oro); }
 
-        /* CUERPO PRINCIPAL */
-        .main-container { display: grid; grid-template-columns: 300px 1fr 400px; gap: 10px; padding: 10px; height: calc(100vh - 350px); }
+        /* LAYOUT */
+        .main-container { display: grid; grid-template-columns: 300px 1fr 450px; gap: 10px; padding: 15px; height: calc(100vh - 320px); }
         
-        .rooms-sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
-        .room-unit { display: flex; justify-content: space-between; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 12px; }
-        .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
+        .rooms-sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 10px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .room-unit { display: flex; justify-content: space-between; padding: 15px; background: #151515; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.3s; font-size: 13px; }
+        .room-unit:hover { border-color: var(--n-rojo); background: #202020; }
+        .room-unit.active { background: var(--n-rojo); box-shadow: 0 0 15px var(--n-rojo); }
 
-        .viewer-box { border: 4px solid var(--n-rojo); border-radius: 10px; background: #000; position: relative; overflow: hidden; }
+        .viewer-box { border: 4px solid var(--n-rojo); border-radius: 12px; background: #000; position: relative; overflow: hidden; box-shadow: 0 0 30px rgba(255,0,60,0.2); }
         #room-img { width: 100%; height: 100%; object-fit: contain; }
-        .loc-tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 5px 10px; border: 1px solid var(--oro); font-size: 11px; z-index: 5; }
+        .loc-tag { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.85); color: var(--oro); padding: 8px 15px; border: 1px solid var(--oro); font-size: 11px; font-weight: bold; border-radius: 5px; }
 
-        .chat-container { background: #050505; border: 3px solid var(--n-rojo); border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
-        .input-area { display: flex; padding: 10px; background: #111; gap: 5px; }
-        #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; }
-        .btn-send { background: var(--n-rojo); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        .chat-container { background: #080808; border: 3px solid var(--n-rojo); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+        #chat-content { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.4; }
+        .bot-msg { align-self: flex-start; max-width: 85%; }
+        .user-msg { align-self: flex-end; background: #222; padding: 8px 12px; border-radius: 10px; border-left: 3px solid var(--oro); }
+
+        .input-area { display: flex; padding: 15px; background: #111; gap: 10px; border-top: 1px solid #222; }
+        #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; }
+        .btn-send { background: var(--n-rojo); color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: 900; border-radius: 8px; text-transform: uppercase; }
     </style>
 </head>
-<body onload="arrancarTodo()">
+<body onload="arrancarImperio()">
 
 <header>
-    <div class="publi-box">AD VIP $50</div>
+    <div class="publi-box">PUBLI VIP $50</div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="publi-box">AD VIP $100</div>
+    <div class="publi-box">PUBLI VIP $100</div>
     <div class="coins-row">
         <div class="coin" onclick="irAPagar(1)">$1</div>
         <div class="coin" onclick="irAPagar(5)">$5</div>
@@ -52,14 +57,14 @@
 <div class="main-container">
     <div class="rooms-sidebar" id="sidebar"></div>
     <div class="viewer-box">
-        <div class="loc-tag" id="loc">📍 CONECTANDO...</div>
+        <div class="loc-tag" id="loc">📍 RESISTENCIA, CHACO</div>
         <img id="room-img" src="">
     </div>
     <div class="chat-container">
         <div id="chat-content"></div>
-        <div id="escribiendo" style="display:none; padding: 5px 15px; font-size: 11px; color: #666;">La chica está escribiendo...</div>
+        <div id="escribiendo" style="display:none; padding: 5px 20px; font-size: 12px; color: #777; font-style: italic;">Mia está escribiendo...</div>
         <div class="input-area">
-            <input type="text" id="msg-in" placeholder="Pregúntame lo que quieras...">
+            <input type="text" id="msg-in" placeholder="Dime algo lindo..." onkeypress="if(event.key==='Enter') mandarMensaje()">
             <button class="btn-send" onclick="mandarMensaje()">OK</button>
         </div>
     </div>
@@ -83,34 +88,31 @@
     let manual = false;
     let ciudad = "Resistencia";
 
-    function arrancarTodo() {
+    function arrancarImperio() {
         const side = document.getElementById('sidebar');
         salas.forEach((s, i) => {
             let d = document.createElement('div');
             d.className = 'room-unit'; d.id = 'r-' + i;
-            d.innerHTML = `<span>${s.n}</span><span style="color:#555">👥 0</span>`;
+            d.innerHTML = `<span>${s.n}</span><span style="color:#444">👥 0</span>`;
             d.onclick = () => { manual = true; forzarSala(i); };
             side.appendChild(d);
         });
-
-        document.getElementById('loc').innerText = `📍 TRANSMITIENDO DESDE: ${ciudad.toUpperCase()}`;
         actualizarVisual();
         
-        // Carrusel automático cada 5 segundos
         setInterval(() => {
             if(!manual) {
                 indice = (indice + 1) % salas.length;
                 actualizarVisual();
             }
-        }, 5000);
+        }, 7000);
     }
 
     function forzarSala(i) {
         indice = i;
         actualizarVisual();
         const chat = document.getElementById('chat-content');
-        chat.innerHTML = `<div style="text-align:center; color:gray; font-size:10px;">--- SESIÓN PRIVADA CON ${salas[indice].b} ---</div>`;
-        iaResponde(`Hola lindo... te vi entrar a mi sala de ${salas[indice].n}. ¿Qué tal todo por ${ciudad}?`);
+        chat.innerHTML = `<div style="text-align:center; color:#555; font-size:11px; margin-bottom:15px;">CONEXIÓN SEGURA - SALA: ${salas[indice].n.toUpperCase()}</div>`;
+        iaResponde(`¡Hola! Te estaba esperando... justo me estaba aburriendo aquí en ${ciudad}. ¿Cómo te llamas?`);
     }
 
     function actualizarVisual() {
@@ -124,32 +126,40 @@
         const chat = document.getElementById('chat-content');
         if(!input.value) return;
 
-        chat.innerHTML += `<div><b style="color:var(--oro)">TÚ:</b> ${input.value}</div>`;
+        chat.innerHTML += `<div class="user-msg"><b>Tú:</b> ${input.value}</div>`;
         const t = input.value.toLowerCase();
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
 
-        let r = "Me gusta que me hables así... ¿por qué no me invitas una moneda y te enseño algo más?";
-        if(t.includes("hola")) r = `¡Hola! Qué bueno encontrar a alguien de ${ciudad} por aquí.`;
-        if(t.includes("nombre")) r = `Me llamo ${salas[indice].b}, pero mis amigos me dicen 'mi amor'. ¿Quieres ser mi amigo?`;
-        if(t.includes("donde")) r = `Estoy en ${ciudad}, muy cerquita de ti... ven al privado.`;
-        if(t.includes("ver") || t.includes("foto") || t.includes("desnud")) r = "Para eso necesito ver unas monedas doradas arriba... ¿te animas?";
-        if(t.includes("precio") || t.includes("moneda") || t.includes("cuanto")) r = "Con 10 monedas hacemos lo que tú quieras. Dale al botón de arriba.";
-
+        let r = "Mmm, me gusta tu energía. ¿Por qué no me regalas unas moneditas y te muestro algo especial?";
+        
+        // CEREBRO DE DIÁLOGO MEJORADO
+        if(t.includes("hola") || t.includes("buen")) r = `¡Hola bombón! Qué lindo encontrarte por acá. ¿Sos de por acá de ${ciudad} o de más lejos?`;
+        else if(t.includes("nombre") || t.includes("quien")) r = `Soy ${salas[indice].b}, un placer. ¿Y vos cómo te llamás? Me suena que sos un hombre muy interesante.`;
+        else if(t.includes("haces") || t.includes("haciendo")) r = `Acá, pensándote... y esperando que algún valiente como vos me saque de este aburrimiento con unas moneditas doradas.`;
+        else if(t.includes("bien") || t.includes("como estas")) r = `¡Súper! Pero me sentiría mucho mejor si estuviéramos tomando algo juntos en ${ciudad}... ¿No creés?`;
+        else if(t.includes("donde") || t.includes("vives")) r = `Estoy acá en ${ciudad}. Si querés mi dirección exacta, demostrame que sos un cliente VIP arriba...`;
+        else if(t.includes("ver") || t.includes("foto") || t.includes("desnud")) r = "Uff, qué directo... me encantan así. Pero las fotos prohibidas solo las paso por privado a los que tienen monedas.";
+        else if(t.includes("moneda") || t.includes("cuanto") || t.includes("pagar")) r = "Con 10 monedas doradas hacemos lo que vos quieras ahora mismo. ¿Te animás?";
+        else if(t.includes("jaja") || t.includes("linda")) r = "Jeje, gracias... me ponés roja. ¿Sos siempre así de tierno con las mujeres?";
+        
         iaResponde(r);
     }
 
     function iaResponde(texto) {
-        document.getElementById('escribiendo').style.display = "block";
+        const escribiendo = document.getElementById('escribiendo');
+        escribiendo.innerText = `${salas[indice].b} está escribiendo...`;
+        escribiendo.style.display = "block";
+        
         setTimeout(() => {
-            document.getElementById('escribiendo').style.display = "none";
+            escribiendo.style.display = "none";
             const chat = document.getElementById('chat-content');
-            chat.innerHTML += `<div><b style="color:${salas[indice].cl}">${salas[indice].b}:</b> ${texto}</div>`;
+            chat.innerHTML += `<div class="bot-msg"><b style="color:${salas[indice].cl}">${salas[indice].b}:</b> ${texto}</div>`;
             chat.scrollTop = chat.scrollHeight;
-        }, 1200);
+        }, Math.random() * 1000 + 1000); // Tiempo de escritura humano
     }
 
-    function irAPagar(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=VIP&amount=${m}&currency_code=USD`, "_blank"); }
+    function irAPagar(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=CREDITOS_VIP&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
