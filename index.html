@@ -2,58 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v85</title>
+    <title>MEGA RED VIP | IMPERIO v86</title>
     <style>
-        :root { 
-            --oro: #d4af37; --fondo: #000; 
-            --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff;
-        }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow: hidden; }
 
-        /* HEADER Y LOGO */
-        header { display: grid; grid-template-columns: 350px 1fr 350px; padding: 20px; border-bottom: 5px solid var(--n-rojo); background: #050505; align-items: center; }
-        .publi-box { width: 350px; height: 180px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); font-size: 22px; background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); }
-        .logo-center img { height: 280px; filter: drop-shadow(0 0 35px var(--n-rojo)); }
+        /* HEADER */
+        header { display: grid; grid-template-columns: 300px 1fr 300px; padding: 10px; border-bottom: 4px solid var(--n-rojo); background: #050505; align-items: center; height: 320px; }
+        .publi-box { width: 100%; height: 150px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); }
+        .logo-center { text-align: center; }
+        .logo-center img { height: 250px; filter: drop-shadow(0 0 25px var(--n-rojo)); }
         
-        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 40px; margin-top: 15px; padding-bottom: 15px; }
-        .coin { width: 75px; height: 75px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.3s; }
+        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 30px; margin-top: 10px; }
+        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; }
 
-        /* SALAS Y BOTS */
-        .level-1 { display: grid; grid-template-columns: 320px 1fr; gap: 15px; padding: 20px; }
-        .rooms-grid { background: #0a0a0a; border: 2px solid #222; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; height: 520px; }
-        .rooms-list-scroll { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
-        .room-unit { display: flex; justify-content: space-between; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 11px; }
-        .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        /* CUERPO PRINCIPAL */
+        .main-container { display: grid; grid-template-columns: 300px 1fr 400px; gap: 10px; padding: 10px; height: calc(100vh - 350px); }
+        
+        .rooms-sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; padding: 10px; }
+        .room-unit { display: flex; justify-content: space-between; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 12px; }
+        .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 520px; }
-        .avatar-card { border: 3px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
-        .avatar-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 12px; font-size: 16px; font-weight: 900; }
-
-        /* VISOR Y CHAT */
-        .level-2 { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 20px; height: 550px; }
-        .viewer-box { border: 5px solid var(--n-rojo); border-radius: 15px; background: #000; overflow: hidden; position: relative; }
+        .viewer-box { border: 4px solid var(--n-rojo); border-radius: 10px; background: #000; position: relative; overflow: hidden; }
         #room-img { width: 100%; height: 100%; object-fit: contain; }
-        .geo-info { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 8px 15px; border-radius: 5px; border: 1px solid var(--oro); font-size: 12px; z-index: 10; }
+        .loc-tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 5px 10px; border: 1px solid var(--oro); font-size: 11px; z-index: 5; }
 
-        .chat-box { background: #050505; border: 4px solid var(--n-rojo); border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #eee; }
-        #typing-ui { color: #666; font-style: italic; font-size: 12px; padding: 10px 15px; display: none; }
-
-        /* PUERTAS NEON */
-        .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; border-top: 5px solid var(--n-rojo); }
-        .gate-door { background: #0a0a0a; border-radius: 15px; padding: 20px; text-align: center; border: 2px solid #333; }
-        .gate-display { height: 200px; background: #000; margin-bottom: 15px; overflow-y: auto; padding: 10px; border-radius: 10px; }
-        .gate-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
+        .chat-container { background: #050505; border: 3px solid var(--n-rojo); border-radius: 10px; display: flex; flex-direction: column; overflow: hidden; }
+        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+        .input-area { display: flex; padding: 10px; background: #111; gap: 5px; }
+        #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; }
+        .btn-send { background: var(--n-rojo); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
-<body onload="initImperio()">
+<body onload="arrancarTodo()">
 
 <header>
-    <div class="publi-box">ANUNCIO VIP $50</div>
-    <div class="logo-center"><img src="Logo Mega Red Lunar.jpg" alt="Imperio Logo"></div>
-    <div class="publi-box">ANUNCIO VIP $100</div>
+    <div class="publi-box">AD VIP $50</div>
+    <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
+    <div class="publi-box">AD VIP $100</div>
     <div class="coins-row">
         <div class="coin" onclick="irAPagar(1)">$1</div>
         <div class="coin" onclick="irAPagar(5)">$5</div>
@@ -62,44 +49,23 @@
     </div>
 </header>
 
-<div class="level-1">
-    <div class="rooms-grid">
-        <div class="rooms-list-scroll" id="rooms-list"></div>
-        <a href="https://best.aliexpress.com/" target="_blank" style="background:#000; color:#fff; border:3px solid var(--n-rojo); padding:15px; text-align:center; text-decoration:none; font-weight:900; display:block; margin-top:10px; border-radius:8px; box-shadow: 0 0 20px var(--n-rojo);">🛒 COMPRAR JUGUETES VIP 🔞</a>
-    </div>
-    <div class="avatars-battle">
-        <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="avatar-card"><img src="Morocha.jpg"><div class="name-tag" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="avatar-card"><img src="Pelirroja.jpg"><div class="name-tag" style="color:var(--n-rojo)">COLO</div></div>
-    </div>
-</div>
-
-<div class="level-2">
+<div class="main-container">
+    <div class="rooms-sidebar" id="sidebar"></div>
     <div class="viewer-box">
-        <div class="geo-info" id="geo-text">📍 BUSCANDO UBICACIÓN...</div>
+        <div class="loc-tag" id="loc">📍 CONECTANDO...</div>
         <img id="room-img" src="">
     </div>
-    <div class="chat-box">
+    <div class="chat-container">
         <div id="chat-content"></div>
-        <div id="typing-ui">Escribiendo...</div>
-        <div style="display:flex; padding:15px; gap:10px; background:#111; border-top:1px solid #333;">
-            <input type="text" id="msg-in" placeholder="Escribe a las chicas..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
-            <button onclick="enviarChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">OK</button>
+        <div id="escribiendo" style="display:none; padding: 5px 15px; font-size: 11px; color: #666;">La chica está escribiendo...</div>
+        <div class="input-area">
+            <input type="text" id="msg-in" placeholder="Pregúntame lo que quieras...">
+            <button class="btn-send" onclick="mandarMensaje()">OK</button>
         </div>
     </div>
 </div>
 
-<div class="level-3">
-    <div class="gate-door" style="border-color:var(--n-rosa)"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="gate-display" id="d-h"></div><button class="gate-btn" style="background:var(--n-rosa)" onclick="subir('d-h')">SUBIR</button></div>
-    <div class="gate-door" style="border-color:var(--n-azul)"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="gate-display" id="d-e"></div><button class="gate-btn" style="background:var(--n-azul)" onclick="subir('d-e')">SUBIR</button></div>
-    <div class="gate-door" style="border-color:var(--n-rojo)"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="gate-display" id="d-v"></div><button class="gate-btn" style="background:var(--n-rojo)" onclick="subir('d-v')">SUBIR</button></div>
-</div>
-
 <script>
-    let userCity = "tu ciudad";
-    let carruselActivo = true;
-    let posActual = 0;
-
     const salas = [
         {n: "Sado y Maso", e: ".jpg", b: "COLO", cl: "var(--n-rojo)"}, 
         {n: "Spa", e: ".png", b: "MIA", cl: "var(--n-rosa)"}, 
@@ -113,93 +79,77 @@
         {n: "La Tiendita", e: ".png", b: "MIA", cl: "var(--n-rosa)"}
     ];
 
-    async function initImperio() {
-        // Detectar ubicación real
-        try {
-            const r = await fetch('https://ipapi.co/json/');
-            const d = await r.json();
-            userCity = d.city || "tu ciudad";
-            document.getElementById('geo-text').innerText = `📍 TRANSMITIENDO CERCA DE: ${userCity.toUpperCase()}`;
-        } catch(e) { userCity = "tu ciudad"; }
+    let indice = 0;
+    let manual = false;
+    let ciudad = "Resistencia";
 
-        // Cargar lista de 10 salas
-        const list = document.getElementById('rooms-list');
+    function arrancarTodo() {
+        const side = document.getElementById('sidebar');
         salas.forEach((s, i) => {
-            const div = document.createElement('div');
-            div.className = 'room-unit'; div.id = 'room-' + i;
-            div.innerHTML = `<span>${s.n}</span><span style="color:#555">👥 0</span>`;
-            div.onclick = () => { carruselActivo = false; cambiarSala(i, true); };
-            list.appendChild(div);
+            let d = document.createElement('div');
+            d.className = 'room-unit'; d.id = 'r-' + i;
+            d.innerHTML = `<span>${s.n}</span><span style="color:#555">👥 0</span>`;
+            d.onclick = () => { manual = true; forzarSala(i); };
+            side.appendChild(d);
         });
 
-        cambiarSala(0, false);
-        // Ciclo de carrusel automático
-        setInterval(() => {
-            if(carruselActivo) {
-                posActual = (posActual + 1) % salas.length;
-                cambiarSala(posActual, false);
-            }
-        }, 6000);
-    }
-
-    function cambiarSala(i, manual) {
-        posActual = i;
-        const s = salas[i];
-        document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
-        document.getElementById('room-' + i).classList.add('active');
-        document.getElementById('room-img').src = encodeURI(s.n + s.e);
+        document.getElementById('loc').innerText = `📍 TRANSMITIENDO DESDE: ${ciudad.toUpperCase()}`;
+        actualizarVisual();
         
-        const chat = document.getElementById('chat-content');
-        if(manual) {
-            chat.innerHTML = `<div style="text-align:center; color:gray; font-size:10px;">[SALA PRIVADA ACTIVADA - DUEÑA: ${s.b}]</div>`;
-            setTimeout(() => botHabla(`Hola bombón de ${userCity}... me encanta que hayas elegido mi sala privada. ¿Estás solo en casa?`), 800);
-        }
+        // Carrusel automático cada 5 segundos
+        setInterval(() => {
+            if(!manual) {
+                indice = (indice + 1) % salas.length;
+                actualizarVisual();
+            }
+        }, 5000);
     }
 
-    function enviarChat() {
+    function forzarSala(i) {
+        indice = i;
+        actualizarVisual();
+        const chat = document.getElementById('chat-content');
+        chat.innerHTML = `<div style="text-align:center; color:gray; font-size:10px;">--- SESIÓN PRIVADA CON ${salas[indice].b} ---</div>`;
+        iaResponde(`Hola lindo... te vi entrar a mi sala de ${salas[indice].n}. ¿Qué tal todo por ${ciudad}?`);
+    }
+
+    function actualizarVisual() {
+        document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
+        document.getElementById('r-' + indice).classList.add('active');
+        document.getElementById('room-img').src = encodeURI(salas[indice].n + salas[indice].e);
+    }
+
+    function mandarMensaje() {
         const input = document.getElementById('msg-in');
         const chat = document.getElementById('chat-content');
         if(!input.value) return;
 
         chat.innerHTML += `<div><b style="color:var(--oro)">TÚ:</b> ${input.value}</div>`;
-        procesarRespuesta(input.value.toLowerCase());
+        const t = input.value.toLowerCase();
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
+
+        let r = "Me gusta que me hables así... ¿por qué no me invitas una moneda y te enseño algo más?";
+        if(t.includes("hola")) r = `¡Hola! Qué bueno encontrar a alguien de ${ciudad} por aquí.`;
+        if(t.includes("nombre")) r = `Me llamo ${salas[indice].b}, pero mis amigos me dicen 'mi amor'. ¿Quieres ser mi amigo?`;
+        if(t.includes("donde")) r = `Estoy en ${ciudad}, muy cerquita de ti... ven al privado.`;
+        if(t.includes("ver") || t.includes("foto") || t.includes("desnud")) r = "Para eso necesito ver unas monedas doradas arriba... ¿te animas?";
+        if(t.includes("precio") || t.includes("moneda") || t.includes("cuanto")) r = "Con 10 monedas hacemos lo que tú quieras. Dale al botón de arriba.";
+
+        iaResponde(r);
     }
 
-    function procesarRespuesta(txt) {
-        let r = "";
-        if(txt.includes("hola") || txt.includes("buenas")) r = `¡Hola cielo! Me acabas de poner de muy buen humor. ¿Vives aquí en ${userCity}?`;
-        else if(txt.includes("nombre") || txt.includes("quien eres")) r = `Soy ${salas[posActual].b}. Pero puedes llamarme 'mi amor' si me invitas unas monedas...`;
-        else if(txt.includes("ver") || txt.includes("desnud") || txt.includes("ropa")) r = "Uff... qué travieso. Demuéstrame que eres un cliente VIP con unas monedas y te daré el show de tu vida.";
-        else if(txt.includes("moneda") || txt.includes("pago") || txt.includes("cuanto")) r = "Mira los botones de arriba. Con 10 monedas hacemos lo que tú quieras ahora mismo.";
-        else if(txt.includes("hacer") || txt.includes("quieres")) r = "Quiero que compres un juguete en el botón rojo de la izquierda y me digas cómo quieres que lo use...";
-        else if(txt.includes("donde")) r = `Estoy muy cerca de ${userCity}. Ven al chat privado conmigo y te doy mi dirección exacta...`;
-        else r = "Mmm... me gusta cómo suena eso. ¿Por qué no me invitas una moneda y seguimos hablando en privado?";
-        
-        botHabla(r);
-    }
-
-    function botHabla(txt) {
-        const typing = document.getElementById('typing-ui');
-        typing.style.display = "block";
+    function iaResponde(texto) {
+        document.getElementById('escribiendo').style.display = "block";
         setTimeout(() => {
-            typing.style.display = "none";
+            document.getElementById('escribiendo').style.display = "none";
             const chat = document.getElementById('chat-content');
-            const b = salas[posActual];
-            chat.innerHTML += `<div><b style="color:${b.cl}">${b.b}:</b> ${txt}</div>`;
+            chat.innerHTML += `<div><b style="color:${salas[indice].cl}">${salas[indice].b}:</b> ${texto}</div>`;
             chat.scrollTop = chat.scrollHeight;
-        }, 1500);
+        }, 1200);
     }
 
-    function subir(id) {
-        const val = prompt("Pega link de imagen:");
-        if(val) document.getElementById(id).innerHTML = `<img src="${val}" style="width:100%; border-radius:10px; margin-top:5px; border:1px solid gold;">` + document.getElementById(id).innerHTML;
-    }
-
-    function irAPagar(monto) {
-        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=VIP_Credits&amount=${monto}&currency_code=USD`, "_blank");
-    }
+    function irAPagar(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=VIP&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
