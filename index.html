@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v83</title>
+    <title>MEGA RED VIP | IMPERIO v84</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -36,7 +36,7 @@
 
         .chat-box { background: #050505; border: 4px solid var(--n-rojo); border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; }
         #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
-        .typing { color: #555; font-style: italic; font-size: 11px; display: none; }
+        #typing-ui { color: #666; font-style: italic; font-size: 12px; padding: 0 15px; display: none; }
 
         .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; border-top: 5px solid var(--n-rojo); }
         .gate-door { background: #0a0a0a; border-radius: 15px; padding: 20px; text-align: center; border: 2px solid #333; }
@@ -47,9 +47,9 @@
 <body onload="initImperio()">
 
 <header>
-    <div class="publi-box">ANUNCIO VIP $50</div>
+    <div class="publi-box">AD VIP $50</div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="publi-box">ANUNCIO VIP $100</div>
+    <div class="publi-box">AD VIP $100</div>
     <div class="coins-row">
         <div class="coin" onclick="irAPagar(1)">$1</div>
         <div class="coin" onclick="irAPagar(5)">$5</div>
@@ -72,14 +72,14 @@
 
 <div class="level-2">
     <div class="viewer-box">
-        <div class="geo-tag" id="user-location">📍 Detectando ubicación...</div>
+        <div class="geo-tag" id="user-location">📍 BUSCANDO UBICACIÓN...</div>
         <img id="room-img" src="">
     </div>
     <div class="chat-box">
         <div id="chat-content"></div>
-        <div id="typing-ui" class="typing" style="padding:0 15px;">Escribiendo...</div>
+        <div id="typing-ui">Escribiendo...</div>
         <div style="display:flex; padding:15px; gap:10px; background:#111;">
-            <input type="text" id="msg-in" placeholder="Escríbeme algo rico..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
+            <input type="text" id="msg-in" placeholder="Dime algo atrevido..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
             <button onclick="enviarChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">OK</button>
         </div>
     </div>
@@ -93,22 +93,25 @@
 
 <script>
     let userCity = "tu ciudad";
-    let currentBot = "COLO";
-    let currentPos = 0;
-    
     const rooms = [
         {n: "Sado y Maso", e: ".jpg", b: "COLO", cl: "var(--n-rojo)"}, 
         {n: "Spa", e: ".png", b: "MIA", cl: "var(--n-rosa)"}, 
-        {n: "Biblioteca", e: ".png", b: "TANIA", cl: "var(--n-azul)"}
+        {n: "Biblioteca", e: ".png", b: "TANIA", cl: "var(--n-azul)"},
+        {n: "Camarera", e: ".png", b: "MIA", cl: "var(--n-rosa)"},
+        {n: "Discoteca", e: ".png", b: "COLO", cl: "var(--n-rojo)"},
+        {n: "El Bar", e: ".png", b: "TANIA", cl: "var(--n-azul)"},
+        {n: "Gimnasio", e: ".png", b: "MIA", cl: "var(--n-rosa)"},
+        {n: "Oficina", e: ".png", b: "TANIA", cl: "var(--n-azul)"},
+        {n: "Playa", e: ".png", b: "COLO", cl: "var(--n-rojo)"},
+        {n: "La Tiendita", e: ".png", b: "MIA", cl: "var(--n-rosa)"}
     ];
 
     async function initImperio() {
-        // GEOLOCALIZACION REAL
         try {
             const res = await fetch('https://ipapi.co/json/');
             const data = await res.json();
             userCity = data.city || "tu zona";
-            document.getElementById('user-location').innerText = `📍 CONECTADO DESDE: ${userCity.toUpperCase()}`;
+            document.getElementById('user-location').innerText = `📍 CERCA DE: ${userCity.toUpperCase()}`;
         } catch(e) { userCity = "tu ciudad"; }
 
         const list = document.getElementById('rooms-list');
@@ -123,16 +126,14 @@
     }
 
     function select(i, isManual) {
-        currentPos = i;
-        currentBot = rooms[i].b;
         document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
         document.getElementById('u-' + i).classList.add('active');
         document.getElementById('room-img').src = encodeURI(rooms[i].n + rooms[i].e);
         
         if(isManual) {
             const chat = document.getElementById('chat-content');
-            chat.innerHTML = `<div style="text-align:center; color:#555; font-size:10px;">[SALA PRIVADA EN ${userCity.toUpperCase()} ACTIVADA]</div>`;
-            botResponde(`Hola bombón de ${userCity}... te vi entrar y me puse nerviosa. ¿Qué planeas hacerme hoy?`);
+            chat.innerHTML = `<div style="text-align:center; color:#555; font-size:10px;">--- CONEXIÓN PRIVADA CON ${rooms[i].b} ---</div>`;
+            responder(`Hola... ¿sabías que estoy muy cerca de ${userCity}? Ven a jugar conmigo a solas.`);
         }
     }
 
@@ -141,46 +142,41 @@
         const chat = document.getElementById('chat-content');
         if(!input.value) return;
 
-        chat.innerHTML += `<div><b style="color:var(--oro)">TÚ:</b> ${input.value}</div>`;
-        const texto = input.value.toLowerCase();
+        chat.innerHTML += `<div><b style="color:var(--oro)">CLIENTE:</b> ${input.value}</div>`;
+        analizarIA(input.value.toLowerCase());
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
-
-        // Lógica de respuesta IA "Real"
-        let respuesta = "";
-        if(texto.includes("nombre") || texto.includes("quien eres")) {
-            respuesta = `Soy ${currentBot}, la dueña de esta sala. Pero puedes llamarme 'ama' si me invitas unas monedas...`;
-        } else if(texto.includes("donde") || texto.includes("vives")) {
-            respuesta = `Estoy muy cerca de ${userCity}, ¿por qué no vienes a buscarme al chat privado con monedas?`;
-        } else if(texto.includes("hola") || texto.includes("que tal")) {
-            respuesta = `Mucho mejor ahora que un hombre de ${userCity} me habla... ¿Estás solo en casa?`;
-        } else if(texto.includes("moneda") || texto.includes("pagar")) {
-            respuesta = `Dale a las monedas doradas de arriba. Si me regalas 10, te prometo que esta noche no la olvidas.`;
-        } else if(texto.includes("hacer") || texto.includes("quiero")) {
-            respuesta = `Me gusta que seas directo. Compra un juguete en el botón rojo y te enseño cómo lo uso ahora mismo...`;
-        } else {
-            respuesta = `Mmm... me encantan los hombres que hablan así. ¿Quieres que me quite algo de ropa para ti?`;
-        }
-
-        botResponde(respuesta);
     }
 
-    function botResponde(texto) {
+    function analizarIA(texto) {
+        let r = "";
+        if(texto.includes("hola") || texto.includes("buen")) r = `Hola guapo de ${userCity}. ¿Buscabas a una chica como yo?`;
+        else if(texto.includes("nombre") || texto.includes("quien")) r = "Soy la dueña de esta sala... pero si me invitas unas monedas te diré todos mis secretos.";
+        else if(texto.includes("moneda") || texto.includes("pagar") || texto.includes("cuanto")) r = "No seas impaciente. Mira las monedas de arriba, hazme un regalo y te daré un show privado.";
+        else if(texto.includes("hacer") || texto.includes("quieres")) r = "Quiero que me digas qué te gustaría hacerme... y luego compras un juguete para que lo use.";
+        else if(texto.includes("donde") || texto.includes("vives")) r = `Estoy en ${userCity}, ¿quieres que nos veamos en el chat privado?`;
+        else if(texto.includes("desnud") || texto.includes("ropa") || texto.includes("ver")) r = "Uff, qué directo eres. Demuéstrame que eres VIP con unas monedas y me quito lo que quieras.";
+        else r = "Me gusta que me hables así... ¿por qué no me invitas algo y seguimos en privado?";
+        
+        responder(r);
+    }
+
+    function responder(texto) {
         const typing = document.getElementById('typing-ui');
         typing.style.display = "block";
-        
         setTimeout(() => {
             typing.style.display = "none";
             const chat = document.getElementById('chat-content');
-            const roomData = rooms[currentPos];
-            chat.innerHTML += `<div><b style="color:${roomData.cl}">${roomData.b}:</b> ${texto}</div>`;
+            const roomIdx = document.querySelector('.room-unit.active').id.split('-')[1];
+            const b = rooms[roomIdx];
+            chat.innerHTML += `<div><b style="color:${b.cl}">${b.b}:</b> ${texto}</div>`;
             chat.scrollTop = chat.scrollHeight;
-        }, 1500); // Simula tiempo de escritura
+        }, 1500);
     }
 
     function subir(id) {
-        const val = prompt("Pega link de foto o video:");
-        if(val) document.getElementById(id).innerHTML = `<img src="${val}" style="width:100%; margin-top:5px; border-radius:5px;">` + document.getElementById(id).innerHTML;
+        const val = prompt("Link de imagen/video:");
+        if(val) document.getElementById(id).innerHTML = `<img src="${val}" style="width:100%; border-radius:5px; margin-top:5px;">` + document.getElementById(id).innerHTML;
     }
 
     function irAPagar(monto) {
