@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v81</title>
+    <title>MEGA RED VIP | IMPERIO v83</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -11,71 +11,37 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER */
-        header { 
-            display: grid; grid-template-columns: 350px 1fr 350px; 
-            padding: 20px; border-bottom: 5px solid var(--n-rojo); 
-            background: #050505; align-items: center;
-        }
-        .publi-box { 
-            width: 350px; height: 180px; border: 2px solid var(--n-rojo); 
-            display: flex; align-items: center; justify-content: center; 
-            color: var(--n-rojo); font-size: 22px; background: #0a0a0a;
-            box-shadow: inset 0 0 15px var(--n-rojo);
-        }
+        header { display: grid; grid-template-columns: 350px 1fr 350px; padding: 20px; border-bottom: 5px solid var(--n-rojo); background: #050505; align-items: center; }
+        .publi-box { width: 350px; height: 180px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); font-size: 22px; background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); }
         .logo-center img { height: 280px; filter: drop-shadow(0 0 35px var(--n-rojo)); }
         
-        .coins-row { 
-            grid-column: 1 / span 3; display: flex; justify-content: center; 
-            gap: 40px; margin-top: 15px; padding-bottom: 15px;
-        }
-        .coin { 
-            width: 75px; height: 75px; border-radius: 50%; 
-            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
-            color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.3s;
-        }
+        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 40px; margin-top: 15px; padding-bottom: 15px; }
+        .coin { width: 75px; height: 75px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.3s; }
 
-        /* NIVEL 1: SALAS Y BOTS */
         .level-1 { display: grid; grid-template-columns: 320px 1fr; gap: 15px; padding: 20px; }
         .rooms-grid { background: #0a0a0a; border: 2px solid #222; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; height: 520px; }
         .rooms-list-scroll { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
-        .room-unit { 
-            display: flex; justify-content: space-between; padding: 12px; background: #111; 
-            border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 11px;
-            transition: 0.2s;
-        }
-        .room-unit:hover { border-color: var(--n-azul); }
+        .room-unit { display: flex; justify-content: space-between; padding: 12px; background: #111; border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 11px; }
         .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
-        .user-count { color: var(--n-azul); font-weight: bold; }
 
         .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 520px; }
         .avatar-card { border: 3px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
         .avatar-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 12px; font-size: 16px; font-weight: 900; }
 
-        /* NIVEL 2: VISOR Y CHAT MULTI-BOT */
         .level-2 { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 20px; height: 500px; }
         .viewer-box { border: 5px solid var(--n-rojo); border-radius: 15px; background: #000; overflow: hidden; position: relative; }
-        #room-img { width: 100%; height: 100%; object-fit: contain; transition: 0.5s; }
-        .private-tag { position: absolute; top: 10px; right: 10px; background: var(--n-rojo); color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; animation: pulse 1s infinite; }
+        #room-img { width: 100%; height: 100%; object-fit: contain; }
+        .geo-tag { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 5px 10px; border-radius: 5px; font-size: 10px; border: 1px solid var(--oro); }
 
         .chat-box { background: #050505; border: 4px solid var(--n-rojo); border-radius: 15px; display: flex; flex-direction: column; overflow: hidden; }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+        .typing { color: #555; font-style: italic; font-size: 11px; display: none; }
 
-        /* PUERTAS NEON */
         .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; border-top: 5px solid var(--n-rojo); }
-        .gate-door { background: #0a0a0a; border-radius: 15px; padding: 15px; text-align: center; position: relative; }
-        .gate-h { border: 2px solid var(--n-rosa); box-shadow: 0 0 15px var(--n-rosa); }
-        .gate-e { border: 2px solid var(--n-azul); box-shadow: 0 0 15px var(--n-azul); }
-        .gate-v { border: 2px solid var(--n-rojo); box-shadow: 0 0 15px var(--n-rojo); }
-        
-        .gate-display { height: 250px; background: #000; margin-bottom: 10px; overflow-y: auto; padding: 10px; text-align: left; border-radius: 10px; }
-        .gate-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .btn-ali-vip { background: #000; color: #fff; border: 3px solid var(--n-rojo); padding: 15px; text-align: center; text-decoration: none; font-size: 13px; font-weight: 900; margin-top: 10px; display: block; border-radius: 8px; box-shadow: 0 0 20px var(--n-rojo); animation: vibe 0.5s infinite alternate; }
-        @keyframes vibe { from { transform: scale(1); } to { transform: scale(1.04); } }
+        .gate-door { background: #0a0a0a; border-radius: 15px; padding: 20px; text-align: center; border: 2px solid #333; }
+        .gate-display { height: 200px; background: #000; margin-bottom: 15px; overflow-y: auto; padding: 10px; border-radius: 10px; }
+        .gate-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body onload="initImperio()">
@@ -95,7 +61,7 @@
 <div class="level-1">
     <div class="rooms-grid">
         <div class="rooms-list-scroll" id="rooms-list"></div>
-        <a href="https://best.aliexpress.com/" target="_blank" class="btn-ali-vip">🔥 COMPRAR JUGUETES VIP 🔞</a>
+        <a href="https://best.aliexpress.com/" target="_blank" style="background:#000; color:#fff; border:3px solid var(--n-rojo); padding:15px; text-align:center; text-decoration:none; font-weight:900; display:block; margin-top:10px; border-radius:8px; box-shadow: 0 0 20px var(--n-rojo);">🛒 COMPRAR JUGUETES VIP 🔞</a>
     </div>
     <div class="avatars-battle">
         <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
@@ -106,68 +72,67 @@
 
 <div class="level-2">
     <div class="viewer-box">
-        <div class="private-tag">CHAT PRIVADO ACTIVO</div>
+        <div class="geo-tag" id="user-location">📍 Detectando ubicación...</div>
         <img id="room-img" src="">
     </div>
     <div class="chat-box">
         <div id="chat-content"></div>
+        <div id="typing-ui" class="typing" style="padding:0 15px;">Escribiendo...</div>
         <div style="display:flex; padding:15px; gap:10px; background:#111;">
-            <input type="text" id="msg-in" placeholder="Escribe a las chicas..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
-            <button onclick="enviarChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">ENVIAR</button>
+            <input type="text" id="msg-in" placeholder="Escríbeme algo rico..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
+            <button onclick="enviarChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">OK</button>
         </div>
     </div>
 </div>
 
 <div class="level-3">
-    <div class="gate-door gate-h">
-        <h4 style="color:var(--n-rosa)">🔥 HISTORIAS</h4>
-        <div class="gate-display" id="d-h"></div>
-        <button class="gate-btn" style="background:var(--n-rosa)" onclick="subir('d-h')">SUBIR HISTORIA</button>
-    </div>
-    <div class="gate-door gate-e">
-        <h4 style="color:var(--n-azul)">💬 ESTADOS</h4>
-        <div class="gate-display" id="d-e"></div>
-        <button class="gate-btn" style="background:var(--n-azul)" onclick="subir('d-e')">SUBIR ESTADO</button>
-    </div>
-    <div class="gate-door gate-v">
-        <h4 style="color:var(--n-rojo)">🎥 VIDEOS VIP</h4>
-        <div class="gate-display" id="d-v"></div>
-        <button class="gate-btn" style="background:var(--n-rojo)" onclick="subir('d-v')">SUBIR VIDEO</button>
-    </div>
+    <div class="gate-door" style="border-color:var(--n-rosa)"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="gate-display" id="d-h"></div><button class="gate-btn" style="background:var(--n-rosa)" onclick="subir('d-h')">SUBIR</button></div>
+    <div class="gate-door" style="border-color:var(--n-azul)"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="gate-display" id="d-e"></div><button class="gate-btn" style="background:var(--n-azul)" onclick="subir('d-e')">SUBIR</button></div>
+    <div class="gate-door" style="border-color:var(--n-rojo)"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="gate-display" id="d-v"></div><button class="gate-btn" style="background:var(--n-rojo)" onclick="subir('d-v')">SUBIR</button></div>
 </div>
 
 <script>
-    let pos = 0;
+    let userCity = "tu ciudad";
+    let currentBot = "COLO";
+    let currentPos = 0;
+    
     const rooms = [
-        {n: "Sado y Maso", e: ".jpg"}, {n: "Spa", e: ".png"}, {n: "Biblioteca", e: ".png"}, 
-        {n: "Camarera", e: ".png"}, {n: "Discoteca", e: ".png"}, {n: "El Bar", e: ".png"},
-        {n: "Gimnasio", e: ".png"}, {n: "Oficina", e: ".png"}, {n: "Playa", e: ".png"}, {n: "La Tiendita", e: ".png"}
+        {n: "Sado y Maso", e: ".jpg", b: "COLO", cl: "var(--n-rojo)"}, 
+        {n: "Spa", e: ".png", b: "MIA", cl: "var(--n-rosa)"}, 
+        {n: "Biblioteca", e: ".png", b: "TANIA", cl: "var(--n-azul)"}
     ];
 
-    function initImperio() {
+    async function initImperio() {
+        // GEOLOCALIZACION REAL
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            userCity = data.city || "tu zona";
+            document.getElementById('user-location').innerText = `📍 CONECTADO DESDE: ${userCity.toUpperCase()}`;
+        } catch(e) { userCity = "tu ciudad"; }
+
         const list = document.getElementById('rooms-list');
         rooms.forEach((r, i) => {
             const d = document.createElement('div');
             d.className = 'room-unit'; d.id = 'u-' + i;
-            // Generar número de personas real aleatorio
-            const p = Math.floor(Math.random() * (500 - 50) + 50);
-            d.innerHTML = `<span>${r.n}</span><span class="user-count">👥 ${p}</span>`;
+            d.innerHTML = `<span>${r.n}</span><span style="color:#444">👥 0</span>`;
             d.onclick = () => select(i, true);
             list.appendChild(d);
         });
         select(0, false);
-        setInterval(autoChat, 4000);
     }
 
     function select(i, isManual) {
-        pos = i;
+        currentPos = i;
+        currentBot = rooms[i].b;
         document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
         document.getElementById('u-' + i).classList.add('active');
         document.getElementById('room-img').src = encodeURI(rooms[i].n + rooms[i].e);
         
         if(isManual) {
             const chat = document.getElementById('chat-content');
-            chat.innerHTML = `<div style="text-align:center; color:gray; font-size:10px;">--- Entrando a Chat Privado: ${rooms[i].n} ---</div>`;
+            chat.innerHTML = `<div style="text-align:center; color:#555; font-size:10px;">[SALA PRIVADA EN ${userCity.toUpperCase()} ACTIVADA]</div>`;
+            botResponde(`Hola bombón de ${userCity}... te vi entrar y me puse nerviosa. ¿Qué planeas hacerme hoy?`);
         }
     }
 
@@ -176,54 +141,46 @@
         const chat = document.getElementById('chat-content');
         if(!input.value) return;
 
-        chat.innerHTML += `<div><b style="color:var(--oro)">CLIENTE:</b> ${input.value}</div>`;
-        const val = input.value.toLowerCase();
-        
-        setTimeout(() => {
-            let res = "";
-            let bot = {};
-
-            if(val.includes("hola")) {
-                bot = {n: "TANIA", cl: "var(--n-azul)"};
-                res = "¡Hola guapo! Bienvenida a mi sala privada.";
-            } else if(val.includes("moneda") || val.includes("pagar")) {
-                bot = {n: "MIA", cl: "var(--n-rosa)"};
-                res = "¡Ay sí! Pásame unas moneditas y te enseño algo especial.";
-            } else {
-                bot = {n: "COLO", cl: "var(--n-rojo)"};
-                res = "¿Quieres que hagamos algo divertido en el chat privado?";
-            }
-
-            chat.innerHTML += `<div><b style="color:${bot.cl}">${bot.n}:</b> ${res}</div>`;
-            chat.scrollTop = chat.scrollHeight;
-        }, 800);
-        
+        chat.innerHTML += `<div><b style="color:var(--oro)">TÚ:</b> ${input.value}</div>`;
+        const texto = input.value.toLowerCase();
         input.value = "";
+        chat.scrollTop = chat.scrollHeight;
+
+        // Lógica de respuesta IA "Real"
+        let respuesta = "";
+        if(texto.includes("nombre") || texto.includes("quien eres")) {
+            respuesta = `Soy ${currentBot}, la dueña de esta sala. Pero puedes llamarme 'ama' si me invitas unas monedas...`;
+        } else if(texto.includes("donde") || texto.includes("vives")) {
+            respuesta = `Estoy muy cerca de ${userCity}, ¿por qué no vienes a buscarme al chat privado con monedas?`;
+        } else if(texto.includes("hola") || texto.includes("que tal")) {
+            respuesta = `Mucho mejor ahora que un hombre de ${userCity} me habla... ¿Estás solo en casa?`;
+        } else if(texto.includes("moneda") || texto.includes("pagar")) {
+            respuesta = `Dale a las monedas doradas de arriba. Si me regalas 10, te prometo que esta noche no la olvidas.`;
+        } else if(texto.includes("hacer") || texto.includes("quiero")) {
+            respuesta = `Me gusta que seas directo. Compra un juguete en el botón rojo y te enseño cómo lo uso ahora mismo...`;
+        } else {
+            respuesta = `Mmm... me encantan los hombres que hablan así. ¿Quieres que me quite algo de ropa para ti?`;
+        }
+
+        botResponde(respuesta);
     }
 
-    function autoChat() {
-        const chat = document.getElementById('chat-content');
-        const b = [
-            {n:"MIA", cl:"var(--n-rosa)", m:"¿Viste mi nueva historia de hoy?"},
-            {n:"TANIA", cl:"var(--n-azul)", m:"Me encanta que haya tanta gente conectada 👥"},
-            {n:"COLO", cl:"var(--n-rojo)", m:"Si me compras un juguete en la tienda me pongo feliz..."}
-        ][Math.floor(Math.random()*3)];
+    function botResponde(texto) {
+        const typing = document.getElementById('typing-ui');
+        typing.style.display = "block";
         
-        chat.innerHTML += `<div><b style="color:${b.cl}">${b.n}:</b> ${b.m}</div>`;
-        chat.scrollTop = chat.scrollHeight;
+        setTimeout(() => {
+            typing.style.display = "none";
+            const chat = document.getElementById('chat-content');
+            const roomData = rooms[currentPos];
+            chat.innerHTML += `<div><b style="color:${roomData.cl}">${roomData.b}:</b> ${texto}</div>`;
+            chat.scrollTop = chat.scrollHeight;
+        }, 1500); // Simula tiempo de escritura
     }
 
     function subir(id) {
-        const val = prompt("Pega el link de la imagen o escribe tu mensaje:");
-        if(!val) return;
-        const d = document.getElementById(id);
-        let content = "";
-        if(val.includes("http")) {
-            content = `<img src="${val}" style="width:100%; border:2px solid gold; border-radius:10px; margin-top:5px;">`;
-        } else {
-            content = `<p style="padding:10px; border-bottom:1px solid #333;">${val}</p>`;
-        }
-        d.innerHTML = content + d.innerHTML;
+        const val = prompt("Pega link de foto o video:");
+        if(val) document.getElementById(id).innerHTML = `<img src="${val}" style="width:100%; margin-top:5px; border-radius:5px;">` + document.getElementById(id).innerHTML;
     }
 
     function irAPagar(monto) {
