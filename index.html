@@ -2,71 +2,122 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v87</title>
+    <title>MEGA RED VIP | IMPERIO v88</title>
     <style>
-        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
+        :root { 
+            --oro: #d4af37; --fondo: #000; 
+            --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
 
-        /* HEADER */
-        header { display: grid; grid-template-columns: 300px 1fr 300px; padding: 10px; border-bottom: 4px solid var(--n-rojo); background: #050505; align-items: center; height: 300px; }
-        .publi-box { width: 100%; height: 140px; border: 2px solid var(--n-rojo); display: flex; align-items: center; justify-content: center; color: var(--n-rojo); background: #0a0a0a; box-shadow: inset 0 0 15px var(--n-rojo); font-weight: bold; }
-        .logo-center { text-align: center; }
-        .logo-center img { height: 230px; filter: drop-shadow(0 0 25px var(--n-rojo)); }
-        
-        .coins-row { grid-column: 1 / span 3; display: flex; justify-content: center; gap: 30px; margin-top: 5px; }
-        .coin { width: 65px; height: 65px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.2s; }
-        .coin:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--oro); }
+        /* HEADER REDISEÑADO - SIN ENCIMAR */
+        header { 
+            background: #050505; border-bottom: 5px solid var(--n-rojo); 
+            padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px;
+        }
+        .header-top { display: grid; grid-template-columns: 1fr 2fr 1fr; width: 100%; align-items: center; gap: 20px; }
+        .publi-banner { height: 120px; border: 2px solid var(--n-rojo); background: #0a0a0a; display: flex; align-items: center; justify-content: center; color: var(--n-rojo); font-size: 20px; box-shadow: inset 0 0 15px var(--n-rojo); }
+        .logo-box img { height: 220px; filter: drop-shadow(0 0 30px var(--n-rojo)); }
 
-        /* LAYOUT */
-        .main-container { display: grid; grid-template-columns: 300px 1fr 450px; gap: 10px; padding: 15px; height: calc(100vh - 320px); }
-        
-        .rooms-sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 10px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-        .room-unit { display: flex; justify-content: space-between; padding: 15px; background: #151515; border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.3s; font-size: 13px; }
-        .room-unit:hover { border-color: var(--n-rojo); background: #202020; }
-        .room-unit.active { background: var(--n-rojo); box-shadow: 0 0 15px var(--n-rojo); }
+        .coins-container { display: flex; justify-content: center; gap: 25px; width: 100%; padding: 10px 0; }
+        .coin { 
+            width: 75px; height: 75px; border-radius: 50%; 
+            background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
+            color: #000; display: flex; align-items: center; justify-content: center; 
+            font-weight: 900; font-size: 18px; cursor: pointer; border: 4px solid white; transition: 0.3s;
+        }
+        .coin:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 0 20px var(--oro); }
 
-        .viewer-box { border: 4px solid var(--n-rojo); border-radius: 12px; background: #000; position: relative; overflow: hidden; box-shadow: 0 0 30px rgba(255,0,60,0.2); }
-        #room-img { width: 100%; height: 100%; object-fit: contain; }
-        .loc-tag { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.85); color: var(--oro); padding: 8px 15px; border: 1px solid var(--oro); font-size: 11px; font-weight: bold; border-radius: 5px; }
+        /* CUERPO PRINCIPAL */
+        .main-layout { display: grid; grid-template-columns: 320px 1fr 450px; gap: 20px; padding: 20px; flex-grow: 1; }
 
-        .chat-container { background: #080808; border: 3px solid var(--n-rojo); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
-        #chat-content { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.4; }
-        .bot-msg { align-self: flex-start; max-width: 85%; }
-        .user-msg { align-self: flex-end; background: #222; padding: 8px 12px; border-radius: 10px; border-left: 3px solid var(--oro); }
+        /* COLUMNA IZQUIERDA: SALAS */
+        .sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 15px; display: flex; flex-direction: column; height: 600px; padding: 15px; }
+        .rooms-scroll { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .room-btn { 
+            padding: 15px; background: #111; border: 1px solid #333; border-radius: 8px; 
+            cursor: pointer; display: flex; justify-content: space-between; font-size: 13px; transition: 0.2s;
+        }
+        .room-btn.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        .ali-btn { background: #000; color: #fff; border: 3px solid var(--n-rojo); padding: 15px; text-align: center; text-decoration: none; font-weight: 900; border-radius: 8px; margin-top: 15px; box-shadow: 0 0 15px var(--n-rojo); }
 
-        .input-area { display: flex; padding: 15px; background: #111; gap: 10px; border-top: 1px solid #222; }
-        #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; }
-        .btn-send { background: var(--n-rojo); color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: 900; border-radius: 8px; text-transform: uppercase; }
+        /* COLUMNA CENTRAL: VISOR */
+        .viewer { border: 5px solid var(--n-rojo); border-radius: 20px; background: #000; position: relative; overflow: hidden; height: 600px; }
+        #main-img { width: 100%; height: 100%; object-fit: contain; }
+        .geo-label { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 10px 20px; border: 2px solid var(--oro); border-radius: 10px; font-weight: 900; }
+
+        /* COLUMNA DERECHA: CHAT */
+        .chat-area { background: #080808; border: 4px solid var(--n-rojo); border-radius: 20px; display: flex; flex-direction: column; height: 600px; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 15px; display: flex; flex-direction: column; gap: 15px; }
+        #typing { color: #666; font-style: italic; padding: 0 20px 10px; display: none; }
+        .chat-input-box { display: flex; padding: 20px; background: #111; gap: 10px; border-top: 2px solid #222; }
+        #user-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 15px; border-radius: 10px; outline: none; }
+        .send-btn { background: var(--n-rojo); border: none; padding: 0 25px; border-radius: 10px; color: white; font-weight: 900; cursor: pointer; }
+
+        /* LAS 3 PUERTAS (NIVEL INFERIOR) */
+        .doors-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 30px; background: #050505; border-top: 5px solid var(--n-rojo); }
+        .door-panel { background: #0a0a0a; border-radius: 20px; padding: 25px; text-align: center; border: 3px solid #333; transition: 0.3s; }
+        .door-hist { border-color: var(--n-rosa); box-shadow: 0 0 20px var(--n-rosa); }
+        .door-est { border-color: var(--n-azul); box-shadow: 0 0 20px var(--n-azul); }
+        .door-vid { border-color: var(--n-rojo); box-shadow: 0 0 20px var(--n-rojo); }
+        .door-content { height: 250px; background: #000; margin-bottom: 20px; border-radius: 10px; overflow-y: auto; padding: 10px; }
+        .upload-btn { width: 100%; padding: 15px; border-radius: 10px; border: none; color: white; font-weight: 900; cursor: pointer; }
+
     </style>
 </head>
-<body onload="arrancarImperio()">
+<body onload="iniciarImperio()">
 
 <header>
-    <div class="publi-box">PUBLI VIP $50</div>
-    <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="publi-box">PUBLI VIP $100</div>
-    <div class="coins-row">
-        <div class="coin" onclick="irAPagar(1)">$1</div>
-        <div class="coin" onclick="irAPagar(5)">$5</div>
-        <div class="coin" onclick="irAPagar(10)">$10</div>
-        <div class="coin" onclick="irAPagar(20)">$20</div>
+    <div class="header-top">
+        <div class="publi-banner">ANUNCIO VIP $50</div>
+        <div class="logo-box"><img src="Logo Mega Red Lunar.jpg"></div>
+        <div class="publi-banner">ANUNCIO VIP $100</div>
+    </div>
+    <div class="coins-container">
+        <div class="coin" onclick="pagar(1)">$1</div>
+        <div class="coin" onclick="pagar(5)">$5</div>
+        <div class="coin" onclick="pagar(10)">$10</div>
+        <div class="coin" onclick="pagar(20)">$20</div>
     </div>
 </header>
 
-<div class="main-container">
-    <div class="rooms-sidebar" id="sidebar"></div>
-    <div class="viewer-box">
-        <div class="loc-tag" id="loc">📍 RESISTENCIA, CHACO</div>
-        <img id="room-img" src="">
+<div class="main-layout">
+    <div class="sidebar">
+        <div class="rooms-scroll" id="rooms-list"></div>
+        <a href="https://best.aliexpress.com/" target="_blank" class="ali-btn">🛒 TIENDA DE JUGUETES VIP</a>
     </div>
-    <div class="chat-container">
-        <div id="chat-content"></div>
-        <div id="escribiendo" style="display:none; padding: 5px 20px; font-size: 12px; color: #777; font-style: italic;">Mia está escribiendo...</div>
-        <div class="input-area">
-            <input type="text" id="msg-in" placeholder="Dime algo lindo..." onkeypress="if(event.key==='Enter') mandarMensaje()">
-            <button class="btn-send" onclick="mandarMensaje()">OK</button>
+
+    <div class="viewer">
+        <div class="geo-label">📍 TRANSMITIENDO EN VIVO: RESISTENCIA</div>
+        <img id="main-img" src="">
+    </div>
+
+    <div class="chat-area">
+        <div id="chat-window"></div>
+        <div id="typing">Alguien está escribiendo...</div>
+        <div class="chat-input-box">
+            <input type="text" id="user-input" placeholder="Escríbele algo a la chica..." onkeypress="if(event.key==='Enter') enviarMensaje()">
+            <button class="send-btn" onclick="enviarMensaje()">OK</button>
         </div>
+    </div>
+</div>
+
+<div class="doors-container">
+    <div class="door-panel door-hist">
+        <h3 style="color:var(--n-rosa); margin-bottom:15px;">🔥 HISTORIAS</h3>
+        <div class="door-content" id="cont-h"></div>
+        <button class="upload-btn" style="background:var(--n-rosa)" onclick="subir('cont-h')">SUBIR HISTORIA</button>
+    </div>
+    <div class="door-panel door-est">
+        <h3 style="color:var(--n-azul); margin-bottom:15px;">💬 ESTADOS</h3>
+        <div class="door-content" id="cont-e"></div>
+        <button class="upload-btn" style="background:var(--n-azul)" onclick="subir('cont-e')">SUBIR ESTADO</button>
+    </div>
+    <div class="door-panel door-vid">
+        <h3 style="color:var(--n-rojo); margin-bottom:15px;">🔞 VIDEOS VIP</h3>
+        <div class="door-content" id="cont-v"></div>
+        <button class="upload-btn" style="background:var(--n-rojo)" onclick="subir('cont-v')">SUBIR VIDEO</button>
     </div>
 </div>
 
@@ -86,80 +137,83 @@
 
     let indice = 0;
     let manual = false;
-    let ciudad = "Resistencia";
 
-    function arrancarImperio() {
-        const side = document.getElementById('sidebar');
+    function iniciarImperio() {
+        const lista = document.getElementById('rooms-list');
         salas.forEach((s, i) => {
             let d = document.createElement('div');
-            d.className = 'room-unit'; d.id = 'r-' + i;
-            d.innerHTML = `<span>${s.n}</span><span style="color:#444">👥 0</span>`;
-            d.onclick = () => { manual = true; forzarSala(i); };
-            side.appendChild(d);
+            d.className = 'room-btn'; d.id = 'room-' + i;
+            d.innerHTML = `<span>${s.n}</span><span style="color:#555">👥 0</span>`;
+            d.onclick = () => { manual = true; activarSala(i); };
+            lista.appendChild(d);
         });
-        actualizarVisual();
-        
+        activarSala(0);
+
         setInterval(() => {
             if(!manual) {
                 indice = (indice + 1) % salas.length;
-                actualizarVisual();
+                activarSala(indice);
             }
-        }, 7000);
+        }, 6000);
     }
 
-    function forzarSala(i) {
+    function activarSala(i) {
         indice = i;
-        actualizarVisual();
-        const chat = document.getElementById('chat-content');
-        chat.innerHTML = `<div style="text-align:center; color:#555; font-size:11px; margin-bottom:15px;">CONEXIÓN SEGURA - SALA: ${salas[indice].n.toUpperCase()}</div>`;
-        iaResponde(`¡Hola! Te estaba esperando... justo me estaba aburriendo aquí en ${ciudad}. ¿Cómo te llamas?`);
+        const s = salas[i];
+        document.querySelectorAll('.room-btn').forEach(x => x.classList.remove('active'));
+        document.getElementById('room-' + i).classList.add('active');
+        document.getElementById('main-img').src = encodeURI(s.n + s.e);
+        
+        if(manual) {
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML = `<div style="text-align:center; color:#555; font-size:12px;">--- CHAT PRIVADO CON ${s.b} ---</div>`;
+            botResponde(`¡Hola! Te vi entrar a mi sala de ${s.n}... justo hoy que estoy tan sola acá en Resistencia. ¿Cómo estás?`);
+        }
     }
 
-    function actualizarVisual() {
-        document.querySelectorAll('.room-unit').forEach(x => x.classList.remove('active'));
-        document.getElementById('r-' + indice).classList.add('active');
-        document.getElementById('room-img').src = encodeURI(salas[indice].n + salas[indice].e);
-    }
-
-    function mandarMensaje() {
-        const input = document.getElementById('msg-in');
-        const chat = document.getElementById('chat-content');
+    function enviarMensaje() {
+        const input = document.getElementById('user-input');
+        const chat = document.getElementById('chat-window');
         if(!input.value) return;
 
-        chat.innerHTML += `<div class="user-msg"><b>Tú:</b> ${input.value}</div>`;
-        const t = input.value.toLowerCase();
+        chat.innerHTML += `<div style="align-self:flex-end; background:#222; padding:10px 15px; border-radius:10px; border-left:4px solid var(--oro);"><b>Tú:</b> ${input.value}</div>`;
+        const txt = input.value.toLowerCase();
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
 
-        let r = "Mmm, me gusta tu energía. ¿Por qué no me regalas unas moneditas y te muestro algo especial?";
-        
-        // CEREBRO DE DIÁLOGO MEJORADO
-        if(t.includes("hola") || t.includes("buen")) r = `¡Hola bombón! Qué lindo encontrarte por acá. ¿Sos de por acá de ${ciudad} o de más lejos?`;
-        else if(t.includes("nombre") || t.includes("quien")) r = `Soy ${salas[indice].b}, un placer. ¿Y vos cómo te llamás? Me suena que sos un hombre muy interesante.`;
-        else if(t.includes("haces") || t.includes("haciendo")) r = `Acá, pensándote... y esperando que algún valiente como vos me saque de este aburrimiento con unas moneditas doradas.`;
-        else if(t.includes("bien") || t.includes("como estas")) r = `¡Súper! Pero me sentiría mucho mejor si estuviéramos tomando algo juntos en ${ciudad}... ¿No creés?`;
-        else if(t.includes("donde") || t.includes("vives")) r = `Estoy acá en ${ciudad}. Si querés mi dirección exacta, demostrame que sos un cliente VIP arriba...`;
-        else if(t.includes("ver") || t.includes("foto") || t.includes("desnud")) r = "Uff, qué directo... me encantan así. Pero las fotos prohibidas solo las paso por privado a los que tienen monedas.";
-        else if(t.includes("moneda") || t.includes("cuanto") || t.includes("pagar")) r = "Con 10 monedas doradas hacemos lo que vos quieras ahora mismo. ¿Te animás?";
-        else if(t.includes("jaja") || t.includes("linda")) r = "Jeje, gracias... me ponés roja. ¿Sos siempre así de tierno con las mujeres?";
-        
-        iaResponde(r);
+        let res = "Mmm... me gusta cómo suena eso. ¿Por qué no me regalas unas monedas y te cumplo un deseo?";
+        if(txt.includes("hola") || txt.includes("buen")) res = `¡Hola bombón! Qué lindo que me hables. ¿Sos de acá de Resistencia?`;
+        else if(txt.includes("nombre") || txt.includes("quien")) res = `Soy ${salas[indice].b}. Un placer... me suena que vamos a ser muy buenos amigos.`;
+        else if(txt.includes("haces") || txt.includes("haciendo")) res = `Acá, aburrida... esperando que un hombre como vos me invite algo para empezar la fiesta.`;
+        else if(txt.includes("donde") || txt.includes("vives")) res = `Estoy en Resistencia, Chaco. Si querés que nos veamos, demostrame que sos VIP arriba...`;
+        else if(txt.includes("foto") || txt.includes("ver") || txt.includes("desnud")) res = "Uff, qué directo... me encanta. Pero esas cositas solo las muestro en privado por monedas.";
+        else if(txt.includes("cuanto") || txt.includes("moneda") || txt.includes("pagar")) res = "Con 10 monedas doradas de las de arriba hacemos lo que vos quieras. ¿Te animás?";
+        else if(txt.includes("linda") || txt.includes("hermosa")) res = "¡Ay, gracias! Me ponés roja... ¿siempre sos tan tierno?";
+
+        botResponde(res);
     }
 
-    function iaResponde(texto) {
-        const escribiendo = document.getElementById('escribiendo');
-        escribiendo.innerText = `${salas[indice].b} está escribiendo...`;
-        escribiendo.style.display = "block";
-        
+    function botResponde(t) {
+        const typing = document.getElementById('typing');
+        typing.innerText = `${salas[indice].b} está escribiendo...`;
+        typing.style.display = "block";
         setTimeout(() => {
-            escribiendo.style.display = "none";
-            const chat = document.getElementById('chat-content');
-            chat.innerHTML += `<div class="bot-msg"><b style="color:${salas[indice].cl}">${salas[indice].b}:</b> ${texto}</div>`;
+            typing.style.display = "none";
+            const chat = document.getElementById('chat-window');
+            chat.innerHTML += `<div><b style="color:${salas[indice].cl}">${salas[indice].b}:</b> ${t}</div>`;
             chat.scrollTop = chat.scrollHeight;
-        }, Math.random() * 1000 + 1000); // Tiempo de escritura humano
+        }, 1500);
     }
 
-    function irAPagar(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=CREDITOS_VIP&amount=${m}&currency_code=USD`, "_blank"); }
+    function subir(id) {
+        const link = prompt("Pega el link de la imagen o video:");
+        if(link) {
+            const div = document.getElementById(id);
+            div.innerHTML = `<img src="${link}" style="width:100%; border-radius:10px; margin-top:10px; border:2px solid gold;">` + div.innerHTML;
+        }
+    }
+
+    function pagar(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&item_name=VIP_Credits&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
