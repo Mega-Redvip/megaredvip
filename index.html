@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v79</title>
+    <title>MEGA RED VIP | IMPERIO v80</title>
     <style>
         :root { 
             --oro: #d4af37; --fondo: #000; 
@@ -11,94 +11,88 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; 
-            height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
+            overflow-x: hidden;
         }
 
-        /* HEADER COMPACTO */
+        /* HEADER: LOGO GIGANTE Y ADS LATERALEZ */
         header { 
             display: grid; grid-template-columns: 350px 1fr 350px; 
-            padding: 10px 20px; border-bottom: 3px solid var(--n-rojo); 
+            padding: 20px; border-bottom: 5px solid var(--n-rojo); 
             background: #050505; align-items: center;
         }
         .publi-box { 
-            width: 350px; height: 140px; border: 2px solid var(--n-rojo); 
+            width: 350px; height: 180px; border: 2px solid var(--n-rojo); 
             display: flex; align-items: center; justify-content: center; 
-            color: var(--n-rojo); font-size: 18px; background: #0a0a0a;
+            color: var(--n-rojo); font-size: 22px; background: #0a0a0a;
         }
-        .logo-center { text-align: center; }
-        .logo-center img { height: 160px; filter: drop-shadow(0 0 20px var(--n-rojo)); }
+        .logo-center img { height: 280px; filter: drop-shadow(0 0 35px var(--n-rojo)); }
         
-        .coins-bar { 
+        /* MONEDAS BAJAS Y ELEGANTES */
+        .coins-row { 
             grid-column: 1 / span 3; display: flex; justify-content: center; 
-            gap: 30px; padding: 10px 0; background: rgba(255,0,0,0.1);
+            gap: 40px; margin-top: 15px; padding-bottom: 15px;
         }
         .coin { 
-            width: 70px; height: 70px; border-radius: 50%; 
+            width: 75px; height: 75px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.2s;
-        }
-        .coin:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--oro); }
-
-        /* CONTENEDOR PRINCIPAL - NO SE ESTIRA */
-        main { 
-            display: grid; grid-template-columns: 300px 1fr 400px; 
-            gap: 15px; padding: 15px; flex-grow: 1; height: 500px; 
+            font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.3s;
         }
 
-        /* COLUMNA IZQUIERDA: SALAS Y BOTON */
-        .rooms-col { display: flex; flex-direction: column; height: 100%; }
+        /* NIVEL 1: SALAS Y LAS BOTS */
+        .level-1 { display: grid; grid-template-columns: 300px 1fr; gap: 15px; padding: 20px; }
+        
         .rooms-grid { 
-            flex-grow: 1; background: #0a0a0a; border: 2px solid #222; 
-            border-radius: 10px; padding: 10px; overflow-y: hidden;
+            background: #0a0a0a; border: 2px solid #222; border-radius: 12px; padding: 10px;
+            display: flex; flex-direction: column; height: 500px;
         }
+        .rooms-list-scroll { flex-grow: 1; overflow-y: hidden; display: flex; flex-direction: column; gap: 5px; }
+        
         .room-unit { 
-            padding: 10px; background: #111; margin-bottom: 5px; 
-            border-radius: 5px; font-size: 11px; cursor: pointer; 
+            display: flex; justify-content: space-between; padding: 10px; background: #111; 
+            border: 1px solid #333; border-radius: 5px; cursor: pointer; font-size: 11px;
         }
-        .room-unit.active { background: var(--n-rojo); border: 1px solid white; }
+        .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        /* VISOR CENTRAL */
-        .viewer-box { 
-            border: 4px solid var(--n-rojo); border-radius: 15px; 
-            background: #000; height: 100%; position: relative; overflow: hidden;
-        }
-        #room-img { width: 100%; height: 100%; object-fit: cover; }
+        /* LAS BOTS: MIA, TANIA Y COLO */
+        .avatars-battle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; height: 500px; }
+        .avatar-card { border: 3px solid #222; border-radius: 15px; overflow: hidden; background: #000; position: relative; }
+        .avatar-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 10px; font-size: 15px; font-weight: 900; }
 
-        /* CHAT DERECHA */
-        .chat-col { 
-            display: flex; flex-direction: column; background: #050505; 
-            border: 3px solid var(--n-rojo); border-radius: 15px; height: 100%;
-        }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; }
-        .chat-input { display: flex; padding: 10px; gap: 5px; background: #111; }
+        /* NIVEL 2: VISOR Y CHAT REAL */
+        .level-2 { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 20px; height: 500px; }
+        .viewer-box { border: 5px solid var(--n-rojo); border-radius: 15px; background: #000; overflow: hidden; }
+        #room-img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* LAS TRES PUERTAS - ABAJO */
-        footer { 
-            display: grid; grid-template-columns: repeat(3, 1fr); 
-            gap: 15px; padding: 15px; background: #000; border-top: 3px solid var(--n-rojo);
+        .chat-box { 
+            background: #050505; border: 4px solid var(--n-rojo); border-radius: 15px; 
+            display: flex; flex-direction: column; overflow: hidden;
         }
-        .gate { background: #0a0a0a; border: 1px solid var(--n-rojo); border-radius: 10px; padding: 10px; }
-        .gate-scroll { height: 150px; overflow-y: auto; margin-bottom: 10px; background: #000; padding: 5px; }
-        .gate-btn { width: 100%; padding: 8px; background: var(--n-rojo); color: white; border: none; font-weight: 900; cursor: pointer; }
+        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
 
-        /* ANIMACIÓN BOTON ALI */
-        .btn-vip-ali {
-            background: #000; color: white; border: 2px solid var(--n-rojo);
-            padding: 12px; text-align: center; text-decoration: none; font-size: 12px;
-            font-weight: 900; margin-top: 10px; display: block;
-            box-shadow: 0 0 10px var(--n-rojo); animation: vibe 0.5s infinite alternate;
+        /* LAS TRES PUERTAS */
+        .level-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; border-top: 5px solid var(--n-rojo); }
+        .gate-door { background: #0a0a0a; border: 2px solid var(--n-rojo); border-radius: 15px; padding: 15px; text-align: center; }
+        .gate-display { height: 200px; background: #000; margin-bottom: 10px; overflow-y: auto; padding: 5px; text-align: left; }
+
+        /* BOTÓN ALI NEÓN */
+        .btn-ali-vip {
+            background: #000; color: #fff; border: 3px solid var(--n-rojo);
+            padding: 15px; text-align: center; text-decoration: none; font-size: 13px;
+            font-weight: 900; margin-top: 10px; display: block; border-radius: 8px;
+            box-shadow: 0 0 20px var(--n-rojo); animation: pulse 1s infinite;
         }
-        @keyframes vibe { from { transform: scale(1); } to { transform: scale(1.03); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body onload="initImperio()">
 
 <header>
-    <div class="publi-box">AD VIP $50</div>
+    <div class="publi-box">ADS VIP $50</div>
     <div class="logo-center"><img src="Logo Mega Red Lunar.jpg"></div>
-    <div class="publi-box">AD VIP $100</div>
-    <div class="coins-bar">
+    <div class="publi-box">ADS VIP $100</div>
+    <div class="coins-row">
         <div class="coin" onclick="irAPagar(1)">$1</div>
         <div class="coin" onclick="irAPagar(5)">$5</div>
         <div class="coin" onclick="irAPagar(10)">$10</div>
@@ -106,43 +100,34 @@
     </div>
 </header>
 
-<main>
-    <div class="rooms-col">
-        <div class="rooms-grid" id="rooms-list"></div>
-        <a href="TU_LINK_ALI" target="_blank" class="btn-vip-ali">🛒 COMPRAR JUGUETES VIP 🔞</a>
+<div class="level-1">
+    <div class="rooms-grid">
+        <div class="rooms-list-scroll" id="rooms-list"></div>
+        <a href="https://best.aliexpress.com/" target="_blank" class="btn-ali-vip">🛒 COMPRAR JUGUETES VIP 🔞</a>
     </div>
-
-    <div class="viewer-box">
-        <img id="room-img" src="">
-        <div style="position:absolute; bottom:10px; left:10px; background:rgba(255,0,0,0.7); padding:5px 10px; border-radius:5px; font-size:12px;">🔴 EN VIVO</div>
+    <div class="avatars-battle">
+        <div class="avatar-card"><img src="Rubia.jpg"><div class="name-tag" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="avatar-card"><img src="Morocha.jpg"><div class="name-tag" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="avatar-card"><img src="Pelirroja.jpg"><div class="name-tag" style="color:var(--n-rojo)">COLO</div></div>
     </div>
+</div>
 
-    <div class="chat-col">
+<div class="level-2">
+    <div class="viewer-box"><img id="room-img" src=""></div>
+    <div class="chat-box">
         <div id="chat-content"></div>
-        <div class="chat-input">
-            <input type="text" id="msg-in" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:8px;">
-            <button onclick="handleChat()" style="background:var(--n-rojo); color:white; border:none; padding:8px; cursor:pointer;">OK</button>
+        <div style="display:flex; padding:15px; gap:10px; background:#111;">
+            <input type="text" id="msg-in" placeholder="Escríbeles algo..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px; border-radius:5px;">
+            <button onclick="enviarChat()" style="background:var(--n-rojo); color:white; border:none; padding:12px 20px; cursor:pointer; font-weight:bold; border-radius:5px;">OK</button>
         </div>
     </div>
-</main>
+</div>
 
-<footer>
-    <div class="gate">
-        <h4 style="color:var(--n-rosa)">HISTORIAS</h4>
-        <div class="gate-scroll" id="d-h"></div>
-        <button class="gate-btn" onclick="subir('d-h')">SUBIR</button>
-    </div>
-    <div class="gate">
-        <h4 style="color:var(--n-azul)">ESTADOS</h4>
-        <div class="gate-scroll" id="d-e"></div>
-        <button class="gate-btn" onclick="subir('d-e')">SUBIR</button>
-    </div>
-    <div class="gate">
-        <h4 style="color:var(--n-rojo)">VIDEOS</h4>
-        <div class="gate-scroll" id="d-v"></div>
-        <button class="gate-btn" onclick="subir('d-v')">SUBIR</button>
-    </div>
-</footer>
+<div class="level-3">
+    <div class="gate-door"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="gate-display" id="d-h"></div><button onclick="subir('d-h')">SUBIR</button></div>
+    <div class="gate-door"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="gate-display" id="d-e"></div><button onclick="subir('d-e')">SUBIR</button></div>
+    <div class="gate-door"><h4 style="color:var(--n-rojo)">VIDEOS VIP</h4><div class="gate-display" id="d-v"></div><button onclick="subir('d-v')">SUBIR</button></div>
+</div>
 
 <script>
     let pos = 0;
@@ -163,6 +148,7 @@
         });
         select(0);
         setInterval(() => { pos = (pos + 1) % rooms.length; select(pos); }, 6000);
+        setInterval(autoChat, 5000);
     }
 
     function select(i) {
@@ -172,25 +158,36 @@
         document.getElementById('room-img').src = encodeURI(rooms[i].n + rooms[i].e);
     }
 
-    function handleChat() {
+    function enviarChat() {
         const input = document.getElementById('msg-in');
         const chat = document.getElementById('chat-content');
         if(!input.value) return;
+
         chat.innerHTML += `<div><b style="color:var(--oro)">CLIENTE:</b> ${input.value}</div>`;
+        const val = input.value.toLowerCase();
+        
         setTimeout(() => {
-            chat.innerHTML += `<div><b style="color:var(--n-rojo)">COLO:</b> ¡Me encanta que hables! Invítame una moneda...</div>`;
+            let r = "¿Me vas a invitar una moneda o solo quieres hablar?";
+            if(val.includes("hola")) r = "¡Hola guapo! ¿Te gusta mi sala?";
+            if(val.includes("juguete")) r = "Mira mis juguetes en el botón rojo de la izquierda...";
+            chat.innerHTML += `<div><b style="color:var(--n-rojo)">COLO:</b> ${r}</div>`;
             chat.scrollTop = chat.scrollHeight;
         }, 1000);
+        
         input.value = "";
         chat.scrollTop = chat.scrollHeight;
     }
 
+    function autoChat() {
+        const chat = document.getElementById('chat-content');
+        const msgs = ["¿Miran mis historias abajo?", "Mia está muy callada hoy...", "¿Alguien me invita un trago?"];
+        chat.innerHTML += `<div><b style="color:var(--n-rosa)">MIA:</b> ${msgs[Math.floor(Math.random()*3)]}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    }
+
     function subir(id) {
-        const link = prompt("Escribe texto o pega link de imagen:");
-        if(!link) return;
-        const d = document.getElementById(id);
-        const item = link.includes("http") ? `<img src="${link}" style="width:100%; margin-top:5px;">` : `<p style="font-size:12px; border-bottom:1px solid #222; padding:5px;">${link}</p>`;
-        d.innerHTML = item + d.innerHTML;
+        const val = prompt("Escribe o pega link:");
+        if(val) document.getElementById(id).innerHTML = `<div style="border-bottom:1px solid #333; margin-bottom:5px;">${val}</div>` + document.getElementById(id).innerHTML;
     }
 
     function irAPagar(monto) {
