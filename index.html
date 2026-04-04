@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v90</title>
+    <title>MEGA RED VIP | IMPERIO v91</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,21 +41,28 @@
         .room-unit.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
 
         .viewer-box { border: 5px solid var(--n-rojo); border-radius: 15px; background: #000; height: 500px; overflow: hidden; position: relative; }
-        /* FIX: Imagen sin estirar */
         #main-img { width: 100%; height: 100%; object-fit: contain; background: #000; }
         .geo-info { position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.8); color: var(--oro); padding: 8px 15px; border-radius: 5px; font-size: 12px; z-index: 10; border: 1px solid var(--oro); }
 
         /* SECCIÓN BOTS Y CHAT */
-        .chat-section { display: grid; grid-template-columns: 350px 1fr; gap: 20px; padding: 0 20px 20px; }
-        .bots-column { display: flex; flex-direction: column; gap: 10px; }
+        .chat-section { display: grid; grid-template-columns: 350px 1fr; gap: 20px; padding: 0 20px 20px; align-items: start; }
+        .bots-column { display: flex; flex-direction: column; gap: 15px; }
+        
+        /* FIX: BOTS COMPLETAS Y FOTOGRÁFICAS */
         .bot-mini { 
-            height: 150px; border: 3px solid #222; border-radius: 12px; overflow: hidden; 
+            height: 250px; /* Aumentado para que quepa el cuerpo entero */
+            border: 3px solid #222; border-radius: 12px; overflow: hidden; 
             position: relative; background: #000;
         }
-        .bot-mini img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); text-align: center; font-size: 14px; padding: 5px; }
+        .bot-mini img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; /* FIX: Imagen COMPLETA, sin recortar */
+            background: #000; /* Fondo negro para rellenar si la foto es estrecha */
+            image-rendering: high-quality; /* Ayuda a mantener nitidez visual */
+        }
+        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7); text-align: center; font-size: 14px; padding: 5px; font-weight: bold; }
 
-        .chat-box { background: #080808; border: 4px solid var(--n-rojo); border-radius: 15px; height: 470px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-box { background: #080808; border: 4px solid var(--n-rojo); border-radius: 15px; height: 780px; /* Ajustado a la altura de las 3 bots */ display: flex; flex-direction: column; overflow: hidden; }
         #chat-stream { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
         .chat-input { display: flex; padding: 15px; background: #111; gap: 10px; }
         #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; outline: none; }
