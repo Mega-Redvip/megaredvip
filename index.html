@@ -2,155 +2,144 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v99</title>
+    <title>MEGA RED VIP | IMPERIO v100</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; }
 
-        /* HEADER SUPREMO */
+        /* HEADER */
         header { 
             display: grid; grid-template-columns: 1fr 2fr 1fr; 
             padding: 20px; align-items: center; gap: 20px; background: #050505; border-bottom: 5px solid var(--n-rojo);
         }
-        .publi-box { width: 100%; height: 110px; border: 3px dashed var(--n-rojo); display: flex; align-items: center; justify-content: center; background: #0a0a0a; color: var(--n-rojo); font-size: 18px; text-align: center; }
-        .logo-box img { width: 100%; max-height: 220px; object-fit: contain; filter: drop-shadow(0 0 20px var(--n-rojo)); }
-        .coin { width: 75px; height: 75px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 22px; cursor: pointer; border: 4px solid white; }
+        .publi-box { width: 100%; height: 100px; border: 3px dashed var(--n-rojo); display: flex; align-items: center; justify-content: center; background: #0a0a0a; color: var(--n-rojo); font-size: 16px; text-align: center; }
+        .logo-box img { width: 100%; max-height: 200px; object-fit: contain; filter: drop-shadow(0 0 20px var(--n-rojo)); }
+        .coin { width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 20px; cursor: pointer; border: 4px solid white; }
 
-        /* SECCIÓN 10 SALAS */
-        .main-container { display: grid; grid-template-columns: 350px 1fr; gap: 20px; padding: 20px; }
-        .sidebar { background: #0a0a0a; border: 2px solid #222; border-radius: 15px; padding: 10px; height: 550px; overflow-y: auto; }
-        .room-btn { 
-            padding: 12px; background: #111; border: 1px solid #333; border-radius: 8px; margin-bottom: 6px; 
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
+        /* SECCIÓN SALAS */
+        .main-layout { display: grid; grid-template-columns: 350px 1fr; gap: 20px; padding: 20px; }
+        .sidebar { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; }
+        .room-item { 
+            padding: 10px; background: #151515; border-radius: 8px; margin-bottom: 8px; 
+            cursor: pointer; display: flex; justify-content: space-between; border: 1px solid #222;
         }
-        .room-btn:hover, .room-btn.active { background: var(--n-rojo); border-color: white; }
-        .room-btn span { font-size: 12px; }
-        .online-tag { font-size: 10px; color: #666; font-weight: bold; }
-        .active .online-tag { color: white; }
+        .room-item.active { background: var(--n-rojo); border-color: white; }
+        .room-item span { font-size: 12px; }
 
-        /* VISOR DE SALA CON RESPALDO */
-        .viewer { border: 5px solid var(--n-rojo); border-radius: 15px; height: 550px; background: #050505; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        #room-img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        #room-fallback { font-size: 40px; color: #222; text-align: center; font-weight: 900; }
+        /* VISOR DE SALAS */
+        .viewer { border: 5px solid var(--n-rojo); border-radius: 15px; height: 450px; background: #050505; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #room-display { width: 100%; height: 100%; object-fit: cover; }
 
-        /* PANEL DE BOTS REFORMADO */
-        .bot-section { display: grid; grid-template-columns: 1fr 400px; gap: 20px; padding: 0 20px 20px; }
-        .bot-gallery { display: grid; grid-template-columns: repeat(3, 1fr); height: 500px; border: 4px solid #222; border-radius: 20px; overflow: hidden; background: #000; }
-        .bot-card { position: relative; border-right: 2px solid #222; background: #080808; }
-        .bot-card img { width: 100%; height: 100%; object-fit: contain; image-rendering: -webkit-optimize-contrast; }
-        .bot-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 12px; font-size: 20px; font-weight: 900; }
+        /* PANEL BOTS AGRANDADO Y NÍTIDO */
+        .interaction { display: grid; grid-template-columns: 1fr 450px; gap: 20px; padding: 0 20px 20px; }
+        .bot-frame { display: grid; grid-template-columns: repeat(3, 1fr); height: 580px; border: 4px solid #222; border-radius: 20px; overflow: hidden; background: #000; }
+        .bot-col { position: relative; border-right: 2px solid #222; background: #080808; }
+        .bot-col img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            filter: contrast(1.1) brightness(1.1); /* Mejora de nitidez visual */
+        }
+        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 15px; font-size: 20px; font-weight: 900; }
 
-        /* CHAT SENSAL Y COMPETITIVO */
-        .chat-wrap { background: #050505; border: 4px solid var(--n-rojo); border-radius: 20px; height: 500px; display: flex; flex-direction: column; }
-        #chat-content { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
-        .bot-bubble { margin-bottom: 5px; }
-        .user-bubble { align-self: flex-end; background: #222; padding: 8px 12px; border-radius: 10px; border-left: 4px solid var(--oro); color: var(--oro); max-width: 85%; }
+        /* CHAT */
+        .chat-box { background: #050505; border: 4px solid var(--n-rojo); border-radius: 20px; height: 580px; display: flex; flex-direction: column; }
+        #chat-window { flex-grow: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+        .chat-bar { display: flex; padding: 15px; background: #111; gap: 10px; }
+        #chat-input { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 12px; border-radius: 5px; outline: none; }
 
-        .chat-bar { display: flex; padding: 12px; background: #111; gap: 10px; }
-        #chat-input { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; outline: none; }
-        .send-btn { background: var(--n-rojo); color: white; border: none; padding: 0 20px; border-radius: 5px; cursor: pointer; font-weight: 900; }
+        /* LAS TRES PUERTAS (SISTEMA DE CARGA) */
+        .gates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; background: #050505; border-top: 5px solid var(--n-rojo); }
+        .gate { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
+        .gate-view { height: 140px; background: #000; margin-bottom: 10px; border-radius: 8px; border: 1px solid #222; overflow: hidden; }
+        .gate-view img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-gate { width: 100%; padding: 10px; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
-<body onload="start()">
+<body onload="init()">
 
 <header>
-    <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="publi-box">ANUNCIO VIP</div>
+    <div style="display:flex; flex-direction:column; gap:10px;"><div class="publi-box">ADS VIP</div>
         <div style="display:flex; gap:10px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
     </div>
-    <div class="logo-box"><img src="Logo Mega Red Lunar.jpg" alt="IMPERIO"></div>
-    <div style="display:flex; flex-direction:column; gap:10px;">
-        <div class="publi-box">ANUNCIO VIP</div>
+    <div class="logo-box"><img src="Logo Mega Red Lunar.jpg"></div>
+    <div style="display:flex; flex-direction:column; gap:10px;"><div class="publi-box">ADS VIP</div>
         <div style="display:flex; gap:10px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
     </div>
 </header>
 
-<div class="main-container">
-    <div class="sidebar" id="room-menu"></div>
-    <div class="viewer">
-        <div id="room-fallback">CARGANDO SALA...</div>
-        <img id="room-img" onload="this.style.display='block'; document.getElementById('room-fallback').style.display='none'" onerror="this.style.display='none'; document.getElementById('room-fallback').style.display='block'">
-    </div>
+<div class="main-layout">
+    <div class="sidebar" id="room-list"></div>
+    <div class="viewer"><img id="room-display" src=""></div>
 </div>
 
-<div class="bot-section">
-    <div class="bot-gallery">
-        <div class="bot-card"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="bot-card"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="bot-card"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
+<div class="interaction">
+    <div class="bot-frame">
+        <div class="bot-col"><img src="Rubia.jpg"><div class="bot-label" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-col"><img src="Morocha.jpg"><div class="bot-label" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-col"><img src="Pelirroja.jpg"><div class="bot-label" style="color:var(--n-rojo)">COLO</div></div>
     </div>
-    <div class="chat-wrap">
-        <div id="chat-content"></div>
+    <div class="chat-box">
+        <div id="chat-window"></div>
         <div class="chat-bar">
-            <input type="text" id="chat-input" placeholder="Dile algo sensual..." onkeypress="if(event.key==='Enter') hablar()">
-            <button class="send-btn" onclick="hablar()">ENVIAR</button>
+            <input type="text" id="chat-input" placeholder="Diles algo sensual..." onkeypress="if(event.key==='Enter') hablar()">
+            <button onclick="hablar()" style="background:var(--n-rojo); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">OK</button>
         </div>
     </div>
 </div>
 
+<div class="gates">
+    <div class="gate"><h4 style="color:var(--n-rosa); margin-bottom:5px;">HISTORIAS</h4><div class="gate-view" id="v-h"></div><button class="btn-gate" style="background:var(--n-rosa)" onclick="upload('v-h')">SUBIR</button></div>
+    <div class="gate"><h4 style="color:var(--n-azul); margin-bottom:5px;">ESTADOS</h4><div class="gate-view" id="v-e"></div><button class="btn-gate" style="background:var(--n-azul)" onclick="upload('v-e')">SUBIR</button></div>
+    <div class="gate"><h4 style="color:var(--n-rojo); margin-bottom:5px;">VIDEOS</h4><div class="gate-view" id="v-v"></div><button class="btn-gate" style="background:var(--n-rojo)" onclick="upload('v-v')">SUBIR</button></div>
+</div>
+
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
-    const botInfo = [
-        {n: "MIA", cl: "var(--n-rosa)", s: "cariñosa"},
-        {n: "TANIA", cl: "var(--n-azul)", s: "pretenciosa"},
-        {n: "COLO", cl: "var(--n-rojo)", s: "juguetona"}
-    ];
-
-    function start() {
-        const menu = document.getElementById('room-menu');
+    
+    function init() {
+        const list = document.getElementById('room-list');
         salas.forEach((s, i) => {
-            let b = document.createElement('div');
-            b.className = 'room-btn'; b.id = 'b-' + i;
-            b.innerHTML = `<span>${s}</span><span class="online-tag">0 PERSONAS ONLINE NOW</span>`;
-            b.onclick = () => verSala(i);
-            menu.appendChild(b);
+            let d = document.createElement('div');
+            d.className = 'room-item'; d.id = 'idx-'+i;
+            d.innerHTML = `<span>${s}</span><span style="color:#555; font-size:9px;">0 ONLINE NOW</span>`;
+            d.onclick = () => verSala(i);
+            list.appendChild(d);
         });
         verSala(0);
-        botMsg("MIA", "Hola mi amor... qué bueno tenerte acá. Soy la reina de Resistencia, ¿me vas a consentir?");
+        botMsg("MIA", "Hola bombón... aprovechá que estamos solas en Resistencia por ahora. ¿Quién te gusta más de las tres?");
     }
 
     function verSala(i) {
-        if(salas[i] === "LA TIENDITA") {
-            window.open("https://best.aliexpress.com/", "_blank");
-        }
-        document.querySelectorAll('.room-btn').forEach(x => x.classList.remove('active'));
-        document.getElementById('b-' + i).classList.add('active');
-        
-        const img = document.getElementById('room-img');
-        const fallback = document.getElementById('room-fallback');
-        fallback.innerText = salas[i];
-        img.src = salas[i] + ".jpg"; // Busca el archivo .jpg
+        if(salas[i] === "LA TIENDITA") { window.open("https://best.aliexpress.com/", "_blank"); return; }
+        document.querySelectorAll('.room-item').forEach(x => x.classList.remove('active'));
+        document.getElementById('idx-'+i).classList.add('active');
+        // RECUERDA: El archivo debe llamarse exactamente "SPA.jpg", "EL BAR.jpg", etc.
+        document.getElementById('room-display').src = encodeURIComponent(salas[i]) + ".jpg";
+    }
+
+    function upload(id) {
+        const url = prompt("Pega el enlace de la imagen:");
+        if(url) document.getElementById(id).innerHTML = `<img src="${url}">`;
     }
 
     function hablar() {
         const input = document.getElementById('chat-input');
-        const text = input.value.trim();
-        if(!text) return;
-
-        const content = document.getElementById('chat-content');
-        content.innerHTML += `<div class="user-bubble"><b>Tú:</b> ${text}</div>`;
+        const txt = input.value.trim();
+        if(!txt) return;
+        document.getElementById('chat-window').innerHTML += `<div style="align-self:flex-end; color:var(--oro);"><b>Tú:</b> ${txt}</div>`;
         input.value = "";
-
+        
         setTimeout(() => {
-            const b = botInfo[Math.floor(Math.random()*botInfo.length)];
-            let r = "";
-            if(text.toLowerCase().includes("quien")) {
-                r = "Obvio que yo soy la más gatona de Chaco, las otras son unas nenas.";
-                botMsg(b.n, r);
-                setTimeout(() => botMsg("TANIA", "¡Seguí soñando, querida! Mis curvas son de otro planeta, ¿no ves bombón?"), 1500);
-            } else {
-                r = "Mmm que atrevido... me encantan los hombres así. ¿Me vas a regalar una moneda?";
-                botMsg(b.n, r);
-            }
-        }, 1000);
+            const r = ["Ay que atrevido... me encantas.", "Tania es una gata de cuarta, quedate conmigo mejor.", "Apurate a mandarnos una moneda que nos estamos aburriendo...", "Soy la más gatona de Chaco y te lo puedo demostrar."];
+            botMsg("TANIA", r[Math.floor(Math.random()*r.length)]);
+        }, 1500);
     }
 
-    function botMsg(name, msg) {
-        const b = botInfo.find(x => x.n === name);
-        const content = document.getElementById('chat-content');
-        content.innerHTML += `<div class="bot-bubble"><b style="color:${b.cl}">${name}:</b> ${msg}</div>`;
-        content.scrollTop = content.scrollHeight;
+    function botMsg(n, m) {
+        const win = document.getElementById('chat-window');
+        const color = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
+        win.innerHTML += `<div><b style="color:${color}">${n}:</b> ${m}</div>`;
+        win.scrollTop = win.scrollHeight;
     }
 
     function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
