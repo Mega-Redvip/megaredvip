@@ -2,14 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v97 - RESTORED</title>
+    <title>MEGA RED VIP | IMPERIO v98 - FULL VISION</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; }
 
-        /* HEADER - RESTAURADO A TAMAÑO GRANDE */
+        /* HEADER SUPREMO */
         header { 
             display: grid; grid-template-columns: 1fr 2fr 1fr; 
             padding: 25px; align-items: center; gap: 20px; background: #050505; border-bottom: 6px solid var(--n-rojo);
@@ -18,62 +17,57 @@
         .publi-box { 
             width: 100%; height: 130px; border: 4px dashed var(--n-rojo); 
             display: flex; align-items: center; justify-content: center; 
-            background: #0a0a0a; color: var(--n-rojo); font-size: 20px; text-align: center; font-weight: 900;
+            background: #0a0a0a; color: var(--n-rojo); font-size: 20px; text-align: center;
         }
         .logo-box img { width: 100%; max-height: 280px; object-fit: contain; filter: drop-shadow(0 0 35px var(--n-rojo)); }
         
-        .coins-row { display: flex; gap: 25px; }
         .coin { 
             width: 85px; height: 85px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
             font-weight: 900; font-size: 26px; cursor: pointer; border: 5px solid white; transition: 0.3s;
         }
-        .coin:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 0 20px var(--oro); }
 
-        /* SECCIÓN MEDIA: 10 SALAS A LA VISTA Y VISOR */
+        /* SECCIÓN MEDIA: 10 SALAS */
         .middle-section { display: grid; grid-template-columns: 350px 1fr; gap: 25px; padding: 25px; }
-        .rooms-sidebar { 
-            background: #0a0a0a; border: 3px solid #222; border-radius: 20px; 
-            padding: 15px; display: flex; flex-direction: column; gap: 8px;
-        }
+        .rooms-sidebar { background: #0a0a0a; border: 3px solid #222; border-radius: 20px; padding: 15px; }
         .room-unit { 
             padding: 12px; background: #151515; border-radius: 10px; cursor: pointer; 
-            border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
+            border: 1px solid #333; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
         }
-        .room-unit span { font-size: 13px; font-weight: 900; }
-        .room-unit .online-now { font-size: 10px; color: lime; }
-        .room-unit.active { background: var(--n-rojo); border-color: white; transform: translateX(10px); }
+        .room-unit.active { background: var(--n-rojo); border-color: white; }
 
         .viewer-box { border: 6px solid var(--n-rojo); border-radius: 20px; background: #000; height: 500px; overflow: hidden; }
         #main-img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* SECCIÓN BOTS Y CHAT */
-        .interaction-area { 
-            display: grid; grid-template-columns: 1fr 450px; 
-            gap: 25px; padding: 0 25px 25px; 
-        }
-
+        /* PANEL DE BOTS: IMAGEN COMPLETA SIN CORTAR */
+        .interaction-area { display: grid; grid-template-columns: 1fr 450px; gap: 25px; padding: 0 25px 25px; }
         .triple-bot-frame { 
             display: grid; grid-template-columns: repeat(3, 1fr); 
             height: 550px; border: 5px solid #222; border-radius: 20px; overflow: hidden; background: #000;
         }
-        .bot-col { border-right: 3px solid #222; position: relative; }
-        .bot-col img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-        .bot-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 15px; font-size: 22px; font-weight: 900; }
+        .bot-col { border-right: 3px solid #222; position: relative; background: #050505; }
+        .bot-col img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; /* AQUÍ: Imagen completa, no se corta nada */
+            image-rendering: high-quality;
+        }
+        .bot-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 15px; font-size: 20px; font-weight: 900; }
 
+        /* CHAT */
         .chat-box { background: #050505; border: 4px solid var(--n-rojo); border-radius: 20px; height: 550px; display: flex; flex-direction: column; }
-        #chat-stream { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
-        .u-msg { align-self: flex-end; background: #111; padding: 10px; border-radius: 10px; border-left: 4px solid var(--oro); color: var(--oro); }
-        
-        .chat-input { display: flex; padding: 15px; background: #0a0a0a; gap: 10px; border-top: 2px solid #222; }
+        #chat-stream { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+        .chat-input { display: flex; padding: 15px; background: #0a0a0a; gap: 10px; }
         #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; }
-        .btn-send { background: var(--n-rojo); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 900; }
 
-        /* LAS TRES PUERTAS RESTAURADAS */
-        .bottom-gates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; border-top: 6px solid var(--n-rojo); background: #050505; }
-        .gate-card { background: #0a0a0a; border: 3px solid #333; border-radius: 20px; padding: 20px; text-align: center; }
-        .gate-card h4 { margin-bottom: 15px; font-size: 18px; font-weight: 900; }
+        /* PUERTAS DE HISTORIAS - FUNCIONALES */
+        .bottom-gates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; border-top: 6px solid var(--n-rojo); }
+        .gate-card { background: #0a0a0a; border: 3px solid #333; border-radius: 20px; padding: 15px; text-align: center; }
+        .gate-display { 
+            height: 150px; background: #000; margin-bottom: 15px; border-radius: 10px; 
+            overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #222;
+        }
+        .gate-display img { width: 100%; height: 100%; object-fit: cover; }
         .btn-up { width: 100%; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
@@ -82,27 +76,18 @@
 <header>
     <div class="side-col">
         <div class="publi-box">ANUNCIO VIP $50</div>
-        <div class="coins-row">
-            <div class="coin" onclick="pay(1)">$1</div>
-            <div class="coin" onclick="pay(5)">$5</div>
-        </div>
+        <div style="display:flex; gap:15px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
     </div>
-    <div class="logo-box"><img src="Logo Mega Red Lunar.jpg" alt="Logo"></div>
+    <div class="logo-box"><img src="Logo Mega Red Lunar.jpg"></div>
     <div class="side-col">
         <div class="publi-box">ANUNCIO VIP $100</div>
-        <div class="coins-row">
-            <div class="coin" onclick="pay(10)">$10</div>
-            <div class="coin" onclick="pay(20)">$20</div>
-        </div>
+        <div style="display:flex; gap:15px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
     </div>
 </header>
 
 <div class="middle-section">
-    <div class="rooms-sidebar" id="rooms-list">
-        </div>
-    <div class="viewer-box">
-        <img id="main-img" src="">
-    </div>
+    <div class="rooms-sidebar" id="rooms-list"></div>
+    <div class="viewer-box"><img id="main-img" src=""></div>
 </div>
 
 <div class="interaction-area">
@@ -111,35 +96,37 @@
         <div class="bot-col"><img src="Morocha.jpg"><div class="bot-tag" style="color:var(--n-azul)">TANIA</div></div>
         <div class="bot-col"><img src="Pelirroja.jpg"><div class="bot-tag" style="color:var(--n-rojo)">COLO</div></div>
     </div>
-
     <div class="chat-box">
         <div id="chat-stream"></div>
         <div class="chat-input">
-            <input type="text" id="msg-in" placeholder="Diles algo a estas putitas..." onkeypress="if(event.key==='Enter') send()">
-            <button class="btn-send" onclick="send()">OK</button>
+            <input type="text" id="msg-in" placeholder="Escribe aquí..." onkeypress="if(event.key==='Enter') send()">
+            <button onclick="send()" style="background:var(--n-rojo); color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">OK</button>
         </div>
     </div>
 </div>
 
 <div class="bottom-gates">
     <div class="gate-card">
-        <h4 style="color:var(--n-rosa)">🔥 HISTORIAS</h4>
-        <button class="btn-up" style="background:var(--n-rosa)" onclick="alert('Subir...')">SUBIR ARCHIVO</button>
+        <h4 style="color:var(--n-rosa); margin-bottom:10px;">🔥 HISTORIAS</h4>
+        <div class="gate-display" id="disp-h"><span style="color:#333">Vacío</span></div>
+        <button class="btn-up" style="background:var(--n-rosa)" onclick="subir('disp-h')">SUBIR HISTORIA</button>
     </div>
     <div class="gate-card">
-        <h4 style="color:var(--n-azul)">💬 ESTADOS</h4>
-        <button class="btn-up" style="background:var(--n-azul)" onclick="alert('Subir...')">SUBIR ARCHIVO</button>
+        <h4 style="color:var(--n-azul); margin-bottom:10px;">💬 ESTADOS</h4>
+        <div class="gate-display" id="disp-e"><span style="color:#333">Vacío</span></div>
+        <button class="btn-up" style="background:var(--n-azul)" onclick="subir('disp-e')">SUBIR ESTADO</button>
     </div>
     <div class="gate-card">
-        <h4 style="color:var(--n-rojo)">🎥 VIDEOS</h4>
-        <button class="btn-up" style="background:var(--n-rojo)" onclick="alert('Subir...')">SUBIR ARCHIVO</button>
+        <h4 style="color:var(--n-rojo); margin-bottom:10px;">🎥 VIDEOS</h4>
+        <div class="gate-display" id="disp-v"><span style="color:#333">Vacío</span></div>
+        <button class="btn-up" style="background:var(--n-rojo)" onclick="subir('disp-v')">SUBIR VIDEO</button>
     </div>
 </div>
 
 <script>
+    // IMPORTANTE: Asegúrate de que los archivos en tu carpeta se llamen exactamente así
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
     let idx = 0;
-    let auto = true;
 
     function boot() {
         const list = document.getElementById('rooms-list');
@@ -147,38 +134,44 @@
             let d = document.createElement('div');
             d.className = 'room-unit';
             d.id = 'r-' + i;
-            d.innerHTML = `<span>${s}</span><span class="online-now">0 ONLINE NOW</span>`;
-            d.onclick = () => { auto = false; setRoom(i); };
+            d.innerHTML = `<span>${s}</span><span style="color:lime; font-size:10px;">0 ONLINE</span>`;
+            d.onclick = () => setRoom(i);
             list.appendChild(d);
         });
         setRoom(0);
-        // CARRUSEL ACTIVO: Cambia cada 6 segundos
-        setInterval(() => { if(auto) { idx = (idx + 1) % salas.length; setRoom(idx); } }, 6000);
+        // Carrusel automático cada 7 segundos
+        setInterval(() => { idx = (idx + 1) % salas.length; setRoom(idx); }, 7000);
     }
 
     function setRoom(i) {
         idx = i;
         document.querySelectorAll('.room-unit').forEach(r => r.classList.remove('active'));
         document.getElementById('r-' + i).classList.add('active');
-        // RECUERDA: Tus archivos deben llamarse SPA.jpg, DISCOTECA.jpg, etc.
-        document.getElementById('main-img').src = encodeURI(salas[i] + ".jpg");
+        
+        // Probamos cargar la imagen (Asegúrate de que sea .jpg)
+        const imgPath = salas[i] + ".jpg";
+        document.getElementById('main-img').src = encodeURI(imgPath);
+    }
+
+    function subir(id) {
+        const url = prompt("Pega el enlace de la imagen o video:");
+        if(url) {
+            document.getElementById(id).innerHTML = `<img src="${url}">`;
+        }
     }
 
     function send() {
         const input = document.getElementById('msg-in');
-        const stream = document.getElementById('chat-stream');
         if(!input.value) return;
-        stream.innerHTML += `<div class="u-msg"><b>Tú:</b> ${input.value}</div>`;
-        const val = input.value.toLowerCase();
+        const stream = document.getElementById('chat-stream');
+        stream.innerHTML += `<div style="align-self:flex-end; color:gold;"><b>Tú:</b> ${input.value}</div>`;
         input.value = "";
+        stream.scrollTop = stream.scrollHeight;
         
         setTimeout(() => {
-            let r = "¡Hola! Somos de Resistencia. Por ahora estamos en mantenimiento, ¡aprovechanos!";
-            if(val.includes("moneda")) r = "Regalame una de esas monedas de oro y te muestro todo...";
-            stream.innerHTML += `<div><b style="color:var(--n-rosa)">MIA:</b> ${r}</div>`;
+            stream.innerHTML += `<div><b style="color:var(--n-rosa)">MIA:</b> ¡Hola ganso! Recién abrimos en Chaco, quedate que te va a gustar...</div>`;
             stream.scrollTop = stream.scrollHeight;
         }, 1000);
-        stream.scrollTop = stream.scrollHeight;
     }
 
     function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
