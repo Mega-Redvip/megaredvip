@@ -2,152 +2,166 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v103</title>
+    <title>MEGA RED VIP | IMPERIO v104</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
+        body { 
+            background: var(--fondo); 
+            color: white; 
+            font-family: 'Arial Black', sans-serif; 
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-        /* HEADER GIGANTE - SIN ESPACIOS VACÍOS */
+        /* HEADER SUPREMO */
         header { 
             display: grid; grid-template-columns: 1fr 1.5fr 1fr; 
-            padding: 10px 40px; background: #050505; border-bottom: 6px solid var(--n-rojo);
-            align-items: center;
+            padding: 15px 30px; background: #050505; border-bottom: 6px solid var(--n-rojo);
+            align-items: center; flex-shrink: 0;
         }
-        .ad-space { width: 100%; height: 180px; border: 4px dashed var(--n-rojo); display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--n-rojo); background: #0a0a0a; font-weight: 900; }
-        .logo-main img { width: 100%; max-height: 380px; object-fit: contain; filter: drop-shadow(0 0 35px var(--n-rojo)); }
-        
-        .coins { display: flex; gap: 20px; justify-content: center; }
+        .logo-box img { width: 100%; max-height: 280px; object-fit: contain; filter: drop-shadow(0 0 25px var(--n-rojo)); }
+        .coin-group { display: flex; gap: 15px; justify-content: center; margin-top: 10px; }
         .coin { 
-            width: 130px; height: 130px; border-radius: 50%; 
+            width: 90px; height: 90px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; font-size: 40px; cursor: pointer; border: 6px solid white;
-            box-shadow: 0 0 40px var(--oro); transition: 0.3s;
+            font-weight: 900; font-size: 28px; cursor: pointer; border: 5px solid white;
+            box-shadow: 0 0 20px var(--oro); transition: 0.2s;
         }
 
-        /* DISEÑO DE SALAS Y VISOR */
-        .top-row { display: grid; grid-template-columns: 350px 1fr; gap: 15px; padding: 15px; height: 500px; }
-        .rooms-list { background: #0a0a0a; border: 3px solid #222; border-radius: 20px; padding: 10px; overflow-y: auto; }
-        .room-tab { 
-            padding: 15px; background: #111; border-radius: 12px; margin-bottom: 8px; 
-            cursor: pointer; display: flex; justify-content: space-between; border: 2px solid #333; font-size: 14px;
+        /* FILA SUPERIOR: SALAS Y VISOR */
+        .top-section { display: grid; grid-template-columns: 320px 1fr; gap: 20px; padding: 20px; height: 450px; }
+        .room-sidebar { background: #0a0a0a; border: 3px solid #222; border-radius: 20px; padding: 10px; overflow-y: auto; }
+        .room-btn { 
+            padding: 12px; background: #111; border: 1px solid #333; border-radius: 8px; margin-bottom: 6px; 
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 13px;
         }
-        .room-tab.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        .room-btn.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
 
-        .viewer-window { border: 6px solid var(--n-rojo); border-radius: 20px; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
-        #sala-img { width: 100%; height: 100%; object-fit: cover; }
-        .neon-shop { 
-            position: absolute; padding: 30px 60px; background: var(--n-rojo); color: white;
-            font-size: 35px; border-radius: 100px; text-decoration: none; border: 6px solid white;
-            box-shadow: 0 0 60px var(--n-rojo); animation: glow 0.8s infinite alternate; display: none;
-        }
-        @keyframes glow { from { transform: scale(1); box-shadow: 0 0 20px var(--n-rojo); } to { transform: scale(1.1); box-shadow: 0 0 70px var(--n-rojo); } }
-
-        /* SECCIÓN BOTS Y CHAT (REESTRUCTURADO) */
-        .bottom-row { display: grid; grid-template-columns: 1fr 380px; gap: 15px; padding: 0 15px 15px; }
+        .viewer { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        #sala-display { width: 100%; height: 100%; object-fit: cover; }
+        #sala-text { position: absolute; font-size: 50px; color: rgba(255,255,255,0.1); font-weight: 900; pointer-events: none; }
         
-        /* BOTS: OCUPAN TODO EL ALTO Y ANCHO DISPONIBLE */
-        .bots-grid { 
+        .btn-tienda-neon { 
+            position: absolute; padding: 25px 50px; background: var(--n-rojo); color: white;
+            font-size: 28px; border-radius: 50px; text-decoration: none; border: 4px solid white;
+            box-shadow: 0 0 40px var(--n-rojo); display: none; animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+        /* FILA BOTS Y CHAT (GRANDE PERO NÍTIDO) */
+        .bot-section { display: grid; grid-template-columns: 1fr 420px; gap: 20px; padding: 0 20px 20px; flex-grow: 1; }
+        
+        .bot-grid { 
             display: grid; grid-template-columns: repeat(3, 1fr); 
-            height: 850px; /* Masivo para cuerpo completo */
-            border: 4px solid #222; border-radius: 25px; overflow: hidden;
+            height: 750px; 
+            border: 4px solid #222; border-radius: 30px; overflow: hidden;
         }
-        .bot-frame { position: relative; background: #050505; border-right: 2px solid #222; }
-        .bot-frame img { 
+        .bot-card { 
+            position: relative; 
+            background: linear-gradient(180deg, #111 0%, #000 100%); 
+            border-right: 2px solid #222;
+        }
+        .bot-card img { 
             width: 100%; height: 100%; 
-            object-fit: cover; /* Cambiado a COVER para que llenen todo el espacio sin negro lateral */
-            object-position: top center; 
+            object-fit: contain; /* Esto evita que se pixel de pies a cabeza */
+            filter: contrast(1.05) brightness(1.05);
         }
-        .bot-name-tag { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 20px; font-size: 30px; font-weight: 900; }
+        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); text-align: center; padding: 20px; font-size: 26px; font-weight: 900; }
 
-        /* CHAT COMPACTO */
-        .chat-sidebar { background: #050505; border: 5px solid var(--n-rojo); border-radius: 25px; display: flex; flex-direction: column; height: 850px; }
-        #chat-history { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .chat-controls { padding: 15px; background: #111; display: flex; gap: 10px; border-top: 2px solid #222; }
-        #msg-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 12px; border-radius: 10px; }
+        /* CHAT */
+        .chat-vip { background: #050505; border: 5px solid var(--n-rojo); border-radius: 30px; display: flex; flex-direction: column; height: 750px; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 16px; }
+        .chat-input-box { padding: 15px; display: flex; gap: 10px; border-top: 2px solid #222; }
+        #input-chat { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 12px; border-radius: 10px; outline: none; }
 
-        /* PUERTAS DE SUBIDA */
-        .footer-gates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; border-top: 6px solid var(--n-rojo); }
-        .gate-card { background: #0a0a0a; border: 3px solid #333; border-radius: 20px; padding: 15px; text-align: center; }
-        .gate-img { height: 160px; background: #000; margin-bottom: 10px; border-radius: 10px; border: 1px solid #222; overflow: hidden; }
-        .gate-img img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-up { width: 100%; padding: 12px; border: none; border-radius: 10px; color: white; font-weight: 900; cursor: pointer; }
+        /* PUERTAS INFERIORES */
+        .footer-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 20px; border-top: 6px solid var(--n-rojo); flex-shrink: 0; }
+        .tool-box { background: #0a0a0a; border: 2px solid #333; border-radius: 20px; padding: 15px; text-align: center; }
+        .tool-preview { height: 120px; background: #000; margin-bottom: 10px; border-radius: 10px; overflow: hidden; border: 1px solid #222; }
+        .tool-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .up-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; color: white; font-weight: 900; cursor: pointer; }
     </style>
 </head>
-<body onload="initApp()">
+<body onload="init()">
 
 <header>
     <div>
-        <div class="ad-space">ADS VIP $50</div>
-        <div class="coins"><div class="coin" onclick="buy(1)">$1</div><div class="coin" onclick="buy(5)">$5</div></div>
+        <div style="width:100%; height:100px; border:3px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:18px;">ADS $50</div>
+        <div class="coin-group"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
     </div>
-    <div class="logo-main" style="text-align:center;"><img src="Logo Mega Red Lunar.jpg"></div>
+    <div class="logo-box" style="text-align:center;"><img src="Logo Mega Red Lunar.jpg"></div>
     <div>
-        <div class="ad-space">ADS VIP $100</div>
-        <div class="coins"><div class="coin" onclick="buy(10)">$10</div><div class="coin" onclick="buy(20)">$20</div></div>
+        <div style="width:100%; height:100px; border:3px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:18px;">ADS $100</div>
+        <div class="coin-group"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
     </div>
 </header>
 
-<div class="top-row">
-    <div class="rooms-list" id="room-list"></div>
-    <div class="viewer-window">
-        <img id="sala-img" src="" onerror="this.src='https://via.placeholder.com/1200x600/111/ff003c?text=IMAGEN+NO+ENCONTRADA'">
-        <a href="https://best.aliexpress.com/" target="_blank" class="neon-shop" id="shop-btn">TIENDITA VIP 🔱</a>
+<div class="top-section">
+    <div class="room-sidebar" id="rooms-container"></div>
+    <div class="viewer">
+        <div id="sala-text">IMPERIO VIP</div>
+        <img id="sala-display" src="" onerror="this.style.opacity='0'">
+        <a href="https://best.aliexpress.com/" target="_blank" class="btn-tienda-neon" id="tienda-link">IR A LA TIENDITA 🔱</a>
     </div>
 </div>
 
-<div class="bottom-row">
-    <div class="bots-grid">
-        <div class="bot-frame"><img src="Rubia.jpg"><div class="bot-name-tag" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="bot-frame"><img src="Morocha.jpg"><div class="bot-name-tag" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="bot-frame"><img src="Pelirroja.jpg"><div class="bot-name-tag" style="color:var(--n-rojo)">COLO</div></div>
+<div class="bot-section">
+    <div class="bot-grid">
+        <div class="bot-card"><img src="Rubia.jpg"><div class="bot-label" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-card"><img src="Morocha.jpg"><div class="bot-label" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-card"><img src="Pelirroja.jpg"><div class="bot-label" style="color:var(--n-rojo)">COLO</div></div>
     </div>
-    <div class="chat-sidebar">
-        <div id="chat-history"></div>
-        <div class="chat-controls">
-            <input type="text" id="msg-input" placeholder="Diles algo..." onkeypress="if(event.key==='Enter') sendMsg()">
-            <button onclick="sendMsg()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; border-radius:10px; cursor:pointer; font-weight:bold;">OK</button>
+    <div class="chat-vip">
+        <div id="chat-window"></div>
+        <div class="chat-input-box">
+            <input type="text" id="input-chat" placeholder="Diles algo sensual..." onkeypress="if(event.key==='Enter') send()">
+            <button onclick="send()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; border-radius:10px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
-<div class="footer-gates">
-    <div class="gate-card"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="gate-img" id="g-h"></div><button class="btn-up" style="background:var(--n-rosa)" onclick="up('g-h')">SUBIR</button></div>
-    <div class="gate-card"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="gate-img" id="g-e"></div><button class="btn-up" style="background:var(--n-azul)" onclick="up('g-e')">SUBIR</button></div>
-    <div class="gate-card"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="gate-img" id="g-v"></div><button class="btn-up" style="background:var(--n-rojo)" onclick="up('g-v')">SUBIR</button></div>
+<div class="footer-tools">
+    <div class="tool-box"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="tool-preview" id="p-h"></div><button class="up-btn" style="background:var(--n-rosa)" onclick="up('p-h')">SUBIR</button></div>
+    <div class="tool-box"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="tool-preview" id="p-e"></div><button class="up-btn" style="background:var(--n-azul)" onclick="up('p-e')">SUBIR</button></div>
+    <div class="tool-box"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="tool-preview" id="p-v"></div><button class="up-btn" style="background:var(--n-rojo)" onclick="up('p-v')">SUBIR</button></div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
 
-    function initApp() {
-        const list = document.getElementById('room-list');
+    function init() {
+        const container = document.getElementById('rooms-container');
         salas.forEach((s, i) => {
-            let d = document.createElement('div');
-            d.className = 'room-tab'; d.id = 'room-'+i;
-            d.innerHTML = `<span>${s}</span><span style="color:lime; font-size:10px;">0 ONLINE</span>`;
-            d.onclick = () => changeRoom(i);
-            list.appendChild(d);
+            let div = document.createElement('div');
+            div.className = 'room-btn'; div.id = 'room-'+i;
+            div.innerHTML = `<span>${s}</span><span style="color:lime; font-size:10px;">0 ONLINE</span>`;
+            div.onclick = () => setRoom(i);
+            container.appendChild(div);
         });
-        changeRoom(0);
-        botTalk("MIA", "Hola bombón... ¿viste qué gatona que estoy hoy? Las otras dos están celosas porque soy la reina de Chaco.");
+        setRoom(0);
+        botTalk("MIA", "Hola bombón... ¿viste qué gatona que estoy hoy? Las otras dos están celosas porque soy la más divina de Resistencia.");
     }
 
-    function changeRoom(i) {
-        document.querySelectorAll('.room-tab').forEach(r => r.classList.remove('active'));
+    function setRoom(i) {
+        document.querySelectorAll('.room-btn').forEach(b => b.classList.remove('active'));
         document.getElementById('room-'+i).classList.add('active');
-        const img = document.getElementById('sala-img');
-        const btn = document.getElementById('shop-btn');
+        const img = document.getElementById('sala-display');
+        const btn = document.getElementById('tienda-link');
+        const txt = document.getElementById('sala-text');
         
+        txt.innerText = salas[i];
         if(salas[i] === "LA TIENDITA") {
             btn.style.display = 'block';
-            img.style.display = 'none';
+            img.style.opacity = '0';
         } else {
             btn.style.display = 'none';
-            img.style.display = 'block';
-            // IMPORTANTE: Asegúrate de que el nombre del archivo sea exacto.
+            img.style.opacity = '1';
+            // Cargamos la imagen. Asegúrate que el nombre sea exacto.
             img.src = salas[i] + ".jpg";
         }
     }
@@ -157,30 +171,28 @@
         if(url) document.getElementById(id).innerHTML = `<img src="${url}">`;
     }
 
-    function sendMsg() {
-        const input = document.getElementById('msg-input');
+    function send() {
+        const input = document.getElementById('input-chat');
         if(!input.value) return;
-        const hist = document.getElementById('chat-history');
-        hist.innerHTML += `<div style="text-align:right; color:var(--oro); font-size:14px;"><b>Tú:</b> ${input.value}</div>`;
+        const win = document.getElementById('chat-window');
+        win.innerHTML += `<div style="text-align:right; color:var(--oro);"><b>Tú:</b> ${input.value}</div>`;
         const val = input.value.toLowerCase();
         input.value = "";
         
         setTimeout(() => {
-            let r = "No seas tacaño, mandame una moneda y te muestro todo.";
-            if(val.includes("hola")) r = "Hola mi amor, ¿sos de acá de Resistencia? Vení a verme.";
-            botTalk("TANIA", r);
-            setTimeout(() => botTalk("COLO", "¡No le des bola a esa pendeja! Yo soy mucho más cariñosa."), 2000);
+            const resp = ["No seas tacaño amor, mandame una moneda.", "Tania es una pendeja, yo soy mucho más gata.", "Qué cariñoso... me ponés juguetona.", "Soy la reina de Chaco, ¿me vas a consentir?"];
+            botTalk("TANIA", resp[Math.floor(Math.random()*resp.length)]);
         }, 1500);
     }
 
     function botTalk(n, m) {
-        const hist = document.getElementById('chat-history');
+        const win = document.getElementById('chat-window');
         const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        hist.innerHTML += `<div><b style="color:${c}">${n}:</b> ${m}</div>`;
-        hist.scrollTop = hist.scrollHeight;
+        win.innerHTML += `<div><b style="color:${c}">${n}:</b> ${m}</div>`;
+        win.scrollTop = win.scrollHeight;
     }
 
-    function buy(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
+    function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
