@@ -2,169 +2,189 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v125</title>
+    <title>MEGA RED VIP | IMPERIO v126 IA</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* 1. HEADER CON PUBLICIDAD VIBRANTE */
+        /* 1. HEADER CON SPONSORS LLAMATIVOS */
         header { 
-            display: grid; grid-template-columns: 250px 100px 1fr 100px 250px; 
-            align-items: center; gap: 15px; padding: 15px;
+            display: grid; grid-template-columns: 240px 90px 1fr 90px 240px; 
+            align-items: center; gap: 10px; padding: 10px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 260px;
         }
-        .ad-neon { 
-            height: 180px; border: 3px solid var(--n-rojo); border-radius: 15px;
+        .sponsor { 
+            height: 180px; border: 3px solid var(--oro); border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 14px; text-align: center; cursor: pointer;
-            box-shadow: 0 0 15px var(--n-rojo); animation: parpadeo 2s infinite;
+            color: var(--oro); font-size: 15px; text-align: center; cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); background: rgba(20,20,20,0.8);
         }
-        @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .logo-v125 { width: 100%; max-height: 230px; object-fit: contain; }
+        .logo-v126 { width: 100%; max-height: 230px; object-fit: contain; filter: drop-shadow(0 0 10px var(--n-rojo)); }
 
         .coin { 
-            width: 60px; height: 60px; border-radius: 50%; 
+            width: 55px; height: 55px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
             font-weight: 900; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px var(--oro);
         }
 
-        /* 2. SALAS (TODAS VISIBLES SIN SCROLL) */
-        .salas-container { display: grid; grid-template-columns: 230px 1fr; gap: 10px; padding: 10px; height: 450px; }
-        .grid-salas { display: flex; flex-direction: column; gap: 1px; background: #0a0a0a; border: 2px solid #222; padding: 4px; border-radius: 10px; }
-        .btn-sala { 
-            flex: 1; padding: 0 10px; background: #111; border: 1px solid #333; 
-            color: #888; cursor: pointer; font-size: 11px; border-radius: 4px; 
-            display: flex; align-items: center; justify-content: space-between;
+        /* 2. SALAS (VISIBLES Y SIN ERRORES) */
+        .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 480px; }
+        .grid-vertical { display: flex; flex-direction: column; gap: 2px; background: #0a0a0a; border: 2px solid #333; padding: 5px; border-radius: 10px; }
+        .btn-s { 
+            flex: 1; padding: 0 12px; background: #111; border: 1px solid #444; 
+            color: #777; cursor: pointer; font-size: 10px; border-radius: 5px; 
+            display: flex; align-items: center; justify-content: space-between; transition: 0.3s;
         }
-        .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
+        .btn-s.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        .visor-webcam { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
-        #img-webcam { width: 100%; height: 100%; object-fit: cover; }
+        .visor-cam { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
+        #webcam-view { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 3. BOTS CON PIEL REALISTA Y CHAT TRIPLE */
-        .seccion-interactiva { 
+        /* 3. BOTS IA CACHONDAS Y CHAT ANCHO */
+        .interaccion { 
             display: grid; grid-template-columns: repeat(3, 1fr) 450px; 
-            height: 350px; border-bottom: 5px solid var(--n-rojo);
+            height: 340px; border-bottom: 5px solid var(--n-rojo);
         }
-        .bot-virtual { position: relative; background: #000; overflow: hidden; }
-        .bot-virtual img { 
+        .bot-ia { position: relative; background: #000; overflow: hidden; }
+        .bot-ia img { 
             width: 100%; height: 100%; object-fit: cover; 
-            filter: brightness(0.9) contrast(1.1); /* QUITA EL BRILLO EXCESIVO */
-            image-rendering: -webkit-optimize-contrast; /* DETALLE DE PIEL */
+            filter: brightness(0.85) contrast(1.15) saturate(1.1); /* Piel realista */
         }
-        .bot-tag { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black, transparent); text-align: center; padding: 10px; font-size: 18px; font-weight: 900; }
+        .bot-name { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black 80%, transparent); text-align: center; padding: 12px; font-size: 20px; font-weight: 900; }
 
-        .chat-ia { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
-        #chat-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; color: #ccc; }
-        .chat-in { padding: 10px; background: #111; display: flex; gap: 8px; }
-        #txt-ia { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
+        .chat-ai-box { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
+        #logs-ia { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 14px; line-height: 1.4; color: #eee; }
+        .in-ia { padding: 12px; background: #111; display: flex; gap: 8px; border-top: 1px solid #333; }
+        #txt-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 10px; border-radius: 8px; outline: none; }
 
         /* 4. PUERTAS VIP */
-        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
-        .puerta-box { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
-        .frame-h { height: 100px; background: #000; border-radius: 8px; margin: 10px 0; overflow: hidden; }
-        .frame-h img { width: 100%; height: 100%; object-fit: cover; }
+        .puertas-footer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; background: #050505; }
+        .p-vip { background: #0a0a0a; border: 2px solid #222; border-radius: 15px; padding: 15px; text-align: center; }
+        .f-preview { height: 110px; background: #000; border-radius: 8px; margin: 10px 0; border: 1px solid #333; }
     </style>
 </head>
-<body onload="init()">
+<body onload="imperioStart()">
 
 <header>
-    <div class="ad-neon" onclick="alert('Publicidad $50')">ANUNCIATE AQUÍ<br>AUSPICIANTE</div>
+    <div class="sponsor">ANUNCIO<br>DORADO</div>
     <div style="display:flex; flex-direction:column; gap:5px;">
         <div class="coin" onclick="pago(1)">$1</div>
         <div class="coin" onclick="pago(5)">$5</div>
     </div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v125">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v126">
     <div style="display:flex; flex-direction:column; gap:5px;">
         <div class="coin" onclick="pago(10)">$10</div>
         <div class="coin" onclick="pago(20)">$20</div>
     </div>
-    <div class="ad-neon" onclick="alert('Publicidad $100')">ESPACIO VIP<br>DISPONIBLE</div>
+    <div class="sponsor">SPONSOR<br>PLATINUM</div>
 </header>
 
-<div class="salas-container">
-    <div class="grid-salas" id="lista-s"></div>
-    <div class="visor-webcam">
-        <img id="img-webcam" src="">
-    </div>
+<div class="salas-box">
+    <div class="grid-vertical" id="menu-s"></div>
+    <div class="visor-cam"><img id="webcam-view" src=""></div>
 </div>
 
-<div class="seccion-interactiva">
-    <div class="bot-virtual"><img src="Rubia.jpg"><div class="bot-tag" style="color:var(--n-rosa)">MIA</div></div>
-    <div class="bot-virtual"><img src="Morocha.jpg"><div class="bot-tag" style="color:var(--n-azul)">TANIA</div></div>
-    <div class="bot-virtual"><img src="Pelirroja.jpg"><div class="bot-tag" style="color:var(--n-rojo)">COLO</div></div>
+<div class="interaccion">
+    <div class="bot-ia"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
+    <div class="bot-ia"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
+    <div class="bot-ia"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
     
-    <div class="chat-ia">
-        <div id="chat-logs"></div>
-        <div class="chat-in">
-            <input type="text" id="txt-ia" placeholder="Habla con ellas..." onkeypress="if(event.key==='Enter') enviarMsg()">
-            <button onclick="enviarMsg()" style="background:var(--n-rojo); color:white; border:none; padding:0 10px; border-radius:4px; cursor:pointer; font-weight:bold;">ENVIAR</button>
+    <div class="chat-ai-box">
+        <div id="logs-ia"></div>
+        <div class="in-ia">
+            <input type="text" id="txt-input" placeholder="Provócalas un poco..." onkeypress="if(event.key==='Enter') chatIA()">
+            <button onclick="chatIA()" style="background:var(--n-rojo); color:white; border:none; padding:0 15px; border-radius:6px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
-<div class="footer-vip">
-    <div class="puerta-box"><h5 style="color:var(--n-rosa)">HISTORIAS</h5><div class="frame-h" id="f1"></div><button onclick="subir('f1')">SUBIR</button></div>
-    <div class="puerta-box"><h5 style="color:var(--n-azul)">ESTADOS</h5><div class="frame-h" id="f2"></div><button onclick="subir('f2')">SUBIR</button></div>
-    <div class="puerta-box"><h5 style="color:var(--n-rojo)">VIDEOS</h5><div class="frame-h" id="f3"></div><button onclick="subir('f3')">SUBIR</button></div>
+<div class="puertas-footer">
+    <div class="p-vip"><h5 style="color:var(--n-rosa)">HISTORIAS</h5><div class="f-preview" id="v1"></div><button onclick="subir('v1')">SUBIR</button></div>
+    <div class="p-vip"><h5 style="color:var(--n-azul)">ESTADOS</h5><div class="f-preview" id="v2"></div><button onclick="subir('v2')">SUBIR</button></div>
+    <div class="p-vip"><h5 style="color:var(--n-rojo)">VIDEOS</h5><div class="f-preview" id="v3"></div><button onclick="subir('v3')">SUBIR</button></div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
+    
+    // IA "Cachonda" - Respuestas picantes
+    const cerebro = {
+        "hola": "Hola bombón... me pusiste nerviosa. ¿Qué me vas a pedir hoy?",
+        "estas": "Mejor que nunca, pero me falta alguien como vos acá conmigo...",
+        "haces": "Pensando en cosas prohibidas... ¿Querés que te cuente una?",
+        "linda": "Gracias amor... si me regalas una moneda me pongo más linda para vos.",
+        "amor": "El amor es caro acá, pero te juro que valgo cada centavo. 😉",
+        "quiero": "Yo también quiero muchas cosas... empezá por invitarme algo.",
+        "desnuda": "Epa... eso es en el VIP y con muchas monedas de oro adelante.",
+        "default": "Me encanta cuando me hablás así... seguí, pero no te olvides de las monedas."
+    };
 
-    function init() {
-        const m = document.getElementById('lista-s');
+    function imperioStart() {
+        const m = document.getElementById('menu-s');
         salas.forEach((s, i) => {
             let b = document.createElement('div');
-            b.className = 'btn-sala'; b.id = 's-'+i;
+            b.className = 'btn-s'; b.id = 'sala-'+i;
             b.innerHTML = `<b>${s}</b> <span style="color:lime">●</span>`;
-            b.onclick = () => verSala(i);
+            b.onclick = () => ver(i);
             m.appendChild(b);
         });
-        verSala(0);
-        hablar("MIA", "¡Hola! Soy Mia. ¿Listos para divertirse?");
+        ver(0);
+        hablar("TANIA", "¡Bienvenido, guapo! Soy Tania. Las chicas y yo estábamos hablando de vos...");
     }
 
-    function verSala(i) {
-        document.querySelectorAll('.btn-sala').forEach(x => x.classList.remove('active'));
-        document.getElementById('s-'+i).classList.add('active');
-        // REGLA DE ORO PARA IMÁGENES: El archivo debe llamarse igual que la sala + .jpg
-        // Ejemplo: SPA.jpg o PLAYA.jpg (respeta mayúsculas si tu archivo las tiene)
-        document.getElementById('img-webcam').src = salas[i] + ".jpg";
+    function ver(i) {
+        document.querySelectorAll('.btn-s').forEach(x => x.classList.remove('active'));
+        document.getElementById('sala-'+i).classList.add('active');
+        const img = document.getElementById('webcam-view');
+        
+        // TRUCO DE CARGA: Intenta nombre exacto y luego sin espacios
+        let nombre = salas[i];
+        img.src = nombre + ".jpg"; 
+        
+        // Si falla la primera, intenta sin espacios
+        img.onerror = function() {
+            this.src = nombre.replace(/\s/g, "") + ".jpg";
+            this.onerror = null; // Evita bucle infinito
+        };
     }
 
-    function enviarMsg() {
-        const input = document.getElementById('txt-ia');
-        const msj = input.value.toLowerCase();
-        if(!msj) return;
+    function chatIA() {
+        const input = document.getElementById('txt-input');
+        const userMsj = input.value.toLowerCase();
+        if(!userMsj) return;
 
-        const logs = document.getElementById('chat-logs');
-        logs.innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
+        const logs = document.getElementById('logs-ia');
+        logs.innerHTML += `<div style="text-align:right; margin-bottom:12px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
         input.value = "";
         logs.scrollTop = logs.scrollHeight;
 
-        // IA TRIPLE: Responden según quién menciones o al azar
+        // Lógica de respuesta IA
         setTimeout(() => {
-            if(msj.includes("hola")) hablar("TANIA", "Hola bombón, ¿me extrañaste?");
-            else if(msj.includes("mia")) hablar("MIA", "¿Me llamabas? Soy toda oídos...");
-            else if(msj.includes("colo")) hablar("COLO", "Acá estoy, pelirroja y peligrosa. 😉");
-            else hablar("TANIA", "No entiendo, pero si me das una moneda te escucho mejor...");
+            let r = cerebro["default"];
+            for(let clave in cerebro) {
+                if(userMsj.includes(clave)) { r = cerebro[clave]; break; }
+            }
+            
+            // Turnos para hablar
+            const bots = ["TANIA", "MIA", "COLO"];
+            const quien = bots[Math.floor(Math.random() * bots.length)];
+            hablar(quien, r);
         }, 1200);
     }
 
     function hablar(n, m) {
-        const logs = document.getElementById('chat-logs');
+        const logs = document.getElementById('logs-ia');
         const col = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        logs.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${col}">${n}:</b> ${m}</div>`;
+        logs.innerHTML += `<div style="margin-bottom:12px;"><b style="color:${col}">${n}:</b> ${m}</div>`;
         logs.scrollTop = logs.scrollHeight;
     }
 
     function subir(id) {
-        const url = prompt("Enlace de imagen:");
-        if(url) document.getElementById(id).innerHTML = `<img src="${url}">`;
+        const url = prompt("Pega el enlace de la foto:");
+        if(url) document.getElementById(id).innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">`;
     }
 
     function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
