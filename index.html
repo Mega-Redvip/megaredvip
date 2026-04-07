@@ -2,151 +2,184 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v122</title>
+    <title>MEGA RED VIP | IMPERIO v123</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER COMPACTO */
+        /* 1. HEADER CON SPONSORS */
         header { 
-            display: flex; justify-content: center; align-items: center; gap: 30px;
-            padding: 10px; background: #050505; border-bottom: 5px solid var(--n-rojo);
-            height: 250px;
+            display: grid; grid-template-columns: 200px 100px 1fr 100px 200px; 
+            align-items: center; gap: 15px; padding: 15px;
+            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 280px;
         }
-        .logo-v122 { height: 230px; filter: drop-shadow(0 0 20px var(--n-rojo)); }
+        .sponsor-box { 
+            height: 180px; border: 2px dashed #444; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            color: #444; font-size: 12px; text-align: center; cursor: pointer;
+        }
+        .sponsor-box:hover { border-color: var(--oro); color: var(--oro); }
+        .logo-v123 { width: 100%; max-height: 250px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
 
         .coin { 
-            width: 55px; height: 55px; border-radius: 50%; 
+            width: 60px; height: 60px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
             font-weight: 900; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px var(--oro);
         }
 
-        /* SECCIÓN VISOR (SALAS) */
-        .salas-container { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 380px; }
-        .sidebar-salas { display: flex; flex-direction: column; gap: 2px; background: #0a0a0a; border: 2px solid #222; padding: 5px; border-radius: 10px; }
-        .btn-s { padding: 8px; background: #111; border: 1px solid #333; color: #777; cursor: pointer; font-size: 11px; border-radius: 4px; }
-        .btn-s.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
+        /* 2. VISOR DE SALAS (CARRUSEL) */
+        .salas-wrapper { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 15px; height: 380px; }
+        .menu-salas { display: flex; flex-direction: column; gap: 3px; background: #0a0a0a; border: 2px solid #222; padding: 5px; border-radius: 10px; overflow-y: auto; }
+        .btn-sala { padding: 10px; background: #111; border: 1px solid #333; color: #666; cursor: pointer; font-size: 11px; border-radius: 5px; text-align: left; }
+        .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        .pantalla-visor { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
-        #img-sala-actual { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .visor-marco { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
+        #img-sala { width: 100%; height: 100%; object-fit: cover; }
+        .error-img { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #333; font-size: 14px; text-align: center; width: 80%; }
 
-        /* BOTS (REDUCIDAS 2CM MÁS) Y CHAT LATERAL */
-        .seccion-interactiva { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr) 450px; /* Chat amplio a un lado */
-            gap: 0; 
-            height: 380px; /* Reducción total de altura para las bots */
+        /* 3. BOTS Y CHAT (ALTURA FIJA 2CM MENOS) */
+        .seccion-principal { 
+            display: grid; grid-template-columns: repeat(3, 1fr) 450px; 
+            height: 380px; /* Altura reducida y fija */
             border-bottom: 5px solid var(--n-rojo);
         }
-        
-        .bot-box { position: relative; background: #000; height: 100%; border-right: 1px solid #111; }
-        .bot-box img { width: 100%; height: 100%; object-fit: cover; image-rendering: -webkit-optimize-contrast; }
-        .bot-label { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black, transparent); text-align: center; padding: 8px; font-size: 16px; font-weight: 900; }
+        .bot-col { position: relative; background: #000; border-right: 1px solid #111; overflow: hidden; }
+        .bot-col img { width: 100%; height: 100%; object-fit: cover; }
+        .bot-tag { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black, transparent); text-align: center; padding: 10px; font-size: 18px; }
 
-        /* CHAT AL COSTADO */
-        .chat-lateral { 
-            background: #080808; border-left: 4px solid var(--n-rojo); 
-            display: flex; flex-direction: column; height: 100%; 
-        }
-        #box-mensajes { flex-grow: 1; padding: 12px; overflow-y: auto; font-size: 12px; color: #eee; }
-        .input-zona { padding: 12px; background: #111; display: flex; gap: 5px; }
-        #input-text { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
+        .chat-col { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
+        #chat-msjs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; }
+        .chat-in { padding: 10px; background: #111; display: flex; gap: 5px; }
+        #txt-chat { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
 
-        /* PUERTAS DE ATRACCIÓN */
-        .puertas-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
-        .p-card { 
-            background: linear-gradient(145deg, #111, #000); border: 2px solid #333; 
-            padding: 20px; border-radius: 15px; text-align: center; transition: 0.3s;
+        /* 4. PUERTAS E HISTORIAS (CONTENIDO SEGURO) */
+        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; background: #050505; }
+        .puerta-box { 
+            background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; 
+            text-align: center; display: flex; flex-direction: column; gap: 10px;
         }
-        .p-card:hover { border-color: var(--oro); box-shadow: 0 0 15px var(--oro); transform: scale(1.02); }
+        .historia-preview { 
+            height: 140px; width: 100%; background: #000; border: 1px solid #222; 
+            border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .historia-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-subir { padding: 10px; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
-<body onload="boot()">
+<body onload="init()">
 
 <header>
-    <div class="coin" onclick="pago(1)">$1</div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v122">
-    <div class="coin" onclick="pago(20)">$20</div>
+    <div class="sponsor-box" onclick="alert('Contacto para publicidad: $50')">ESPACIO DISPONIBLE<br>AUSPICIANTE</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="coin" onclick="pago(1)">$1</div>
+        <div class="coin" onclick="pago(5)">$5</div>
+    </div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v123">
+    <div style="display:flex; flex-direction:column; gap:10px;">
+        <div class="coin" onclick="pago(10)">$10</div>
+        <div class="coin" onclick="pago(20)">$20</div>
+    </div>
+    <div class="sponsor-box" onclick="alert('Contacto para publicidad: $100')">ESPACIO DISPONIBLE<br>AUSPICIANTE</div>
 </header>
 
-<div class="salas-container">
-    <div class="sidebar-salas" id="menu-s"></div>
-    <div class="pantalla-visor"><img id="img-sala-actual" src=""></div>
+<div class="salas-wrapper">
+    <div class="menu-salas" id="lista-s"></div>
+    <div class="visor-marco">
+        <div id="debug-info" class="error-img"></div>
+        <img id="img-sala" src="" onerror="showError(this.src)">
+    </div>
 </div>
 
-<div class="seccion-interactiva">
-    <div class="bot-box"><img src="Rubia.jpg"><div class="bot-label" style="color:var(--n-rosa)">MIA</div></div>
-    <div class="bot-box"><img src="Morocha.jpg"><div class="bot-label" style="color:var(--n-azul)">TANIA</div></div>
-    <div class="bot-box"><img src="Pelirroja.jpg"><div class="bot-label" style="color:var(--n-rojo)">COLO</div></div>
+<div class="seccion-principal">
+    <div class="bot-col"><img src="Rubia.jpg"><div class="bot-tag" style="color:var(--n-rosa)">MIA</div></div>
+    <div class="bot-col"><img src="Morocha.jpg"><div class="bot-tag" style="color:var(--n-azul)">TANIA</div></div>
+    <div class="bot-col"><img src="Pelirroja.jpg"><div class="bot-tag" style="color:var(--n-rojo)">COLO</div></div>
     
-    <div class="chat-lateral">
-        <div id="box-mensajes"></div>
-        <div class="input-zona">
-            <input type="text" id="input-text" placeholder="Diles algo..." onkeypress="if(event.key==='Enter') enviar()">
-            <button onclick="enviar()" style="background:var(--n-rojo); color:white; border:none; padding:0 10px; border-radius:4px; cursor:pointer; font-weight:bold;">OK</button>
+    <div class="chat-col">
+        <div id="chat-msjs"></div>
+        <div class="chat-in">
+            <input type="text" id="txt-chat" placeholder="Escribe aquí..." onkeypress="if(event.key==='Enter') enviar()">
+            <button onclick="enviar()" style="background:var(--n-rojo); color:white; border:none; padding:0 10px; border-radius:4px; cursor:pointer;">OK</button>
         </div>
     </div>
 </div>
 
-<div class="puertas-vip">
-    <div class="p-card"><h4 style="color:var(--n-rosa); margin-bottom:10px;">HISTORIAS</h4><button style="background:var(--n-rosa); color:white; border:none; width:100%; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="hablar('MIA','¿Viste lo que subí?')">VER CONTENIDO</button></div>
-    <div class="p-card"><h4 style="color:var(--n-azul); margin-bottom:10px;">ESTADOS</h4><button style="background:var(--n-azul); color:white; border:none; width:100%; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="hablar('TANIA','Estoy libre ahora...')">CHATEAR YA</button></div>
-    <div class="p-card"><h4 style="color:var(--n-rojo); margin-bottom:10px;">VIDEOS</h4><button style="background:var(--n-rojo); color:white; border:none; width:100%; padding:10px; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="hablar('COLO','Dale al play, amor.')">REPRODUCIR</button></div>
+<div class="footer-vip">
+    <div class="puerta-box">
+        <h4 style="color:var(--n-rosa)">HISTORIAS</h4>
+        <div class="historia-preview" id="h-historia"><span>VACÍO</span></div>
+        <button class="btn-subir" style="background:var(--n-rosa)" onclick="subir('h-historia')">SUBIR HISTORIA</button>
+    </div>
+    <div class="puerta-box">
+        <h4 style="color:var(--n-azul)">ESTADOS</h4>
+        <div class="historia-preview" id="h-estado"><span>VACÍO</span></div>
+        <button class="btn-subir" style="background:var(--n-azul)" onclick="subir('h-estado')">SUBIR ESTADO</button>
+    </div>
+    <div class="puerta-box">
+        <h4 style="color:var(--n-rojo)">VIDEOS</h4>
+        <div class="historia-preview" id="h-video"><span>VACÍO</span></div>
+        <button class="btn-subir" style="background:var(--n-rojo)" onclick="subir('h-video')">SUBIR VIDEO</button>
+    </div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
 
-    function boot() {
-        const m = document.getElementById('menu-s');
+    function init() {
+        const menu = document.getElementById('lista-s');
         salas.forEach((s, i) => {
             let b = document.createElement('div');
-            b.className = 'btn-s'; b.id = 'r-'+i;
+            b.className = 'btn-sala'; b.id = 'sala-'+i;
             b.innerHTML = `<b>${s}</b>`;
-            b.onclick = () => ver(i);
-            m.appendChild(b);
+            b.onclick = () => verSala(i);
+            menu.appendChild(b);
         });
-        ver(0);
-        hablar("MIA", "Hola... bienvenida al Imperio VIP.");
+        verSala(0);
+        hablar("MIA", "Bienvenida al Imperio. Mira las salas arriba.");
     }
 
-    function ver(i) {
-        document.querySelectorAll('.btn-s').forEach(x => x.classList.remove('active'));
-        document.getElementById('r-'+i).classList.add('active');
-        const img = document.getElementById('img-sala-actual');
+    function verSala(i) {
+        document.querySelectorAll('.btn-sala').forEach(x => x.classList.remove('active'));
+        document.getElementById('sala-'+i).classList.add('active');
+        const img = document.getElementById('img-sala');
+        const debug = document.getElementById('debug-info');
         
-        // FORZADO DE IMAGEN: 
-        // 1. Intenta nombre exacto
-        // 2. Si falla, limpia espacios (ej: "EL BAR" -> "ELBAR")
-        let nombreNormal = salas[i] + ".jpg";
-        let nombreLimpio = salas[i].replace(/\s/g, '') + ".jpg";
-        
-        img.src = nombreNormal;
-        img.onerror = () => { img.src = nombreLimpio; };
+        debug.innerHTML = ""; // Limpiar error previo
+        img.style.display = "block";
+        img.src = salas[i] + ".jpg";
+    }
+
+    function showError(url) {
+        const debug = document.getElementById('debug-info');
+        const img = document.getElementById('img-sala');
+        img.style.display = "none";
+        debug.innerHTML = `<span style="color:red">⚠️ Error al cargar:</span><br>${url.split('/').pop()}<br><small>Asegúrate de que el archivo existe en la carpeta.</small>`;
     }
 
     function enviar() {
-        const txt = document.getElementById('input-text');
+        const txt = document.getElementById('txt-chat');
         if(!txt.value) return;
-        const box = document.getElementById('box-mensajes');
-        box.innerHTML += `<div style="text-align:right; margin-bottom:10px;"><b style="color:var(--oro)">Tú:</b> ${txt.value}</div>`;
-        const msj = txt.value;
+        const box = document.getElementById('chat-msjs');
+        box.innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${txt.value}</div>`;
         txt.value = "";
         box.scrollTop = box.scrollHeight;
-
-        setTimeout(() => {
-            hablar("TANIA", "Qué interesante... pero prefiero hablar por privado por unas monedas.");
-        }, 1500);
     }
 
     function hablar(n, m) {
-        const box = document.getElementById('box-mensajes');
+        const box = document.getElementById('chat-msjs');
         const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
         box.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
         box.scrollTop = box.scrollHeight;
+    }
+
+    function subir(id) {
+        const url = prompt("Pega el enlace de la imagen o video:");
+        if(url) {
+            document.getElementById(id).innerHTML = `<img src="${url}">`;
+        }
     }
 
     function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
