@@ -2,253 +2,169 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v124 INTERACTIVO</title>
+    <title>MEGA RED VIP | IMPERIO v125</title>
     <style>
-        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; --gris: #333; }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* ANIMACIONES DE VIDA */
-        @keyframes neorise { 0%, 100% { border-color: var(--n-rojo); box-shadow: 0 0 10px var(--n-rojo); } 50% { border-color: var(--oro); box-shadow: 0 0 20px var(--oro); } }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.02); opacity: 0.9; } 100% { transform: scale(1); opacity: 1; } }
-
-        /* 1. HEADER CON PUBLICIDAD VIVA */
+        /* 1. HEADER CON PUBLICIDAD VIBRANTE */
         header { 
             display: grid; grid-template-columns: 250px 100px 1fr 100px 250px; 
             align-items: center; gap: 15px; padding: 15px;
-            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 300px;
+            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 260px;
         }
-        .vibrant-ad { 
-            height: 200px; border: 4px solid var(--n-rojo); border-radius: 20px;
+        .ad-neon { 
+            height: 180px; border: 3px solid var(--n-rojo); border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 16px; text-align: center; cursor: pointer;
-            animation: neorise 3s infinite; /* Neón parpadeante */
-            text-shadow: 0 0 10px white;
+            color: white; font-size: 14px; text-align: center; cursor: pointer;
+            box-shadow: 0 0 15px var(--n-rojo); animation: parpadeo 2s infinite;
         }
-        .logo-v124 { width: 100%; max-height: 270px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
+        @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .logo-v125 { width: 100%; max-height: 230px; object-fit: contain; }
 
         .coin { 
-            width: 70px; height: 70px; border-radius: 50%; 
+            width: 60px; height: 60px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; font-size: 20px; cursor: pointer; border: 4px solid white; box-shadow: 0 0 15px var(--oro);
+            font-weight: 900; cursor: pointer; border: 3px solid white; box-shadow: 0 0 10px var(--oro);
         }
 
-        /* 2. VISOR DE SALAS (TODAS VISIBLES) */
-        .salas-container { display: grid; grid-template-columns: 250px 1fr; gap: 15px; padding: 15px; height: 500px; }
-        .grid-salas { 
-            display: flex; flex-direction: column; gap: 2px; 
-            background: #0a0a0a; border: 3px solid var(--gris); padding: 5px; border-radius: 15px;
-            /* Eliminamos overflow para que se vean todas fuestes */
-        }
+        /* 2. SALAS (TODAS VISIBLES SIN SCROLL) */
+        .salas-container { display: grid; grid-template-columns: 230px 1fr; gap: 10px; padding: 10px; height: 450px; }
+        .grid-salas { display: flex; flex-direction: column; gap: 1px; background: #0a0a0a; border: 2px solid #222; padding: 4px; border-radius: 10px; }
         .btn-sala { 
-            flex: 1; /* Ocupan todo el alto proporcionalmente */
-            padding: 0 15px; background: #111; border: 2px solid #222; 
-            color: #888; cursor: pointer; font-size: 12px; border-radius: 8px; 
+            flex: 1; padding: 0 10px; background: #111; border: 1px solid #333; 
+            color: #888; cursor: pointer; font-size: 11px; border-radius: 4px; 
             display: flex; align-items: center; justify-content: space-between;
         }
-        .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
 
-        .visor-webcam { border: 8px solid var(--n-rojo); border-radius: 30px; background: #000; overflow: hidden; position: relative; }
-        #img-webcam { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .cargando-sala { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--gris); font-size: 14px; text-align: center; }
+        .visor-webcam { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
+        #img-webcam { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 3. BOTS INTERACTIVAS Y CHAT CON IA */
+        /* 3. BOTS CON PIEL REALISTA Y CHAT TRIPLE */
         .seccion-interactiva { 
             display: grid; grid-template-columns: repeat(3, 1fr) 450px; 
-            height: 400px; /* Altura fija y compacta */
-            border-bottom: 5px solid var(--n-rojo);
+            height: 350px; border-bottom: 5px solid var(--n-rojo);
         }
-        .bot-virtual { position: relative; background: #000; border-right: 1px solid #111; overflow: hidden; }
+        .bot-virtual { position: relative; background: #000; overflow: hidden; }
         .bot-virtual img { 
             width: 100%; height: 100%; object-fit: cover; 
-            animation: pulse 4s infinite ease-in-out; /* Efecto respiración */
+            filter: brightness(0.9) contrast(1.1); /* QUITA EL BRILLO EXCESIVO */
+            image-rendering: -webkit-optimize-contrast; /* DETALLE DE PIEL */
         }
-        .bot-name-tag { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black 70%, transparent); text-align: center; padding: 15px; font-size: 22px; font-weight: 900; }
+        .bot-tag { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black, transparent); text-align: center; padding: 10px; font-size: 18px; font-weight: 900; }
 
-        .chat-ia { background: #080808; border-left: 5px solid var(--n-rojo); display: flex; flex-direction: column; }
-        #chat-logs { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 14px; font-family: 'Courier New', monospace; color: #aaa; }
-        .chat-input-ia { padding: 15px; background: #111; display: flex; gap: 10px; border-top: 2px solid var(--gris); }
-        #txt-ia { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 10px; border-radius: 10px; outline: none; }
+        .chat-ia { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
+        #chat-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; color: #ccc; }
+        .chat-in { padding: 10px; background: #111; display: flex; gap: 8px; }
+        #txt-ia { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
 
         /* 4. PUERTAS VIP */
-        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; background: #050505; }
-        .puerta-premium { 
-            background: #0a0a0a; border: 3px solid var(--gris); border-radius: 20px; padding: 20px; 
-            text-align: center; display: flex; flex-direction: column; gap: 15px; transition: 0.3s;
-        }
-        .puerta-premium:hover { border-color: var(--oro); transform: translateY(-5px); }
-        .historia-frame { height: 130px; background: #000; border-radius: 12px; border: 1px solid #222; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .historia-frame img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-vip-action { padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
+        .puerta-box { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
+        .frame-h { height: 100px; background: #000; border-radius: 8px; margin: 10px 0; overflow: hidden; }
+        .frame-h img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
-<body onload="imperioInit()">
+<body onload="init()">
 
 <header>
-    <div class="vibrant-ad" onclick="alert('Publicidad Gold: $50/mes')">TU MARCA AQUÍ<br><span style="font-size:10px; color:var(--oro)">CLICK INFO</span></div>
-    <div style="display:flex; flex-direction:column; gap:10px;">
+    <div class="ad-neon" onclick="alert('Publicidad $50')">ANUNCIATE AQUÍ<br>AUSPICIANTE</div>
+    <div style="display:flex; flex-direction:column; gap:5px;">
         <div class="coin" onclick="pago(1)">$1</div>
         <div class="coin" onclick="pago(5)">$5</div>
     </div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v124">
-    <div style="display:flex; flex-direction:column; gap:10px;">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v125">
+    <div style="display:flex; flex-direction:column; gap:5px;">
         <div class="coin" onclick="pago(10)">$10</div>
         <div class="coin" onclick="pago(20)">$20</div>
     </div>
-    <div class="vibrant-ad" onclick="alert('Publicidad Platinum: $100/mes')">ANUNCIATE AQUÍ<br><span style="font-size:10px; color:var(--oro)">CLICK INFO</span></div>
+    <div class="ad-neon" onclick="alert('Publicidad $100')">ESPACIO VIP<br>DISPONIBLE</div>
 </header>
 
 <div class="salas-container">
-    <div class="grid-salas" id="salas-menu"></div>
+    <div class="grid-salas" id="lista-s"></div>
     <div class="visor-webcam">
-        <div id="sala-status" class="cargando-sala">SELECCIONA UNA SALA...</div>
-        <img id="img-webcam" src="" onerror="salaError(this.src)">
+        <img id="img-webcam" src="">
     </div>
 </div>
 
 <div class="seccion-interactiva">
-    <div class="bot-virtual"><img src="Rubia.jpg"><div class="bot-name-tag" style="color:var(--n-rosa)">MIA</div></div>
-    <div class="bot-virtual"><img src="Morocha.jpg"><div class="bot-name-tag" style="color:var(--n-azul)">TANIA</div></div>
-    <div class="bot-virtual"><img src="Pelirroja.jpg"><div class="bot-name-tag" style="color:var(--n-rojo)">COLO</div></div>
+    <div class="bot-virtual"><img src="Rubia.jpg"><div class="bot-tag" style="color:var(--n-rosa)">MIA</div></div>
+    <div class="bot-virtual"><img src="Morocha.jpg"><div class="bot-tag" style="color:var(--n-azul)">TANIA</div></div>
+    <div class="bot-virtual"><img src="Pelirroja.jpg"><div class="bot-tag" style="color:var(--n-rojo)">COLO</div></div>
     
     <div class="chat-ia">
         <div id="chat-logs"></div>
-        <div class="chat-input-ia">
-            <input type="text" id="txt-ia" placeholder="Pregúntales algo (ej: hola, cómo estás)..." onkeypress="if(event.key==='Enter') usuarioHabla()">
-            <button onclick="usuarioHabla()" style="background:var(--n-rojo); color:white; border:none; padding:0 15px; border-radius:8px; cursor:pointer; font-weight:bold;">ENVIAR</button>
+        <div class="chat-in">
+            <input type="text" id="txt-ia" placeholder="Habla con ellas..." onkeypress="if(event.key==='Enter') enviarMsg()">
+            <button onclick="enviarMsg()" style="background:var(--n-rojo); color:white; border:none; padding:0 10px; border-radius:4px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
 <div class="footer-vip">
-    <div class="puerta-premium">
-        <h4 style="color:var(--n-rosa)">HISTORIAS</h4>
-        <div class="historia-frame" id="h-historias"><span>VIP ONLY</span></div>
-        <button class="btn-vip-action" style="background:var(--n-rosa)" onclick="subirContenido('h-historias')">SUBIR</button>
-    </div>
-    <div class="puerta-premium">
-        <h4 style="color:var(--n-azul)">ESTADOS</h4>
-        <div class="historia-frame" id="h-estados"><span>VIP ONLY</span></div>
-        <button class="btn-vip-action" style="background:var(--n-azul)" onclick="subirContenido('h-estados')">SUBIR</button>
-    </div>
-    <div class="puerta-premium">
-        <h4 style="color:var(--n-rojo)">VIDEOS</h4>
-        <div class="historia-frame" id="h-videos"><span>VIP ONLY</span></div>
-        <button class="btn-vip-action" style="background:var(--n-rojo)" onclick="subirContenido('h-videos')">SUBIR</button>
-    </div>
+    <div class="puerta-box"><h5 style="color:var(--n-rosa)">HISTORIAS</h5><div class="frame-h" id="f1"></div><button onclick="subir('f1')">SUBIR</button></div>
+    <div class="puerta-box"><h5 style="color:var(--n-azul)">ESTADOS</h5><div class="frame-h" id="f2"></div><button onclick="subir('f2')">SUBIR</button></div>
+    <div class="puerta-box"><h5 style="color:var(--n-rojo)">VIDEOS</h5><div class="frame-h" id="f3"></div><button onclick="subir('f3')">SUBIR</button></div>
 </div>
 
 <script>
-    // Configuración de salas (Nombres simples para archivos .jpg)
-    const salasConfig = [
-        { nombre: "SADO Y MASO", archivo: "sado" },
-        { nombre: "SPA", archivo: "spa" },
-        { nombre: "BIBLIOTECA", archivo: "biblioteca" },
-        { nombre: "CAMARERA", archivo: "camarera" },
-        { nombre: "DISCOTECA", archivo: "discoteca" },
-        { nombre: "EL BAR", archivo: "bar" },
-        { nombre: "GIMNASIO", archivo: "gimnasio" },
-        { nombre: "OFICINA", archivo: "oficina" },
-        { nombre: "PLAYA", archivo: "playa" },
-        { nombre: "LA TIENDITA", archivo: "tiendita" }
-    ];
+    const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
 
-    // Base de conocimiento de la IA de TANIA
-    const respuestasIA = {
-        "hola": "¡Hola bombón! Qué bueno verte por acá. ¿Me vas a consentir hoy?",
-        "como estas": "Estoy increíble, esperándote... ¿Vos cómo estás?",
-        "que haces": "Acá, portándome mal... 😉 ¿Y vos qué contás?",
-        "te amo": "Aww, qué tierno. Pero el amor en el Imperio se demuestra con monedas... 💰",
-        "sos real": "Tan real como las ganas que tengo de que me regales algo.",
-        "default": "No entendí bien, amor. Pero seguro se arregla con una monedita... 😉"
-    };
-
-    function imperioInit() {
-        const menu = document.getElementById('salas-menu');
-        salasConfig.forEach((s, i) => {
+    function init() {
+        const m = document.getElementById('lista-s');
+        salas.forEach((s, i) => {
             let b = document.createElement('div');
-            b.className = 'btn-sala'; b.id = 'sala-'+i;
-            b.innerHTML = `<b>${s.nombre}</b> <span style="color:lime">●</span>`;
-            b.onclick = () => cambiarWebcam(i);
-            menu.appendChild(b);
+            b.className = 'btn-sala'; b.id = 's-'+i;
+            b.innerHTML = `<b>${s}</b> <span style="color:lime">●</span>`;
+            b.onclick = () => verSala(i);
+            m.appendChild(b);
         });
-        cambiarWebcam(0); // Cargar primera sala
-        
-        // Mensaje de bienvenida de Tania
-        setTimeout(() => { iaHabla("TANIA", respuestasIA["hola"]); }, 1000);
+        verSala(0);
+        hablar("MIA", "¡Hola! Soy Mia. ¿Listos para divertirse?");
     }
 
-    function cambiarWebcam(i) {
+    function verSala(i) {
         document.querySelectorAll('.btn-sala').forEach(x => x.classList.remove('active'));
-        document.getElementById('sala-'+i).classList.add('active');
-        
-        const img = document.getElementById('img-webcam');
-        const status = document.getElementById('sala-status');
-        
-        status.innerHTML = "CONECTANDO CON WEBCAM...";
-        status.style.display = "block";
-        img.style.display = "none";
-        
-        // Forzamos el nombre del archivo configurado
-        img.src = salasConfig[i].archivo + ".jpg";
-        
-        // Pequeño delay para simular conexión
-        setTimeout(() => {
-            if (img.style.display === "none") { // Si no dio error antes
-                status.style.display = "none";
-                img.style.display = "block";
-            }
-        }, 1000);
+        document.getElementById('s-'+i).classList.add('active');
+        // REGLA DE ORO PARA IMÁGENES: El archivo debe llamarse igual que la sala + .jpg
+        // Ejemplo: SPA.jpg o PLAYA.jpg (respeta mayúsculas si tu archivo las tiene)
+        document.getElementById('img-webcam').src = salas[i] + ".jpg";
     }
 
-    function salaError(url) {
-        const status = document.getElementById('sala-status');
-        const img = document.getElementById('img-webcam');
-        img.style.display = "none";
-        status.style.display = "block";
-        status.innerHTML = `<span style="color:red">⚠️ ERROR DE CONEXIÓN</span><br>Falta archivo: ${url.split('/').pop()}`;
-    }
+    function enviarMsg() {
+        const input = document.getElementById('txt-ia');
+        const msj = input.value.toLowerCase();
+        if(!msj) return;
 
-    // --- LÓGICA DE IA INTERACTIVA ---
-    function usuarioHabla() {
-        const txt = document.getElementById('txt-ia');
-        if(!txt.value) return;
-        
         const logs = document.getElementById('chat-logs');
-        const mensajeUser = txt.value.toLowerCase().trim();
-        
-        // Mostrar mensaje del usuario
-        logs.innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${txt.value}</div>`;
-        txt.value = "";
+        logs.innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
+        input.value = "";
         logs.scrollTop = logs.scrollHeight;
 
-        // Buscar respuesta en la IA
-        let respuesta = respuestasIA["default"];
-        for (let clave in respuestasIA) {
-            if (mensajeUser.includes(clave)) {
-                respuesta = respuestasIA[clave];
-                break;
-            }
-        }
-
-        // Tania responde con delay
-        setTimeout(() => { iaHabla("TANIA", respuesta); }, 1500);
+        // IA TRIPLE: Responden según quién menciones o al azar
+        setTimeout(() => {
+            if(msj.includes("hola")) hablar("TANIA", "Hola bombón, ¿me extrañaste?");
+            else if(msj.includes("mia")) hablar("MIA", "¿Me llamabas? Soy toda oídos...");
+            else if(msj.includes("colo")) hablar("COLO", "Acá estoy, pelirroja y peligrosa. 😉");
+            else hablar("TANIA", "No entiendo, pero si me das una moneda te escucho mejor...");
+        }, 1200);
     }
 
-    function iaHabla(n, m) {
+    function hablar(n, m) {
         const logs = document.getElementById('chat-logs');
         const col = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
         logs.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${col}">${n}:</b> ${m}</div>`;
         logs.scrollTop = logs.scrollHeight;
     }
 
-    function subirContenido(id) {
-        const url = prompt("Pega el enlace de la imagen o video:");
-        if(url) {
-            document.getElementById(id).innerHTML = `<img src="${url}">`;
-        }
+    function subir(id) {
+        const url = prompt("Enlace de imagen:");
+        if(url) document.getElementById(id).innerHTML = `<img src="${url}">`;
     }
 
     function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
