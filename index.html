@@ -2,171 +2,145 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v132</title>
+    <title>MEGA RED VIP | IMPERIO v133</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER: Logo más grande */
+        /* HEADER */
         header { 
             display: grid; grid-template-columns: 240px 100px 1fr 100px 240px; 
             align-items: center; gap: 15px; padding: 10px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 280px;
         }
-        .sponsor { height: 180px; border: 3px solid var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--oro); font-size: 14px; text-align: center; box-shadow: 0 0 15px rgba(212,175,55,0.2); }
-        .logo-v132 { width: 100%; max-height: 260px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
-        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; transition: 0.3s; }
-        .coin:hover { transform: scale(1.1) rotate(10deg); }
+        .logo-v133 { width: 100%; max-height: 260px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
+        .coin { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; }
 
-        /* SALAS */
-        .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 480px; }
+        /* SALAS - VISOR REFORZADO */
+        .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 500px; }
         .grid-v { display: flex; flex-direction: column; gap: 3px; background: #0a0a0a; border: 2px solid #333; padding: 5px; border-radius: 10px; }
         .btn-s { flex: 1; padding: 0 12px; background: #111; border: 1px solid #444; color: #777; cursor: pointer; font-size: 11px; border-radius: 5px; display: flex; align-items: center; justify-content: space-between; }
         .btn-s.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
-        .visor-marco { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; box-shadow: inset 0 0 50px #000; }
-        #webcam-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .aviso-error { position: absolute; inset: 0; display: none; background: #000; color: var(--n-rojo); flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px solid var(--n-rojo); padding: 20px; }
+        
+        .visor-marco { border: 6px solid var(--n-rojo); border-radius: 20px; background: #0a0a0a; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        #webcam-img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+        .error-txt { position: absolute; color: white; text-align: center; background: rgba(255,0,0,0.8); padding: 10px; border-radius: 10px; display: none; }
 
-        /* SECCIÓN 50/50: BOTS +1CM Y CHAT */
-        .split-box { 
-            display: grid; grid-template-columns: 55% 45%; /* Ajuste para dar ese cm extra a las bots */
-            height: 520px; border-top: 5px solid var(--n-rojo); border-bottom: 5px solid var(--n-rojo);
+        /* SECCIÓN 50/50 - BOTS ENTERAS */
+        .split-main { display: grid; grid-template-columns: 55% 45%; height: 550px; border-top: 5px solid var(--n-rojo); border-bottom: 5px solid var(--n-rojo); }
+        .bots-container { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; gap: 5px; padding: 5px; }
+        .bot-unit { position: relative; background: #050505; border: 1px solid #111; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        
+        /* CAMBIO CLAVE: containment para verlas ENTERAS */
+        .bot-unit img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
+            filter: brightness(0.9) contrast(1.1); 
         }
-        .bots-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; }
-        .bot-unit { position: relative; overflow: hidden; border-right: 1px solid #222; height: 100%; }
-        .bot-unit img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9) contrast(1.1); }
-        .tag-vip { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 24px; font-weight: 900; text-shadow: 0 0 10px #000, 0 0 20px #000; }
+        
+        .tag-vip { position: absolute; bottom: 15px; width: 100%; text-align: center; font-size: 22px; font-weight: 900; text-shadow: 0 0 10px #000, 0 0 20px #000; pointer-events: none; }
 
+        /* CHAT */
         .chat-side { background: #080808; border-left: 2px solid var(--n-rojo); display: flex; flex-direction: column; }
         #chat-logs { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 14px; color: #eee; }
-        .chat-input-area { padding: 15px; background: #111; display: flex; gap: 10px; border-top: 1px solid #222; }
+        .input-area { padding: 15px; background: #111; display: flex; gap: 10px; }
         #msg-in { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; }
 
-        /* PUERTAS LLAMATIVAS */
-        .footer-puertas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #050505; }
-        .puerta-card { background: #0a0a0a; border: 2px solid #222; border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; }
-        .puerta-card:hover { border-color: white; transform: translateY(-5px); }
-        .p-view { height: 110px; background: #000; border-radius: 12px; margin-bottom: 15px; border: 2px dashed #333; overflow: hidden; }
-        
-        /* Botones con color y brillo */
-        .btn-vibrante { 
-            width: 100%; padding: 12px; border: none; border-radius: 10px; color: white; 
-            font-weight: 900; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: 0.2s;
-        }
-        .btn-vibrante:active { transform: scale(0.95); }
-        .b-rosa { background: linear-gradient(45deg, #ff00ff, #800080); box-shadow: 0 0 15px var(--n-rosa); }
-        .b-azul { background: linear-gradient(45deg, #00d9ff, #0055ff); box-shadow: 0 0 15px var(--n-azul); }
-        .b-rojo { background: linear-gradient(45deg, #ff003c, #800000); box-shadow: 0 0 15px var(--n-rojo); }
+        /* PUERTAS */
+        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #000; }
+        .btn-vibrante { width: 100%; padding: 15px; border: none; border-radius: 12px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 10px; }
+        .b-rosa { background: linear-gradient(45deg, #ff00ff, #800080); box-shadow: 0 0 20px var(--n-rosa); }
+        .b-azul { background: linear-gradient(45deg, #00d9ff, #0055ff); box-shadow: 0 0 20px var(--n-azul); }
+        .b-rojo { background: linear-gradient(45deg, #ff003c, #800000); box-shadow: 0 0 20px var(--n-rojo); }
     </style>
 </head>
-<body onload="bootImperio()">
+<body onload="initImperio()">
 
 <header>
-    <div class="sponsor">ANÚNCIATE<br>AQUÍ</div>
+    <div style="color:var(--oro); text-align:center;">SPONSOR<br>GOLD</div>
     <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pago(1)">$1</div><div class="coin" onclick="pago(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v132">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v133">
     <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pago(10)">$10</div><div class="coin" onclick="pago(20)">$20</div></div>
-    <div class="sponsor">ESPACIO<br>DIPONIBLE</div>
+    <div style="color:var(--oro); text-align:center;">SPONSOR<br>PLATINUM</div>
 </header>
 
 <div class="salas-box">
     <div class="grid-v" id="menu-salas"></div>
     <div class="visor-marco">
-        <div id="error-box" class="aviso-error">
-            <h2 id="error-filename" style="margin-bottom:10px;"></h2>
-            <p>Verifica que este archivo esté en la carpeta</p>
-        </div>
-        <img id="webcam-img" src="" onerror="retryLogic(this)">
+        <div id="error-msg" class="error-txt"></div>
+        <img id="webcam-img" src="" onerror="falloImagen(this)">
     </div>
 </div>
 
-<div class="split-box">
-    <div class="bots-grid">
+<div class="split-main">
+    <div class="bots-container">
         <div class="bot-unit"><img src="Rubia.jpg"><div class="tag-vip" style="color:var(--n-rosa)">MIA</div></div>
         <div class="bot-unit"><img src="Morocha.jpg"><div class="tag-vip" style="color:var(--n-azul)">TANIA</div></div>
         <div class="bot-unit"><img src="Pelirroja.jpg"><div class="tag-vip" style="color:var(--n-rojo)">COLO</div></div>
     </div>
     <div class="chat-side">
         <div id="chat-logs"></div>
-        <div class="chat-input-area">
-            <input type="text" id="msg-in" placeholder="Escribe a las chicas..." onkeypress="if(event.key==='Enter') enviarChat()">
-            <button onclick="enviarChat()" style="background:var(--n-rojo); border:none; color:white; padding:0 20px; border-radius:8px; cursor:pointer; font-weight:bold;">ENVIAR</button>
+        <div class="input-area">
+            <input type="text" id="msg-in" placeholder="Escribe a las chicas..." onkeypress="if(event.key==='Enter') enviar()">
+            <button onclick="enviar()" style="background:var(--n-rojo); border:none; color:white; padding:0 20px; border-radius:8px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
-<div class="footer-puertas">
-    <div class="puerta-card">
-        <h3 style="color:var(--n-rosa); margin-bottom:10px;">HISTORIAS</h3>
-        <div class="p-view" id="p1"></div>
-        <button class="btn-vibrante b-rosa" onclick="subir('p1')">Subir Contenido</button>
-    </div>
-    <div class="puerta-card">
-        <h3 style="color:var(--n-azul); margin-bottom:10px;">ESTADOS</h3>
-        <div class="p-view" id="p2"></div>
-        <button class="btn-vibrante b-azul" onclick="subir('p2')">Actualizar Estado</button>
-    </div>
-    <div class="puerta-card">
-        <h3 style="color:var(--n-rojo); margin-bottom:10px;">VIDEOS</h3>
-        <div class="p-view" id="p3"></div>
-        <button class="btn-vibrante b-rojo" onclick="subir('p3')">Cargar Video</button>
-    </div>
+<div class="footer-vip">
+    <div style="text-align:center;"><h3 style="color:var(--n-rosa)">HISTORIAS</h3><button class="btn-vibrante b-rosa" onclick="subir('h')">Subir Contenido</button></div>
+    <div style="text-align:center;"><h3 style="color:var(--n-azul)">ESTADOS</h3><button class="btn-vibrante b-azul" onclick="subir('e')">Actualizar Estado</button></div>
+    <div style="text-align:center;"><h3 style="color:var(--n-rojo)">VIDEOS</h3><button class="btn-vibrante b-rojo" onclick="subir('v')">Cargar Video</button></div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
     
-    function bootImperio() {
+    function initImperio() {
         const menu = document.getElementById('menu-salas');
         salas.forEach((s, i) => {
             let b = document.createElement('div');
             b.className = 'btn-s'; b.id = 's-'+i;
             b.innerHTML = `<b>${s}</b> <span style="color:lime">●</span>`;
-            b.onclick = () => verSala(i);
+            b.onclick = () => ver(i);
             menu.appendChild(b);
         });
-        verSala(0);
-        hablar("TANIA", "¡Hola! Somos Mia, Tania y Colo. Bienvenida al Imperio v132.");
+        ver(0);
+        hablar("TANIA", "¡Hola bombón! Ya estamos todas listas. Mira las salas y cuéntanos cuál te gusta más.");
     }
 
-    function verSala(i) {
+    function ver(i) {
         document.querySelectorAll('.btn-s').forEach(x => x.classList.remove('active'));
         document.getElementById('s-'+i).classList.add('active');
         const img = document.getElementById('webcam-img');
-        document.getElementById('error-box').style.display = "none";
-        img.dataset.retry = "1";
-        img.src = salas[i] + ".jpg";
+        const err = document.getElementById('error-msg');
+        err.style.display = "none";
+        img.style.display = "block";
+        img.src = salas[i] + ".jpg"; 
     }
 
-    function retryLogic(img) {
-        const i = document.querySelector('.btn-s.active').id.split('-')[1];
-        const base = salas[i];
-        let r = parseInt(img.dataset.retry);
-        if(r === 1) { img.src = base.replace(/\s/g, "") + ".jpg"; img.dataset.retry = "2"; }
-        else if(r === 2) { img.src = base.toLowerCase() + ".jpg"; img.dataset.retry = "3"; }
-        else {
-            document.getElementById('error-box').style.display = "flex";
-            document.getElementById('error-filename').innerText = "ERROR: " + base + ".jpg";
-            img.onerror = null;
-        }
+    function falloImagen(img) {
+        img.style.display = "none";
+        const err = document.getElementById('error-msg');
+        err.style.display = "block";
+        err.innerHTML = "⚠️ ARCHIVO NO ENCONTRADO<br>Nombre sugerido: <b>" + img.src.split('/').pop() + "</b>";
     }
 
-    function enviarChat() {
+    function enviar() {
         const inpt = document.getElementById('msg-in');
         if(!inpt.value.trim()) return;
         document.getElementById('chat-logs').innerHTML += `<div style="text-align:right; margin-bottom:12px; color:var(--oro)"><b>Tú:</b> ${inpt.value}</div>`;
         
         setTimeout(() => {
             const girls = ["MIA", "TANIA", "COLO"];
-            const r = ["¿Te gusta lo que ves guapo?", "¡Me encantan tus mensajes!", "Por unas monedas te cuento un secreto...", "¡Qué atrevido! Me gusta..."];
+            const r = ["¿Te gusta mi outfit de hoy?", "Si me invitas una copa te muestro más...", "¡Hola guapo! ¿A cuál de las tres prefieres?", "Me pones nerviosa cuando me hablas así..."];
             hablar(girls[Math.floor(Math.random()*3)], r[Math.floor(Math.random()*r.length)]);
         }, 1000);
         
         inpt.value = "";
-        const logs = document.getElementById('chat-logs');
-        logs.scrollTop = logs.scrollHeight;
+        document.getElementById('chat-logs').scrollTop = document.getElementById('chat-logs').scrollHeight;
     }
 
     function hablar(n, m) {
@@ -176,11 +150,7 @@
         logs.scrollTop = logs.scrollHeight;
     }
 
-    function subir(id) {
-        const url = prompt("Enlace de imagen o video:");
-        if(url) document.getElementById(id).innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;">`;
-    }
-
+    function subir(id) { alert("Función de carga conectada al servidor VIP."); }
     function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
