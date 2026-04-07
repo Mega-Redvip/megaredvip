@@ -2,142 +2,142 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v107</title>
+    <title>MEGA RED VIP | IMPERIO v108</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER - LOGO Y MONEDAS GIGANTES */
+        /* HEADER COMPACTO PARA GANAR ESPACIO VERTICAL */
         header { 
-            display: grid; grid-template-columns: 1fr 2fr 1fr; 
+            display: grid; grid-template-columns: 1fr 1.5fr 1fr; 
             padding: 10px 20px; background: #050505; border-bottom: 5px solid var(--n-rojo);
             align-items: center;
         }
-        .logo-box img { width: 100%; max-height: 250px; object-fit: contain; filter: drop-shadow(0 0 25px var(--n-rojo)); }
+        .logo-box img { width: 100%; max-height: 200px; object-fit: contain; filter: drop-shadow(0 0 20px var(--n-rojo)); }
         .coin-wrap { display: flex; gap: 10px; justify-content: center; }
         .coin { 
-            width: 90px; height: 90px; border-radius: 50%; 
+            width: 80px; height: 80px; border-radius: 50%; 
             background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); 
             color: #000; display: flex; align-items: center; justify-content: center; 
-            font-weight: 900; font-size: 28px; cursor: pointer; border: 4px solid white;
-            box-shadow: 0 0 20px var(--oro); transition: 0.2s;
+            font-weight: 900; font-size: 24px; cursor: pointer; border: 4px solid white;
+            box-shadow: 0 0 15px var(--oro); transition: 0.2s;
         }
 
-        /* FILA SUPERIOR: SALAS Y VISOR */
-        .grid-top { display: grid; grid-template-columns: 280px 1fr; gap: 10px; padding: 10px; height: 400px; }
-        .rooms-list { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 8px; overflow-y: auto; }
+        /* SECCIÓN SALAS - MÁS BAJA PARA EVITAR ESPACIO NEGRO */
+        .top-row { display: grid; grid-template-columns: 280px 1fr; gap: 15px; padding: 15px; height: 350px; }
+        .rooms-panel { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 10px; overflow-y: auto; }
         .room-btn { 
-            padding: 12px; background: #111; border-radius: 8px; margin-bottom: 5px; 
+            padding: 10px; background: #111; border-radius: 8px; margin-bottom: 5px; 
             cursor: pointer; display: flex; justify-content: space-between; border: 1px solid #444; font-size: 13px;
         }
-        .room-btn.active { background: var(--n-rojo); border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        .room-btn.active { background: var(--n-rojo); border-color: white; }
 
-        .viewer { border: 5px solid var(--n-rojo); border-radius: 20px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
-        #room-img { width: 100%; height: 100%; object-fit: cover; }
+        .viewer { border: 5px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        #sala-img { width: 100%; height: 100%; object-fit: cover; }
         .shop-btn { 
-            position: absolute; padding: 25px 50px; background: var(--n-rojo); color: white;
-            font-size: 26px; border-radius: 50px; text-decoration: none; border: 4px solid white;
-            box-shadow: 0 0 40px var(--n-rojo); display: none; animation: pulse 0.8s infinite alternate;
+            position: absolute; padding: 20px 40px; background: var(--n-rojo); color: white;
+            font-size: 22px; border-radius: 50px; text-decoration: none; border: 4px solid white;
+            box-shadow: 0 0 30px var(--n-rojo); display: none; animation: glow 1s infinite alternate;
         }
-        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+        @keyframes glow { from { transform: scale(1); } to { transform: scale(1.05); } }
 
-        /* SECCIÓN BOTS: SIN RECUADROS NEGROS Y CHAT ACHICADO */
-        .grid-main { display: grid; grid-template-columns: 1fr 300px; gap: 10px; padding: 0 10px 10px; }
+        /* BOTS Y CHAT PROPORCIONALES */
+        .main-content { display: grid; grid-template-columns: 1fr 450px; gap: 15px; padding: 0 15px 15px; }
         
-        /* BOTS: GIGANTES, SIN BORDES, UNA AL LADO DE LA OTRA */
-        .bots-wrap { 
+        /* BOTS: ALTURA AJUSTABLE PARA ELIMINAR ESPACIO NEGRO */
+        .bots-container { 
             display: grid; grid-template-columns: repeat(3, 1fr); 
-            height: 850px; /* Masivo de cuerpo entero */
-            border-radius: 25px; overflow: hidden; background: #000;
+            height: 700px; /* Altura optimizada para fotos verticales */
+            background: #000; border: 4px solid #222; border-radius: 25px; overflow: hidden;
         }
-        .bot-col { position: relative; overflow: hidden; background: #000; }
-        .bot-col img { 
+        .bot-card { position: relative; border-right: 2px solid #222; background: #000; }
+        .bot-card img { 
             width: 100%; height: 100%; 
-            object-fit: contain; /* Cuerpo completo sin deformar */
+            object-fit: cover; /* Cambiado a COVER para eliminar el espacio negro arriba/abajo */
+            object-position: top center; /* Enfoca siempre la cara y el cuerpo */
             image-rendering: -webkit-optimize-contrast;
-            filter: brightness(1.1) contrast(1.1);
         }
-        .bot-name { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, rgba(0,0,0,1) 0%, transparent 100%); text-align: center; padding: 30px 10px 15px; font-size: 28px; font-weight: 900; }
+        .bot-name { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, #000 30%, transparent); text-align: center; padding: 25px 10px 10px; font-size: 26px; font-weight: 900; }
 
-        /* CHAT COMPACTO */
-        .chat-compact { background: #050505; border: 4px solid var(--n-rojo); border-radius: 25px; height: 850px; display: flex; flex-direction: column; }
-        #chat-flow { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 14px; font-family: sans-serif; }
-        .chat-in-box { padding: 10px; background: #111; display: flex; gap: 8px; border-radius: 0 0 20px 20px; }
-        #input-msg { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 10px; border-radius: 8px; outline: none; }
+        /* CHAT PROPORCIONAL */
+        .chat-box { background: #050505; border: 5px solid var(--n-rojo); border-radius: 25px; height: 700px; display: flex; flex-direction: column; }
+        #chat-content { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 16px; font-family: sans-serif; }
+        .chat-footer { padding: 15px; background: #111; display: flex; gap: 10px; border-radius: 0 0 20px 20px; }
+        #msg-in { flex-grow: 1; background: #000; border: 1px solid var(--n-rojo); color: white; padding: 12px; border-radius: 10px; outline: none; }
 
-        /* PUERTAS DE CARGA */
-        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 15px; border-top: 6px solid var(--n-rojo); }
-        .door { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 12px; text-align: center; }
-        .door-preview { height: 140px; background: #000; margin-bottom: 10px; border-radius: 10px; overflow: hidden; border: 1px solid #222; }
-        .door-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-up { width: 100%; padding: 10px; border: none; border-radius: 8px; color: white; font-weight: 900; cursor: pointer; }
+        /* FOOTER COMPACTO */
+        .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 15px; border-top: 5px solid var(--n-rojo); }
+        .door { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 10px; text-align: center; }
+        .door-view { height: 120px; background: #000; margin-bottom: 8px; border-radius: 10px; overflow: hidden; }
+        .door-view img { width: 100%; height: 100%; object-fit: cover; }
+        .up-btn { width: 100%; padding: 8px; border: none; border-radius: 8px; color: white; font-weight: 900; cursor: pointer; }
     </style>
 </head>
-<body onload="boot()">
+<body onload="start()">
 
 <header>
     <div>
-        <div style="width:100%; height:80px; border:2px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:16px;">ADS $50</div>
+        <div style="width:100%; height:70px; border:2px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:14px;">ADS VIP $50</div>
         <div class="coin-wrap"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
     </div>
     <div class="logo-box" style="text-align:center;"><img src="Logo Mega Red Lunar.jpg"></div>
     <div>
-        <div style="width:100%; height:80px; border:2px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:16px;">ADS $100</div>
+        <div style="width:100%; height:70px; border:2px dashed var(--n-rojo); color:var(--n-rojo); display:flex; align-items:center; justify-content:center; font-size:14px;">ADS VIP $100</div>
         <div class="coin-wrap"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
     </div>
 </header>
 
-<div class="grid-top">
-    <div class="rooms-list" id="room-list"></div>
+<div class="top-row">
+    <div class="rooms-panel" id="rooms-list"></div>
     <div class="viewer">
-        <img id="room-img" src="">
-        <a href="https://best.aliexpress.com/" target="_blank" class="shop-btn" id="shop-btn">LA TIENDITA VIP 🔱</a>
+        <img id="sala-img" src="">
+        <a href="https://best.aliexpress.com/" target="_blank" class="shop-btn" id="shop-btn">LA TIENDITA 🔱</a>
     </div>
 </div>
 
-<div class="grid-main">
-    <div class="bots-wrap">
-        <div class="bot-col"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="bot-col"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="bot-col"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
+<div class="main-content">
+    <div class="bots-container">
+        <div class="bot-card"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-card"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-card"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
     </div>
-    <div class="chat-compact">
-        <div id="chat-flow"></div>
-        <div class="chat-in-box">
-            <input type="text" id="input-msg" placeholder="Diles algo..." onkeypress="if(event.key==='Enter') send()">
-            <button onclick="send()" style="background:var(--n-rojo); color:white; border:none; padding:0 12px; border-radius:8px; cursor:pointer; font-weight:bold;">OK</button>
+    <div class="chat-box">
+        <div id="chat-content"></div>
+        <div class="chat-footer">
+            <input type="text" id="msg-in" placeholder="Diles algo..." onkeypress="if(event.key==='Enter') send()">
+            <button onclick="send()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; border-radius:10px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
 <div class="footer-grid">
-    <div class="door"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="door-preview" id="p-h"></div><button class="btn-up" style="background:var(--n-rosa)" onclick="up('p-h')">SUBIR ARCHIVO</button></div>
-    <div class="door"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="door-preview" id="p-e"></div><button class="btn-up" style="background:var(--n-azul)" onclick="up('p-e')">SUBIR ARCHIVO</button></div>
-    <div class="door"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="door-preview" id="p-v"></div><button class="btn-up" style="background:var(--n-rojo)" onclick="up('p-v')">SUBIR ARCHIVO</button></div>
+    <div class="door"><h5 style="color:var(--n-rosa)">HISTORIAS</h5><div class="door-view" id="p-h"></div><button class="up-btn" style="background:var(--n-rosa)" onclick="up('p-h')">SUBIR</button></div>
+    <div class="door"><h5 style="color:var(--n-azul)">ESTADOS</h5><div class="door-view" id="p-e"></div><button class="up-btn" style="background:var(--n-azul)" onclick="up('p-e')">SUBIR</button></div>
+    <div class="door"><h5 style="color:var(--n-rojo)">VIDEOS</h5><div class="door-view" id="p-v"></div><button class="up-btn" style="background:var(--n-rojo)" onclick="up('p-v')">SUBIR</button></div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
 
-    function boot() {
-        const list = document.getElementById('room-list');
+    function start() {
+        const list = document.getElementById('rooms-list');
         salas.forEach((s, i) => {
             let d = document.createElement('div');
             d.className = 'room-btn'; d.id = 'r-'+i;
-            d.innerHTML = `<span>${s}</span><span style="color:lime; font-size:10px;">ONLINE</span>`;
+            d.innerHTML = `<span>${s}</span><span style="color:lime; font-size:10px;">0 ONLINE</span>`;
             d.onclick = () => ver(i);
             list.appendChild(d);
         });
         ver(0);
-        msg("MIA", "Hola bombón... bienvenida al Imperio. Las otras dos pendejas están celosas porque soy la reina de Chaco.");
+        botMsg("MIA", "Hola mi amor... bienvenida. Soy la reina de Resistencia, ¿me vas a invitar algo?");
     }
 
     function ver(i) {
         document.querySelectorAll('.room-btn').forEach(x => x.classList.remove('active'));
         document.getElementById('r-'+i).classList.add('active');
-        const img = document.getElementById('room-img');
+        const img = document.getElementById('sala-img');
         const btn = document.getElementById('shop-btn');
         
         if(salas[i] === "LA TIENDITA") {
@@ -146,8 +146,8 @@
         } else {
             btn.style.display = 'none';
             img.style.opacity = '1';
-            // Cargamos la imagen con el nombre exacto de la sala
-            img.src = encodeURIComponent(salas[i]) + ".jpg";
+            // IMPORTANTE: El nombre del archivo debe ser exacto (ej: SPA.jpg)
+            img.src = salas[i] + ".jpg";
         }
     }
 
@@ -157,21 +157,21 @@
     }
 
     function send() {
-        const i = document.getElementById('input-msg');
+        const i = document.getElementById('msg-in');
         if(!i.value) return;
-        const f = document.getElementById('chat-flow');
-        f.innerHTML += `<div style="text-align:right; color:var(--oro); margin-bottom:10px;"><b>Tú:</b> ${i.value}</div>`;
+        const c = document.getElementById('chat-content');
+        c.innerHTML += `<div style="text-align:right; color:var(--oro); margin-bottom:10px;"><b>Tú:</b> ${i.value}</div>`;
         i.value = "";
         setTimeout(() => {
-            msg("TANIA", "No seas tacaño amor, mandame una moneda.");
+            botMsg("TANIA", "No seas tacaño amor, mandame una moneda.");
         }, 1500);
     }
 
-    function msg(n, m) {
-        const f = document.getElementById('chat-flow');
-        const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        f.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
-        f.scrollTop = f.scrollHeight;
+    function botMsg(n, m) {
+        const c = document.getElementById('chat-content');
+        const col = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
+        c.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${col}">${n}:</b> ${m}</div>`;
+        c.scrollTop = c.scrollHeight;
     }
 
     function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
