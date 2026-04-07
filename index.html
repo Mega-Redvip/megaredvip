@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v130</title>
+    <title>MEGA RED VIP | IMPERIO v131</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,113 +12,116 @@
         header { 
             display: grid; grid-template-columns: 240px 100px 1fr 100px 240px; 
             align-items: center; gap: 10px; padding: 15px;
-            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 260px;
+            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 240px;
         }
-        .sponsor { height: 180px; border: 3px solid var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--oro); font-size: 14px; text-align: center; background: rgba(15,15,15,0.9); }
-        .logo-v130 { width: 100%; max-height: 230px; object-fit: contain; }
+        .sponsor { height: 160px; border: 3px solid var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--oro); font-size: 14px; text-align: center; }
+        .logo-v131 { width: 100%; max-height: 210px; object-fit: contain; }
         .coin { width: 55px; height: 55px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; }
 
-        /* VISOR DE SALAS (REFORZADO) */
-        .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 500px; }
+        /* SALAS (VISOR) */
+        .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 450px; }
         .grid-v { display: flex; flex-direction: column; gap: 2px; background: #0a0a0a; border: 2px solid #333; padding: 5px; border-radius: 10px; }
         .btn-s { flex: 1; padding: 0 10px; background: #111; border: 1px solid #444; color: #777; cursor: pointer; font-size: 10px; border-radius: 5px; display: flex; align-items: center; justify-content: space-between; }
         .btn-s.active { background: var(--n-rojo); color: white; border-color: white; }
         
         .visor-marco { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
         #webcam-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .debug-alert { position: absolute; top: 10px; left: 10px; background: rgba(255,0,0,0.7); color: white; padding: 5px; font-size: 10px; border-radius: 3px; display: none; }
+        .error-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: none; flex-direction: column; align-items: center; justify-content: center; color: var(--n-rojo); text-align: center; padding: 20px; font-size: 14px; }
 
-        /* BOTS: +2CM Y SIMETRÍA ABSOLUTA */
-        .interactiva { 
+        /* SECCIÓN INTERACTIVA: 50/50 SPLIT */
+        .split-container { 
             display: grid; 
-            grid-template-columns: repeat(3, 300px) 1fr; /* Tamaño fijo para las 3 bots */
-            height: 450px; /* Aumentado para que se vean más grandes (+2cm aprox) */
+            grid-template-columns: 1fr 1fr; /* Mitad para fotos, mitad para chat */
+            height: 500px; 
             border-top: 5px solid var(--n-rojo);
             border-bottom: 5px solid var(--n-rojo);
+        }
+
+        /* LADO IZQUIERDO: LAS 3 BOTS IGUALES */
+        .bots-side { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
             background: #000;
         }
-        .bot-frame { 
-            position: relative; 
-            overflow: hidden; 
-            border-right: 2px solid #111;
+        .bot-frame { position: relative; overflow: hidden; border-right: 1px solid #222; height: 100%; }
+        .bot-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9) contrast(1.1); }
+        .tag-name { 
+            position: absolute; bottom: 15px; width: 100%; text-align: center; 
+            font-size: 22px; font-weight: 900; 
+            text-shadow: 3px 3px 5px #000, -3px -3px 5px #000;
+        }
+
+        /* LADO DERECHO: EL CHAT GRANDE */
+        .chat-side { 
+            background: #080808; 
+            border-left: 2px solid var(--n-rojo); 
+            display: flex; 
+            flex-direction: column; 
             height: 100%;
         }
-        .bot-frame img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Cambiado a cover para que llenen todo el cuadro simétricamente */
-            filter: brightness(0.9) contrast(1.1); 
-            display: block;
-        }
-        .tag-name { 
-            position: absolute; 
-            bottom: 20px; 
-            width: 100%; 
-            text-align: center; 
-            font-size: 26px; 
-            font-weight: 900; 
-            text-shadow: 3px 3px 5px #000, -3px -3px 5px #000;
-            background: transparent; 
-        }
-
-        /* CHAT */
-        .chat-ai { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
-        #logs-chat { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; color: #eee; }
-        .in-chat { padding: 10px; background: #111; display: flex; gap: 8px; }
-        #user-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
+        #logs-chat { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 14px; color: #eee; border-bottom: 1px solid #333; }
+        .in-chat { padding: 15px; background: #111; display: flex; gap: 10px; }
+        #user-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; font-size: 14px; }
+        .btn-send { background: var(--n-rojo); border: none; color: white; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
         /* PUERTAS */
-        .puertas-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; background: #000; }
-        .p-card { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
-        .p-preview { height: 120px; background: #111; border-radius: 10px; margin: 10px 0; border: 1px dashed #444; overflow: hidden; }
+        .puertas-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
+        .p-card { background: #0a0a0a; border: 2px solid #333; border-radius: 12px; padding: 12px; text-align: center; }
+        .p-preview { height: 100px; background: #111; border-radius: 8px; margin: 10px 0; border: 1px dashed #444; }
     </style>
 </head>
 <body onload="startApp()">
 
 <header>
-    <div class="sponsor">ANÚNCIATE<br>AQUÍ</div>
+    <div class="sponsor">TU MARCA<br>AQUÍ</div>
     <div style="display:flex; flex-direction:column; gap:5px;"><div class="coin" onclick="pago(1)">$1</div><div class="coin" onclick="pago(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v130">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v131">
     <div style="display:flex; flex-direction:column; gap:5px;"><div class="coin" onclick="pago(10)">$10</div><div class="coin" onclick="pago(20)">$20</div></div>
-    <div class="sponsor">ESPACIO<br>DIPONIBLE</div>
+    <div class="sponsor">ANÚNCIATE<br>VIP</div>
 </header>
 
 <div class="salas-box">
     <div class="grid-v" id="menu-salas"></div>
     <div class="visor-marco">
-        <div id="debug-sala" class="debug-alert"></div>
-        <img id="webcam-img" src="" onerror="retryImage(this)">
+        <div id="error-screen" class="error-overlay">
+            <span style="font-size: 40px;">⚠️</span>
+            <div id="error-text"></div>
+            <p style="font-size: 10px; color: #555; margin-top:10px;">Asegúrate de que la foto esté en la carpeta del Imperio</p>
+        </div>
+        <img id="webcam-img" src="" onerror="forceRetry(this)">
     </div>
 </div>
 
-<div class="interactiva">
-    <div class="bot-frame"><img src="Rubia.jpg"><div class="tag-name" style="color:var(--n-rosa)">MIA</div></div>
-    <div class="bot-frame"><img src="Morocha.jpg"><div class="tag-name" style="color:var(--n-azul)">TANIA</div></div>
-    <div class="bot-frame"><img src="Pelirroja.jpg"><div class="tag-name" style="color:var(--n-rojo)">COLO</div></div>
-    
-    <div class="chat-ai">
+<div class="split-container">
+    <div class="bots-side">
+        <div class="bot-frame"><img src="Rubia.jpg"><div class="tag-name" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-frame"><img src="Morocha.jpg"><div class="tag-name" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-frame"><img src="Pelirroja.jpg"><div class="tag-name" style="color:var(--n-rojo)">COLO</div></div>
+    </div>
+
+    <div class="chat-side">
         <div id="logs-chat"></div>
         <div class="in-chat">
-            <input type="text" id="user-input" placeholder="Pregúntales algo..." onkeypress="if(event.key==='Enter') procesarChat()">
-            <button onclick="procesarChat()" style="background:var(--n-rojo); border:none; color:white; padding:0 10px; border-radius:5px; cursor:pointer; font-weight:bold;">OK</button>
+            <input type="text" id="user-input" placeholder="Escribe a las chicas..." onkeypress="if(event.key==='Enter') procesarChat()">
+            <button class="btn-send" onclick="procesarChat()">ENVIAR</button>
         </div>
     </div>
 </div>
 
 <div class="puertas-vip">
-    <div class="p-card"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="p-preview" id="h1"></div><button onclick="subir('h1')">SUBIR</button></div>
-    <div class="p-card"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="p-preview" id="h2"></div><button onclick="subir('h2')">SUBIR</button></div>
-    <div class="p-card"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="p-preview" id="h3"></div><button onclick="subir('h3')">SUBIR</button></div>
+    <div class="p-card"><h5>HISTORIAS</h5><div class="p-preview" id="h1"></div><button onclick="subir('h1')">SUBIR</button></div>
+    <div class="p-card"><h5>ESTADOS</h5><div class="p-preview" id="h2"></div><button onclick="subir('h2')">SUBIR</button></div>
+    <div class="p-card"><h5>VIDEOS</h5><div class="p-preview" id="h3"></div><button onclick="subir('h3')">SUBIR</button></div>
 </div>
 
 <script>
     const listaSalas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
     
     const respuestas = {
-        "hola": "¡Hola guapo! ¿A cuál de nosotras tres quieres invitar primero?",
-        "estas": "Súper bien, con ganas de verte en acción... 😉",
-        "haces": "Esperándote acá sentadita... ¿Vienes a la sala?",
-        "default": "Me encanta que me hables, pero las monedas me gustan más..."
+        "hola": "¡Hola guapo! ¿Te gusta el nuevo diseño? Es 50/50, mitad para vernos y mitad para hablar...",
+        "como estas": "Muy bien, esperando que me invites algo rico en la sala.",
+        "haces": "Mirando cómo escribes... me pones un poco nerviosa 😉",
+        "default": "Me encanta que me hables, pero las monedas me convencen más..."
     };
 
     function startApp() {
@@ -131,7 +134,7 @@
             menu.appendChild(b);
         });
         cargarSala(0);
-        mensajeIA("TANIA", "¡Bienvenido al Imperio! Soy Tania. Mis amigas y yo estamos listas.");
+        iaResponde("TANIA", "¡Bienvenido al nuevo Imperio! Mitad visual, mitad interactivo. ¿Qué quieres decirnos?");
     }
 
     function cargarSala(i) {
@@ -139,33 +142,28 @@
         document.getElementById('s-'+i).classList.add('active');
         
         const img = document.getElementById('webcam-img');
-        const dbg = document.getElementById('debug-sala');
-        const nombre = listaSalas[i];
-        
-        dbg.style.display = "none";
-        img.dataset.attempt = "1";
-        img.src = nombre + ".jpg"; 
+        const screen = document.getElementById('error-screen');
+        screen.style.display = "none";
+        img.dataset.retry = "1";
+        img.src = listaSalas[i] + ".jpg"; 
     }
 
-    // CARGADOR FORZADO: Intenta cargar la imagen de varias formas si falla
-    function retryImage(img) {
+    function forceRetry(img) {
         const i = document.querySelector('.btn-s.active').id.split('-')[1];
         const nombreBase = listaSalas[i];
-        let attempt = parseInt(img.dataset.attempt);
+        let retry = parseInt(img.dataset.retry);
 
-        if(attempt === 1) {
-            img.src = nombreBase.replace(/\s/g, "") + ".jpg"; // Quita espacios
-            img.dataset.attempt = "2";
-        } else if(attempt === 2) {
-            img.src = nombreBase.toLowerCase() + ".jpg"; // Todo minúsculas
-            img.dataset.attempt = "3";
-        } else if(attempt === 3) {
-            img.src = nombreBase + ".JPG"; // Extensión en mayúsculas
-            img.dataset.attempt = "4";
+        if(retry === 1) {
+            img.src = nombreBase.replace(/\s/g, "") + ".jpg";
+            img.dataset.retry = "2";
+        } else if(retry === 2) {
+            img.src = nombreBase.toLowerCase() + ".jpg";
+            img.dataset.retry = "3";
         } else {
-            const dbg = document.getElementById('debug-sala');
-            dbg.style.display = "block";
-            dbg.innerHTML = "ERROR: No se encuentra el archivo " + nombreBase + ".jpg";
+            const screen = document.getElementById('error-screen');
+            const txt = document.getElementById('error-text');
+            screen.style.display = "flex";
+            txt.innerHTML = "FALTA ARCHIVO:<br><b style='color:white'>" + nombreBase + ".jpg</b>";
             img.onerror = null;
         }
     }
@@ -175,28 +173,29 @@
         const msj = inpt.value.toLowerCase().trim();
         if(!msj) return;
 
-        document.getElementById('logs-chat').innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${inpt.value}</div>`;
+        document.getElementById('logs-chat').innerHTML += `<div style="text-align:right; margin-bottom:12px; color:var(--oro)"><b>Tú:</b> ${inpt.value}</div>`;
         
         setTimeout(() => {
             let r = respuestas["default"];
             for(let k in respuestas) { if(msj.includes(k)) { r = respuestas[k]; break; } }
             const girls = ["MIA", "TANIA", "COLO"];
-            mensajeIA(girls[Math.floor(Math.random() * 3)], r);
+            iaResponde(girls[Math.floor(Math.random() * 3)], r);
         }, 800);
         
         inpt.value = "";
-        document.getElementById('logs-chat').scrollTop = document.getElementById('logs-chat').scrollHeight;
+        const logs = document.getElementById('logs-chat');
+        logs.scrollTop = logs.scrollHeight;
     }
 
-    function mensajeIA(n, m) {
+    function iaResponde(n, m) {
         const logs = document.getElementById('logs-chat');
         const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        logs.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
+        logs.innerHTML += `<div style="margin-bottom:12px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
         logs.scrollTop = logs.scrollHeight;
     }
 
     function subir(id) {
-        const url = prompt("Enlace de la foto:");
+        const url = prompt("Link de la foto:");
         if(url) document.getElementById(id).innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
