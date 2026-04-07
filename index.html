@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v128</title>
+    <title>MEGA RED VIP | IMPERIO v129</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -14,50 +14,67 @@
             align-items: center; gap: 10px; padding: 15px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 260px;
         }
-        .sponsor { height: 180px; border: 3px solid var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--oro); font-size: 14px; text-align: center; background: rgba(15,15,15,0.9); box-shadow: 0 0 10px rgba(212,175,55,0.2); }
-        .logo-v128 { width: 100%; max-height: 230px; object-fit: contain; }
+        .sponsor { height: 180px; border: 3px solid var(--oro); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: var(--oro); font-size: 14px; text-align: center; background: rgba(15,15,15,0.9); }
+        .logo-v129 { width: 100%; max-height: 230px; object-fit: contain; }
         .coin { width: 55px; height: 55px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 900; cursor: pointer; border: 3px solid white; }
 
-        /* SALAS */
+        /* SALAS CON CARGADOR INTELIGENTE */
         .salas-box { display: grid; grid-template-columns: 220px 1fr; gap: 10px; padding: 10px; height: 480px; }
         .grid-v { display: flex; flex-direction: column; gap: 2px; background: #0a0a0a; border: 2px solid #333; padding: 5px; border-radius: 10px; }
         .btn-s { flex: 1; padding: 0 10px; background: #111; border: 1px solid #444; color: #777; cursor: pointer; font-size: 10px; border-radius: 5px; display: flex; align-items: center; justify-content: space-between; }
         .btn-s.active { background: var(--n-rojo); color: white; border-color: white; }
         .visor-marco { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
         #webcam-img { width: 100%; height: 100%; object-fit: cover; }
+        .debug-text { position: absolute; bottom: 10px; right: 10px; font-size: 10px; color: #333; }
 
-        /* BOTS Y CHAT */
-        .interactiva { display: grid; grid-template-columns: repeat(3, 1fr) 450px; height: 350px; border-bottom: 5px solid var(--n-rojo); }
+        /* BOTS: AJUSTE DE ENCUADRE Y QUITAR SOMBRAS */
+        .interactiva { display: grid; grid-template-columns: repeat(3, 1fr) 450px; height: 380px; border-bottom: 5px solid var(--n-rojo); }
         .bot-frame { position: relative; background: #000; overflow: hidden; border-right: 1px solid #111; }
-        .bot-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85) contrast(1.1); }
-        .tag-name { position: absolute; bottom: 0; width: 100%; background: linear-gradient(0deg, black 80%, transparent); text-align: center; padding: 10px; font-size: 18px; font-weight: 900; }
+        
+        /* La Colo y las demás ahora se ven enteras sin cortes raros */
+        .bot-frame img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; /* Cambiado a contain para asegurar que se vea el cuerpo entero */
+            background: #000;
+            filter: brightness(0.9) contrast(1.1); 
+        }
+        
+        /* Nombres sin fondo negro (Sombra de texto para legibilidad) */
+        .tag-name { 
+            position: absolute; bottom: 15px; width: 100%; 
+            text-align: center; font-size: 22px; font-weight: 900; 
+            text-shadow: 2px 2px 4px #000, -2px -2px 4px #000; /* Sombra al texto, no al bloque */
+            background: transparent !important; 
+        }
 
         .chat-ai { background: #080808; border-left: 4px solid var(--n-rojo); display: flex; flex-direction: column; }
         #logs-chat { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; color: #eee; }
         .in-chat { padding: 10px; background: #111; display: flex; gap: 8px; }
         #user-input { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; outline: none; }
 
-        /* PUERTAS VIP (RESTAURADAS) */
+        /* PUERTAS VIP */
         .puertas-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px; background: #000; }
         .p-card { background: #0a0a0a; border: 2px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
-        .p-preview { height: 120px; background: #111; border-radius: 10px; margin: 10px 0; border: 1px dashed #444; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .p-preview { height: 120px; background: #111; border-radius: 10px; margin: 10px 0; border: 1px dashed #444; overflow: hidden; }
         .p-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .btn-subir { width: 100%; padding: 10px; border: none; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body onload="startApp()">
 
 <header>
-    <div class="sponsor">ESPACIO<br>AUSPICIANTE</div>
+    <div class="sponsor">ESPACIO<br>PUBLICITARIO</div>
     <div style="display:flex; flex-direction:column; gap:5px;"><div class="coin" onclick="pago(1)">$1</div><div class="coin" onclick="pago(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v128">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v129">
     <div style="display:flex; flex-direction:column; gap:5px;"><div class="coin" onclick="pago(10)">$10</div><div class="coin" onclick="pago(20)">$20</div></div>
     <div class="sponsor">ANÚNCIATE<br>AQUÍ</div>
 </header>
 
 <div class="salas-box">
     <div class="grid-v" id="menu-salas"></div>
-    <div class="visor-marco"><img id="webcam-img" src=""></div>
+    <div class="visor-marco">
+        <img id="webcam-img" src="" onerror="fallbackImage(this)">
+        <div id="debug" class="debug-text"></div>
+    </div>
 </div>
 
 <div class="interactiva">
@@ -68,38 +85,25 @@
         <div id="logs-chat"></div>
         <div class="in-chat">
             <input type="text" id="user-input" placeholder="Pregúntales algo..." onkeypress="if(event.key==='Enter') procesarChat()">
-            <button onclick="procesarChat()" style="background:var(--n-rojo); border:none; color:white; padding:0 10px; border-radius:5px; cursor:pointer; font-weight:bold;">OK</button>
+            <button onclick="procesarChat()" style="background:var(--n-rojo); border:none; color:white; padding:0 10px; border-radius:5px; cursor:pointer;">OK</button>
         </div>
     </div>
 </div>
 
 <div class="puertas-vip">
-    <div class="p-card">
-        <h4 style="color:var(--n-rosa)">HISTORIAS</h4>
-        <div class="p-preview" id="h-historia"><span>VACÍO</span></div>
-        <button class="btn-subir" style="background:var(--n-rosa)" onclick="subir('h-historia')">SUBIR</button>
-    </div>
-    <div class="p-card">
-        <h4 style="color:var(--n-azul)">ESTADOS</h4>
-        <div class="p-preview" id="h-estado"><span>VACÍO</span></div>
-        <button class="btn-subir" style="background:var(--n-azul)" onclick="subir('h-estado')">SUBIR</button>
-    </div>
-    <div class="p-card">
-        <h4 style="color:var(--n-rojo)">VIDEOS</h4>
-        <div class="p-preview" id="h-video"><span>VACÍO</span></div>
-        <button class="btn-subir" style="background:var(--n-rojo)" onclick="subir('h-video')">SUBIR</button>
-    </div>
+    <div class="p-card"><h4 style="color:var(--n-rosa)">HISTORIAS</h4><div class="p-preview" id="h-historia"></div><button onclick="subir('h-historia')">SUBIR</button></div>
+    <div class="p-card"><h4 style="color:var(--n-azul)">ESTADOS</h4><div class="p-preview" id="h-estado"></div><button onclick="subir('h-estado')">SUBIR</button></div>
+    <div class="p-card"><h4 style="color:var(--n-rojo)">VIDEOS</h4><div class="p-preview" id="h-video"></div><button onclick="subir('h-video')">SUBIR</button></div>
 </div>
 
 <script>
     const listaSalas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
     
-    const respuestas = {
-        "hola": "¡Hola bombón! ¿Vienes a jugar con nosotras?",
-        "estas": "Muy bien, pero me falta alguien como tú para divertirme...",
-        "haces": "Mirando quién entra al Imperio... ¿Te gusta lo que ves?",
-        "linda": "Gracias amor... las monedas de oro me ponen más cariñosa.",
-        "default": "Me gusta que me hables... pero para más detalles necesito una monedita."
+    const respuestasIA = {
+        "hola": "¡Hola bombón! ¿Viniste a buscarme?",
+        "como estas": "Muy bien, pero me faltan tus monedas para estar mejor... 😉",
+        "haces": "Esperándote acá sentada... ¿Te gusta lo que ves?",
+        "default": "Me encanta que me hables así, pero sigo esperando mi regalito..."
     };
 
     function startApp() {
@@ -112,42 +116,67 @@
             menu.appendChild(b);
         });
         cargarSala(0);
-        iaHabla("TANIA", "Hola guapo, soy Tania. ¿En qué sala nos vemos hoy?");
+        mensaje("TANIA", "¡Hola! Soy Tania. Mis amigas y yo estamos listas. ¿Qué sala quieres ver primero?");
     }
 
+    // CARGADOR DE SALAS: Intenta 3 variantes de nombre de archivo
     function cargarSala(i) {
         document.querySelectorAll('.btn-s').forEach(x => x.classList.remove('active'));
         document.getElementById('s-'+i).classList.add('active');
-        document.getElementById('webcam-img').src = listaSalas[i] + ".jpg";
+        const img = document.getElementById('webcam-img');
+        const nombreBase = listaSalas[i];
+        
+        img.src = nombreBase + ".jpg"; // Intento 1: "EL BAR.jpg"
+        img.dataset.step = "1";
+        document.getElementById('debug').innerText = "Buscando: " + nombreBase + ".jpg";
+    }
+
+    function fallbackImage(img) {
+        const i = document.querySelector('.btn-s.active').id.split('-')[1];
+        const nombreBase = listaSalas[i];
+        let step = parseInt(img.dataset.step);
+
+        if(step === 1) {
+            img.src = nombreBase.replace(/\s/g, "") + ".jpg"; // Intento 2: "ELBAR.jpg"
+            img.dataset.step = "2";
+            document.getElementById('debug').innerText = "Buscando: " + img.src;
+        } else if(step === 2) {
+            img.src = nombreBase.toLowerCase() + ".jpg"; // Intento 3: "el bar.jpg"
+            img.dataset.step = "3";
+            document.getElementById('debug').innerText = "Buscando: " + img.src;
+        } else {
+            document.getElementById('debug').innerText = "ERROR: No se encontró " + nombreBase;
+            img.onerror = null;
+        }
     }
 
     function procesarChat() {
-        const inpt = document.getElementById('user-input');
-        const msj = inpt.value.toLowerCase().trim();
+        const input = document.getElementById('user-input');
+        const msj = input.value.toLowerCase();
         if(!msj) return;
 
-        document.getElementById('logs-chat').innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${inpt.value}</div>`;
+        document.getElementById('logs-chat').innerHTML += `<div style="text-align:right; margin-bottom:10px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
         
         setTimeout(() => {
-            let r = respuestas["default"];
-            for(let k in respuestas) { if(msj.includes(k)) { r = respuestas[k]; break; } }
-            const chicas = ["MIA", "TANIA", "COLO"];
-            iaHabla(chicas[Math.floor(Math.random() * 3)], r);
-        }, 1000);
+            let r = respuestasIA["default"];
+            for(let k in respuestasIA) { if(msj.includes(k)) { r = respuestasIA[k]; break; } }
+            const girls = ["MIA", "TANIA", "COLO"];
+            mensaje(girls[Math.floor(Math.random() * 3)], r);
+        }, 800);
         
-        inpt.value = "";
+        input.value = "";
         document.getElementById('logs-chat').scrollTop = document.getElementById('logs-chat').scrollHeight;
     }
 
-    function iaHabla(n, m) {
+    function mensaje(n, m) {
         const logs = document.getElementById('logs-chat');
-        const color = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        logs.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${color}">${n}:</b> ${m}</div>`;
+        const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
+        logs.innerHTML += `<div style="margin-bottom:10px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
         logs.scrollTop = logs.scrollHeight;
     }
 
     function subir(id) {
-        const url = prompt("Pega el link de la imagen:");
+        const url = prompt("Enlace de la imagen:");
         if(url) document.getElementById(id).innerHTML = `<img src="${url}">`;
     }
 
