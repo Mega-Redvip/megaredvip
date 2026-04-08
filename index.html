@@ -2,187 +2,193 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v137</title>
+    <title>MEGA RED VIP | IMPERIO v138 PRO</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
         /* HEADER MONUMENTAL */
         header { 
-            display: grid; grid-template-columns: 1fr 120px 250px 120px 1fr; 
+            display: grid; grid-template-columns: 300px 120px 250px 120px 300px; 
             align-items: center; gap: 20px; padding: 20px;
             background: #050505; border-bottom: 8px solid var(--n-rojo); height: 350px;
         }
-        .vibrant-ad { 
-            height: 250px; border: 5px solid var(--n-rojo); border-radius: 20px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 20px; text-align: center;
-            box-shadow: 0 0 20px var(--n-rojo);
-        }
-        /* LOGO FIJO A 250PX */
-        .logo-v137 { height: 250px; width: 250px; object-fit: contain; filter: drop-shadow(0 0 30px var(--n-rojo)); }
-        .coin { width: 85px; height: 85px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; border: 4px solid white; box-shadow: 0 0 20px var(--oro); cursor: pointer; }
+        .ads { height: 250px; border: 5px solid var(--n-rojo); border-radius: 20px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 20px; animation: glow 2s infinite alternate; }
+        @keyframes glow { from { box-shadow: 0 0 10px var(--n-rojo); } to { box-shadow: 0 0 30px var(--oro); } }
+        .logo-img { height: 250px; width: 250px; object-fit: contain; filter: drop-shadow(0 0 25px var(--n-rojo)); }
+        .coin-btn { width: 90px; height: 90px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; border: 5px solid white; cursor: pointer; }
 
-        /* SECCIÓN SALAS */
-        .seccion-salas { display: grid; grid-template-columns: 300px 1fr; gap: 20px; padding: 20px; height: 600px; }
-        .panel-salas { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; background: #0a0a0a; padding: 15px; border: 2px solid #333; border-radius: 15px; }
-        .btn-sala { padding: 15px; background: #151515; border: 1px solid #444; color: #888; cursor: pointer; border-radius: 8px; font-size: 14px; }
-        .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 15px var(--n-rojo); }
+        /* SECCIÓN SUPERIOR: SALAS Y VISOR */
+        .seccion-webcam { display: grid; grid-template-columns: 300px 1fr; gap: 0; height: 550px; background: #080808; border-bottom: 8px solid var(--n-rojo); }
+        .lista-salas { overflow-y: scroll; display: flex; flex-direction: column; background: #000; border-right: 2px solid #333; }
+        .sala-item { padding: 20px; border-bottom: 1px solid #222; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #666; transition: 0.3s; }
+        .sala-item.active { background: var(--n-rojo); color: white; }
+        .sala-item:hover { background: #1a1a1a; }
 
-        .visor-marco { border: 10px solid var(--n-rojo); border-radius: 30px; background: #000; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
-        #webcam-img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .error-msg { position: absolute; text-align: center; color: var(--n-rojo); font-size: 18px; padding: 20px; border: 2px dashed var(--n-rojo); }
+        .visor-box { background: #000; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #webcam-view { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .error-overlay { position: absolute; text-align: center; }
 
-        /* SECCIÓN 50/50: GIGANTE (ALTURA 1000PX) */
-        .seccion-gigante { 
-            display: grid; grid-template-columns: 50% 50%; 
-            height: 1000px; /* DUPLICADO EL ALTO */
-            border-top: 8px solid var(--n-rojo); border-bottom: 8px solid var(--n-rojo);
-        }
+        /* SECCIÓN CENTRAL: 50/50 SIMETRÍA BLOQUEADA */
+        .seccion-interactiva { display: grid; grid-template-columns: 50% 50%; height: 800px; }
 
-        /* BOTS CUERPO COMPLETO */
-        .bots-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; border-right: 4px solid var(--n-rojo); }
-        .bot-col { position: relative; height: 100%; overflow: hidden; border-right: 2px solid #111; display: flex; align-items: center; justify-content: center; background: #050505; }
-        .bot-col img { width: 100%; height: 100%; object-fit: contain; }
-        .tag-nombre { position: absolute; bottom: 40px; width: 100%; text-align: center; font-size: 35px; font-weight: 900; text-shadow: 0 0 20px #000; }
+        /* BOTS: Mismo tamaño exacto las tres */
+        .bots-container { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; border-right: 4px solid var(--n-rojo); }
+        .bot-frame { position: relative; height: 800px; overflow: hidden; border-right: 1px solid #222; }
+        .bot-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .bot-name { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 30px; font-weight: 900; text-shadow: 2px 2px 10px #000; }
 
-        /* CHAT SIMÉTRICO */
-        .chat-container { display: flex; flex-direction: column; background: #080808; height: 100%; }
-        #logs { flex-grow: 1; padding: 30px; overflow-y: auto; font-size: 18px; color: #eee; }
-        .input-area { padding: 30px; background: #111; display: flex; gap: 15px; border-top: 2px solid #222; }
-        #msg { flex-grow: 1; background: #000; border: 3px solid var(--n-rojo); color: white; padding: 20px; border-radius: 12px; font-size: 18px; outline: none; }
+        /* CHAT: Altura bloqueada a 800px */
+        .chat-container { display: flex; flex-direction: column; height: 800px; background: #0a0a0a; }
+        #chat-window { flex-grow: 1; padding: 30px; overflow-y: auto; font-size: 16px; border-bottom: 2px solid #222; }
+        .chat-input-zone { padding: 25px; background: #111; display: flex; gap: 10px; }
+        #msg-input { flex-grow: 1; background: #000; border: 3px solid var(--n-rojo); color: white; padding: 15px; border-radius: 10px; font-size: 16px; outline: none; }
 
-        /* PUERTAS FINALES */
-        .footer-puertas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 40px; background: #000; }
-        .btn-puerta { width: 100%; padding: 25px; border: none; border-radius: 20px; color: white; font-weight: 900; font-size: 20px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .p-h { background: var(--n-rosa); box-shadow: 0 0 20px var(--n-rosa); }
-        .p-e { background: var(--n-azul); box-shadow: 0 0 20px var(--n-azul); }
-        .p-v { background: var(--n-rojo); box-shadow: 0 0 20px var(--n-rojo); }
+        /* FOOTER: PUERTAS CON CARGADORES */
+        .footer-puertas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px; background: #050505; border-top: 8px solid var(--n-rojo); }
+        .puerta-box { background: #000; border: 2px solid #333; border-radius: 20px; padding: 20px; text-align: center; }
+        .upload-preview { height: 150px; background: #0a0a0a; border: 2px dashed #444; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .upload-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-action { width: 100%; padding: 20px; border: none; border-radius: 10px; color: white; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; }
+        .b-h { background: var(--n-rosa); box-shadow: 0 0 20px var(--n-rosa); }
+        .b-e { background: var(--n-azul); box-shadow: 0 0 20px var(--n-azul); }
+        .b-v { background: var(--n-rojo); box-shadow: 0 0 20px var(--n-rojo); }
     </style>
 </head>
-<body onload="boot()">
+<body onload="initImperio()">
 
 <header>
-    <div class="vibrant-ad">AUSPICIANTE<br>GOLD</div>
-    <div style="display:flex; flex-direction:column; gap:15px;"><div class="coin" onclick="pago(1)">$1</div><div class="coin" onclick="pago(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v137">
-    <div style="display:flex; flex-direction:column; gap:15px;"><div class="coin" onclick="pago(10)">$10</div><div class="coin" onclick="pago(20)">$20</div></div>
-    <div class="vibrant-ad">ANÚNCIATE<br>AQUÍ</div>
+    <div class="ads">TU PUBLICIDAD<br>AQUÍ</div>
+    <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin-btn" onclick="pay(1)">$1</div><div class="coin-btn" onclick="pay(5)">$5</div></div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-img">
+    <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin-btn" onclick="pay(10)">$10</div><div class="coin-btn" onclick="pay(20)">$20</div></div>
+    <div class="ads">ESPACIO<br>AUSPICIANTE</div>
 </header>
 
-<div class="seccion-salas">
-    <div class="panel-salas" id="lista-salas"></div>
-    <div class="visor-marco">
-        <div id="status" class="error-msg">CONECTANDO AL IMPERIO...</div>
-        <img id="webcam-img" src="" onerror="intentarRutaAlternativa(this)">
+<div class="seccion-webcam">
+    <div class="lista-salas" id="menu-salas"></div>
+    <div class="visor-box">
+        <div id="status-error" class="error-overlay">
+            <h2 style="color:var(--n-rojo)">CÁMARA OFFLINE</h2>
+            <p id="archivo-nombre" style="color:#555"></p>
+        </div>
+        <img id="webcam-view" src="" onerror="retryImage(this)">
     </div>
 </div>
 
-<div class="seccion-gigante">
-    <div class="bots-grid">
-        <div class="bot-col"><img src="Rubia.jpg"><div class="tag-nombre" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="bot-col"><img src="Morocha.jpg"><div class="tag-nombre" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="bot-col"><img src="Pelirroja.jpg"><div class="tag-nombre" style="color:var(--n-rojo)">COLO</div></div>
+<div class="seccion-interactiva">
+    <div class="bots-container">
+        <div class="bot-frame"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-frame"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-frame"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
     </div>
     <div class="chat-container">
-        <div id="logs"></div>
-        <div class="input-area">
-            <input type="text" id="msg" placeholder="Habla con las chicas..." onkeypress="if(event.key==='Enter') chatear()">
-            <button onclick="chatear()" style="background:var(--n-rojo); color:white; border:none; padding:0 30px; border-radius:12px; cursor:pointer; font-weight:bold; font-size:18px;">ENVIAR</button>
+        <div id="chat-window"></div>
+        <div class="chat-input-zone">
+            <input type="text" id="msg-input" placeholder="Escribe a las chicas..." onkeypress="if(event.key==='Enter') sendMsg()">
+            <button onclick="sendMsg()" style="background:var(--n-rojo); color:white; border:none; padding:0 30px; border-radius:10px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
 <div class="footer-puertas">
-    <button class="btn-puerta p-h" onclick="subir()">HISTORIAS</button>
-    <button class="btn-puerta p-e" onclick="subir()">ESTADOS</button>
-    <button class="btn-puerta p-v" onclick="subir()">VIDEOS</button>
+    <div class="puerta-box">
+        <div class="upload-preview" id="pre-h">HISTORIA</div>
+        <button class="btn-action b-h" onclick="upload('pre-h')">Subir Historias</button>
+    </div>
+    <div class="puerta-box">
+        <div class="upload-preview" id="pre-e">ESTADO</div>
+        <button class="btn-action b-e" onclick="upload('pre-e')">Subir Estado</button>
+    </div>
+    <div class="puerta-box">
+        <div class="upload-preview" id="pre-v">VIDEO</div>
+        <button class="btn-action b-v" onclick="upload('pre-v')">Subir Video</button>
+    </div>
 </div>
 
 <script>
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
-    let salaActual = 0;
+    let indexActual = 0;
 
-    function boot() {
-        const menu = document.getElementById('lista-salas');
+    function initImperio() {
+        const menu = document.getElementById('menu-salas');
         salas.forEach((s, i) => {
-            let b = document.createElement('div');
-            b.className = 'btn-sala'; b.id = 's-'+i;
-            b.innerHTML = `<b>${s}</b> <span style="float:right; color:lime">●</span>`;
-            b.onclick = () => verSala(i);
-            menu.appendChild(b);
+            let div = document.createElement('div');
+            div.className = 'sala-item'; div.id = 'sala-'+i;
+            div.innerHTML = `<b>${s}</b> <span style="color:lime; font-size:10px;">● LIVE</span>`;
+            div.onclick = () => verSala(i);
+            menu.appendChild(div);
         });
         verSala(0);
-        setInterval(() => { 
-            salaActual = (salaActual + 1) % salas.length;
-            verSala(salaActual);
+        setInterval(() => {
+            indexActual = (indexActual + 1) % salas.length;
+            verSala(indexActual);
         }, 6000);
-        hablar("TANIA", "¡Bienvenidos al Imperio! Todo está más grande y mejorado. ¿Qué sala quieres ver?");
+        botChat("TANIA", "¡Hola! He restaurado todo el sistema. Mira las fotos y las salas, ahora todo mide lo mismo.");
     }
 
     function verSala(i) {
-        salaActual = i;
-        document.querySelectorAll('.btn-sala').forEach(x => x.classList.remove('active'));
-        document.getElementById('s-'+i).classList.add('active');
+        indexActual = i;
+        document.querySelectorAll('.sala-item').forEach(x => x.classList.remove('active'));
+        document.getElementById('sala-'+i).classList.add('active');
         
-        const img = document.getElementById('webcam-img');
-        const st = document.getElementById('status');
+        const img = document.getElementById('webcam-view');
+        const err = document.getElementById('status-error');
+        const txt = document.getElementById('archivo-nombre');
         
         img.style.display = "none";
-        st.style.display = "block";
-        st.innerHTML = "CARGANDO SALA: " + salas[i];
+        err.style.display = "block";
+        txt.innerText = "Buscando: " + salas[i] + ".jpg";
         
-        // El navegador intentará cargar el archivo con el nombre exacto
-        img.dataset.intento = "0";
+        img.dataset.retry = "0";
         img.src = salas[i] + ".jpg";
     }
 
-    function intentarRutaAlternativa(img) {
-        let intento = parseInt(img.dataset.intento);
-        const nombreBase = salas[salaActual];
-        
-        if (intento === 0) {
-            img.dataset.intento = "1";
-            img.src = nombreBase.replace(/\s/g, "") + ".jpg"; // Sin espacios: SPA.jpg
-        } else if (intento === 1) {
-            img.dataset.intento = "2";
-            img.src = nombreBase.toLowerCase() + ".jpg"; // Minúsculas: spa.jpg
-        } else {
-            const st = document.getElementById('status');
-            st.innerHTML = `<span style="color:red">ERROR</span><br>Falta el archivo:<br><b>${nombreBase}.jpg</b>`;
+    function retryImage(img) {
+        let r = parseInt(img.dataset.retry);
+        const base = salas[indexActual];
+        if(r === 0) { img.dataset.retry = "1"; img.src = base.replace(/\s/g, "") + ".jpg"; }
+        else if(r === 1) { img.dataset.retry = "2"; img.src = base.toLowerCase() + ".jpg"; }
+        else {
+            document.getElementById('archivo-nombre').innerHTML = `<b style="color:white">ARCHIVO FALTANTE:</b><br>${base}.jpg`;
         }
     }
 
-    // El evento onload de la imagen para mostrarla si carga bien
-    document.getElementById('webcam-img').onload = function() {
+    document.getElementById('webcam-view').onload = function() {
         this.style.display = "block";
-        document.getElementById('status').style.display = "none";
+        document.getElementById('status-error').style.display = "none";
     };
 
-    function chatear() {
-        const input = document.getElementById('msg');
-        if(!input.value.trim()) return;
-        document.getElementById('logs').innerHTML += `<div style="text-align:right; margin-bottom:20px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
-        
+    function sendMsg() {
+        const inpt = document.getElementById('msg-input');
+        if(!inpt.value.trim()) return;
+        document.getElementById('chat-window').innerHTML += `<div style="text-align:right; margin-bottom:15px; color:var(--oro)"><b>Tú:</b> ${inpt.value}</div>`;
         setTimeout(() => {
-            const girls = ["MIA", "TANIA", "COLO"];
-            hablar(girls[Math.floor(Math.random()*3)], "¡Hola guapo! ¿Te gusta nuestra nueva altura?");
+            const chicas = ["MIA", "TANIA", "COLO"];
+            botChat(chicas[Math.floor(Math.random()*3)], "¡Me encanta hablar contigo! ¿Viste mi foto de cuerpo completo?");
         }, 1000);
-        
-        input.value = "";
-        document.getElementById('logs').scrollTop = document.getElementById('logs').scrollHeight;
+        inpt.value = "";
+        const win = document.getElementById('chat-window');
+        win.scrollTop = win.scrollHeight;
     }
 
-    function hablar(n, m) {
-        const logs = document.getElementById('logs');
-        const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        logs.innerHTML += `<div style="margin-bottom:20px;"><b style="color:${c}">${n}:</b> ${m}</div>`;
-        logs.scrollTop = logs.scrollHeight;
+    function botChat(n, m) {
+        const win = document.getElementById('chat-window');
+        const color = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
+        win.innerHTML += `<div style="margin-bottom:15px;"><b style="color:${color}">${n}:</b> ${m}</div>`;
+        win.scrollTop = win.scrollHeight;
     }
 
-    function subir() { alert("Subida rápida habilitada."); }
-    function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
+    function upload(id) {
+        const url = prompt("Escribe el nombre de tu archivo (ej: video1.mp4) o pega un link:");
+        if(url) {
+            document.getElementById(id).innerHTML = `<img src="${url}">`;
+            alert("Contenido cargado en la previsualización.");
+        }
+    }
+
+    function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
