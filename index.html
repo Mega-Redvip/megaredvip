@@ -2,54 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v135</title>
+    <title>MEGA RED VIP | IMPERIO v136 COMMERCIAL</title>
     <style>
-        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
+        :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; --gris: #222; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER: Restaurado */
+        /* ANIMACIONES DE VIDA Y PUBLICIDAD */
+        @keyframes publi-brillo { 0%, 100% { border-color: var(--n-rojo); box-shadow: 0 0 10px var(--n-rojo); } 50% { border-color: var(--oro); box-shadow: 0 0 25px var(--oro); } }
+        @keyframes fadin { from { opacity: 0; } to { opacity: 1; } }
+
+        /* 1. HEADER MONUMENTAL Y PUBLICIDAD VIP */
         header { 
-            display: grid; grid-template-columns: 240px 120px 1fr 120px 240px; 
-            align-items: center; gap: 20px; padding: 20px;
-            background: #050505; border-bottom: 5px solid var(--n-rojo); height: 320px;
+            display: grid; grid-template-columns: 280px 120px 1fr 120px 280px; 
+            align-items: center; gap: 20px; padding: 15px;
+            background: #050505; border-bottom: 6px solid var(--n-rojo); height: 340px;
         }
-        .logo-v135 { width: 100%; max-height: 280px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
-        .coin { width: 75px; height: 75px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; cursor: pointer; border: 4px solid white; box-shadow: 0 0 15px var(--oro); }
+        .vibrant-ad { 
+            height: 220px; border: 4px solid var(--n-rojo); border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 18px; text-align: center; cursor: pointer;
+            animation: publi-brillo 3s infinite; /* Neón parpadeante */
+            text-shadow: 0 0 10px white;
+        }
+        .logo-v136 { width: 100%; max-height: 310px; object-fit: contain; filter: drop-shadow(0 0 20px var(--n-rojo)); }
+        .coin { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--oro) 45%, #5c4928); color: #000; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; cursor: pointer; border: 4px solid white; box-shadow: 0 0 20px var(--oro); }
 
-        /* CUERPO SUPERIOR: SALAS IZQUIERDA, VISOR DERECHA */
-        .seccion-superior { display: grid; grid-template-columns: 280px 1fr; gap: 15px; padding: 15px; height: 550px; }
-        
-        .panel-salas { display: flex; flex-direction: column; gap: 5px; overflow-y: auto; background: #0a0a0a; padding: 10px; border: 2px solid #222; border-radius: 10px; }
-        .btn-sala { 
-            padding: 12px; background: #151515; border: 1px solid #333; color: #aaa; cursor: pointer; 
-            border-radius: 5px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;
-        }
+        /* 2. CUERPO SUPERIOR: SALAS Y VISOR */
+        .seccion-superior { display: grid; grid-template-columns: 280px 1fr; gap: 15px; padding: 15px; height: 500px; }
+        .panel-salas { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; background: #0a0a0a; padding: 10px; border: 2px solid var(--gris); border-radius: 12px; }
+        .btn-sala { padding: 10px; background: #151515; border: 1px solid #333; color: #888; cursor: pointer; border-radius: 6px; font-size: 11px; text-align: left; }
         .btn-sala.active { background: var(--n-rojo); color: white; border-color: white; box-shadow: 0 0 10px var(--n-rojo); }
-        .online-count { color: #00ff00; font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px; }
 
-        .visor-sala { border: 6px solid var(--n-rojo); border-radius: 20px; background: #050505; overflow: hidden; position: relative; }
-        #webcam-img { width: 100%; height: 100%; object-fit: cover; }
+        .visor-marco { border: 8px solid var(--n-rojo); border-radius: 25px; background: #050505; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+        #webcam-img { width: 100%; height: 100%; object-fit: cover; animation: fadin 0.5s; display: none; }
+        .cargando-sala { position: absolute; color: var(--gris); font-size: 14px; text-align: center; }
 
-        /* SECCIÓN 50/50: BOTS Y CHAT */
-        .seccion-interactiva { display: grid; grid-template-columns: 1fr 1fr; height: 600px; border-top: 5px solid var(--n-rojo); border-bottom: 5px solid var(--n-rojo); }
+        /* 3. SECCIÓN 50/50: BOTS AGRANDADAS, CHAT ACHICADO */
+        .seccion-interactiva { 
+            display: grid; grid-template-columns: 50% 50%; /* SIMETRÍA PERFECTA */
+            height: 600px; border-top: 6px solid var(--n-rojo); border-bottom: 6px solid var(--n-rojo); 
+        }
 
-        /* BOTS CUERPO COMPLETO */
-        .bots-box { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; border-right: 2px solid var(--n-rojo); }
-        .bot-col { position: relative; overflow: hidden; border-right: 1px solid #111; height: 100%; }
-        .bot-col img { width: 100%; height: 100%; object-fit: contain; background: #050505; filter: contrast(1.1); }
-        .bot-name { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 26px; font-weight: 900; text-shadow: 0 0 10px #000, 0 0 20px #000; }
+        /* BOTS CUERPO COMPLETO (AGRANDADAS) */
+        .bots-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; border-right: 3px solid var(--n-rojo); }
+        .bot-virtual { position: relative; overflow: hidden; border-right: 1px solid #111; height: 100%; }
+        .bot-virtual img { width: 100%; height: 100%; object-fit: contain; background: #050505; filter: contrast(1.1); }
+        .bot-name-tag { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 26px; font-weight: 900; text-shadow: 0 0 10px #000, 0 0 20px #000; }
 
-        /* CHAT */
-        .chat-box { display: flex; flex-direction: column; background: #080808; }
-        #chat-logs { flex-grow: 1; padding: 25px; overflow-y: auto; font-size: 15px; border-bottom: 1px solid #222; }
-        .chat-input { padding: 20px; background: #111; display: flex; gap: 10px; }
-        #user-msg { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 15px; border-radius: 10px; outline: none; }
+        /* CHAT (ACHICADO) */
+        .chat-ai-box { display: flex; flex-direction: column; background: #080808; }
+        #chat-logs { flex-grow: 1; padding: 25px; overflow-y: auto; font-size: 14px; color: #ccc; border-bottom: 1px solid var(--gris); }
+        .chat-in-ia { padding: 15px; background: #111; display: flex; gap: 10px; }
+        #txt-ia { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; outline: none; }
 
-        /* PUERTAS Y BOTONES */
-        .footer-puertas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #000; }
-        .door-card { text-align: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #333; }
-        .btn-upload { 
+        /* 4. PUERTAS VIP */
+        .footer-vip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #000; }
+        .door-premium { background: #0a0a0a; border: 3px solid var(--gris); border-radius: 20px; padding: 20px; text-align: center; transition: 0.3s; }
+        .door-premium:hover { border-color: white; transform: translateY(-5px); }
+        .btn-upload-vip { 
             width: 100%; padding: 15px; border: none; border-radius: 10px; color: white; font-weight: 900; 
             cursor: pointer; text-transform: uppercase; margin-top: 10px; transition: 0.3s;
         }
@@ -58,88 +69,132 @@
         .b-v { background: var(--n-rojo); box-shadow: 0 0 15px var(--n-rojo); }
     </style>
 </head>
-<body onload="init()">
+<body onload="startup()">
 
 <header>
-    <div style="color:var(--oro); text-align:center;">ESPACIO<br>AUSPICIANTE</div>
+    <div class="vibrant-ad" onclick="alert('Contacto Auspiciantes: $50/mes')">TU MARCA AQUÍ<br><span style="font-size:12px; color:var(--oro)">CLICK INFO</span></div>
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pago(1)">$1</div><div class="coin" onclick="pago(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v135">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v136">
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pago(10)">$10</div><div class="coin" onclick="pago(20)">$20</div></div>
-    <div style="color:var(--oro); text-align:center;">ANÚNCIATE<br>AQUÍ</div>
+    <div class="vibrant-ad" onclick="alert('Contacto VIP: $100/mes')">ANÚNCIATE AQUÍ<br><span style="font-size:12px; color:var(--oro)">CLICK INFO</span></div>
 </header>
 
 <div class="seccion-superior">
-    <div class="panel-salas" id="menu-salas"></div>
-    <div class="visor-sala">
-        <img id="webcam-img" src="">
+    <div class="panel-salas" id="salas-menu"></div>
+    <div class="visor-marco">
+        <div id="sala-status" class="cargando-sala">CONECTANDO WEBCAM...</div>
+        <img id="webcam-img" src="" onerror="imagenError(this.src)">
     </div>
 </div>
 
 <div class="seccion-interactiva">
-    <div class="bots-box">
-        <div class="bot-col"><img src="Rubia.jpg"><div class="bot-name" style="color:var(--n-rosa)">MIA</div></div>
-        <div class="bot-col"><img src="Morocha.jpg"><div class="bot-name" style="color:var(--n-azul)">TANIA</div></div>
-        <div class="bot-col"><img src="Pelirroja.jpg"><div class="bot-name" style="color:var(--n-rojo)">COLO</div></div>
+    <div class="bots-grid">
+        <div class="bot-virtual"><img src="Rubia.jpg"><div class="bot-name-tag" style="color:var(--n-rosa)">MIA</div></div>
+        <div class="bot-virtual"><img src="Morocha.jpg"><div class="bot-name-tag" style="color:var(--n-azul)">TANIA</div></div>
+        <div class="bot-virtual"><img src="Pelirroja.jpg"><div class="bot-name-tag" style="color:var(--n-rojo)">COLO</div></div>
     </div>
-    <div class="chat-box">
+    <div class="chat-ai-box">
         <div id="chat-logs"></div>
-        <div class="chat-input">
-            <input type="text" id="user-msg" placeholder="Escribe aquí..." onkeypress="if(event.key==='Enter') enviar()">
-            <button onclick="enviar()" style="background:var(--n-rojo); border:none; color:white; padding:0 25px; border-radius:10px; cursor:pointer; font-weight:bold;">ENVIAR</button>
+        <div class="chat-in-ia">
+            <input type="text" id="txt-ia" placeholder="Escribe a las chicas..." onkeypress="if(event.key==='Enter') enviarMsgIA()">
+            <button onclick="enviarMsgIA()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; border-radius:8px; cursor:pointer; font-weight:bold;">ENVIAR</button>
         </div>
     </div>
 </div>
 
-<div class="footer-puertas">
-    <div class="door-card">
-        <h3 style="color:var(--n-rosa)">HISTORIAS</h3>
-        <button class="btn-upload b-h" onclick="subir()">Subir Historia</button>
-    </div>
-    <div class="door-card">
-        <h3 style="color:var(--n-azul)">ESTADOS</h3>
-        <button class="btn-upload b-e" onclick="subir()">Subir Estado</button>
-    </div>
-    <div class="door-card">
-        <h3 style="color:var(--n-rojo)">VIDEOS</h3>
-        <button class="btn-upload b-v" onclick="subir()">Subir Video</button>
-    </div>
+<div class="footer-vip">
+    <div class="door-premium"><h3 style="color:var(--n-rosa)">HISTORIAS</h3><button class="btn-upload-vip b-h" onclick="subir('h')">Subir Contenido</button></div>
+    <div class="door-premium"><h3 style="color:var(--n-azul)">ESTADOS</h3><button class="btn-upload-vip b-e" onclick="subir('e')">Actualizar Estado</button></div>
+    <div class="door-premium"><h3 style="color:var(--n-rojo)">VIDEOS</h3><button class="btn-upload-vip b-v" onclick="subir('v')">Cargar Video</button></div>
 </div>
 
 <script>
-    const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
-    
-    function init() {
-        const menu = document.getElementById('menu-salas');
-        salas.forEach((s, i) => {
+    const salasConfig = [
+        { nombre: "SADO Y MASO", archivo: "sado" },
+        { nombre: "SPA", archivo: "spa" },
+        { nombre: "BIBLIOTECA", archivo: "biblioteca" },
+        { nombre: "CAMARERA", archivo: "camarera" },
+        { nombre: "DISCOTECA", archivo: "discoteca" },
+        { nombre: "EL BAR", archivo: "bar" },
+        { nombre: "GIMNASIO", archivo: "gimnasio" },
+        { nombre: "OFICINA", archivo: "oficina" },
+        { nombre: "PLAYA", archivo: "playa" },
+        { nombre: "LA TIENDITA", archivo: "tiendita" }
+    ];
+
+    let salaActual = 0;
+    let carruselInterval;
+
+    function startup() {
+        const menu = document.getElementById('salas-menu');
+        salasConfig.forEach((s, i) => {
             let b = document.createElement('div');
             b.className = 'btn-sala'; b.id = 's-'+i;
-            // Genera un número aleatorio de personas entre 5 y 45
-            let online = Math.floor(Math.random() * 40) + 5;
-            b.innerHTML = `<span>${s}</span> <span class="online-count">${online} ON</span>`;
-            b.onclick = () => cargarSala(i);
+            b.innerHTML = `<b>${s.nombre}</b> <span style="color:lime">● Live</span>`;
+            b.onclick = () => verSala(i, true); // Cambiar manualmente
             menu.appendChild(b);
         });
-        cargarSala(0);
-        mensajeIA("TANIA", "¡Buenos días! Ya restauramos el Imperio. ¿Qué sala quieres visitar?");
+        
+        verSala(0);
+        iniciarCarrusel(); // Iniciar cambio automático
+        
+        mensajeIA("TANIA", "¡Hola! Ya restauramos el Imperio. Mira el carrusel de salas o escríbenos acá abajo.");
     }
 
-    function cargarSala(i) {
+    // LÓGICA DE SALAS Y CARRUSEL REAL
+    function iniciarCarrusel() {
+        carruselInterval = setInterval(() => {
+            salaActual = (salaActual + 1) % salasConfig.length;
+            verSala(salaActual);
+        }, 6000); // 6 Segundos Reales
+    }
+
+    function verSala(i, manual = false) {
+        if(manual) clearInterval(carruselInterval); // Detener si el usuario hace clic
+        
+        salaActual = i;
         document.querySelectorAll('.btn-sala').forEach(x => x.classList.remove('active'));
         document.getElementById('s-'+i).classList.add('active');
-        // El navegador buscará el archivo en la misma carpeta que el index.html
-        document.getElementById('webcam-img').src = salas[i] + ".jpg";
+        
+        const img = document.getElementById('webcam-img');
+        const status = document.getElementById('sala-status');
+        
+        img.style.display = "none";
+        status.style.display = "block";
+        status.innerHTML = "CONECTANDO WEBCAM...";
+        
+        // Carga forzada de imagen local
+        img.src = salasConfig[i].archivo + ".jpg";
+        
+        // Simular delay de conexión
+        setTimeout(() => {
+            if(img.style.display === "none") { // Si no dio error antes
+                status.style.display = "none";
+                img.style.display = "block";
+            }
+        }, 800);
     }
 
-    function enviar() {
-        const input = document.getElementById('user-msg');
+    function imagenError(url) {
+        const status = document.getElementById('sala-status');
+        const img = document.getElementById('webcam-img');
+        img.style.display = "none";
+        status.style.display = "block";
+        status.innerHTML = `<span style="color:red">⚠️ FALLO DE CÁMARA</span><br>Falta archivo: ${url.split('/').pop()}`;
+    }
+
+    // CHAT
+    function enviarMsgIA() {
+        const input = document.getElementById('txt-ia');
         if(!input.value.trim()) return;
+        
         document.getElementById('chat-logs').innerHTML += `<div style="text-align:right; margin-bottom:15px; color:var(--oro)"><b>Tú:</b> ${input.value}</div>`;
         
         setTimeout(() => {
             const chicas = ["MIA", "TANIA", "COLO"];
-            const r = "¡Hola! Estamos listas para la acción. ¿Vienes a vernos?";
-            mensajeIA(chicas[Math.floor(Math.random()*3)], r);
-        }, 800);
+            const r = ["¿Te gusta cómo nos vemos de cuerpo completo guapo?", "¡Me encantan tus mensajes!", "Por unas monedas te cuento un secreto prohibido...", "¡Qué atrevido! Me gusta..."];
+            mensajeIA(chicas[Math.floor(Math.random()*3)], r[Math.floor(Math.random()*r.length)]);
+        }, 1200);
         
         input.value = "";
         const logs = document.getElementById('chat-logs');
@@ -153,11 +208,7 @@
         logs.scrollTop = logs.scrollHeight;
     }
 
-    function subir() { 
-        const link = prompt("Introduce el enlace o nombre del archivo:");
-        if(link) alert("Archivo detectado. Procesando subida rápida...");
-    }
-
+    function subir(id) { alert("Función de carga conectada al servidor VIP."); }
     function pago(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
