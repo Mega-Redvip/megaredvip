@@ -2,82 +2,85 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v151</title>
+    <title>MEGA RED VIP | IMPERIO v152</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER CON PUBLICIDAD RECUPERADA */
+        /* HEADER CON PUBLICIDAD */
         header { 
             display: grid; grid-template-columns: 1fr 130px 250px 130px 1fr; 
             align-items: center; gap: 20px; padding: 15px;
             background: #050505; border-bottom: 8px solid var(--n-rojo); height: 320px;
         }
-        .pub-box { border: 3px solid var(--n-rojo); height: 240px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 40px; }
-        .logo-v151 { height: 250px; width: 250px; object-fit: contain; }
+        .pub-box { border: 3px solid var(--n-rojo); height: 240px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #222; font-size: 30px; background: #080808; }
+        .logo-v152 { height: 240px; width: 240px; object-fit: contain; }
         .coin { width: 85px; height: 85px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; border: 4px solid white; cursor: pointer; box-shadow: 0 0 15px var(--oro); }
 
         /* SECCIÓN SALAS */
         .seccion-salas { display: grid; grid-template-columns: 280px 1fr; height: 480px; border-bottom: 8px solid var(--n-rojo); }
-        .menu-l { overflow-y: auto; background: #080808; border-right: 2px solid #333; }
-        .s-btn { padding: 18px; border-bottom: 1px solid #111; cursor: pointer; color: #555; transition: 0.3s; }
+        .menu-l { overflow-y: auto; background: #080808; border-right: 3px solid #222; }
+        .s-btn { padding: 18px; border-bottom: 1px solid #111; cursor: pointer; color: #666; font-size: 14px; transition: 0.3s; }
         .s-btn.active { background: var(--n-rojo); color: white; }
         
         .visor-vip { background: #000; display: flex; align-items: center; justify-content: center; position: relative; }
-        #sala-img { width: 100%; height: 100%; object-fit: contain; display: none; }
-        .status-msg { position: absolute; text-align: center; border: 2px dashed #444; padding: 25px; color: #666; }
+        #sala-img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
+        .st-msg { position: absolute; text-align: center; color: #444; font-size: 18px; }
 
-        /* SECCIÓN IA: 600PX REALES Y SIMÉTRICOS */
-        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 600px; }
+        /* SECCIÓN IA: 575PX FIJOS Y NÍTIDOS */
+        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 575px; background: #000; }
 
-        .grid-bots { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; border-right: 8px solid var(--n-rojo); }
+        .grid-bots { display: grid; grid-template-columns: repeat(3, 1fr); border-right: 8px solid var(--n-rojo); background: #000; }
         .bot-cell { 
             position: relative; 
-            height: 600px; /* FORZADO */
-            border-right: 1px solid #222;
-            overflow: hidden;
+            height: 575px; 
+            border-right: 1px solid #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: #050505;
+            overflow: hidden;
         }
-        /* ESTO ELIMINA LA ESCALERA Y AGRANDA A 600PX */
+        /* USA CONTAIN PARA QUE NO SE VEA PIXELADO NI CORTADO */
         .bot-cell img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; /* Llena el espacio de 600px sin deformarse */
-            object-position: top center; /* Asegura que se vea la cara */
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
+            display: block;
         }
-        .bot-name { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 28px; font-weight: 900; text-shadow: 0 0 15px #000; z-index: 5; }
+        .bot-name { position: absolute; bottom: 20px; width: 100%; text-align: center; font-size: 26px; font-weight: 900; text-shadow: 0 0 15px #000; }
 
-        .chat-wrap { display: flex; flex-direction: column; height: 600px; background: #0a0a0a; }
+        .chat-wrap { display: flex; flex-direction: column; height: 575px; background: #0a0a0a; }
         #chat-window { flex-grow: 1; padding: 25px; overflow-y: auto; font-size: 16px; border-bottom: 1px solid #222; }
         .chat-input-area { padding: 20px; background: #111; display: flex; gap: 10px; }
         #chat-in { flex-grow: 1; background: #000; border: 3px solid var(--n-rojo); color: white; padding: 15px; border-radius: 8px; outline: none; }
 
         /* PUERTAS */
-        .footer-puertas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 35px; background: #000; }
+        .footer-p { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #000; }
         .p-box { background: #080808; border: 1px solid #333; border-radius: 20px; padding: 15px; text-align: center; }
-        .p-pre { height: 110px; background: #000; border: 2px dashed #444; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .p-pre { height: 110px; background: #000; border: 2px dashed #444; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .p-btn { width: 100%; padding: 18px; border: none; border-radius: 10px; color: white; font-weight: 900; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
-<body onload="initImperio()">
+<body onload="imperioStart()">
 
 <header>
-    <div class="pub-box">AD</div>
+    <div class="pub-box">ANUNCIO</div>
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v151">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v152">
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
-    <div class="pub-box">AD</div>
+    <div class="pub-box">ANUNCIO</div>
 </header>
 
 <div class="seccion-salas">
     <div class="menu-l" id="menu-l"></div>
     <div class="visor-vip">
-        <div id="st-sala" class="status-msg">
-            <p>CONECTANDO...</p>
+        <div id="st-sala" class="st-msg">
+            <p id="main-txt">CONECTANDO...</p>
             <small id="db-msg"></small>
         </div>
-        <img id="sala-img" src="" onerror="repararRuta(this)">
+        <img id="sala-img" src="" onerror="verificarImagen(this)">
     </div>
 </div>
 
@@ -96,7 +99,7 @@
     </div>
 </div>
 
-<div class="footer-puertas">
+<div class="footer-p">
     <div class="p-box">
         <div class="p-pre" id="v-h"></div>
         <button onclick="up('v-h')" style="background:var(--n-rosa)" class="p-btn">Historias</button>
@@ -115,7 +118,7 @@
     const salas = ["SADO Y MASO", "SPA", "BIBLIOTECA", "CAMARERA", "DISCOTECA", "EL BAR", "GIMNASIO", "OFICINA", "PLAYA", "LA TIENDITA"];
     let actual = 0;
 
-    function initImperio() {
+    function imperioStart() {
         const ml = document.getElementById('menu-l');
         salas.forEach((s, i) => {
             let d = document.createElement('div');
@@ -125,8 +128,8 @@
             ml.appendChild(d);
         });
         ver(0);
-        setInterval(() => { actual = (actual + 1) % salas.length; ver(actual); }, 7000);
-        msg("MIA", "¡Hola! He vuelto a poner los anuncios y ahora medimos 600px exactos.");
+        setInterval(() => { actual = (actual + 1) % salas.length; ver(actual); }, 8000);
+        msg("MIA", "¡Hola! He ajustado todo a 575px. Ahora nos verás nítidas y completas.");
     }
 
     function ver(i) {
@@ -136,20 +139,24 @@
         const img = document.getElementById('sala-img');
         img.style.display = "none";
         document.getElementById('st-sala').style.display = "block";
-        document.getElementById('db-msg').innerText = "Cargando: " + salas[i] + ".jpg";
+        document.getElementById('main-txt').innerText = "BUSCANDO CÁMARA...";
+        document.getElementById('db-msg').innerText = salas[i] + ".jpg";
         img.dataset.try = "0";
         img.src = salas[i] + ".jpg";
     }
 
-    function repararRuta(img) {
+    function verificarImagen(img) {
         let t = parseInt(img.dataset.try);
         const n = salas[actual];
-        const ext = [".png", ".JPG", ".PNG", ".jpeg"];
-        if(t < ext.length) {
+        // Lista de extensiones y variaciones para no fallar
+        const variantes = [n+".png", n+".JPG", n+".PNG", n.replace(/\s/g, "")+".jpg", n.replace(/\s/g, "")+".png"];
+        
+        if(t < variantes.length) {
             img.dataset.try = t + 1;
-            img.src = n + ext[t];
+            img.src = variantes[t];
         } else {
-            document.getElementById('db-msg').innerHTML = `<span style="color:red">ERROR:</span> No está <b>${n}.jpg</b>`;
+            document.getElementById('main-txt').innerText = "ERROR DE CARGA";
+            document.getElementById('db-msg').innerHTML = `<span style="color:red">Falta archivo:</span> ${n}.jpg`;
         }
     }
 
@@ -162,7 +169,7 @@
         const i = document.getElementById('chat-in');
         if(!i.value.trim()) return;
         document.getElementById('chat-window').innerHTML += `<div style="text-align:right; margin-bottom:15px; color:var(--oro)"><b>Tú:</b> ${i.value}</div>`;
-        setTimeout(() => msg("TANIA", "¡Te leemos perfecto!"), 800);
+        setTimeout(() => msg("TANIA", "¡Te leemos perfecto! ¿Ves bien las salas ahora?"), 800);
         i.value = "";
         document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
     }
@@ -174,7 +181,7 @@
     }
 
     function up(id) {
-        let n = prompt("Nombre del archivo:");
+        let n = prompt("Nombre de la imagen:");
         if(n) document.getElementById(id).innerHTML = `<img src="${n}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
