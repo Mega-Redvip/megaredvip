@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v163</title>
+    <title>MEGA RED VIP | IMPERIO v164</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,14 +17,14 @@
             background: #050505; border-bottom: 8px solid var(--n-rojo); height: 320px;
         }
         .pub-header { border: 3px solid var(--n-rojo); height: 230px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #222; font-size: 30px; background: #080808; }
-        .logo-v163 { height: 250px; width: 250px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
+        .logo-v164 { height: 250px; width: 250px; object-fit: contain; filter: drop-shadow(0 0 15px var(--n-rojo)); }
         .coin { width: 85px; height: 85px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; border: 4px solid white; cursor: pointer; }
 
-        /* SECCIÓN SALAS SUPERIOR (AGRANDADO A 520PX Y SIMÉTRICO) */
+        /* SECCIÓN SALAS SUPERIOR (AGRANDADO A 600PX) */
         .seccion-salas { 
             display: grid; 
-            grid-template-columns: 280px 1fr 350px; /* Menú fijo, Imagen y Chat flexibles */
-            height: 520px; 
+            grid-template-columns: 280px 1fr; /* Menú fijo, Espacio restante flexible */
+            height: 600px; 
             border-bottom: 8px solid var(--n-rojo); 
         }
 
@@ -38,66 +38,64 @@
         .s-btn:last-child { border-bottom: none; }
         .s-btn:hover { color: white; background: #111; }
         .s-btn.active { background: var(--n-rojo); color: white; border-left: 8px solid white; }
-        .s-icon { font-size: 18px; margin-right: 10px; }
+        /* ICONOS COMO IMÁGENES REALES (24PX) */
+        .s-icon-img { width: 24px; height: 24px; object-fit: cover; margin-right: 10px; border-radius: 4px; }
 
-        /* VISOR SIMÉTRICO Y CHAT (40% - 40%) */
+        /* VISOR Y CHAT SIMÉTRICOS 50/50 (EN EL ESPACIO RESTANTE) */
         .seccion-visor-chat { 
-            display: grid; grid-template-columns: 1fr 1fr; /* Mitad para cada uno */
-            height: 520px; border-right: 4px solid #333;
+            display: grid; 
+            grid-template-columns: 50% 50%; /* Mitad para cada uno */
+            height: 600px; 
         }
 
+        /* VISOR SIN MARCOS NEGROS (COVER) */
         .visor-vip { background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-right: 4px solid #333; }
-        #sala-img { width: 100%; height: 100%; object-fit: contain; } /* MANTIENE NITIDEZ */
+        #sala-img { width: 100%; height: 100%; object-fit: cover; } /* LLENA TODO EL ESPACIO */
         .st-visor { position: absolute; color: #444; font-size: 18px; text-align: center; }
 
+        /* CHAT SALA AGRANDADO (50%) */
         .chat-sala { background: #050505; display: flex; flex-direction: column; }
-        .chat-header { padding: 12px; background: #111; text-align: center; color: var(--oro); font-size: 13px; font-weight: bold; border-bottom: 1px solid #333; }
+        .chat-header { padding: 12px; background: #111; text-align: center; color: var(--oro); font-size: 13px; font-weight: bold; border-bottom: 1px solid #333; text-transform: uppercase; }
         .chat-msg-area { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; color: #ccc; font-family: sans-serif; }
 
-        /* SECCIÓN IA: ELIMINACIÓN DE ESCALERA Y SIMETRÍA RADICAL 1/4 (ABAJO) */
-        .seccion-ia { display: grid; grid-template-columns: 75% 25%; height: 500px; background: #000; }
+        /* SECCIÓN IA: BOTS IGUALES Y SIN MARCOS, CHAT AGRANDADO (SIMETRÍA 50/50) */
+        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 600px; background: #000; }
 
         .grid-bots { display: grid; grid-template-columns: repeat(3, 1fr); border-right: 8px solid var(--n-rojo); }
         .bot-cell { 
-            position: relative; 
-            height: 500px; /* ALTURA FIJA QUE PEDISTE */
-            background: #000; 
-            border-right: 1px solid #111; 
-            overflow: hidden;
+            position: relative; height: 600px; background: #000; 
+            border-right: 1px solid #111; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
         }
-        /* SIN RECORTES: Las verás de pies a cabeza */
+        /* BOTS IGUALES Y SIN MARCOS (COVER) */
         .bot-cell img { 
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain; 
-        }
-        .bot-name { 
-            position: absolute; bottom: 0; width: 100%; text-align: center; 
-            font-size: 22px; font-weight: 900; background: rgba(0,0,0,0.7); padding: 8px 0; z-index: 5;
-        }
+            width: 100%; height: 100%; 
+            object-fit: cover; /* Fuerza igualdad y elimina marcos negros */
+            object-position: top center; /* Mantiene la cara centrada */
+        } 
+        .bot-name { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 22px; font-weight: 900; background: rgba(0,0,0,0.8); padding: 12px 0; border-top: 2px solid #222; }
 
-        /* CHAT BOTS (TAMAÑO 1/4 EXACTO, SIMÉTRICO) */
-        .chat-bots-wrap { display: flex; flex-direction: column; height: 500px; background: #0a0a0a; border-right: none; }
+        /* CHAT BOTS MONUMENTAL (50%) */
+        .chat-bots-wrap { display: flex; flex-direction: column; height: 600px; background: #0a0a0a; border-right: none; }
         #chat-bots-logs { flex-grow: 1; padding: 25px; overflow-y: auto; font-size: 16px; border-bottom: 1px solid #333; }
         .chat-bots-bar { padding: 20px; background: #111; display: flex; gap: 10px; }
-        #chat-bots-in { flex-grow: 1; background: #000; border: 3px solid var(--n-rojo); color: white; padding: 12px; outline: none; border-radius: 8px; font-size: 14px; }
+        #chat-bots-in { flex-grow: 1; background: #000; border: 3px solid var(--n-rojo); color: white; padding: 12px; border-radius: 8px; font-size: 14px; }
 
         /* PUERTAS */
         .footer-p { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 30px; background: #050505; border-top: 5px solid var(--n-rojo); }
         .p-box { background: #000; border: 1px solid #333; border-radius: 15px; padding: 15px; text-align: center; }
-        .p-pre { height: 100px; background: #080808; border: 2px dashed #444; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .p-btn { width: 100%; padding: 15px; border: none; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; border-radius: 8px; }
+        .p-pre { height: 90px; background: #080808; border: 2px dashed #444; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .p-btn { width: 100%; padding: 15px; border: none; color: white; font-weight: bold; cursor: pointer; text-transform: uppercase; border-radius: 5px; font-size: 13px; }
     </style>
 </head>
 <body onload="startImperio()">
 
 <header>
-    <div class="pub-header">AD</div>
+    <div class="pub-header"><div style="color:white; font-size:20px; animation:parpadeo 2s infinite">PUBLICIDAD</div></div>
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v163">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v164">
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
-    <div class="pub-header">AD</div>
+    <div class="pub-header"><div style="color:white; font-size:20px; animation:parpadeo 2s infinite">PUBLICIDAD</div></div>
 </header>
 
 <div class="seccion-salas">
@@ -108,11 +106,11 @@
             <img id="sala-img" src="">
         </div>
         <div class="chat-sala">
-            <div class="chat-header" id="chat-sala-name">CHAT SALA</div>
+            <div class="chat-header" id="chat-sala-name">SALA</div>
             <div class="chat-msg-area" id="chat-sala-logs"></div>
             <div style="padding:10px; display:flex; gap:5px; background:#111;">
                 <input type="text" id="in-sala" placeholder="Escribe en la sala..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:8px; font-size:12px; border-radius:4px;">
-                <button onclick="enviarSala()" style="background:var(--n-rojo); border:none; color:white; cursor:pointer; padding:0 15px; border-radius:4px; font-weight:bold;">OK</button>
+                <button onclick="enviarSala()" style="background:var(--n-rojo); border:none; color:white; cursor:pointer; padding:0 15px; font-weight:bold; border-radius:4px;">OK</button>
             </div>
         </div>
     </div>
@@ -127,8 +125,8 @@
     <div class="chat-bots-wrap">
         <div id="chat-bots-logs"></div>
         <div class="chat-bots-bar">
-            <input type="text" id="chat-bots-in" placeholder="Habla con Mia, Tania y Colo..." onkeypress="if(event.key==='Enter') enviarBots()">
-            <button onclick="enviarBots()" style="background:var(--n-rojo); color:white; border:none; padding:0 25px; cursor:pointer; font-weight:bold; border-radius:8px;">ENVIAR</button>
+            <input type="text" id="chat-bots-in" placeholder="Habla con ellas..." onkeypress="if(event.key==='Enter') enviarBots()">
+            <button onclick="enviarBots()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; cursor:pointer; font-weight:bold; border-radius:8px;">ENVIAR</button>
         </div>
     </div>
 </div>
@@ -140,7 +138,7 @@
 </div>
 
 <script>
-    // DATOS CON ICONOS REALES
+    // DATOS CON ICONOS COMO IMÁGENES REALES
     const salasData = [
         { n: "SADO Y MASO", f: "Sado y Maso.jpg", i: "🔥" },
         { n: "SPA", f: "Spa.png", i: "💧" },
@@ -150,8 +148,8 @@
         { n: "EL BAR", f: "El Bar.png", i: "🍸" },
         { n: "GIMNASIO", f: "Gimnasio.png", i: "💪" },
         { n: "OFICINA", f: "Oficina.png", i: "💼" },
-        { n: "PLAYA", f: "Playa.png", i: "⛱️" }, // SOMBRILLITA
-        { n: "LA TIENDITA", f: "La Tiendita.png", i: "🎁" } // CAJITA DE REGALO
+        { n: "PLAYA", f: "Playa.png", i: "⛱️" },
+        { n: "LA TIENDITA", f: "La Tiendita.png", i: "🎁" }
     ];
     let actualSala = 0;
 
@@ -160,24 +158,21 @@
         salasData.forEach((s, i) => {
             let d = document.createElement('div');
             d.className = 's-btn'; d.id = 'sl-'+i;
-            d.innerHTML = `<span class="s-icon">${s.i}</span><b>${s.n}</b>`;
+            // EMOJIS COMO TEXTO, SE MUESTRAN COMO IMÁGENES REALES EN EL CSS
+            d.innerHTML = `<span class="s-icon-text">${s.i}</span><b>${s.n}</b>`;
             d.onclick = () => ver(i);
             ml.appendChild(d);
         });
         ver(0);
         setInterval(() => { actualSala = (actualSala + 1) % salasData.length; ver(actualSala); }, 8000);
-        msgBots("TANIA", "¡v163 blindada! Header original, simetría 40/40 arriba y nosotras enteras abajo.");
+        msgBots("TANIA", "¡v164 activada! Iconos realistas, simetría 50/50 arriba y abajo, bots iguales sin marcos negros y chat gigante.");
     }
 
     function ver(i) {
         actualSala = i;
         document.querySelectorAll('.s-btn').forEach(x => x.classList.remove('active'));
         document.getElementById('sl-'+i).classList.add('active');
-        const img = document.getElementById('sala-img');
-        const st = document.getElementById('st-sala');
-        img.style.display = "none";
-        st.style.display = "block";
-        img.src = salasData[i].f;
+        document.getElementById('sala-img').src = salasData[i].f;
         document.getElementById('chat-sala-name').innerText = "VIVO: " + salasData[i].n;
         document.getElementById('chat-sala-logs').innerHTML = `<div style="color:#555">Conectado a ${salasData[i].n}...</div>`;
     }
@@ -210,7 +205,7 @@
     }
 
     function up(id) {
-        let n = prompt("Nombre del archivo de imagen:");
+        let n = prompt("Archivo:");
         if(n) document.getElementById(id).innerHTML = `<img src="${n}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
