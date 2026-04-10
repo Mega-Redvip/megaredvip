@@ -2,23 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v165</title>
+    <title>MEGA RED VIP | IMPERIO v166</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--fondo); color: white; font-family: 'Arial', sans-serif; overflow-x: hidden; }
+        body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER ORIGINAL COMPACTO */
+        /* HEADER */
         header { 
             display: grid; grid-template-columns: 1fr 130px 200px 130px 1fr; 
             align-items: center; gap: 15px; padding: 10px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 280px;
         }
-        .pub-header { border: 2px solid var(--n-rojo); height: 200px; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #080808; font-size: 20px; color: #333; }
-        .logo-v165 { height: 200px; width: 200px; object-fit: contain; }
+        .logo-v166 { height: 200px; width: 200px; object-fit: contain; }
         .coin { width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; border: 3px solid white; cursor: pointer; }
 
-        /* SECCIÓN SALAS (ALTURA REDUCIDA A LA MITAD: 300PX) */
+        /* SECCIÓN SALAS (ALTURA FIJA 300PX) */
         .seccion-salas { 
             display: grid; 
             grid-template-columns: 220px 1fr; 
@@ -26,7 +25,6 @@
             border-bottom: 5px solid var(--n-rojo); 
         }
 
-        /* MENU SLIM */
         .menu-l { overflow-y: auto; background: #080808; border-right: 3px solid #333; display: flex; flex-direction: column; }
         .s-btn { 
             flex-grow: 1; display: flex; align-items: center; padding: 0 10px; 
@@ -34,32 +32,60 @@
             text-transform: uppercase; transition: 0.2s;
         }
         .s-btn.active { background: var(--n-rojo); color: white; border-left: 5px solid white; }
-        .s-icon { font-size: 14px; margin-right: 8px; } /* Icono achicado */
 
-        /* VISOR Y CHAT SIMÉTRICOS 50/50 (ALTURA 300PX) */
+        /* VISOR Y CHAT SIMÉTRICOS 50/50 */
         .seccion-visor-chat { 
             display: grid; 
             grid-template-columns: 50% 50%; 
             height: 300px; 
         }
-        .visor-vip { background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; border-right: 3px solid #333; }
-        #sala-img { width: 100%; height: 100%; object-fit: contain; } /* Contain para evitar pixelado */
+        .visor-vip { background: #000; overflow: hidden; border-right: 3px solid #333; height: 300px; }
+        
+        /* SOLUCIÓN AL PIXELADO E INVASIÓN: object-fit: cover */
+        #sala-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Llena el espacio sin deformar ni invadir */
+            display: block;
+        }
 
         .chat-sala { background: #050505; display: flex; flex-direction: column; height: 300px; }
         .chat-header { padding: 8px; background: #111; text-align: center; color: var(--oro); font-size: 11px; border-bottom: 1px solid #333; }
         .chat-msg-area { flex-grow: 1; padding: 10px; overflow-y: auto; font-size: 11px; color: #ccc; }
 
-        /* SECCIÓN IA (ALTURA REDUCIDA A LA MITAD: 300PX) */
-        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 300px; background: #000; }
+        /* SECCIÓN IA (ALTURA 350PX - UN POCO MÁS GRANDE) */
+        .seccion-ia { 
+            display: grid; 
+            grid-template-columns: 50% 50%; 
+            height: 350px; 
+            background: #000; 
+        }
 
-        .grid-bots { display: grid; grid-template-columns: repeat(3, 1fr); border-right: 5px solid var(--n-rojo); }
-        .bot-cell { position: relative; height: 300px; background: #000; border-right: 1px solid #111; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        /* IMÁGENES DE BOTS QUE NO SE CORTAN */
-        .bot-cell img { height: 100%; width: 100%; object-fit: contain; } 
+        /* GRID BOTS UNIFICADO - EVITA ESCALONADO */
+        .grid-bots { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            border-right: 5px solid var(--n-rojo); 
+            height: 350px;
+        }
+        .bot-cell { 
+            position: relative; 
+            height: 350px; 
+            background: #000; 
+            border-right: 1px solid #111; 
+            overflow: hidden; 
+        }
+        /* BOTS UNIFICADAS SIN ESPACIOS NEGROS */
+        .bot-cell img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* Misma medida para las tres */
+            object-position: top center;
+        } 
         .bot-name { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 14px; font-weight: 900; background: rgba(0,0,0,0.8); padding: 5px 0; }
 
-        /* CHAT BOTS (SIMÉTRICO 50% Y ALTURA 300PX) */
-        .chat-bots-wrap { display: flex; flex-direction: column; height: 300px; background: #0a0a0a; }
+        /* CHAT BOTS SIMÉTRICO 50% */
+        .chat-bots-wrap { display: flex; flex-direction: column; height: 350px; background: #0a0a0a; }
         #chat-bots-logs { flex-grow: 1; padding: 10px; overflow-y: auto; font-size: 13px; }
         .chat-bots-bar { padding: 10px; background: #111; display: flex; gap: 5px; }
         #chat-bots-in { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; font-size: 12px; }
@@ -67,18 +93,18 @@
         /* FOOTER */
         .footer-p { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; background: #050505; border-top: 4px solid var(--n-rojo); }
         .p-box { background: #000; border: 1px solid #333; border-radius: 10px; padding: 10px; text-align: center; }
-        .p-pre { height: 60px; background: #080808; border: 1px dashed #444; border-radius: 5px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+        .p-pre { height: 60px; background: #080808; border: 1px dashed #444; border-radius: 5px; margin-bottom: 10px; }
         .p-btn { width: 100%; padding: 10px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 11px; border-radius: 4px; }
     </style>
 </head>
 <body onload="startImperio()">
 
 <header>
-    <div class="pub-header">AD</div>
+    <div style="border: 2px solid var(--n-rojo); height: 200px; width: 100%; border-radius:10px;"></div>
     <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v165">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v166">
     <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
-    <div class="pub-header">AD</div>
+    <div style="border: 2px solid var(--n-rojo); height: 200px; width: 100%; border-radius:10px;"></div>
 </header>
 
 <div class="seccion-salas">
@@ -137,7 +163,7 @@
         salasData.forEach((s, i) => {
             let d = document.createElement('div');
             d.className = 's-btn'; d.id = 'sl-'+i;
-            d.innerHTML = `<span class="s-icon">${s.i}</span><b>${s.n}</b>`;
+            d.innerHTML = `<span style="margin-right:8px">${s.i}</span><b>${s.n}</b>`;
             d.onclick = () => ver(i);
             ml.appendChild(d);
         });
@@ -159,11 +185,6 @@
         document.getElementById('chat-bots-logs').innerHTML += `<div style="text-align:right; margin-bottom:5px; color:var(--oro)"><b>Tú:</b> ${i.value}</div>`;
         i.value = "";
         document.getElementById('chat-bots-logs').scrollTop = document.getElementById('chat-bots-logs').scrollHeight;
-    }
-
-    function msgBots(n, m) {
-        const c = n === "MIA" ? "var(--n-rosa)" : n === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
-        document.getElementById('chat-bots-logs').innerHTML += `<div><b style="color:${c}">${n}:</b> ${m}</div>`;
     }
 
     function enviarSala() {
