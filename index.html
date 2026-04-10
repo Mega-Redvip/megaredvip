@@ -2,96 +2,77 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v168</title>
+    <title>MEGA RED VIP | IMPERIO v169</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        /* HEADER */
+        /* HEADER CON PUBLICIDAD LLAMATIVA */
         header { 
             display: grid; grid-template-columns: 1fr 130px 200px 130px 1fr; 
             align-items: center; gap: 15px; padding: 10px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 280px;
         }
-        .logo-v168 { height: 200px; width: 200px; object-fit: contain; }
+        .pub-header { 
+            border: 3px solid var(--n-rojo); height: 200px; border-radius: 15px; 
+            background: linear-gradient(45deg, #0a0a0a, #1a0000); 
+            display: flex; align-items: center; justify-content: center; 
+            text-align: center; padding: 15px; cursor: pointer;
+            animation: glow-pub 2s infinite alternate;
+        }
+        @keyframes glow-pub { from { border-color: var(--n-rojo); } to { border-color: var(--n-rosa); } }
+        .pub-txt { font-size: 18px; color: #fff; text-shadow: 0 0 10px var(--n-rojo); line-height: 1.2; }
+
+        .logo-v169 { height: 200px; width: 200px; object-fit: contain; }
         .coin { width: 70px; height: 70px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; border: 3px solid white; cursor: pointer; }
 
-        /* SECCIÓN SALAS */
-        .seccion-salas { 
-            display: grid; 
-            grid-template-columns: 220px 1fr; 
-            height: 300px; 
-            border-bottom: 5px solid var(--n-rojo); 
-        }
+        /* SECCIÓN SALAS - VISOR ANTI-RECORTE */
+        .seccion-salas { display: grid; grid-template-columns: 220px 1fr; height: 320px; border-bottom: 5px solid var(--n-rojo); }
+        .menu-l { overflow-y: auto; background: #080808; border-right: 3px solid #333; }
+        .s-btn { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #111; cursor: pointer; color: #888; font-size: 11px; text-transform: uppercase; }
+        .s-btn.active { background: var(--n-rojo); color: white; }
+        .s-icon-wrap { font-size: 18px; margin-right: 10px; }
 
-        .menu-l { overflow-y: auto; background: #080808; border-right: 3px solid #333; display: flex; flex-direction: column; }
-        
-        /* BOTONES CON ICONO "REALISTA" VÍA CSS */
-        .s-btn { 
-            flex-grow: 1; display: flex; align-items: center; padding: 0 12px; 
-            border-bottom: 1px solid #111; cursor: pointer; color: #888; font-size: 11px; 
-            text-transform: uppercase; transition: 0.3s;
-        }
-        .s-btn:hover { color: white; background: #111; }
-        
-        .s-icon-wrap { 
-            font-size: 20px; 
-            margin-right: 12px; 
-            filter: grayscale(100%) brightness(0.5); 
-            transition: 0.3s;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .s-btn.active { background: var(--n-rojo); color: white; border-left: 5px solid white; }
-        .s-btn.active .s-icon-wrap { 
-            filter: grayscale(0%) brightness(1.2); 
-            transform: scale(1.2);
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-        }
-
-        /* VISOR Y CHAT SIMÉTRICOS */
-        .seccion-visor-chat { display: grid; grid-template-columns: 50% 50%; height: 300px; }
-        .visor-vip { background: #000; overflow: hidden; border-right: 3px solid #333; }
-        #sala-img { width: 100%; height: 100%; object-fit: cover; }
+        .seccion-visor-chat { display: grid; grid-template-columns: 50% 50%; height: 320px; }
+        .visor-vip { background: radial-gradient(#222, #000); overflow: hidden; border-right: 3px solid #333; position: relative; }
+        /* AJUSTE PARA QUE NO SE CORTE NADA */
+        #sala-img { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 2; }
 
         .chat-sala { background: #050505; display: flex; flex-direction: column; }
         .chat-header { padding: 8px; background: #111; text-align: center; color: var(--oro); font-size: 11px; border-bottom: 1px solid #333; }
-        .chat-msg-area { flex-grow: 1; padding: 10px; overflow-y: auto; font-size: 11px; color: #ccc; }
+        .chat-msg-area { flex-grow: 1; padding: 10px; overflow-y: auto; font-size: 12px; font-family: sans-serif; }
 
-        /* SECCIÓN IA */
-        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 350px; background: #000; }
-
+        /* SECCIÓN IA Y BOTS */
+        .seccion-ia { display: grid; grid-template-columns: 50% 50%; height: 350px; }
         .grid-bots { display: grid; grid-template-columns: repeat(3, 1fr); border-right: 5px solid var(--n-rojo); }
-        .bot-cell { position: relative; height: 350px; background: #000; border-right: 1px solid #111; overflow: hidden; }
-        .bot-cell img { width: 100%; height: 100%; object-fit: cover; } 
-        
-        /* CORRECCIÓN TANIA (CENTRO): DESPLAZADA HACIA EL OTRO LADO */
-        .morocha-fix { object-position: 20% center !important; }
+        .bot-cell { position: relative; height: 350px; overflow: hidden; }
+        .bot-cell img { width: 100%; height: 100%; object-fit: cover; }
+        .morocha-fix { object-position: 20% center; }
+        .bot-name { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 14px; background: rgba(0,0,0,0.8); padding: 5px 0; }
 
-        .bot-name { position: absolute; bottom: 0; width: 100%; text-align: center; font-size: 14px; font-weight: 900; background: rgba(0,0,0,0.8); padding: 5px 0; border-top: 1px solid #333; }
-
-        /* CHAT BOTS */
         .chat-bots-wrap { display: flex; flex-direction: column; height: 350px; background: #0a0a0a; }
-        #chat-bots-logs { flex-grow: 1; padding: 10px; overflow-y: auto; font-size: 13px; }
+        #chat-bots-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; font-family: 'Segoe UI', sans-serif; }
         .chat-bots-bar { padding: 10px; background: #111; display: flex; gap: 5px; }
-        #chat-bots-in { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 8px; border-radius: 5px; font-size: 12px; }
+        #chat-bots-in { flex-grow: 1; background: #000; border: 2px solid var(--n-rojo); color: white; padding: 10px; border-radius: 5px; }
 
-        /* FOOTER */
-        .footer-p { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; background: #050505; border-top: 4px solid var(--n-rojo); }
-        .p-box { background: #000; border: 1px solid #333; border-radius: 10px; padding: 10px; text-align: center; }
-        .p-pre { height: 60px; background: #080808; border: 1px dashed #444; border-radius: 5px; margin-bottom: 10px; }
-        .p-btn { width: 100%; padding: 10px; border: none; color: white; font-weight: bold; cursor: pointer; font-size: 11px; border-radius: 4px; }
+        .footer-p { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px; }
+        .p-box { background: #000; border: 1px solid #333; padding: 10px; text-align: center; border-radius: 10px; }
+        .p-btn { width: 100%; padding: 10px; border: none; color: white; font-weight: bold; cursor: pointer; border-radius: 5px; }
     </style>
 </head>
-<body onload="startImperio()">
+<body onload="iniciarSistema()">
 
 <header>
-    <div style="border: 2px solid var(--n-rojo); height: 200px; width: 100%; border-radius:10px; background:#080808; display:flex; align-items:center; justify-content:center; color:#222;">PUB</div>
-    <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v168">
-    <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
-    <div style="border: 2px solid var(--n-rojo); height: 200px; width: 100%; border-radius:10px; background:#080808; display:flex; align-items:center; justify-content:center; color:#222;">PUB</div>
+    <div class="pub-header" onclick="location.href='mailto:promo@tuweb.com'">
+        <div class="pub-txt">🔥 ¡TU MARCA AQUÍ! 🔥<br><small>Llega a miles de VIPs ahora</small></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin">$1</div><div class="coin">$5</div></div>
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v169">
+    <div style="display:flex; flex-direction:column; gap:8px;"><div class="coin">$10</div><div class="coin">$20</div></div>
+    <div class="pub-header" onclick="location.href='mailto:promo@tuweb.com'">
+        <div class="pub-txt" style="text-shadow: 0 0 10px var(--n-azul);">💎 ESPACIO EXCLUSIVO 💎<br><small>Sponsor Oficial del Placer</small></div>
+    </div>
 </header>
 
 <div class="seccion-salas">
@@ -99,11 +80,11 @@
     <div class="seccion-visor-chat">
         <div class="visor-vip"><img id="sala-img" src=""></div>
         <div class="chat-sala">
-            <div class="chat-header" id="chat-sala-name">SALA ACTIVADA</div>
-            <div class="chat-msg-area" id="chat-sala-logs"></div>
+            <div class="chat-header" id="chat-sala-name">SALA</div>
+            <div id="chat-sala-logs" class="chat-msg-area"></div>
             <div style="padding:5px; display:flex; gap:5px; background:#111;">
-                <input type="text" id="in-sala" placeholder="Escribe..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:5px; font-size:10px; border-radius:3px;">
-                <button onclick="enviarSala()" style="background:var(--n-rojo); border:none; color:white; padding:0 10px; font-weight:bold; cursor:pointer; border-radius:3px;">OK</button>
+                <input type="text" id="in-sala" placeholder="Diles algo..." style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:5px;">
+                <button onclick="enviarSala()" style="background:var(--n-rojo); border:none; color:white; padding:0 10px; font-weight:bold; cursor:pointer;">OK</button>
             </div>
         </div>
     </div>
@@ -118,20 +99,13 @@
     <div class="chat-bots-wrap">
         <div id="chat-bots-logs"></div>
         <div class="chat-bots-bar">
-            <input type="text" id="chat-bots-in" placeholder="Hablar con ellas..." onkeypress="if(event.key==='Enter') enviarBots()">
-            <button onclick="enviarBots()" style="background:var(--n-rojo); color:white; border:none; padding:0 15px; cursor:pointer; font-weight:bold; border-radius:5px;">OK</button>
+            <input type="text" id="chat-bots-in" placeholder="Pregúntales lo que quieras..." onkeypress="if(event.key==='Enter') responderIA()">
+            <button onclick="responderIA()" style="background:var(--n-rojo); color:white; border:none; padding:0 15px; cursor:pointer; font-weight:bold; border-radius:5px;">ENVIAR</button>
         </div>
     </div>
 </div>
 
-<div class="footer-p">
-    <div class="p-box"><div class="p-pre" id="v-h"></div><button onclick="up('v-h')" style="background:var(--n-rosa)" class="p-btn">Historias</button></div>
-    <div class="p-box"><div class="p-pre" id="v-e"></div><button onclick="up('v-e')" style="background:var(--n-azul)" class="p-btn">Estados</button></div>
-    <div class="p-box"><div class="p-pre" id="v-v"></div><button onclick="up('v-v')" style="background:var(--n-rojo)" class="p-btn">Videos</button></div>
-</div>
-
 <script>
-    // USAMOS EMOJIS PERO EL CSS LOS HARÁ PARECER BOTONES REALES Y LLAMATIVOS
     const salasData = [
         { n: "SADO Y MASO", f: "Sado y Maso.jpg", i: "🔥" },
         { n: "SPA", f: "Spa.png", i: "💧" },
@@ -144,9 +118,11 @@
         { n: "PLAYA", f: "Playa.png", i: "⛱️" },
         { n: "LA TIENDITA", f: "La Tiendita.png", i: "🎁" }
     ];
-    let actualSala = 0;
 
-    function startImperio() {
+    let userCity = "tu ciudad";
+
+    function iniciarSistema() {
+        // Cargar Menú
         const ml = document.getElementById('menu-l');
         salasData.forEach((s, i) => {
             let d = document.createElement('div');
@@ -156,38 +132,68 @@
             ml.appendChild(d);
         });
         ver(0);
-        setInterval(() => { actualSala = (actualSala + 1) % salasData.length; ver(actualSala); }, 8000);
+
+        // Detectar ubicación aproximada
+        fetch('https://ipapi.co/json/').then(res => res.json()).then(data => {
+            userCity = data.city || "tu país";
+        });
+
+        // Loop de conversación entre bots cada 12 segundos
+        setInterval(charlaAutomatica, 12000);
     }
 
     function ver(i) {
-        actualSala = i;
         document.querySelectorAll('.s-btn').forEach(x => x.classList.remove('active'));
         document.getElementById('sl-'+i).classList.add('active');
         document.getElementById('sala-img').src = salasData[i].f;
-        document.getElementById('chat-sala-name').innerText = "SALA: " + salasData[i].n;
+        document.getElementById('chat-sala-name').innerText = "VIVO: " + salasData[i].n;
     }
 
-    function enviarBots() {
-        const i = document.getElementById('chat-bots-in');
-        if(!i.value.trim()) return;
-        document.getElementById('chat-bots-logs').innerHTML += `<div style="text-align:right; margin-bottom:5px; color:var(--oro)"><b>Tú:</b> ${i.value}</div>`;
-        i.value = "";
-        document.getElementById('chat-bots-logs').scrollTop = document.getElementById('chat-bots-logs').scrollHeight;
+    function charlaAutomatica() {
+        const frases = [
+            {n: "MIA", m: "Uff, qué calor hace hoy... ¿No les dan ganas de algo frío?"},
+            {n: "TANIA", m: "Yo prefiero algo caliente... y que sea de " + userCity + " ;)"},
+            {n: "COLO", m: "¡Ay Tania! Siempre tan directa. ¿Hay algún hombre real conectado?"},
+            {n: "MIA", m: "Tengo 22 años y mucha energía, ¿quién se anima a jugar?"}
+        ];
+        const random = frases[Math.floor(Math.random() * frases.length)];
+        escribirChat(random.n, random.m);
+    }
+
+    function responderIA() {
+        const input = document.getElementById('chat-bots-in');
+        const txt = input.value.toLowerCase();
+        if(!txt.trim()) return;
+
+        escribirChat("Tú", txt, true);
+        input.value = "";
+
+        setTimeout(() => {
+            let resp = "";
+            if(txt.includes("edad")) resp = "Tania: Tengo 24 años, en mi mejor momento para complacerte...";
+            else if(txt.includes("donde")) resp = "Colo: Yo estoy cerca... ¿Tú eres de " + userCity + "? Me encantan los de ahí.";
+            else if(txt.includes("hola")) resp = "Mia: Hola guapo, ¿listo para que cumplamos tus fantasías?";
+            else resp = "Mia: Me gusta cómo hablas... cuéntame más cosas sucias.";
+            
+            escribirChat("SISTEMA", resp);
+        }, 1500);
+    }
+
+    function escribirChat(autor, msg, esUsuario = false) {
+        const logs = document.getElementById('chat-bots-logs');
+        const color = autor === "MIA" ? "var(--n-rosa)" : autor === "TANIA" ? "var(--n-azul)" : "var(--n-rojo)";
+        const html = `<div style="margin-bottom:8px; ${esUsuario ? 'text-align:right' : ''}">
+            <b style="color:${esUsuario ? 'var(--oro)' : color}">${autor}:</b> ${msg}
+        </div>`;
+        logs.innerHTML += html;
+        logs.scrollTop = logs.scrollHeight;
     }
 
     function enviarSala() {
         const i = document.getElementById('in-sala');
-        if(!i.value.trim()) return;
         document.getElementById('chat-sala-logs').innerHTML += `<div><b>Tú:</b> ${i.value}</div>`;
         i.value = "";
     }
-
-    function up(id) {
-        let n = prompt("Archivo:");
-        if(n) document.getElementById(id).innerHTML = `<img src="${n}" style="width:100%; height:100%; object-fit:cover;">`;
-    }
-
-    function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
 </script>
 </body>
 </html>
