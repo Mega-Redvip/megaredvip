@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v179</title>
+    <title>MEGA RED VIP | IMPERIO v180</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,35 +17,88 @@
         .pub-neon { border: 3px solid var(--n-rojo); height: 180px; border-radius: 10px; display:flex; align-items:center; justify-content:center; text-align:center; animation: flicker 2s infinite alternate; font-size: 12px; }
         @keyframes flicker { 0%, 100% { box-shadow: 0 0 10px var(--n-rojo); color: var(--n-rojo); } 50% { box-shadow: 0 0 20px var(--oro); color: var(--oro); border-color: var(--oro); } }
         
-        .logo-v179 { height: 260px; width: 260px; object-fit: contain; }
+        .logo-v180 { height: 260px; width: 260px; object-fit: contain; }
         .coin { width: 75px; height: 75px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; border: 4px solid white; cursor: pointer; box-shadow: 0 0 10px var(--oro); }
 
-        /* GRID PRINCIPAL */
-        .main-container { display: grid; grid-template-columns: 320px 1fr; border-bottom: 5px solid var(--n-rojo); }
+        /* GRID PRINCIPAL SIMÉTRICO (33.3% cada uno) */
+        .main-container { 
+            display: grid; 
+            grid-template-columns: 33.33% 33.33% 33.33%; 
+            border-bottom: 5px solid var(--n-rojo); 
+            height: 600px;
+        }
 
-        /* MENÚ DE SALAS SIN SCROLL */
+        /* 1. MENÚ DE SALAS (33.33%) */
         .menu-visual { 
             background: #080808; 
-            height: 600px; 
             border-right: 3px solid #333; 
             padding: 10px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Distribuye las salas uniformemente */
-            overflow: hidden; /* Quita el scroll */
+            justify-content: space-between;
+            overflow: hidden; 
         }
-        .s-card { background: #111; border: 1px solid #333; border-radius: 8px; cursor: pointer; overflow: hidden; height: 75px; display: flex; align-items: center; transition: 0.2s; }
+        .s-card { background: #111; border: 1px solid #333; border-radius: 8px; cursor: pointer; overflow: hidden; flex: 1; margin-bottom: 5px; display: flex; align-items: center; transition: 0.2s; }
+        .s-card:last-child { margin-bottom: 0; }
         .s-card:hover { border-color: var(--n-rojo); background: #1a1a1a; }
         .s-card.active { background: var(--n-rojo); border-color: white; }
-        .s-card img { width: 85px; height: 100%; object-fit: cover; opacity: 0.7; }
-        .s-card-info { padding-left: 15px; }
+        
+        /* LLENADO TOTAL DE MINIATURAS */
+        .s-card img { width: 100px; height: 100%; object-fit: cover; opacity: 0.7; }
+        .s-card-info { padding-left: 15px; flex-grow: 1; }
 
-        /* VISOR Y CHAT 50/50 */
-        .visor-chat-area { display: grid; grid-template-columns: 50% 50%; height: 600px; }
-        .v-img-box { background: #000; display: flex; align-items: center; justify-content: center; border-right: 2px solid #222; overflow: hidden; }
-        #sala-img-big { width: 100%; height: 100%; object-fit: contain; }
-        .chat-box { display: flex; flex-direction: column; background: #050505; }
-        .chat-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; font-family: sans-serif; }
+        /* BOTÓN LA TIENDITA SHOP NEÓN (NUEVO DISEÑO) */
+        .btn-tiendita-neon { 
+            position: relative;
+            background-image: url('La Tiendita.png'); /* Fondo de la imagen */
+            background-size: cover;
+            background-position: center;
+            height: 80px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid var(--oro);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-tiendita-neon::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); /* Capa oscura para legibilidad */
+            z-index: 1;
+        }
+        .tiendita-txt {
+            position: relative; z-index: 2;
+            font-size: 16px; font-weight: 900; text-transform: uppercase;
+            color: var(--n-rojo);
+            text-shadow: 0 0 10px var(--n-rojo), 0 0 20px var(--n-rojo);
+            animation: neonDestello 1.5s infinite alternate;
+        }
+        @keyframes neonDestello { 
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--n-rojo), 0 0 20px var(--n-rojo); } 
+            50% { opacity: 0.8; text-shadow: 0 0 5px var(--n-rojo); } 
+        }
+
+        /* 2. VISOR DE IMÁGENES (33.33% - LLENADO TOTAL) */
+        .v-img-box { 
+            background: #000; 
+            display: flex; align-items: center; justify-content: center; 
+            border-right: 3px solid #333; 
+            overflow: hidden; 
+        }
+        #sala-img-big { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; /* LLENA EL 33.3% SIN BORDES */
+            object-position: center;
+        }
+
+        /* 3. CHAT DE SALA (33.33%) */
+        .chat-box { 
+            display: flex; 
+            flex-direction: column; 
+            background: #050505; 
+        }
+        .chat-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; font-family: sans-serif; color: #ccc; }
 
         /* IA AREA */
         .ia-strip { display: grid; grid-template-columns: 1fr 1fr; height: 350px; border-top: 5px solid var(--n-rojo); border-bottom: 5px solid var(--n-rojo); }
@@ -65,23 +118,29 @@
 <header>
     <div class="pub-neon">ANÚNCIATE<br>AQUÍ</div>
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v179">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v180">
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
     <div class="pub-neon">SOCIO<br>VIP</div>
 </header>
 
 <div class="main-container">
-    <div class="menu-visual" id="target-salas">
+    <div class="menu-visual">
+        <div id="target-salas-top"></div>
+        <div class="btn-tiendita-neon" onclick="window.open('https://www.aliexpress.com','_blank')">
+            <span class="tiendita-txt">LA TIENDITA SHOP</span>
         </div>
+        <div id="target-salas-bottom"></div>
+    </div>
     
-    <div class="visor-chat-area">
-        <div class="v-img-box"><img id="sala-img-big" src=""></div>
-        <div class="chat-box">
-            <div id="logs-sala" class="chat-logs"></div>
-            <div style="padding:10px; background:#111; display:flex; gap:5px;">
-                <input type="text" id="in-sala" placeholder="Escribe y pulsa Enter..." onkeypress="if(event.key==='Enter') enviarSala()" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px;">
-                <button onclick="enviarSala()" style="background:var(--n-rojo); border:none; color:white; padding:0 15px; cursor:pointer; font-weight:bold;">OK</button>
-            </div>
+    <div class="v-img-box">
+        <img id="sala-img-big" src="">
+    </div>
+
+    <div class="chat-box">
+        <div id="logs-sala" class="chat-logs"></div>
+        <div style="padding:10px; background:#111; display:flex; gap:5px;">
+            <input type="text" id="in-sala" placeholder="Escribe y pulsa Enter..." onkeypress="if(event.key==='Enter') enviarSala()" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px;">
+            <button onclick="enviarSala()" style="background:var(--n-rojo); color:white; border:none; padding:0 15px; cursor:pointer; font-weight:bold;">OK</button>
         </div>
     </div>
 </div>
@@ -95,8 +154,8 @@
     <div style="display:flex; flex-direction:column;">
         <div id="chat-ia-privado" style="flex-grow:1; background:#050505; padding:15px; overflow-y:auto; font-size:14px;"></div>
         <div style="padding:10px; background:#111; display:flex; gap:5px;">
-            <input type="text" id="in-ia-privado" placeholder="Chat privado con las chicas..." onkeypress="if(event.key==='Enter') responderIAPrivado()" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px;">
-            <button onclick="responderIAPrivado()" style="background:var(--n-rojo); border:none; color:white; padding:0 20px; cursor:pointer; font-weight:bold;">OK</button>
+            <input type="text" id="in-ia-privado" placeholder="Chat privado (Enter para enviar)..." onkeypress="if(event.key==='Enter') responderIAPrivado()" style="flex-grow:1; background:#000; border:1px solid var(--n-rojo); color:white; padding:12px;">
+            <button onclick="responderIAPrivado()" style="background:var(--n-rojo); color:white; border:none; padding:0 20px; cursor:pointer; font-weight:bold;">OK</button>
         </div>
     </div>
 </div>
@@ -108,43 +167,46 @@
 </div>
 
 <script>
-    // Las salas incluyendo La Tiendita en el centro
-    const salasData = [
+    // Salas divididas para poner la tienda al medio
+    const salasTop = [
         { n: "SADO Y MASO", f: "Sado y Maso.jpg", i: "🔥", chat: "" },
         { n: "BIBLIOTECA", f: "Biblioteca.png", i: "📚", chat: "" },
-        { n: "DISCOTECA", f: "Discoteca.png", i: "🔊", chat: "" },
-        { n: "LA TIENDITA", f: "La Tiendita.png", i: "🛍️", chat: "", isTienda: true }, // Ubicada al medio
+        { n: "DISCOTECA", f: "Discoteca.png", i: "🔊", chat: "" }
+    ];
+    const salasBottom = [
         { n: "EL BAR", f: "El Bar.png", i: "🍸", chat: "" },
         { n: "OFICINA", f: "Oficina.png", i: "💼", chat: "" },
         { n: "PLAYA", f: "Playa.png", i: "⛱️", chat: "" }
     ];
+    
+    let allSalas = [...salasTop, ...salasBottom];
     let actualIdx = 0;
 
     function init() {
-        const target = document.getElementById('target-salas');
-        salasData.forEach((s, i) => {
-            let card = document.createElement('div');
-            card.className = 's-card'; card.id = 'scard-'+i;
-            
-            // Si es la tienda, le ponemos fondo especial y link
-            if(s.isTienda) {
-                card.style.background = "linear-gradient(45deg, #d4af37, #000)";
-                card.innerHTML = `<img src="${s.f}"><div class="s-card-info"><b style="color:white; font-size:11px;">${s.i} ${s.n}</b><br><span style="color:white; font-size:9px;">SHOP AHORA</span></div>`;
-                card.onclick = () => window.open('https://www.aliexpress.com','_blank');
-            } else {
-                card.innerHTML = `<img src="${s.f}"><div class="s-card-info"><b style="font-size:11px;">${s.i} ${s.n}</b><br><span style="color:#0f0; font-size:10px;">● 0 ONLINE</span></div>`;
-                card.onclick = () => { actualIdx = i; setSala(i); };
-            }
-            target.appendChild(card);
-        });
+        // Inyectar salas superiores
+        const targetTop = document.getElementById('target-salas-top');
+        salasTop.forEach((s, i) => injectCard(s, i, targetTop));
+        
+        // Inyectar salas inferiores (el índice continua)
+        const targetBottom = document.getElementById('target-salas-bottom');
+        salasBottom.forEach((s, i) => injectCard(s, i + salasTop.length, targetBottom));
+
         setSala(0);
+    }
+
+    function injectCard(s, i, target) {
+        let card = document.createElement('div');
+        card.className = 's-card'; card.id = 'scard-'+i;
+        card.innerHTML = `<img src="${s.f}"><div class="s-card-info"><b style="font-size:11px;">${s.i} ${s.n}</b><br><span style="color:#0f0; font-size:10px;">● 0 ONLINE</span></div>`;
+        card.onclick = () => { actualIdx = i; setSala(i); };
+        target.appendChild(card);
     }
 
     function setSala(i) {
         document.querySelectorAll('.s-card').forEach(c => c.classList.remove('active'));
         document.getElementById('scard-'+i).classList.add('active');
-        document.getElementById('sala-img-big').src = salasData[i].f;
-        document.getElementById('logs-sala').innerHTML = salasData[i].chat;
+        document.getElementById('sala-img-big').src = allSalas[i].f;
+        document.getElementById('logs-sala').innerHTML = allSalas[i].chat;
         document.getElementById('logs-sala').scrollTop = document.getElementById('logs-sala').scrollHeight;
     }
 
@@ -152,14 +214,17 @@
         const input = document.getElementById('in-sala');
         if(!input.value.trim()) return;
         const msg = `<div><b style="color:var(--oro)">Tú:</b> ${input.value}</div>`;
-        salasData[actualIdx].chat += msg;
-        document.getElementById('logs-sala').innerHTML = salasData[actualIdx].chat;
+        allSalas[actualIdx].chat += msg;
+        document.getElementById('logs-sala').innerHTML = allSalas[actualIdx].chat;
+        const val = input.value.toLowerCase();
         input.value = "";
         
         setTimeout(() => {
-            const rMsg = `<div><b style="color:var(--n-azul)">TANIA:</b> <span style="color:var(--n-azul)">Me encanta verte aquí... ¿Qué más quieres hacer?</span></div>`;
-            salasData[actualIdx].chat += rMsg;
-            document.getElementById('logs-sala').innerHTML = salasData[actualIdx].chat;
+            let b = {n:"COLO", c:"var(--n-rojo)", m:"¡Me encanta cuando te pones así en esta sala! ¿Qué sigue?"};
+            if(val.includes("edad")) b = {n:"MIA", c:"var(--n-rosa)", m:"Tengo 22 añitos... ¿quieres jugar?"};
+            const rMsg = `<div><b style="color:${b.c}">${b.n}:</b> <span style="color:${b.c}">${b.m}</span></div>`;
+            allSalas[actualIdx].chat += rMsg;
+            document.getElementById('logs-sala').innerHTML = allSalas[actualIdx].chat;
             document.getElementById('logs-sala').scrollTop = document.getElementById('logs-sala').scrollHeight;
         }, 1000);
     }
@@ -169,15 +234,19 @@
         const logs = document.getElementById('chat-ia-privado');
         if(!input.value.trim()) return;
         logs.innerHTML += `<div><b style="color:var(--oro)">Tú:</b> ${input.value}</div>`;
+        const val = input.value.toLowerCase();
         input.value = "";
+
         setTimeout(() => {
-            logs.innerHTML += `<div><b style="color:var(--n-rosa)">MIA:</b> <span style="color:var(--n-rosa)">¡Hola guapo! Aquí estoy para lo que necesites.</span></div>`;
+            let r = {n:"TANIA", c:"var(--n-azul)", m:"Mmm... esa pregunta me pone traviesa. ¿Quieres saber más?"};
+            if(val.includes("hola")) r = {n:"MIA", c:"var(--n-rosa)", m:"¡Hola guapo! Estaba esperando tu mensaje."};
+            logs.innerHTML += `<div style="margin-top:5px;"><b style="color:${r.c}">${r.n}:</b> <span style="color:${r.c}">${r.m}</span></div>`;
             logs.scrollTop = logs.scrollHeight;
         }, 1000);
     }
 
     function up(id) {
-        let n = prompt("Nombre o URL de la imagen:");
+        let n = prompt("URL o nombre de archivo de la imagen:");
         if(n) document.getElementById(id).innerHTML = `<img src="${n}" style="width:100%; height:100%; object-fit:cover;">`;
     }
 
