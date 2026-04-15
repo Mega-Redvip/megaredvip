@@ -2,71 +2,78 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MEGA RED VIP | IMPERIO v184</title>
+    <title>MEGA RED VIP | IMPERIO v185</title>
     <style>
         :root { --oro: #d4af37; --fondo: #000; --n-rojo: #ff003c; --n-azul: #00d9ff; --n-rosa: #ff00ff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--fondo); color: white; font-family: 'Arial Black', sans-serif; overflow-x: hidden; }
 
-        @keyframes neon-flicker { 0%, 100% { filter: drop-shadow(0 0 12px var(--n-rojo)); } 50% { filter: drop-shadow(0 0 25px var(--n-rojo)); opacity: 0.9; } }
+        @keyframes neon-flicker { 0%, 100% { filter: drop-shadow(0 0 12px var(--n-rojo)); } 50% { filter: drop-shadow(0 0 25px var(--n-rojo)); } }
 
-        /* HEADER */
+        /* HEADER MONETIZADO */
         header { 
             display: grid; grid-template-columns: 1fr 130px 280px 130px 1fr; 
             align-items: center; gap: 10px; padding: 15px;
             background: #050505; border-bottom: 5px solid var(--n-rojo); height: 320px;
         }
-        .logo-v184 { height: 260px; width: 260px; object-fit: contain; animation: neon-flicker 2s infinite; }
-        .pub-neon { border: 2px solid var(--n-rojo); height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; color: var(--n-rojo); animation: neon-flicker 3s infinite; }
-        .coin { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; border: 4px solid white; box-shadow: 0 0 15px var(--oro); cursor: pointer; }
+        .logo-v185 { height: 260px; width: 260px; object-fit: contain; animation: neon-flicker 2s infinite; }
+        .pub-neon { border: 2px solid var(--n-rojo); height: 180px; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 12px; background: #080808; cursor: pointer; }
+        .coin { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--oro)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; border: 4px solid white; box-shadow: 0 0 15px var(--oro); cursor: pointer; transition: 0.3s; }
+        .coin:hover { transform: scale(1.1); }
 
-        /* BLOQUE SUPERIOR (ALTURA NIVELADA) */
+        /* SECCIÓN SUPERIOR */
         .top-container { display: grid; grid-template-columns: 33.33% 33.33% 33.33%; height: 500px; border-bottom: 5px solid var(--n-rojo); }
-
-        /* MENÚ */
         .menu-l { background: #080808; border-right: 2px solid #333; display: flex; flex-direction: column; height: 500px; }
-        .s-card { background: #111; border-bottom: 1px solid #222; height: 60px; display: flex; align-items: center; cursor: pointer; transition: 0.2s; }
-        .s-card.active { background: var(--n-rojo); color: white; }
+        .s-card { background: #111; border-bottom: 1px solid #222; height: 60px; display: flex; align-items: center; cursor: pointer; }
+        .s-card.active { background: var(--n-rojo); }
         .s-card img { width: 65px; height: 100%; object-fit: cover; }
 
-        /* LA TIENDITA (CENTRAL) */
-        .btn-tiendita { height: 70px; background: url('La Tiendita.png') center; background-size: cover; border: 2px solid var(--oro); display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; }
-        .tiendita-txt { color: white; text-shadow: 0 0 10px var(--n-rojo), 0 0 20px var(--n-rojo); font-size: 13px; font-weight: bold; }
+        /* LA TIENDITA (MONETIZACIÓN DIRECTA) */
+        .btn-tiendita { height: 70px; background: url('La Tiendita.png') center; background-size: cover; border: 2px solid var(--oro); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .tiendita-txt { color: white; text-shadow: 0 0 10px var(--n-rojo); font-size: 13px; font-weight: bold; }
 
-        /* VISOR (AGRANDADO +1CM FIJO) */
-        .visor-box { background: #000; border-right: 2px solid #333; height: 500px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        /* VISOR Y CHAT SALA */
+        .visor-box { background: #000; border-right: 2px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         #sala-img-big { width: 100%; height: 100%; object-fit: contain; transform: scale(1.1); }
-
-        /* CHAT (ACHICADO -1CM FIJO PARA NIVELAR) */
-        .chat-box { background: #050505; height: 500px; display: flex; flex-direction: column; }
+        .chat-box { background: #050505; display: flex; flex-direction: column; }
         .chat-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 12px; color: #ccc; }
 
-        /* BLOQUE INFERIOR BOTS (SIMETRÍA ANTI-DEFORMACIÓN) */
-        .bot-container { display: grid; grid-template-columns: 25% 25% 25% 25%; height: 450px; border-bottom: 5px solid var(--n-rojo); background: #000; }
-        .bot-card { border-right: 2px solid #222; position: relative; height: 450px; overflow: hidden; }
-        .bot-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; } /* NO SE DEFORMAN */
-        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; font-size: 14px; }
+        /* MURO DE HISTORIAS (GANA DINERO AQUÍ) */
+        .stories-bar { display: flex; gap: 15px; padding: 10px; background: #111; border-bottom: 2px solid #333; overflow-x: auto; }
+        .story-circle { min-width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--n-rosa); padding: 2px; cursor: pointer; }
+        .story-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-        /* CHAT BOTS */
-        .chat-bots-wrap { background: #080808; display: flex; flex-direction: column; height: 450px; }
-        #chat-ia-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; border-bottom: 1px solid #222; }
+        /* SECCIÓN BOTS Y CHAT IA */
+        .bot-container { display: grid; grid-template-columns: 25% 25% 25% 25%; height: 450px; border-bottom: 5px solid var(--n-rojo); }
+        .bot-card { border-right: 2px solid #222; position: relative; height: 450px; }
+        .bot-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .bot-label { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.8); text-align: center; padding: 8px; }
 
-        /* ZONA DE CARGA (NUEVA UBICACIÓN VISIBLE) */
-        .upload-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 15px; background: #0a0a0a; }
-        .up-item { background: #111; border: 1px solid #333; padding: 10px; text-align: center; border-radius: 5px; }
-        .btn-up { width: 100%; padding: 8px; border: none; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 11px; }
+        /* CHAT BOTS PRIVADO */
+        .chat-bots-wrap { background: #080808; display: flex; flex-direction: column; }
+        #chat-ia-logs { flex-grow: 1; padding: 15px; overflow-y: auto; font-size: 13px; }
 
+        /* PANEL DE CARGA Y GANANCIAS */
+        .monetize-footer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; padding: 20px; background: #050505; }
+        .upload-card { background: #0a0a0a; border: 2px solid #222; padding: 15px; border-radius: 12px; text-align: center; transition: 0.3s; }
+        .upload-card:hover { border-color: var(--oro); }
+        .btn-action { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; font-size: 11px; }
+
+        /* BANNER VIP */
+        .vip-banner { background: linear-gradient(90deg, var(--oro), #fff, var(--oro)); color: #000; text-align: center; padding: 10px; font-weight: 900; font-size: 20px; cursor: pointer; border-top: 5px solid white; }
     </style>
 </head>
 <body onload="init()">
 
 <header>
-    <div class="pub-neon">ADS VIP<br>SADO & MASO</div>
+    <div class="pub-neon" onclick="pay(50)">TU PUBLICIDAD<br>AQUÍ<br>GANA VISIBILIDAD</div>
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(1)">$1</div><div class="coin" onclick="pay(5)">$5</div></div>
-    <img src="Logo Mega Red Lunar.jpg" class="logo-v184">
+    <img src="Logo Mega Red Lunar.jpg" class="logo-v185">
     <div style="display:flex; flex-direction:column; gap:10px;"><div class="coin" onclick="pay(10)">$10</div><div class="coin" onclick="pay(20)">$20</div></div>
-    <div class="pub-neon">SOCIOS<br>IMPERIO</div>
+    <div class="pub-neon" onclick="pay(100)">HAZTE SOCIO<br>VIP<br>MÁS GANANCIAS</div>
 </header>
+
+<div class="vip-banner" onclick="pay(50)">🔥 ¡DESBLOQUEA TODO EL CONTENIDO VIP AHORA - CLICK AQUÍ! 🔥</div>
 
 <div class="top-container">
     <div class="menu-l">
@@ -76,15 +83,19 @@
         </div>
         <div id="salas-2"></div>
     </div>
-
     <div class="visor-box">
         <img id="sala-img-big" src="">
     </div>
-
     <div class="chat-box">
         <div id="logs-sala" class="chat-logs"></div>
         <input type="text" id="in-sala" onkeypress="if(event.key==='Enter') sendSala()" placeholder="Chat público..." style="background:#000; color:white; border:none; border-top:1px solid var(--n-rojo); padding:15px;">
     </div>
+</div>
+
+<div class="stories-bar" id="muro-historias">
+    <div class="story-circle"><img src="Rubia.jpg"></div>
+    <div class="story-circle" style="border-color:var(--n-azul)"><img src="Morocha.jpg"></div>
+    <div class="story-circle" style="border-color:var(--n-rojo)"><img src="Pelirroja.jpg"></div>
 </div>
 
 <div class="bot-container">
@@ -93,14 +104,26 @@
     <div class="bot-card"><img src="Pelirroja.jpg"><div class="bot-label" style="color:var(--n-rojo)">COLO</div></div>
     <div class="chat-bots-wrap">
         <div id="chat-ia-logs"></div>
-        <input type="text" id="in-ia" onkeypress="if(event.key==='Enter') sendIA()" placeholder="Privado con ellas..." style="background:#000; color:white; border:none; padding:15px; border-top:1px solid var(--n-rojo);">
+        <input type="text" id="in-ia" onkeypress="if(event.key==='Enter') sendIA()" placeholder="Chat Privado (Gasta 1 moneda)..." style="background:#000; color:white; border:none; padding:15px; border-top:1px solid var(--n-rojo);">
     </div>
 </div>
 
-<div class="upload-bar">
-    <div class="up-item">HISTORIAS<br><button onclick="up('H')" style="background:var(--n-rosa)" class="btn-up">SUBIR FOTO</button></div>
-    <div class="up-item">ESTADOS<br><button onclick="up('E')" style="background:var(--n-azul)" class="btn-up">SUBIR TEXTO</button></div>
-    <div class="up-item">VIDEOS<br><button onclick="up('V')" style="background:var(--n-rojo)" class="btn-up">SUBIR VIDEO</button></div>
+<div class="monetize-footer">
+    <div class="upload-card">
+        <div style="color:var(--n-rosa); font-size:14px;">HISTORIAS VIP</div>
+        <p style="font-size:10px; color:#666; margin:5px 0;">Sube tus mejores fotos</p>
+        <button onclick="up('Historias')" style="background:var(--n-rosa)" class="btn-action">SUBIR HISTORIA ($1)</button>
+    </div>
+    <div class="upload-card">
+        <div style="color:var(--n-azul); font-size:14px;">ESTADOS IMPERIO</div>
+        <p style="font-size:10px; color:#666; margin:5px 0;">¿Qué estás pensando?</p>
+        <button onclick="up('Estados')" style="background:var(--n-azul)" class="btn-action">PUBLICAR ESTADO</button>
+    </div>
+    <div class="upload-card">
+        <div style="color:var(--n-rojo); font-size:14px;">VIDEOS HOT</div>
+        <p style="font-size:10px; color:#666; margin:5px 0;">Videos de alta calidad</p>
+        <button onclick="up('Videos')" style="background:var(--n-rojo)" class="btn-action">SUBIR VIDEO ($5)</button>
+    </div>
 </div>
 
 <script>
@@ -134,8 +157,8 @@
     }
 
     function autoChat() {
-        const names = ["VIP_Hunter", "Socio_22", "Marcos", "Linda_Hot"];
-        const texts = ["¿Hay alguien en el Bar?", "Tania te ves increible", "Subiendo video!", "Amo el Imperio"];
+        const names = ["Juan_VIP", "Socio_Argento", "Gamer_2026", "Imperio_King"];
+        const texts = ["¿Cómo se suben videos?", "Tania mándame privado", "Amo esta sala", "Recién cargué monedas!"];
         const log = document.getElementById('chat-ia-logs');
         log.innerHTML += `<div><b style="color:var(--oro)">${names[Math.floor(Math.random()*names.length)]}:</b> ${texts[Math.floor(Math.random()*texts.length)]}</div>`;
         log.scrollTop = log.scrollHeight;
@@ -159,8 +182,20 @@
         }
     }
 
-    function up(t) { prompt("URL de archivo para " + t + ":"); }
-    function pay(m) { window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); }
+    function up(t) { 
+        let file = prompt("Pega el enlace de tu " + t + ":"); 
+        if(file) {
+            alert(t + " subido con éxito. Se descontará el saldo correspondiente.");
+            if(t === 'Historias') {
+                const muro = document.getElementById('muro-historias');
+                muro.innerHTML += `<div class="story-circle" style="border-color:var(--oro)"><img src="${file}"></div>`;
+            }
+        }
+    }
+
+    function pay(m) { 
+        window.open(`https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jp_herraez@hotmail.com&amount=${m}&currency_code=USD`, "_blank"); 
+    }
 </script>
 </body>
 </html>
